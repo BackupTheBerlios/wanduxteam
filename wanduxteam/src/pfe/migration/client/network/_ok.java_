@@ -1,0 +1,37 @@
+/*
+ * Created on 8 mars 2005
+ *
+ * To change the template for this generated file go to
+ * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
+ */
+package pfe.migration.client.network;
+
+
+/**
+ * @author dup
+ *
+ * To change the template for this generated type comment go to
+ * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
+ */
+public class ok {
+
+	/**
+	 * 
+	 */
+	public ok() {
+		super();
+	}
+
+	public static void main(String[] args) {
+		ClientEjb net;
+		net = new ClientEjb();
+		
+		try {
+			System.out.println(net);
+			System.out.println( net.testSayMe() );
+			//System.out.println( net.testPouette() );
+		} catch (Exception e) { e.printStackTrace(); }
+		while (true)
+			;
+	}
+}

@@ -1,0 +1,83 @@
+<?xml version='1.0'?>
+<project name="Wandux" default="all" basedir=".">
+
+	<property name="dir.sources" value="src"/>
+	<property name="dir.classes" value="bin"/>
+	<property name="dir.post" value="utils/post"/>
+	<property name="dir.pre" value="utils/pre"/>
+	<property name="dir.ejb" value="utils/WanduxEjb"/>
+	<property name="dir.build" value="build"/>
+	<property name="bakup.name" value="bakup\bakup.rar"/>
+	<property name="jar.client.post.name" value="clientPost.jar"/>
+	<property name="jar.client.pre.name" value="clientPre.jar"/>
+	<property name="jar.serverEjb.name" value="WanduxEjb.jar"/>
+	<property name="deploy.dir" value="C:\java\jboss-4.0.1sp1/server/default/deploy/"/>
+	<property name="dir.plugin" value="plugins"/>
+	
+	<target name="all" depends="deploy">
+		<echo message=":)"/>
+		<tar basedir="." tarfile="${bakup.name}">
+			<include name="**/*.*"/>
+			<exclude name="${dir.classes}/**/*.*"/>
+			<exclude name="${dir.classes}/**/*.*"/>
+			<exclude name="${dir.build}/**/*.*"/>
+			<exclude name="${bakup.name}"/>
+			<exclude name="${dir.plugin}/**/*.*"/>
+			<include name="${dir.classes}"/>
+			<include name="${dir.build}"/>
+			<include name="${dir.plugin}"/>
+		</tar>
+	</target>
+	
+	<target name="deploy" depends="make serverEjb jar,make client pre jar"> <!-- make client post jar ,make client pre jar " -->
+		
+		<!-- copy todir="${dir.build}/" file="${dir.sources}/launchEJBClient.bat"/ -->
+		<!-- copy todir="${dir.build}/" file="${dir.sources}/makeEjbJar.bat"/ -->
+		<!-- les choses annexes -->
+		
+		<echo message="verifier dans build.xml que la variable property deploy.dir pointe vers votre jboss"/>
+		<delete file="${deploy.dir}/${jar.serverEjb.name}" />
+		<copy todir="${deploy.dir}">
+			<fileset dir="${dir.build}" includes="${jar.serverEjb.name}"/>
+		</copy>
+	</target>
+
+	<target name="make client post jar">
+		<jar jarfile="${dir.build}/${jar.client.post.name}"
+			manifest="${dir.post}/META-INF/MANIFEST.MF">
+			<fileset dir="${dir.classes}">
+				<include name="**/client/post/**/*.*"/>
+				<include name="**/client/network/**/*.*"/>
+			</fileset>
+		</jar>
+	    <copy todir="${dir.build}">
+	       <fileset dir="${dir.post}" includes="**/*.html"/>
+	    </copy>
+	</target>
+
+	<target name="make client pre jar">
+		<jar jarfile="${dir.build}/${jar.client.pre.name}"
+			manifest="${dir.pre}/META-INF/MANIFEST.MF">
+			<fileset dir="${dir.classes}">
+				<include name="**/client/pre/**/*.*"/>
+				<include name="**/client/network/**/*.*"/>
+			</fileset>
+		</jar>
+	    <copy todir="${dir.build}">
+	       <fileset dir="${dir.pre}" includes="**/*.html"/>
+	    </copy>
+	</target>
+
+	<target name="make serverEjb jar">
+	      <jar jarfile="${dir.build}/${jar.serverEjb.name}">         
+	        <fileset dir="${dir.classes}">
+		   		<include name="**/server/**/*.*"/>
+	        	<include name="**/client/network/**/*.*"/>
+	        </fileset>
+	        <fileset dir="${dir.ejb}">
+	           <include name="META-INF/**/*.*"/>
+	        </fileset>
+	      </jar>
+	</target>
+
+</project>

@@ -1,0 +1,107 @@
+/*
+ * Created on 8 mars 2005
+ *
+ * To change the template for this generated file go to
+ * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
+ */
+package pfe.migration.client.network;
+
+import junit.framework.TestCase;
+import java.util.Hashtable;
+import javax.rmi.PortableRemoteObject;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+
+import pfe.migration.server.ejb.WanduxEjb;
+import pfe.migration.server.ejb.WanduxEjbHome;
+
+/**
+ * EJB Test Client
+ */
+public class ClientEjb extends TestCase {
+
+	/** Home interface */
+	protected WanduxEjbHome home;
+	
+	public ClientEjb()
+	{
+	}
+	
+	/**
+	 * Get the initial naming context
+	 */
+	protected Context getInitialContext() throws Exception {
+		Hashtable props = new Hashtable();
+		props.put(
+			Context.INITIAL_CONTEXT_FACTORY,
+			"org.jnp.interfaces.NamingContextFactory");
+		props.put(Context.URL_PKG_PREFIXES, "org.jboss.naming:org.jnp.interfaces");
+		props.put(Context.PROVIDER_URL, "jnp://localhost:1099");
+		Context ctx = new InitialContext(props);
+		return ctx;
+	}
+
+	/**
+	 * Get the home interface
+	 */
+	protected WanduxEjbHome getHome() throws Exception {
+		Context ctx = this.getInitialContext();
+		Object o = ctx.lookup("WanduxEjb");
+		WanduxEjbHome intf = (WanduxEjbHome) PortableRemoteObject.narrow(o, WanduxEjbHome.class);
+		return intf;
+	}
+
+	/**
+	 * Set up the test case
+	 */
+//	protected
+	public void setUp() throws Exception {
+		System.out.println("pouet!! setUp");
+		this.home = this.getHome();
+	}
+
+	/**
+	 * Test for pfe.migration.server.ejb.ServerEjb.sayMe()
+	 */
+	public String testSayMe() throws Exception
+	{
+		WanduxEjb instance;
+		String result;
+
+		System.out.println("this.home = " + this.home);
+		
+		// Parameters
+
+		// Instance creation
+		instance = this.home.create();
+		System.out.println("this.home = " + this.home);
+
+		// Method call
+		result = instance.sayMe();
+
+		// Various assertions
+		// assertNotNull(result);
+//		return result;
+		return "io";
+	}
+
+	/**
+	 * Test for pfe.migration.server.ejb.ServerEjb.pouette(String ok)
+	 */
+	public String testPouette() throws Exception
+	{
+		WanduxEjb instance;
+
+		// Parameters
+		String param0 = null;
+
+		// Instance creation
+		instance = this.home.create();
+
+		// Method call
+		instance.pouette(param0);
+
+		// Various assertions
+		return "pouette ok";
+	}
+}
