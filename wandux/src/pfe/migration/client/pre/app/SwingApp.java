@@ -260,8 +260,16 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 			}
 			{
 				FileIndex = new JPanel();
+				JButton fileindexbutton = new JButton("Generate file index");
 				tabPrincipale.addTab("File indexer", null, FileIndex, null);
-				//FileIndex.add(new Label("FileIndex"));
+//				fileindexbutton.addTreeSelectionListener(new TreeSelectionListener() {
+//					public void valueChanged(
+//							TreeSelectionEvent event) {
+//						File file = (File) fileTree.getLastSelectedPathComponent();
+//						fileDetails.setText(getFileDetails(file));
+//						}
+//					});
+//				FileIndex.add();
 			}
 			{
 				jMenuBar = new JMenuBar();
