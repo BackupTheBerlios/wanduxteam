@@ -65,7 +65,6 @@ public class KeyVal {
 		String ret = "";
 			
 		try {
-			//System.out.println(aKey.regEnumKey(SubkeyNum));
 			return(aKey.regEnumKey(SubkeyNum));
 
 		} catch (NoSuchKeyException e) { return null;
@@ -92,10 +91,10 @@ public class KeyVal {
 					{
 						try {
 							ip = aifacekey.getStringValue("dhcpIpAddress");
-						} catch (NoSuchKeyException e) { System.out.println("continue");}
+						} catch (NoSuchKeyException e) { continue;
+						} catch (RegistryException e) { continue; }
 						if (ip.compareTo("0.0.0.0") != 0)
 						{
-							//System.out.println(ip);
 							return(testiface);
 						}
 					}
@@ -106,7 +105,6 @@ public class KeyVal {
 		} catch (NoSuchKeyException e) { e.printStackTrace();
 		} catch (RegistryException e) { e.printStackTrace();
 		}
-		System.out.println("end function");
 		String ret = "";
 		return "";
 	}
