@@ -1,0 +1,1 @@
+les 2 classes _ok.java_ et _ClientEjb.java_ sont cree a partir du plugin mais ca marche pas

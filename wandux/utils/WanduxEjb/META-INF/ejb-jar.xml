@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejb-jar PUBLIC
+	"-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN"
+	"http://java.sun.com/dtd/ejb-jar_2_0.dtd">
+<ejb-jar>
+	<enterprise-beans>
+		<session>
+			<description>Déscripteur de déploiement de WanduxEjb</description>
+			<display-name>WanduxEjb</display-name>
+			<ejb-name>WanduxEjb</ejb-name>
+			<home>pfe.migration.server.ejb.WanduxEjbHome</home>
+			<remote>pfe.migration.server.ejb.WanduxEjb</remote>
+			<ejb-class>pfe.migration.server.ejb.WanduxEjbBean</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Container</transaction-type>
+		</session>
+	</enterprise-beans>
+	<assembly-descriptor>
+		<container-transaction>
+			<method>
+				<ejb-name>WanduxEjb</ejb-name>
+				<method-name>*</method-name>
+			</method>
+			<trans-attribute>Required</trans-attribute>
+	   </container-transaction>
+   </assembly-descriptor>
+</ejb-jar>
