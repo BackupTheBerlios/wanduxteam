@@ -24,6 +24,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTree;
+import javax.swing.WindowConstants;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
@@ -46,6 +47,15 @@ import pfe.migration.client.pre.system.KeyVal;
 */
 public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyListener, ChangeFirstView
 {
+	{
+		//Set Look & Feel
+		try {
+		        javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		} catch(Exception e) {
+		        e.printStackTrace();
+		}
+	}
+	
 	// -- menu bar --
 	private JMenuBar jMenuBar;
 
@@ -91,7 +101,6 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	// -- partie touchant le reseaux -- // en travaux
 	private EnterIpView jPaneIp = null;
 	private ClientEjb ce = null;
-	private String ipServer = "127.0.0.1";
 
 	private final static int FIRSTSTEP = 0;
 	private final static int SECONDSTEP = 1;
@@ -101,19 +110,17 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	{
 		SwingApp inst = new SwingApp();
 		inst.setVisible(true);
+		inst.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		inst.show();
 	}
 	
 	public SwingApp()
 	{
 		super();
 		this.addWindowListener(new ExitListener());
-//		ce = new ClientEjb(ipServer);
-//		ce.EjbConnect();
 		initIP();
 //		initGUI();
-//		if (ce != null)
-//			ce.EjbClose();
-//		System.exit(0);
+
 	}
 	
 	private void initIP() // pas touche !! >> DUP
@@ -128,15 +135,12 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	
 	private void initGUI()
 	{
-		ce = new ClientEjb(ipServer);
-//		ce.EjbConnect();
-		
 		Jtf = new JTextField("", 6);
 		jsearchres = new List();
 		jsearchres.setFocusable(false);
 		jbsearch = new JButton("Search");
 		Jtf.addKeyListener(this);
-		final JTextArea fileDetails = new JTextArea();
+		final JTextArea fileDetails = new JTextArea("");
 		
 		try {
 			setSize(600, 400);
@@ -278,8 +282,6 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		this.getContentPane().invalidate();
-		this.getContentPane().validate();
 	}
     
 	private String getFileDetails(File file)
@@ -320,9 +322,11 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 // -- dup listener --
 	public void doChange(String ip)
 	{
-		this.ipServer = ip;
+		ce = new ClientEjb(ip);
+		ce.EjbConnect();
 		this.getContentPane().remove(jPaneIp);
 		this.initGUI();
+		ce.EjbClose();
 	}
 
 }
