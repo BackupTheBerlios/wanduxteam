@@ -31,6 +31,7 @@ import javax.swing.event.TreeSelectionListener;
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.pre.system.FileSystemModel;
 import pfe.migration.client.pre.system.KeyVal;
+import pfe.migration.server.ejb.WanduxEjbBean;
 /** 
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -107,6 +108,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	// -- partie touchant le reseaux -- // en travaux
 	private EnterIpView jPaneIp = null;
 	private ClientEjb ce = null;
+	private WanduxEjbBean bean = null; // a virer par la suite
 	
 	public static void main(String[] args)
 	{
@@ -408,14 +410,15 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 
 	public void keyTyped(KeyEvent arg0) { }
 
-// -- dup listener --
+// -- dup listener -- // pas touche !!!
 	public void doChange(String ip)
 	{
-//		ce = new ClientEjb(ip);
-//		ce.EjbConnect();
+		ce = new ClientEjb(ip);
+		ce.EjbConnect();
+		this.bean = (WanduxEjbBean) ce.getBean();
 		this.getContentPane().remove(jPaneIp);
 		this.initGUI();
-//		ce.EjbClose();
+		ce.EjbClose();
 	}
 
 }

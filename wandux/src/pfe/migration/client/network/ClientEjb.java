@@ -14,6 +14,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 
 import pfe.migration.server.ejb.WanduxEjb;
+import pfe.migration.server.ejb.WanduxEjbBean;
 import pfe.migration.server.ejb.WanduxEjbHome;
 
 /**
@@ -43,7 +44,7 @@ public class ClientEjb {
 	    WanduxEjbHome home = null;
 	    
 	    try {
-	      ppt = new Properties();
+	    	ppt = new Properties();
 	      ppt.put(Context.INITIAL_CONTEXT_FACTORY, "org.jnp.interfaces.NamingContextFactory");
 	      ppt.put(Context.PROVIDER_URL, SERVER_EJB_NAME + ":1099");
 	      ctx = new InitialContext(ppt);
@@ -83,4 +84,8 @@ public class ClientEjb {
 		} catch (RemoteException e) { e.printStackTrace(); }
 	}
 	
+	public WanduxEjb getBean()
+	{
+		return this.bean;
+	}
 }
