@@ -15,9 +15,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JList;
-import javax.swing.ListModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -94,7 +91,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	private JTextField Jtf = null;
 	private List jsearchres = null;
 	private JButton jbsearch = null;
-	private KeyVal kv = new KeyVal();
+//	private KeyVal kv = new KeyVal();
 
 	// -- tab FileIndex --
 	private JPanel FileIndex;
@@ -123,8 +120,8 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	{
 		super();
 		this.addWindowListener(new ExitListener());
-		initIP();
-//		initGUI();
+//		initIP();
+		initGUI();
 	}
 	
 	private void initIP() // pas touche !! >> DUP
@@ -201,18 +198,17 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 						jSplitPaneRegistryTester.setPreferredSize(new java.awt.Dimension(487, 315));
 						//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 						JPanel testpanel = new JPanel();
-						KeyVal kvusers = new KeyVal();
+//						KeyVal kvusers = new KeyVal();
 						tabPrincipale.addTab("panel", null, testpanel, null);
-						JTextField text = new JTextField(kvusers.getKeyValLocalMachine
-								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
-										"DhcpServer"));
-						testpanel.add(text);
-						text = new JTextField(kvusers.getKeyValLocalMachine
-								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
-										"dhcpIpaddress"));
-						testpanel.add(text);
+//						JTextField text = new JTextField(kvusers.getKeyValLocalMachine
+//								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+//										"DhcpServer"));
+//						testpanel.add(text);
+//						text = new JTextField(kvusers.getKeyValLocalMachine
+//								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+//										"dhcpIpaddress"));
+//						testpanel.add(text);
 						//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-						
 					}
 					{
 						userIndex = new JPanel();
@@ -328,8 +324,6 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
     	}
 	}
 
-
-    
 	private String getFileDetails(File file)
 	{
     	final String NL = System.getProperty("line.separator");
@@ -345,7 +339,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 // -- actionListener --
 	public void actionPerformed(ActionEvent arg0)
 	{
-		jsearchres.add(kv.getKeyVal(Jtf.getText()));
+//		jsearchres.add(kv.getKeyVal(Jtf.getText()));
 		Jtf.setText("");
 	}
 
@@ -356,7 +350,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	{
 		if (arg0.getKeyCode() == KeyEvent.VK_ENTER)
 		{
-			jsearchres.add(kv.getKeyVal(Jtf.getText()));
+//			jsearchres.add(kv.getKeyVal(Jtf.getText()));
 			Jtf.setText("");
 		}
 	}
