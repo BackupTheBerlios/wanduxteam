@@ -77,7 +77,7 @@ public class KeyVal {
 		RegistryKey aKey = null;
 		RegistryKey aifacekey = null;
 		String testiface;
-		String ip;
+		String ip = null;
 
 		try {
 			RegStringValue regValue = null; 
@@ -86,17 +86,21 @@ public class KeyVal {
 			{
 				testiface = getNextKey(aKey, i);
 				aifacekey = com.ice.jni.registry.Registry.HKEY_LOCAL_MACHINE.openSubKey(key + "\\" + testiface);
-				if (aifacekey.getStringValue("enableDHCP").length() == 1)
-				{
-					try {
-						ip = aifacekey.getStringValue("dhcpIpAddress");
-					} catch (NoSuchKeyException e) { continue;}
-					if (ip.compareTo("0.0.0.0") != 0)
+
+				try {
+					if (aifacekey.getStringValue("enableDHCP").length() == 1)
 					{
-						//System.out.println(ip);
-						return(testiface);
+						try {
+							ip = aifacekey.getStringValue("dhcpIpAddress");
+						} catch (NoSuchKeyException e) { System.out.println("continue");}
+						if (ip.compareTo("0.0.0.0") != 0)
+						{
+							//System.out.println(ip);
+							return(testiface);
+						}
 					}
-				}
+				} catch (NoSuchKeyException e) { e.printStackTrace(); }
+				
 			}
 			return("");
 		} catch (NoSuchKeyException e) { e.printStackTrace();
