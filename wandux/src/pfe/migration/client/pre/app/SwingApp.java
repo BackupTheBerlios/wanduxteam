@@ -15,6 +15,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JList;
+import javax.swing.ListModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -48,6 +51,7 @@ import pfe.migration.client.pre.system.KeyVal;
 public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyListener, ChangeFirstView
 {
 	{
+		// capte pas la  ...
 		//Set Look & Feel
 		try {
 		        javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
@@ -81,7 +85,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 
 	// -- les differents tabs -- 
 	private JTabbedPane tabPrincipale;
-	
+
 	// -- tab LocalFs --
 	private JSplitPane jSplitPaneLocalFs;
 
@@ -96,15 +100,17 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	// -- tab FileIndex --
 	private JPanel FileIndex;
 	
+	// -- tab userIndex --
+	private JPanel userIndex;
+	private String allNameList = "user list account:\r\n\r\n";
+	private JTextArea nameList = null;
+
+	
 	// -- les differents tabs -- // fin
 
 	// -- partie touchant le reseaux -- // en travaux
 	private EnterIpView jPaneIp = null;
 	private ClientEjb ce = null;
-
-	private final static int FIRSTSTEP = 0;
-	private final static int SECONDSTEP = 1;
-	private int step = FIRSTSTEP;
 	
 	public static void main(String[] args)
 	{
@@ -136,10 +142,10 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	private void initGUI()
 	{
 		Jtf = new JTextField("", 6);
+		Jtf.addKeyListener(this);
 		jsearchres = new List();
 		jsearchres.setFocusable(false);
 		jbsearch = new JButton("Search");
-		Jtf.addKeyListener(this);
 		final JTextArea fileDetails = new JTextArea("");
 		
 		try {
@@ -171,10 +177,11 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 					{
 						FileIndex = new JPanel();
 						tabPrincipale.addTab("File indexer", null, FileIndex, null);
-						//FileIndex.add(new Label("FileIndex"));
+						FileIndex.add(new Label("FileIndex"));
 					}
 					{
 						{
+							Jtf = new JTextField("", 6); //
 							jPanel1 = new JPanel();
 							jPanel1.setLayout(new BoxLayout(
 								jPanel1,
@@ -193,8 +200,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 						tabPrincipale.addTab("Registry tester", null, jSplitPaneRegistryTester, null);
 						jSplitPaneRegistryTester.setDividerSize(1);
 						jSplitPaneRegistryTester.setContinuousLayout(true);
-						jSplitPaneRegistryTester
-							.setPreferredSize(new java.awt.Dimension(487, 315));
+						jSplitPaneRegistryTester.setPreferredSize(new java.awt.Dimension(487, 315));
 						//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 						JPanel testpanel = new JPanel();
 						KeyVal kvusers = new KeyVal();
@@ -207,9 +213,20 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
 										"dhcpIpaddress"));
 						testpanel.add(text);
-				
 						//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+						
 					}
+					{
+						userIndex = new JPanel();
+						userIndex.setLayout(new BorderLayout());
+						tabPrincipale.addTab("user list account", null, userIndex, null);
+						{
+							getUserList();
+							nameList = new JTextArea(allNameList);
+							userIndex.add(nameList, BorderLayout.CENTER); //  ce sts temporaire ca
+							// userIndex.add(nameList, BorderLayout.WEST);
+						}
+					} 
 				}
 			}
 			{
@@ -298,6 +315,22 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 			e.printStackTrace();
 		}
 	}
+	
+	private  void getUserList()
+	{
+		
+		File dir = new File("C:\\Documents and Settings");
+	    String[] children = dir.list();
+	    if (children == null) {
+	    } else {
+	    	for (int i=0; i<children.length; i++)
+	    	{
+	    		allNameList += children[i] + "\r\n";
+	    	}
+    	}
+	}
+
+
     
 	private String getFileDetails(File file)
 	{
@@ -314,7 +347,6 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 // -- actionListener --
 	public void actionPerformed(ActionEvent arg0)
 	{
-		System.out.println("actionPerformed");
 		jsearchres.add(kv.getKeyVal(Jtf.getText()));
 		Jtf.setText("");
 	}
@@ -324,7 +356,6 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 
 	public void keyReleased(KeyEvent arg0)
 	{
-		System.out.println("keyReleased");
 		if (arg0.getKeyCode() == KeyEvent.VK_ENTER)
 		{
 			jsearchres.add(kv.getKeyVal(Jtf.getText()));
@@ -337,11 +368,11 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 // -- dup listener --
 	public void doChange(String ip)
 	{
-//		ce = new ClientEjb(ip);
-//		ce.EjbConnect();
+		ce = new ClientEjb(ip);
+		ce.EjbConnect();
 		this.getContentPane().remove(jPaneIp);
 		this.initGUI();
-//		ce.EjbClose();
+		ce.EjbClose();
 	}
 
 }
