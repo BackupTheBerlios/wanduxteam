@@ -201,6 +201,8 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 						components.add("");
 						getUserList();
 						
+						kvusers.getNextKey("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces");
+						
 						JSplitPane jSplitPaneRegistryTester2 = new JSplitPane(
 								JSplitPane.HORIZONTAL_SPLIT,
 								true,

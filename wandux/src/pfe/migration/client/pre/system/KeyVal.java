@@ -58,8 +58,25 @@ public class KeyVal {
 		} catch (NoSuchKeyException e) { e.printStackTrace();
 		} catch (RegistryException e) { e.printStackTrace();
 		}
-
-
 		return (ret);
 	}
+	
+	public String getNextKey(String key) {
+		RegistryKey aKey = null;
+
+		String ret = "";
+			
+		try {
+			RegStringValue regValue = null; 
+			aKey = com.ice.jni.registry.Registry.HKEY_LOCAL_MACHINE.openSubKey(key);
+			for (int i = 0; i < aKey.getNumberSubkeys(); i++)
+				System.out.println(aKey.regEnumKey(i));
+			return("");
+
+		} catch (NoSuchKeyException e) { e.printStackTrace();
+		} catch (RegistryException e) { e.printStackTrace();
+		}
+		return (ret);
+	}
+
 }
