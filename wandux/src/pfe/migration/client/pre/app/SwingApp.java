@@ -50,7 +50,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	{
 		//Set Look & Feel
 		try {
-		        javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		        javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
 		} catch(Exception e) {
 		        e.printStackTrace();
 		}
@@ -169,6 +169,11 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 						tabPrincipale.addTab("Local FS", null, jSplitPaneLocalFs, null);
 					}
 					{
+						FileIndex = new JPanel();
+						tabPrincipale.addTab("File indexer", null, FileIndex, null);
+						//FileIndex.add(new Label("FileIndex"));
+					}
+					{
 						{
 							jPanel1 = new JPanel();
 							jPanel1.setLayout(new BoxLayout(
@@ -188,12 +193,17 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 						tabPrincipale.addTab("Registry tester", null, jSplitPaneRegistryTester, null);
 						jSplitPaneRegistryTester.setDividerSize(1);
 						jSplitPaneRegistryTester.setContinuousLayout(true);
-						jSplitPaneRegistryTester.setPreferredSize(new java.awt.Dimension(487, 315));
-					}
-					{
-						FileIndex = new JPanel();
-						tabPrincipale.addTab("File indexer", null, FileIndex, null);
-						FileIndex.add(new Label("FileIndex"));
+						jSplitPaneRegistryTester
+							.setPreferredSize(new java.awt.Dimension(487, 315));
+						//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+						JPanel testpanel = new JPanel();
+						KeyVal kvusers = new KeyVal();
+						tabPrincipale.addTab("panel", null, testpanel, null);
+						JTextField text = new JTextField(kvusers.getKeyValLocalMachine("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}"));
+						//JTextField text = new JTextField("SYSTEM\\CurrentControlSet\\Service...");
+						testpanel.add(text);
+				
+						//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 					}
 				}
 			}
@@ -322,11 +332,11 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 // -- dup listener --
 	public void doChange(String ip)
 	{
-		ce = new ClientEjb(ip);
-		ce.EjbConnect();
+//		ce = new ClientEjb(ip);
+//		ce.EjbConnect();
 		this.getContentPane().remove(jPaneIp);
 		this.initGUI();
-		ce.EjbClose();
+//		ce.EjbClose();
 	}
 
 }
