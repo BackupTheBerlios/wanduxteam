@@ -1,5 +1,5 @@
 package=pfe.migration.server.ejb.bdd
 databaseUrl=jdbc:mysql://127.0.0.1:3306/wandux
 driver=com.mysql.jdbc.Driver
+ConfigurationFile=wanduxsrcpfemigrationserverejbbddhibernate.cfg.xml
 username=wandux
-ConfigurationFile=\wandux\src\pfe\migration\server\ejb\bdd\hibernate.cfg.xml
