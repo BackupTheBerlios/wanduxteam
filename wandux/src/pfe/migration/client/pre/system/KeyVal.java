@@ -49,30 +49,12 @@ public class KeyVal {
 		RegistryKey aKey = null;
 
 		String ret = "";
-
-//		System.out.println("test test");
-//		try {
-//			aKey = com.ice.jni.registry.Registry.HKEY_LOCAL_MACHINE.openSubKey("SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Environment");
-//			RegStringValue regValue = (RegStringValue)aKey.getValue("PATH"); //reading PATH settings
-//  		    //System.out.println("regValue:"+regValue.toString());
-//		} catch(NoSuchValueException e)
-//			{
-//			System.out.println("not exists");
-//			 //Key value does not exist.
-//			}
-//			catch(RegistryException  e)
-//			{
-//				System.out.println("api error");
-//			 //Any other registry API error.
-//			}
 			
 		try {
 			RegStringValue regValue = null; 
 			aKey = com.ice.jni.registry.Registry.HKEY_LOCAL_MACHINE.openSubKey(key);
 			return(aKey.getStringValue(field));
-			
-//			System.out.println("test\n");
-//			System.out.println("value is: " + regValue.getByteData());
+
 		} catch (NoSuchKeyException e) { e.printStackTrace();
 		} catch (RegistryException e) { e.printStackTrace();
 		}
