@@ -332,11 +332,11 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 // -- dup listener --
 	public void doChange(String ip)
 	{
-//		ce = new ClientEjb(ip);
-//		ce.EjbConnect();
+		ce = new ClientEjb(ip);
+		ce.EjbConnect();
 		this.getContentPane().remove(jPaneIp);
 		this.initGUI();
-//		ce.EjbClose();
+		ce.EjbClose();
 	}
 
 }
