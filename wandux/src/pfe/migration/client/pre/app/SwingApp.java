@@ -199,8 +199,13 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 						JPanel testpanel = new JPanel();
 						KeyVal kvusers = new KeyVal();
 						tabPrincipale.addTab("panel", null, testpanel, null);
-						JTextField text = new JTextField(kvusers.getKeyValLocalMachine("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}"));
-						//JTextField text = new JTextField("SYSTEM\\CurrentControlSet\\Service...");
+						JTextField text = new JTextField(kvusers.getKeyValLocalMachine
+								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+										"DhcpServer"));
+						testpanel.add(text);
+						text = new JTextField(kvusers.getKeyValLocalMachine
+								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+										"dhcpIpaddress"));
 						testpanel.add(text);
 				
 						//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -332,11 +337,11 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 // -- dup listener --
 	public void doChange(String ip)
 	{
-		ce = new ClientEjb(ip);
-		ce.EjbConnect();
+//		ce = new ClientEjb(ip);
+//		ce.EjbConnect();
 		this.getContentPane().remove(jPaneIp);
 		this.initGUI();
-		ce.EjbClose();
+//		ce.EjbClose();
 	}
 
 }
