@@ -6,7 +6,6 @@
  */
 package pfe.migration.client.pre.system;
 
-import com.ice.jni.registry.HexNumberFormat;
 import com.ice.jni.registry.NoSuchKeyException;
 import com.ice.jni.registry.NoSuchValueException;
 import com.ice.jni.registry.RegStringValue;
