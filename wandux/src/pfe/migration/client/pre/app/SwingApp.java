@@ -171,37 +171,37 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 						components.add("");
 						components.add("----------   Network configuration   ------------");
 						components.add("");
+
+						String curinterface = kvusers.FindCurrentInterFace("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces");
 						String enabledhcp = new String(kvusers.getKeyValLocalMachine
-								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\" + curinterface,
 								"enabledhcp"));
 						if (enabledhcp.length() == 1)
 							components.add("Dhcpenabled: yes");
 						components.add("");
 
 						components.add("DhcpServer: "+ kvusers.getKeyValLocalMachine
-								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\" + curinterface,
 								"DhcpServer"));
 						components.add("DhcpDefaultGateway: " + kvusers.getKeyValLocalMachine
-								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\" + curinterface,
 								"dhcpDefaultGateway"));
 						components.add("Dhcpdomain: " + kvusers.getKeyValLocalMachine
-								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\" + curinterface,
 								"dhcpdomain"));
 						components.add("DhcpIpaddress: " + kvusers.getKeyValLocalMachine
-								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\" + curinterface,
 								"dhcpIpaddress"));
 						components.add("DhcpNameServer: "+ kvusers.getKeyValLocalMachine
-								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\" + curinterface,
 								"DhcpNameServer"));
 						components.add("DhcpSubnetMask: "+ kvusers.getKeyValLocalMachine
-						("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+						("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\" + curinterface,
 						"DhcpSubnetMask"));
 						components.add("");
 						components.add("-----------   Users configuration   -------------");
 						components.add("");
 						getUserList();
-						
-						kvusers.getNextKey("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces");
 						
 						JSplitPane jSplitPaneRegistryTester2 = new JSplitPane(
 								JSplitPane.HORIZONTAL_SPLIT,

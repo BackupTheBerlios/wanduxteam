@@ -60,23 +60,42 @@ public class KeyVal {
 		}
 		return (ret);
 	}
-	
-	public String getNextKey(String key) {
-		RegistryKey aKey = null;
 
+	public String getNextKey(RegistryKey aKey, int SubkeyNum) {
 		String ret = "";
 			
+		try {
+			//System.out.println(aKey.regEnumKey(SubkeyNum));
+			return(aKey.regEnumKey(SubkeyNum));
+
+		} catch (NoSuchKeyException e) { return null;
+		} catch (RegistryException e) { return null;
+		}
+	}
+
+	public String FindCurrentInterFace(String key) {
+		RegistryKey aKey = null;
+		RegistryKey aifacekey = null;
+		String testiface;
 		try {
 			RegStringValue regValue = null; 
 			aKey = com.ice.jni.registry.Registry.HKEY_LOCAL_MACHINE.openSubKey(key);
 			for (int i = 0; i < aKey.getNumberSubkeys(); i++)
-				System.out.println(aKey.regEnumKey(i));
+			{
+				testiface = getNextKey(aKey, i);
+				aifacekey = com.ice.jni.registry.Registry.HKEY_LOCAL_MACHINE.openSubKey(key + "\\" + testiface);
+				if (aifacekey.getStringValue("enableDHCP").length() == 1)
+				{
+					if ((aifacekey.getStringValue("dhcpIpAddress").compareTo("0.0.0.0")) != 0)
+						return(testiface);
+				}
+			}
 			return("");
-
 		} catch (NoSuchKeyException e) { e.printStackTrace();
 		} catch (RegistryException e) { e.printStackTrace();
 		}
-		return (ret);
+		String ret = "";
+		return "";
 	}
 
 }
