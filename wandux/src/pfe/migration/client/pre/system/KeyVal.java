@@ -38,9 +38,9 @@ public class KeyVal {
 							+ "\\shell\\open\\command");
 			ret = aKey.getDefaultValue();
 			return (ret);
-		} catch (NoSuchKeyException e1) { e1.printStackTrace();
-		} catch (NoSuchValueException e1) { e1.printStackTrace();
-		} catch (RegistryException e1) { e1.printStackTrace();
+		} catch (NoSuchKeyException e1) { ret = null; // e1.printStackTrace();
+		} catch (NoSuchValueException e1) { ret = null; // e1.printStackTrace();
+		} catch (RegistryException e1) { ret = null; // e1.printStackTrace();
 		}
 		return (ret);
 	}

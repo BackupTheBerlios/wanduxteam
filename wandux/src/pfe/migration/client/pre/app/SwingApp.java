@@ -119,8 +119,8 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	{
 		super();
 		this.addWindowListener(new ExitListener());
-		initIP();
-//		initGUI();
+//		initIP();
+		initGUI();
 
 	}
 	
@@ -413,7 +413,9 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	{
 		if (arg0.getKeyCode() == KeyEvent.VK_ENTER)
 		{
-			jsearchres.add(kv.getKeyVal(Jtf.getText()));
+			String s = kv.getKeyVal(Jtf.getText());
+			if (s != null)
+				jsearchres.add(s);
 			Jtf.setText("");
 		}
 	}
