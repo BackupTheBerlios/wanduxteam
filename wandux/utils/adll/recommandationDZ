@@ -1,0 +1,16 @@
+j ai modifier l appli adll sous linux pour pouvoir parser automatikement
+un fichier xml et sortir un fichier de reponse sans aucune intervention
+humaine.
+
+l appli est dispo ici :
+http://etudiants.epita.fr/~lagiew_o/adll_linux_auto.tgz
+
+__dz@debianrulz|~/proj/pfe/adll/linux2|cat ___DZ___HOWTO__AUTO_PARSE
+./adll -q -o adll.cfg file.xml
+
+-o = output = fichier de reponse
+-q = quiet
+file.xml = template (mandrake)__dz@debianrulz|~/proj/pfe/adll/linux2|
+
+voila
+(c/unix rulz :))

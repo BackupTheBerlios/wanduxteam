@@ -1,0 +1,5 @@
+./adll -q -o adll.cfg file.xml
+
+-o = output = fichier de reponse
+-q = quiet
+file.xml = template (mandrake)

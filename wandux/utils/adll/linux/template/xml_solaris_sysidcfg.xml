@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE template SYSTEM "adll.dtd"[]>
+<template author="Vincent Malguy" os_name="Solaris" os_version="8 and 9" adll_version="1.0" date="01-11-2004">
+  <netboot>
+    <address>192.1.1.150</address>
+    <port>21</port>
+    <path>/path</path>
+  </netboot>
+
+<section label="Network" name="">
+<comment>Name service, domain name, name server. Options for NIS and NIS+: {domain_name=domain_name name_server=hostname(ip_address)} . Options for DNS: {domain_name=domain_name name_server=ip_address,ip_address, ip_address (three maximum) search=domain_name,domain_name,domain_name,domain_name,domain_name, domain_name (six maximum, total length less than or equal to 250 characters)}. Options for LDAP: {domain_name=domain_name profile=profile_name profile_server=ip_address proxy_dn="proxy_bind_dn" proxy_password=password}</comment>
+<option label="Name service" name="name_service" type="radio">
+<choice label="NIS">=NIS</choice>
+<choice label="NIS+">=NIS+</choice>
+<choice label="LDAP">=LDAP</choice>
+<choice label="DNS">=DNS</choice>
+</option>
+<option label="Option for name service" name="" type="text" terminator="&#xD;&#xA;">
+<choice label=""></choice>
+</option>
+<comment>Network interface, host name, Internet Protocol (IP) address, netmask, DHCP, IPv6. NONE turns off networking. PRIMARY is the first up, nonloopback interface that is found on the system. The order is the same as with "ifconfig." If no interfaces are up, then the first nonloopback interface is used. If no nonloopback interfaces are found, then the system is set to NON-NETWORKED.</comment>
+<option label="Network interface" name="network_interface" type="radio">
+<choice label="NONE">=NONE</choice>
+<choice label="PRIMARY">=PRIMARY</choice>
+<choice label="Manuel option below"></choice>
+</option>
+<comment>If DHCP is to be used, specify: {dhcp protocol_ipv6=yes_or_no}.  
+If DHCP is not to be used, specify: {hostname=host_name default_route=ip_address or NONE ip_address=ip_address netmask=netmask protocol_ipv6=yes_or_no}</comment>
+<option label="Option for Network Interface" name=" " type="text" terminator="&#xD;&#xA;">
+<choice label=" "></choice>
+</option>
+</section>
+<section label="Security" name="">
+<option label="Root password" name="root_password=" type="text" terminator="&#xD;&#xA;">
+<choice label=" " > </choice>
+</option>
+<option label="Security policy" name="security_policy" type="radio">
+<choice label="Kerberos">=kerberos</choice>
+<choice label="None">=NONE</choice>
+</option>
+<comment>Options for Kerberos: {default_realm=FQDN admin_server=FQDN kdc=FQDN1, FQDN2, FQDN3}
+(FQDN is a fully qualified domain name.)</comment>
+<option label="Option for Kerberos" name=" " type="text" terminator="&#xD;&#xA;">
+<choice label=" "></choice>
+</option>
+</section>
+<section label="Local configuration" name="">
+<comment>The /usr/lib/locale directory or Appendix D, Locale Values (Reference) provides the valid locale values.</comment>
+<option label="Language in which to display the install program and desktop" name="system_locale=" type="text" terminator="&#xD;&#xA;">
+<choice label=" "></choice>
+</option>
+<comment>The subdirectories in the /usr/share/lib/terminfo directory provide the valid terminal values.</comment>
+<option label="Terminal type" name="terminal=" type="text" terminator="&#xD;&#xA;">
+<choice label=" "></choice>
+</option>
+<comment>The directories and files in the /usr/share/lib/zoneinfo directory provide the valid time zone values. The time zone value is the name of the path relative to the /usr/share/lib/zoneinfo directory. For example, the time zone value for mountain standard time in the United States is US/Mountain. The time zone value for Japan is Japan. You can also specify any valid Olson time zone.</comment>
+<option label="Time zone" name="timezone=" type="text" terminator="&#xD;&#xA;">
+<choice label=" "></choice>
+</option>
+<comment>If you specify localhost as the time server, the system's time is assumed to be correct. If you are not running a name service and you specify the hostname or ip_addr of a system, that system's time is used to set the time.</comment>
+<option label="Date and time Server" name="timeserver=" type="text" terminator="&#xD;&#xA;">
+<choice label=" "></choice>
+</option>
+<comment>On the system you want to install, run kdmconfig -d filename. Append output to sysidcfg file.</comment>
+<option label="x86: Monitor type" name="monitor=" type="text" terminator="&#xD;&#xA;">
+<choice label=" "></choice>
+</option>
+<comment>On the system you want to install, run kdmconfig -d filename. Append output to sysidcfg file.</comment>
+<option label="x86: Keyboard language, keyboard layout" name="keyboard=" type="text" terminator="&#xD;&#xA;">
+<choice label=" "></choice>
+</option>
+<comment>On the system you want to install, run kdmconfig -d filename. Append output to sysidcfg file.</comment>
+<option label="x86: Graphics card, screen size, color depth, display resolution" name="display=" type="text" terminator="&#xD;&#xA;">
+<choice label=" "></choice>
+</option>
+<comment>On the system you want to install, run kdmconfig -d filename. Append output to sysidcfg file.</comment>
+<option label="x86: Pointing device, number of buttons, IRQ level" name="pointer=" type="text" terminator="&#xD;&#xA;">
+<choice label=" "></choice>
+</option>
+</section>
+</template>

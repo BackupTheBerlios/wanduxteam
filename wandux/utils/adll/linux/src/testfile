@@ -1,0 +1,104 @@
+#!/usr/bin/perl -cw
+$o = {
+'authentication' => {
+'shadow' =>,
+'md5' =>,
+'NIS' => ,
+'LDAP' =>,
+},
+
+'autoExitInstall' => ,
+
+'autologin' => '',
+
+'compssListLevel' => ,
+
+'compssUsersChoice' => { 
+ },
+
+'desktop' =>,
+
+'excludedocs' =>,
+
+'interactive' => '',
+
+'isUpgrade' =>,
+
+'keyboard' => { 
+'GRP_TOGGLE' =>,
+'KBCHARSET' =>,
+'KEYBOARD' =>},
+'locale' => {
+'lang' => ,
+'langs' => { 
+},
+'country' => ,
+'utf8' => },
+'miscellaneous' => { 
+'numlock' => ,
+'HDPARM' => ,
+'http_proxy' => '',
+'ftp_proxy' => ''},
+
+'mkbootdisk' => '',
+'security' => ,
+
+'security_user' =>  '',
+'superuser' => {
+'uid' =>  '',
+'gid' => '',
+'realname' => '',
+'password' => '',
+'shell' => '',
+'home' => '',
+'icon' => ''
+},
+
+'timezone' => {
+'UTC' => '',
+'ntp' => '',
+'timezone' => ''},
+
+'X' => { 
+ 'disabled' => },
+
+'intf' => {
+ 'eth0' => {
+'ONBOOT' => '',
+'DEVICE' => '',
+'BOOTPROTO' => }},
+netc => {
+'NETWORKING' => '},
+'partitions' => [{
+'mntpoint' => ,
+'type' => ,
+'ratio' => ,
+'hd' => },
+{
+'mntpoint' => ,
+'type' => ,
+'ratio' => ,
+'hd' => },
+{
+'mntpoint' => ,
+'type' => ,
+'ratio' => ,
+'hd' => }],
+'users' => [{
+'name' =>'',
+'realname' => '',
+'password' => '',
+'shell' => '',
+'home' => '',
+'icon' => ''},
+{
+'name' =>'',
+'realname' => '',
+'password' => '',
+'shell' => '',
+'home' => '',
+'icon' => ''}],
+'partitioning' => { 
+'clearall' => 1,
+'auto_allocate' => 1},
+'interactiveSteps' => []};
