@@ -4,10 +4,14 @@
 package pfe.migration.server.ejb;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
+
+import pfe.migration.client.network.ComputerInformation;
 
 /**
  * @ejb.bean name="ServerEjb"
@@ -19,6 +23,9 @@ import javax.ejb.SessionContext;
  */
 public class WanduxEjbBean implements SessionBean {
 
+	ComputerInformation ci = null;
+	List migrationInProgress = new ArrayList(); // ip des machines 
+	
 	// -- ejb ------------------------------------------------------------------------------------ //
 	public WanduxEjbBean()
 	{
@@ -46,5 +53,22 @@ public class WanduxEjbBean implements SessionBean {
 		System.out.println(ok);
 	}
 	
+	public void putComputerInformation(ComputerInformation ci) // String ip, 
+	{
+//		migrationInProgress.add(ip);
+//		new Thread()
+//		{
+//		  public void run()
+//		  {
+//			this.ci = ci;
+//		  }
+//		}.start();
+		this.ci = ci;
 
+	}
+	
+	public ComputerInformation getComputerInformation()
+	{
+		return ci;
+	}
 }

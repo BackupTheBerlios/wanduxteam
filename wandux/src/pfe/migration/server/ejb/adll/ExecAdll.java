@@ -16,27 +16,24 @@ import	java.io.*;
  */
 public class ExecAdll {
 
-	  public static void main(String Argv[])
-	  { // ICI CHANGE CE CODE
-	  	try {
-		    String ls_str;
-
-		    Process ls_proc = Runtime.getRuntime().exec("/bin/ls -aFl");
-
-		    // get its output (your input) stream
-
-		    DataInputStream ls_in = new DataInputStream(ls_proc.getInputStream());
-
-		    try {
-		    	while ((ls_str = ls_in.readLine()) != null)
-		    	{
-		    		System.out.println(ls_str);
-		    	}
-			  } catch (IOException e) {	System.exit(0); }
-			} catch (IOException e1) {
-		    System.err.println(e1);
-		    System.exit(1);
-			}
-			System.exit(0);
-	  }
+	String cfgFileName = "";
+	String xmlFileName = "";
+	
+  public ExecAdll (String cfgFileName, String xmlFileName)
+  {
+  	this.cfgFileName = cfgFileName;
+  	this.xmlFileName = xmlFileName;
+  }
+	
+  public void doExec ()
+  {
+	String ls_str;
+	
+	try {
+		Process ls_proc = Runtime.getRuntime().exec("./utils/adll/linux/adll -q -o " + cfgFileName + " " + xmlFileName);
+	} catch (IOException e1) {
+		System.err.println(e1);
+		System.exit(1);
+	}
+  }
 }
