@@ -7,18 +7,18 @@
 	<property name="dir.pre" value="utils/pre"/>
 	<property name="dir.ejb" value="utils/WanduxEjb"/>
 	<property name="dir.build" value="build"/>
+	<property name="dir.plugin" value="plugins"/>
+	<property name="dir.lib" value="utils/lib"/>
 	<property name="bakup.name" value="bakup\bakup.rar"/>
 	<property name="jar.client.post.name" value="clientPost.jar"/>
 	<property name="jar.client.pre.name" value="clientPre.jar"/>
 	<property name="jar.serverEjb.name" value="WanduxEjb.jar"/>
 	<property name="deploy.dir" value="C:\java\jboss-4.0.1sp1/server/default/deploy/"/>
-	<property name="dir.plugin" value="plugins"/>
 	
 	<target name="all" depends="deploy">
 		<echo message=":)"/>
-		<tar basedir="." tarfile="${bakup.name}">
+		<!-- tar basedir="." tarfile="${bakup.name}">
 			<include name="**/*.*"/>
-			<exclude name="${dir.classes}/**/*.*"/>
 			<exclude name="${dir.classes}/**/*.*"/>
 			<exclude name="${dir.build}/**/*.*"/>
 			<exclude name="${bakup.name}"/>
@@ -26,7 +26,7 @@
 			<include name="${dir.classes}"/>
 			<include name="${dir.build}"/>
 			<include name="${dir.plugin}"/>
-		</tar>
+		</tar -->
 	</target>
 	
 	<target name="deploy" depends="make serverEjb jar,make client pre jar"> <!-- make client post jar ,make client pre jar " -->
@@ -63,8 +63,21 @@
 				<include name="**/client/network/**/*.*"/>
 			</fileset>
 		</jar>
+	    <copy todir="${dir.build}/utils">
+			<fileset dir="${dir.pre}" includes="**/*.bat" />
+			<fileset dir="utils" includes="**/*.png" />
+			<fileset dir="utils" includes="**/*.ico" />
+	    </copy>
 	    <copy todir="${dir.build}">
-	       <fileset dir="${dir.pre}" includes="**/*.html"/>
+			<fileset dir="utils" includes="**/*.lnk" />
+	    </copy>
+	    <copy todir="${dir.build}/lib">
+	    	<fileset dir="${dir.lib}">
+	    		<include name="mysql-connector-java-3.0.15-ga-bin.jar" />
+	    		<include name="jbossall-client.jar" />
+	    		<include name="hibernate2.jar" />
+	    		<include name="registry.jar" />
+	    	</fileset>
 	    </copy>
 	</target>
 
