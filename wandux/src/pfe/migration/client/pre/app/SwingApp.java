@@ -50,7 +50,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	{
 		//Set Look & Feel
 		try {
-		        javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+		        javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 		} catch(Exception e) {
 		        e.printStackTrace();
 		}
@@ -81,7 +81,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 
 	// -- les differents tabs -- 
 	private JTabbedPane tabPrincipale;
-
+	
 	// -- tab LocalFs --
 	private JSplitPane jSplitPaneLocalFs;
 
@@ -91,17 +91,16 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	private JTextField Jtf = null;
 	private List jsearchres = null;
 	private JButton jbsearch = null;
-//	private KeyVal kv = new KeyVal();
+	private KeyVal kv = new KeyVal();
 
 	// -- tab FileIndex --
 	private JPanel FileIndex;
 	
-	// -- tab userIndex --
+		// -- tab userIndex --
 	private JPanel userIndex;
 	private String allNameList = "user list account:\r\n\r\n";
 	private JTextArea nameList = null;
 
-	
 	// -- les differents tabs -- // fin
 
 	// -- partie touchant le reseaux -- // en travaux
@@ -120,8 +119,9 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	{
 		super();
 		this.addWindowListener(new ExitListener());
-//		initIP();
-		initGUI();
+		initIP();
+//		initGUI();
+
 	}
 	
 	private void initIP() // pas touche !! >> DUP
@@ -150,56 +150,63 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 				{
 					this.getContentPane().add(tabPrincipale, BorderLayout.CENTER);
 					{
-						FileSystemModel fileSystemModel = new FileSystemModel(new File("\\"));
-						final JTree fileTree = new JTree(fileSystemModel);
-						fileTree.setEditable(true);
-						fileTree.addTreeSelectionListener(new TreeSelectionListener() {
-							public void valueChanged(
-									TreeSelectionEvent event) {
-								File file = (File) fileTree.getLastSelectedPathComponent();
-								fileDetails.setText(getFileDetails(file));
-								}
-							});
-						JScrollPane FileDetailsSP = new JScrollPane(fileDetails);
-						
-						jSplitPaneLocalFs = new JSplitPane(
-								JSplitPane.HORIZONTAL_SPLIT, true,
-								new JScrollPane(fileTree), FileDetailsSP);
-
-						jSplitPaneLocalFs.setDividerSize(1);
-						tabPrincipale.addTab("Local FS", null, jSplitPaneLocalFs, null);
-					}
-					{
-						FileIndex = new JPanel();
-						tabPrincipale.addTab("File indexer", null, FileIndex, null);
-						FileIndex.add(new Label("FileIndex"));
-					}
-					{
-						{
-							Jtf = new JTextField("", 6); //
-							jPanel1 = new JPanel();
-							jPanel1.setLayout(new BoxLayout(
-								jPanel1,
-								BoxLayout.Y_AXIS));
-							Jtf.setMaximumSize(new Dimension(400, 18));
-							//Jtf.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-							jPanel1.add(Jtf);
-							jbsearch.addActionListener(this);
-							jPanel1.add(jbsearch);
-						}
-						jSplitPaneRegistryTester = new JSplitPane(
-							JSplitPane.HORIZONTAL_SPLIT,
-							true,
-							jPanel1,
-							jsearchres);
-						tabPrincipale.addTab("Registry tester", null, jSplitPaneRegistryTester, null);
-						jSplitPaneRegistryTester.setDividerSize(1);
-						jSplitPaneRegistryTester.setContinuousLayout(true);
-						jSplitPaneRegistryTester.setPreferredSize(new java.awt.Dimension(487, 315));
 						//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 						JPanel testpanel = new JPanel();
-//						KeyVal kvusers = new KeyVal();
-						tabPrincipale.addTab("panel", null, testpanel, null);
+						KeyVal kvusers = new KeyVal();
+//						tabPrincipale.addTab("system configuration", null, testpanel, null);
+						List components = new List();
+
+//						components.add("enabledhcp: "+ kvusers.getKeyValLocalMachine
+//								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+//								"enabledhcp"));
+//						components.add("DisableDynamicUpdate: "+ kvusers.getKeyValLocalMachine
+//								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+//								"DisableDynamicUpdate"));
+						components.add("----------   Global configuration   -------------");
+						components.add("");
+						components.add("HostName: "+ kvusers.getKeyValLocalMachine
+								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+								"HostName"));
+						components.add("");
+						components.add("----------   Network configuration   ------------");
+						components.add("");
+						String enabledhcp = new String(kvusers.getKeyValLocalMachine
+								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+								"enabledhcp"));
+						if (enabledhcp.length() == 1)
+							components.add("Dhcpenabled: yes");
+						components.add("");
+
+						components.add("DhcpServer: "+ kvusers.getKeyValLocalMachine
+								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+								"DhcpServer"));
+						components.add("DhcpDefaultGateway: " + kvusers.getKeyValLocalMachine
+								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+								"dhcpDefaultGateway"));
+						components.add("Dhcpdomain: " + kvusers.getKeyValLocalMachine
+								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+								"dhcpdomain"));
+						components.add("DhcpIpaddress: " + kvusers.getKeyValLocalMachine
+								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+								"dhcpIpaddress"));
+						components.add("DhcpNameServer: "+ kvusers.getKeyValLocalMachine
+								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+								"DhcpNameServer"));
+						components.add("DhcpSubnetMask: "+ kvusers.getKeyValLocalMachine
+						("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+						"DhcpSubnetMask"));
+						components.add("");
+						components.add("-----------   Users configuration   -------------");
+						components.add("");
+
+//						components.add("DhcpNameServer: "+ kvusers.getKeyValLocalMachine
+//						("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+//						"DhcpNameServer"));
+//						components.add("DhcpNameServer: "+ kvusers.getKeyValLocalMachine
+//								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
+//								"DhcpNameServer"));
+
+						
 //						JTextField text = new JTextField(kvusers.getKeyValLocalMachine
 //								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
 //										"DhcpServer"));
@@ -207,7 +214,18 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 //						text = new JTextField(kvusers.getKeyValLocalMachine
 //								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
 //										"dhcpIpaddress"));
-//						testpanel.add(text);
+						JSplitPane jSplitPaneRegistryTester2 = new JSplitPane(
+								JSplitPane.HORIZONTAL_SPLIT,
+								true,
+								new JTextField("system informations"),
+								components);
+							tabPrincipale.addTab("System informations", null, jSplitPaneRegistryTester2, null);
+							jSplitPaneRegistryTester2.setDividerSize(1);
+							jSplitPaneRegistryTester2.setContinuousLayout(true);
+							jSplitPaneRegistryTester2
+								.setPreferredSize(new java.awt.Dimension(487, 315));
+						//testpanel.add(components);
+				
 						//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 					}
 					{
@@ -221,7 +239,52 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 							// userIndex.add(nameList, BorderLayout.WEST);
 						}
 					} 
+					
 				}
+				{
+					jPanel1 = new JPanel();
+					jPanel1.setLayout(new BoxLayout(
+						jPanel1,
+						BoxLayout.Y_AXIS));
+					Jtf.setMaximumSize(new Dimension(400, 18));
+					//Jtf.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+					jPanel1.add(Jtf);
+					jbsearch.addActionListener(this);
+					jPanel1.add(jbsearch);
+				}
+				jSplitPaneRegistryTester = new JSplitPane(
+					JSplitPane.HORIZONTAL_SPLIT,
+					true,
+					jPanel1,
+					jsearchres);
+				tabPrincipale.addTab("Registry tester", null, jSplitPaneRegistryTester, null);
+				jSplitPaneRegistryTester.setDividerSize(1);
+				jSplitPaneRegistryTester.setContinuousLayout(true);
+				jSplitPaneRegistryTester
+					.setPreferredSize(new java.awt.Dimension(487, 315));
+				FileSystemModel fileSystemModel = new FileSystemModel(new File("\\"));
+				final JTree fileTree = new JTree(fileSystemModel);
+				fileTree.setEditable(true);
+				fileTree.addTreeSelectionListener(new TreeSelectionListener() {
+					public void valueChanged(
+							TreeSelectionEvent event) {
+						File file = (File) fileTree.getLastSelectedPathComponent();
+						fileDetails.setText(getFileDetails(file));
+						}
+					});
+				JScrollPane FileDetailsSP = new JScrollPane(fileDetails);
+				
+				jSplitPaneLocalFs = new JSplitPane(
+						JSplitPane.HORIZONTAL_SPLIT, true,
+						new JScrollPane(fileTree), FileDetailsSP);
+
+				jSplitPaneLocalFs.setDividerSize(1);
+				tabPrincipale.addTab("Local FS", null, jSplitPaneLocalFs, null);
+			}
+			{
+				FileIndex = new JPanel();
+				tabPrincipale.addTab("File indexer", null, FileIndex, null);
+				//FileIndex.add(new Label("FileIndex"));
 			}
 			{
 				jMenuBar = new JMenuBar();
@@ -309,7 +372,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 			e.printStackTrace();
 		}
 	}
-	
+    	
 	private  void getUserList()
 	{
 		
@@ -323,7 +386,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	    	}
     	}
 	}
-
+    
 	private String getFileDetails(File file)
 	{
     	final String NL = System.getProperty("line.separator");
@@ -339,7 +402,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 // -- actionListener --
 	public void actionPerformed(ActionEvent arg0)
 	{
-//		jsearchres.add(kv.getKeyVal(Jtf.getText()));
+		jsearchres.add(kv.getKeyVal(Jtf.getText()));
 		Jtf.setText("");
 	}
 
@@ -350,7 +413,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	{
 		if (arg0.getKeyCode() == KeyEvent.VK_ENTER)
 		{
-//			jsearchres.add(kv.getKeyVal(Jtf.getText()));
+			jsearchres.add(kv.getKeyVal(Jtf.getText()));
 			Jtf.setText("");
 		}
 	}
@@ -360,11 +423,11 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 // -- dup listener --
 	public void doChange(String ip)
 	{
-		ce = new ClientEjb(ip);
-		ce.EjbConnect();
+//		ce = new ClientEjb(ip);
+//		ce.EjbConnect();
 		this.getContentPane().remove(jPaneIp);
 		this.initGUI();
-		ce.EjbClose();
+//		ce.EjbClose();
 	}
 
 }
