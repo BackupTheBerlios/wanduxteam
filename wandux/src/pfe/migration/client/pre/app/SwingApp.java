@@ -51,7 +51,6 @@ import pfe.migration.client.pre.system.KeyVal;
 public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyListener, ChangeFirstView
 {
 	{
-		// capte pas la  ...
 		//Set Look & Feel
 		try {
 		        javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
@@ -126,7 +125,6 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		this.addWindowListener(new ExitListener());
 		initIP();
 //		initGUI();
-
 	}
 	
 	private void initIP() // pas touche !! >> DUP
