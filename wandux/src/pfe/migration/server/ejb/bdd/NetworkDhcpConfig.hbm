@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+
+<hibernate-mapping package="pfe.migration.server.ejb.bdd">
+	<class name="NetworkDhcpConfig" table="network_dhcp_config">
+		<id
+			column="key"
+			name="Key"
+			type="string"
+		>
+			<generator class="vm" />
+		</id>
+		<property
+			column="dhcp_domain"
+			length="50"
+			name="DhcpDomain"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="dhcp_def_gateway"
+			length="16"
+			name="DhcpDefGateway"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="dhcp_server"
+			length="16"
+			name="DhcpServer"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="dhcp_subnetmask"
+			length="16"
+			name="DhcpSubnetmask"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="dhcp_pri_dns"
+			length="16"
+			name="DhcpPriDns"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="dhcp_adress"
+			length="16"
+			name="DhcpAdress"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="dhcp_sec_dns"
+			length="16"
+			name="DhcpSecDns"
+			not-null="true"
+			type="string"
+		 />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+
+<hibernate-mapping package="pfe.migration.server.ejb.bdd">
+	<class name="GlobalConf" table="global_conf">
+		<id
+			column="key"
+			name="Key"
+			type="string"
+		>
+			<generator class="vm" />
+		</id>
+		<property
+			column="hostname"
+			length="50"
+			name="Hostname"
+			not-null="true"
+			type="string"
+		 />
+	</class>
+</hibernate-mapping>
