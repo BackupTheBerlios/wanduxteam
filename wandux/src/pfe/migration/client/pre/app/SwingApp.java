@@ -92,11 +92,12 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	private List jsearchres = null;
 	private JButton jbsearch = null;
 	private KeyVal kv = new KeyVal();
+	private List components;
 
 	// -- tab FileIndex --
 	private JPanel FileIndex;
 	
-		// -- tab userIndex --
+	// -- tab userIndex --
 	private JPanel userIndex;
 	private String allNameList = "user list account:\r\n\r\n";
 	private JTextArea nameList = null;
@@ -154,7 +155,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 						JPanel testpanel = new JPanel();
 						KeyVal kvusers = new KeyVal();
 //						tabPrincipale.addTab("system configuration", null, testpanel, null);
-						List components = new List();
+						components = new List();
 
 //						components.add("enabledhcp: "+ kvusers.getKeyValLocalMachine
 //								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
@@ -198,22 +199,8 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 						components.add("");
 						components.add("-----------   Users configuration   -------------");
 						components.add("");
-
-//						components.add("DhcpNameServer: "+ kvusers.getKeyValLocalMachine
-//						("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
-//						"DhcpNameServer"));
-//						components.add("DhcpNameServer: "+ kvusers.getKeyValLocalMachine
-//								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
-//								"DhcpNameServer"));
-
+						getUserList();
 						
-//						JTextField text = new JTextField(kvusers.getKeyValLocalMachine
-//								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
-//										"DhcpServer"));
-//						testpanel.add(text);
-//						text = new JTextField(kvusers.getKeyValLocalMachine
-//								("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
-//										"dhcpIpaddress"));
 						JSplitPane jSplitPaneRegistryTester2 = new JSplitPane(
 								JSplitPane.HORIZONTAL_SPLIT,
 								true,
@@ -228,18 +215,6 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 				
 						//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 					}
-					{
-						userIndex = new JPanel();
-						userIndex.setLayout(new BorderLayout());
-						tabPrincipale.addTab("user list account", null, userIndex, null);
-						{
-							getUserList();
-							nameList = new JTextArea(allNameList);
-							userIndex.add(nameList, BorderLayout.CENTER); //  ce sts temporaire ca
-							// userIndex.add(nameList, BorderLayout.WEST);
-						}
-					} 
-					
 				}
 				{
 					jPanel1 = new JPanel();
@@ -382,7 +357,8 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	    } else {
 	    	for (int i=0; i<children.length; i++)
 	    	{
-	    		allNameList += children[i] + "\r\n";
+//	    		allNameList += children[i] + "\r\n";
+	    		components.add(children[i]);
 	    	}
     	}
 	}
