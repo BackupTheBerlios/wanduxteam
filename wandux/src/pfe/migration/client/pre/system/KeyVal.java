@@ -28,8 +28,8 @@ public class KeyVal {
 		try {
 			aKey = com.ice.jni.registry.Registry.HKEY_CLASSES_ROOT
 					.openSubKey(key);
-		} catch (NoSuchKeyException e) { e.printStackTrace();
-		} catch (RegistryException e) { e.printStackTrace();
+		} catch (NoSuchKeyException e) { return null; // e.printStackTrace();
+		} catch (RegistryException e) { return null; // e.printStackTrace();
 		}
 
 		try {
