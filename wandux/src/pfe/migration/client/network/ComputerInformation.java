@@ -19,9 +19,9 @@ public class ComputerInformation implements Serializable {
 	private String ip = "";
 
 	// ce dont tu n as pas besoin peut reste a null ...
-	// private InformationUser infou = null;
-	// private InformationNetwork infon = null;	
-	// private InformationPrograms infop = null;
+	 private InformationUser infou = null;
+	 private InformationNetwork infon = null;	
+	 private InformationPrograms infop = null;
 	
 	public ComputerInformation (String ip)
 	{
@@ -44,33 +44,33 @@ public class ComputerInformation implements Serializable {
 		return this.ip;
 	}
 	
-//	public void setInfoUser (InformationUser infou)
-//	{
-//		this.infou = infou;
-//	}
-//
-//	public InformationUser getInfoUser()
-//	{
-//		return this.infou;
-//	}
+	public void setInfoUser (InformationUser infou)
+	{
+		this.infou = infou;
+	}
+
+	public InformationUser getInfoUser()
+	{
+		return this.infou;
+	}
 	
-//	public void setInfoNetwork (InformationNetwork infon)
-//	{
-//		this.infon = infon;
-//	}
-//
-//	public InformationNetwork getInfoNetwork()
-//	{
-//		return this.infon;
-//	}
+	public void setInfoNetwork (InformationNetwork infon)
+	{
+		this.infon = infon;
+	}
+
+	public InformationNetwork getInfoNetwork()
+	{
+		return this.infon;
+	}
 	
-//	public void setInfoPrograms (InformationPrograms infop)
-//	{
-//		this.infop = infop;
-//	}
-//
-//	public InformationPrograms getInfoPrograms()
-//	{
-//		return this.infop;
-//	}
+	public void setInfoPrograms (InformationPrograms infop)
+	{
+		this.infop = infop;
+	}
+
+	public InformationPrograms getInfoPrograms()
+	{
+		return this.infop;
+	}
 }
