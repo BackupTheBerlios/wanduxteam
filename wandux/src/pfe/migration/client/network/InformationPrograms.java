@@ -21,5 +21,10 @@ public class InformationPrograms {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public int getNbPrograms()
+	{
+		return 42;
+	}
 
 }

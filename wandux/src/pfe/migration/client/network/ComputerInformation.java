@@ -20,8 +20,9 @@ public class ComputerInformation implements Serializable {
 
 	// ce dont tu n as pas besoin peut reste a null ...
 	 private InformationUser infou = null;
-	 private InformationNetwork infon = null;	
+	 private InformationNetwork infon = null;
 	 private InformationPrograms infop = null;
+//	 private int infnbprog = 0;
 	
 	public ComputerInformation (String ip)
 	{
@@ -73,4 +74,9 @@ public class ComputerInformation implements Serializable {
 	{
 		return this.infop;
 	}
+
+//	public void incProgressionProg(int lasttotal)
+//	{
+//		
+//	}
 }

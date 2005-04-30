@@ -14,7 +14,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 
 import pfe.migration.server.ejb.WanduxEjb;
-import pfe.migration.server.ejb.WanduxEjbBean;
 import pfe.migration.server.ejb.WanduxEjbHome;
 
 /**
@@ -50,11 +49,11 @@ public class ClientEjb {
 	      ctx = new InitialContext(ppt);
 	      ref = ctx.lookup("WanduxEjb");
 	      home = (WanduxEjbHome)javax.rmi.PortableRemoteObject.narrow(ref, WanduxEjbHome.class);
-				bean = home.create();
+	      bean = home.create();
 	  	}
 	    catch (Exception e) { e.printStackTrace(); }
 	}
-	
+
 	public void EjbClose()
 	{
 		try {
