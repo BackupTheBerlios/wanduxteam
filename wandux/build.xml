@@ -6,6 +6,7 @@
 	<property name="dir.post" value="utils/post"/>
 	<property name="dir.pre" value="utils/pre"/>
 	<property name="dir.ejb" value="utils/WanduxEjb"/>
+	<property name="dir.monitor" value="webMonitor/"/>
 	<property name="dir.build" value="build"/>
 	<property name="dir.plugin" value="plugins"/>
 	<property name="dir.lib" value="utils/lib"/>
@@ -13,7 +14,9 @@
 	<property name="jar.client.post.name" value="clientPost.jar"/>
 	<property name="jar.client.pre.name" value="clientPre.jar"/>
 	<property name="jar.serverEjb.name" value="WanduxEjb.jar"/>
-	<property name="deploy.dir" value="C:\java\jboss-4.0.1sp1/server/default/deploy/"/>
+	<property name="jar.monitor.name" value="webMonitor.war"/>
+	<!-- property name="deploy.dir" value="C:\java\jboss-4.0.1sp1/server/default/deploy/"/ -->
+	<property name="deploy.dir" value="C:\java\jboss/server/default/deploy/"/>
 	
 	<target name="all" depends="deploy">
 		<echo message=":)"/>
@@ -29,7 +32,7 @@
 		</tar -->
 	</target>
 	
-	<target name="deploy" depends="make serverEjb jar,make client pre jar"> <!-- make client post jar ,make client pre jar " -->
+	<target name="deploy" depends="make serverEjb jar,make client pre jar, make monitor war"> <!-- make client post jar ,make client pre jar " -->
 		
 		<!-- copy todir="${dir.build}/" file="${dir.sources}/launchEJBClient.bat"/ -->
 		<!-- copy todir="${dir.build}/" file="${dir.sources}/makeEjbJar.bat"/ -->
@@ -39,7 +42,9 @@
 		<delete file="${deploy.dir}/${jar.serverEjb.name}" />
 		<copy todir="${deploy.dir}">
 			<fileset dir="${dir.build}" includes="${jar.serverEjb.name}"/>
+			<fileset dir="${dir.build}" includes="${jar.monitor.name}"/>
 		</copy>
+		
 	</target>
 
 	<target name="make client post jar">
@@ -89,6 +94,18 @@
 	        </fileset>
 	        <fileset dir="${dir.ejb}">
 	           <include name="META-INF/**/*.*"/>
+	        </fileset>
+	      </jar>
+	</target>
+
+	<target name="make monitor war">
+	      <jar jarfile="${dir.build}/${jar.monitor.name}">
+	        <fileset dir="${dir.classes}">
+		   		<include name="**/server/monitor/**/*.class"/>
+	        	<include name="**/client/network/**/*.class"/>
+	        </fileset>
+	        <fileset dir="${dir.monitor}">
+		   		<include name="**/*.*"/>
 	        </fileset>
 	      </jar>
 	</target>
