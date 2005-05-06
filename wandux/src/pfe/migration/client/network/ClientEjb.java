@@ -15,6 +15,7 @@ import javax.naming.InitialContext;
 
 import pfe.migration.server.ejb.WanduxEjb;
 import pfe.migration.server.ejb.WanduxEjbHome;
+import pfe.migration.server.monitor.ClientMonitor;
 
 /**
  * @author dup
@@ -24,6 +25,8 @@ import pfe.migration.server.ejb.WanduxEjbHome;
  */
 public class ClientEjb {
 
+	private ClientMonitor cm = null;
+	
 	private static String SERVER_EJB_NAME = "";
 	
 	protected WanduxEjb bean = null;
@@ -86,5 +89,16 @@ public class ClientEjb {
 	public WanduxEjb getBean()
 	{
 		return this.bean;
+	}
+
+	public void setClientMonitor (boolean b)
+	{
+		if (b == true)
+			cm = new ClientMonitor();
+	}
+
+	public ClientMonitor getClientMonitor()
+	{
+		return cm;
 	}
 }
