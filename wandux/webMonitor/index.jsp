@@ -1,4 +1,4 @@
-<%@ page language="java" import="pfe.migration.client.network.ClientEjb, pfe.migration.server.monitor.*" %>
+<%@ page language="java" import="pfe.migration.client.network.ClientEjb, pfe.migration.server.monitor.ClientMonitor, pfe.migration.server.monitor.ClientMonitorListener" %>
 <html><head>
 
 <title>Wandux monitor</title>
@@ -22,7 +22,7 @@ out.println("connection established ... <br>");
 
 ce.setClientMonitor (true);
 
-ClientMonitor cm = (ClientMonitor)ce.ClientMonitor();
+//ClientMonitor cm = (ClientMonitor)ce.ClientMonitor();
 
 ce.EjbClose();
 
