@@ -108,7 +108,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	// -- partie touchant le reseaux -- // en travaux
 	private EnterIpView jPaneIp = null;
 	private ClientEjb 	ce = null;
-	private WanduxEjbBean bean = null; // a virer par la suite
+//	private WanduxEjbBean bean = null; // a virer par la suite  / temporaire
 	
 	public static void main(String[] args)
 	{
@@ -122,8 +122,11 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	{
 		super();
 		this.addWindowListener(new ExitListener());
-//		initIP();
-		initGUI();
+		initIP();
+//		initGUI();
+		
+		// bean.putComputerInformation();
+		
 
 	}
 	
@@ -365,9 +368,10 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	{
 		ce = new ClientEjb(ip);
 		ce.EjbConnect();
-		this.bean = (WanduxEjbBean) ce.getBean();
+//		this.bean = (WanduxEjbBean) ce.getBean();
 		this.getContentPane().remove(jPaneIp);
 		this.initGUI();
+		ce.Transfert();
 		ce.EjbClose();
 	}
 

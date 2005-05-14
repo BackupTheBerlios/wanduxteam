@@ -4,7 +4,8 @@ Exemple de code pour recuperer / inserer des donnees dans la BDD depuis le code 
 
 		Transaction transaction;
 		Session session;
-		
+		try
+		{
 			session = HibernateUtil.currentSession();
 			transaction = session.beginTransaction();
 			List l = session.find(" from GlobalConf "); // ou (" from NetworkDhcpConfig ")    ou (" from UsersData ")

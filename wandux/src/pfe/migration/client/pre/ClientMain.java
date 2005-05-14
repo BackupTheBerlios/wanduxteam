@@ -28,7 +28,6 @@ public class ClientMain {
 		System.out.println("main : " + ce.giveMsg()[0]);
 		System.out.println("main : " + ce.giveMsg()[1]);
 		ce.EjbClose();
-		while (true) ;
 	}
 
 }

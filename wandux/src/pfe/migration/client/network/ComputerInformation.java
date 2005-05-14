@@ -8,6 +8,9 @@ package pfe.migration.client.network;
 
 import java.io.Serializable;
 
+import pfe.migration.server.ejb.bdd.NetworkDhcpConfig;
+import pfe.migration.server.ejb.bdd.UsersData;
+
 /**
  * @author dup
  *
@@ -19,10 +22,15 @@ public class ComputerInformation implements Serializable {
 	private String ip = "";
 
 	// ce dont tu n as pas besoin peut reste a null ...
-	 private InformationUser infou = null;
-	 private InformationNetwork infon = null;
-	 private InformationPrograms infop = null;
+//	 private InformationUser infou = null;
+//	 private NetworkDhcpConfig infon = null;
+//	 private InformationPrograms infop = null;
+	public UsersData us_d = null;
+	public NetworkDhcpConfig ndhcp = null;
+ // private InformationProgram = null; // en attendant
 //	 private int infnbprog = 0;
+	
+
 	
 	public ComputerInformation (String ip)
 	{
@@ -45,35 +53,35 @@ public class ComputerInformation implements Serializable {
 		return this.ip;
 	}
 	
-	public void setInfoUser (InformationUser infou)
+//	public void setInfoUser (InformationUser infou)
+//	{
+//		this.infou = infou;
+//	}
+//
+//	public InformationUser getInfoUser()
+//	{
+//		return this.infou;
+//	}
+	
+	public void setInfoNetwork (NetworkDhcpConfig infon)
 	{
-		this.infou = infou;
+		this.ndhcp = infon;
 	}
 
-	public InformationUser getInfoUser()
+	public NetworkDhcpConfig getInfoNetwork()
 	{
-		return this.infou;
+		return this.ndhcp;
 	}
 	
-	public void setInfoNetwork (InformationNetwork infon)
-	{
-		this.infon = infon;
-	}
-
-	public InformationNetwork getInfoNetwork()
-	{
-		return this.infon;
-	}
-	
-	public void setInfoPrograms (InformationPrograms infop)
-	{
-		this.infop = infop;
-	}
-
-	public InformationPrograms getInfoPrograms()
-	{
-		return this.infop;
-	}
+//	public void setInfoPrograms (InformationPrograms infop)
+//	{
+//		this.infop = infop;
+//	}
+//
+//	public InformationPrograms getInfoPrograms()
+//	{
+//		return this.infop;
+//	}
 
 //	public void incProgressionProg(int lasttotal)
 //	{

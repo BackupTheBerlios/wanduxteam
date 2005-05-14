@@ -8,5 +8,6 @@
 	<classpathentry kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.j2ee-1.4"/>
 	<classpathentry kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.junit-3.8.1"/>
 	<classpathentry kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.wsi-1.0"/>
+	<classpathentry kind="lib" path="utils/lib/jbossall-client.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -4,8 +4,8 @@
  * To change the template for this generated file go to
  * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
-package pfe.migration.client.network;
 
+package pfe.migration.client.network;
 import java.rmi.RemoteException;
 import java.util.Properties;
 
@@ -13,8 +13,11 @@ import javax.ejb.RemoveException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
+import net.sf.hibernate.Session;
+import net.sf.hibernate.Transaction;
 import pfe.migration.server.ejb.WanduxEjb;
 import pfe.migration.server.ejb.WanduxEjbHome;
+import pfe.migration.server.ejb.bdd.NetworkDhcpConfig;
 import pfe.migration.server.monitor.ClientMonitor;
 
 /**
@@ -55,6 +58,7 @@ public class ClientEjb {
 	      bean = home.create();
 	  	}
 	    catch (Exception e) { e.printStackTrace(); }
+	    System.out.println("connection effecue");
 	}
 
 	public void EjbClose()
@@ -64,12 +68,38 @@ public class ClientEjb {
 		} catch (RemoteException e) { e.printStackTrace();
 		} catch (RemoveException e) { e.printStackTrace();
 		}
+		System.out.println("connection ferme");
 	}
+	
+	
 
 	/**
 	 * methotes d'exemple
 	 * @return
 	 */
+	
+	
+	public void Transfert ()
+	{
+		System.out.println("transfer commence");
+		Transaction transaction;
+		Session session;
+		ComputerInformation ci = new ComputerInformation();
+		ci.ndhcp = new NetworkDhcpConfig();
+		ci.ndhcp.setDhcpAdress("127.0.0.2");
+		System.out.println("ci.ndhcp.getDhcpAdress()>" + ci.ndhcp.getDhcpAdress());
+		try {
+			bean.putComputerInformation(ci);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("transfer termine");
+	}
+		
+	
+	
+	
 	public String[] giveMsg ()
 	{
 		String [] st = new String[2];
