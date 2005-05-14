@@ -1,0 +1,25 @@
+
+Exemple de code pour recuperer / inserer des donnees dans la BDD depuis le code Java
+
+
+		Transaction transaction;
+		Session session;
+		
+			session = HibernateUtil.currentSession();
+			transaction = session.beginTransaction();
+			List l = session.find(" from GlobalConf "); // ou (" from NetworkDhcpConfig ")    ou (" from UsersData ")
+			
+			Iterator i = l.iterator();
+			while (i.hasNext())
+			{
+				GlobalConf gc = (GlobalConf)i.next();
+
+				gc.setHostname(hostName)  // Apel pour setter une donne
+
+				hostName = gc.getHostname(hostName) // Apel pour getter une donne
+
+				session.save(shs);
+			}
+			transaction.commit();
+			HibernateUtil.closeSession();
+		} catch (HibernateException e) { e.printStackTrace(); }
