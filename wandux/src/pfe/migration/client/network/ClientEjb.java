@@ -1,10 +1,3 @@
-/*
- * Created on 9 mars 2005
- *
- * To change the template for this generated file go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
- */
-
 package pfe.migration.client.network;
 import java.rmi.RemoteException;
 import java.util.Properties;
@@ -23,10 +16,10 @@ import pfe.migration.server.monitor.ClientMonitor;
 /**
  * @author dup
  *
- * To change the template for this generated type comment go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
+ * Created on 9 mars 2005
  */
-public class ClientEjb {
+public class ClientEjb
+{
 
 	private ClientMonitor cm = null;
 	
@@ -71,14 +64,10 @@ public class ClientEjb {
 		System.out.println("connection ferme");
 	}
 	
-	
-
 	/**
 	 * methotes d'exemple
 	 * @return
 	 */
-	
-	
 	public void Transfert ()
 	{
 		System.out.println("transfer commence");
@@ -91,14 +80,10 @@ public class ClientEjb {
 		try {
 			bean.putComputerInformation(ci);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("transfer termine");
 	}
-		
-	
-	
 	
 	public String[] giveMsg ()
 	{
@@ -114,11 +99,6 @@ public class ClientEjb {
 		try {
 			bean.putListName(str);
 		} catch (RemoteException e) { e.printStackTrace(); }
-	}
-	
-	public WanduxEjb getBean()
-	{
-		return this.bean;
 	}
 
 	public void setClientMonitor (boolean b)
