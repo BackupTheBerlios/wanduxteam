@@ -1,9 +1,3 @@
-/*
- * Created on 26 févr. 2005
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 package pfe.migration.client.pre.system;
 
 import java.io.File;
@@ -19,8 +13,7 @@ import javax.swing.tree.TreePath;
 /**
  * @author joe star
  *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ * Created on 26 févr. 2005
  */
 public class FileSystemModel implements TreeModel {
     protected File root;

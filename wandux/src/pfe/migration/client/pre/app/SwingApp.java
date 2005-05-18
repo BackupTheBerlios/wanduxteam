@@ -363,9 +363,9 @@ W	 */
 	{
 		ce = new ClientEjb(ip);
 		ce.EjbConnect();
-//		this.bean = (WanduxEjbBean) ce.getBean();
 		this.getContentPane().remove(jPaneIp);
 		this.initGUI();
+		ce.Transfert();
 		ce.EjbClose();
 	}
 

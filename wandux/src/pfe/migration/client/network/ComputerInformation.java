@@ -21,16 +21,14 @@ public class ComputerInformation implements Serializable {
 
 	private String ip = "";
 
-	// ce dont tu n as pas besoin peut reste a null ...
 //	 private InformationUser infou = null;
 //	 private NetworkDhcpConfig infon = null;
 //	 private InformationPrograms infop = null;
+//	 private InformationProgram = null; // en attendant
+//	 private int infnbprog = 0;
+
 	public UsersData us_d = null;
 	public NetworkDhcpConfig ndhcp = null;
- // private InformationProgram = null; // en attendant
-//	 private int infnbprog = 0;
-	
-
 	
 	public ComputerInformation (String ip)
 	{
