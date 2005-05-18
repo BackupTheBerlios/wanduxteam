@@ -1,35 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id: mysql-ds.xml,v 1.1 2005/05/18 10:21:43 gcoat Exp $ -->
+<!-- $Id: mysql-ds.xml,v 1.2 2005/05/18 17:25:07 dup Exp $ -->
 <!--  Datasource config for MySQL using 3.0.9 available from:
 http://www.mysql.com/downloads/api-jdbc-stable.html
 -->
 
 <datasources>
-
-  <local-tx-datasource>
-    <jndi-name>data_prod</jndi-name>
-    <connection-url>jdbc:mysql://localhost:3306/dorian_prod</connection-url>
-    <driver-class>com.mysql.jdbc.Driver</driver-class>
-    <user-name>prod</user-name>
-    <password>prod</password>
-  </local-tx-datasource>
-
-  <local-tx-datasource>
-    <jndi-name>data_central</jndi-name>
-    <connection-url>jdbc:mysql://localhost:3306/dorian_central</connection-url>
-    <driver-class>com.mysql.jdbc.Driver</driver-class>
-    <user-name>central</user-name>
-    <password>central</password>
-  </local-tx-datasource>
-
-  <local-tx-datasource>
-    <jndi-name>data_shop</jndi-name>
-    <connection-url>jdbc:mysql://localhost:3306/dorian_shop</connection-url>
-    <driver-class>com.mysql.jdbc.Driver</driver-class>
-    <user-name>shop</user-name>
-    <password>shop</password>
-  </local-tx-datasource>
 
   <local-tx-datasource>
     <jndi-name>wandux</jndi-name>

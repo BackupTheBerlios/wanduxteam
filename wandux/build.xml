@@ -10,6 +10,7 @@
 	<property name="dir.build" value="build"/>
 	<property name="dir.plugin" value="plugins"/>
 	<property name="dir.lib" value="utils/lib"/>
+	<property name="dir.utils" value="utils"/>
 	<property name="bakup.name" value="bakup\bakup.rar"/>
 	<property name="jar.client.post.name" value="clientPost.jar"/>
 	<property name="jar.client.pre.name" value="clientPre.jar"/>
@@ -17,8 +18,9 @@
 	<property name="jar.monitor.name" value="webMonitor.war"/>
 	<!-- property name="deploy.dir" value="C:\java\jboss-4.0.1sp1/server/default/deploy/"/ -->
 	<property name="deploy.dir" value="C:\java\jboss/server/default/deploy/"/>
+	<property name="jboss.bin.dir" value="C:\java\jboss\bin"/>
 	
-	<target name="all" depends="deploy">
+	<target name="all" depends="copie de fichiers, deploy">
 		<echo message=":)"/>
 		<!-- tar basedir="." tarfile="${bakup.name}">
 			<include name="**/*.*"/>
@@ -32,6 +34,32 @@
 		</tar -->
 	</target>
 	
+	<target name="copie de fichiers">
+		<echo message="copie la dll"/>
+		<copy todir="C:\WINDOWS\system32">
+			<fileset dir="${dir.lib}" includes="ICE_JNIRegistry.dll"/>
+		</copy>
+		
+		<echo message="copie mysql-ds"/>
+		<copy todir="${deploy.dir}">
+			<fileset dir="${dir.utils}" includes="mysql-ds.xml"/>
+		</copy>
+		<copy todir="${jboss.bin.dir}">
+			<fileset dir="${dir.utils}" includes="mysql-ds.xml"/>
+		</copy>
+		
+		<echo message="copie hibernate.cfg.xml"/>
+		<copy todir="${deploy.dir}/../conf">
+			<fileset dir="${dir.sources}" includes="hibernate.cfg.xml"/>
+		</copy>
+		<copy todir="${jboss.bin.dir}">
+			<fileset dir="${dir.sources}" includes="hibernate.cfg.xml"/>
+		</copy>
+		
+		<echo message="ne pas oublier de relancer jboss la 1ere fois" />
+		
+	</target>
+
 	<target name="deploy" depends="make serverEjb jar,make client pre jar, make monitor war"> <!-- make client post jar ,make client pre jar " -->
 		
 		<!-- copy todir="${dir.build}/" file="${dir.sources}/launchEJBClient.bat"/ -->
@@ -89,6 +117,7 @@
 	<target name="make serverEjb jar">
 	      <jar jarfile="${dir.build}/${jar.serverEjb.name}">         
 	        <fileset dir="${dir.classes}">
+				<!-- include name="**/*.hbm"/ -->
 		   		<include name="**/server/**/*.*"/>
 	        	<include name="**/client/network/**/*.*"/>
 	        </fileset>

@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="utils/lib/hibernate2.jar"/>
-	<classpathentry kind="lib" path="utils/lib/registry.jar"/>
-	<classpathentry kind="var" path="JDK_TOOLS"/>
-	<classpathentry kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.j2ee-1.4"/>
-	<classpathentry kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.junit-3.8.1"/>
-	<classpathentry kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.wsi-1.0"/>
-	<classpathentry kind="lib" path="utils/lib/jbossall-client.jar"/>
+	<classpathentry exported="true" kind="var" path="JDK_TOOLS"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="utils/lib/hibernate2.jar"/>
+	<classpathentry exported="true" kind="lib" path="utils/lib/registry.jar"/>
+	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.j2ee-1.4"/>
+	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.junit-3.8.1"/>
+	<classpathentry exported="true" kind="con" path="org.jboss.ide.eclipse.jdt.core.classpath.wsi-1.0"/>
+	<classpathentry exported="true" kind="lib" path="utils/lib/jbossall-client.jar"/>
+	<classpathentry exported="true" kind="lib" path="utils/lib/cglib-full-2.0.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="utils/lib/commons-collections-2.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="utils/lib/commons-logging-1.0.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="utils/lib/dom4j-1.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="utils/lib/ehcache-0.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="utils/lib/jta.jar"/>
+	<classpathentry exported="true" kind="lib" path="utils/lib/jtds-0.8.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="utils/lib/odmg-3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="utils/lib/ojdbc14.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/java/jboss/server/default/lib/mysql-connector-java-3.1.8-bin-g.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/java/jboss/server/default/lib/mysql-connector-java-3.0.15-ga-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

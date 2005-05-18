@@ -39,7 +39,7 @@ public class EnterIpView extends JPanel implements KeyListener
 	{
 		this.listener = listenerApp;
 		
-		text = new JTextField("", 6);
+		text = new JTextField("127.0.0.1", 6); // TODO a changer
 		text.addKeyListener(this);
 		
 		mc = new Img(new ImageIcon("utils/logo.png").getImage());
@@ -47,6 +47,8 @@ public class EnterIpView extends JPanel implements KeyListener
 		this.add(mc);
 		this.add(new Label("enter application server ip : "));
 		this.add(text);
+		
+		this.text.requestFocus();
 
 	}
 	

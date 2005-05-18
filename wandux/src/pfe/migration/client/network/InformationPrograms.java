@@ -17,9 +17,9 @@ public class InformationPrograms {
 	/**
 	 * 
 	 */
-	public InformationPrograms() {
+	public InformationPrograms()
+	{
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public int getNbPrograms()

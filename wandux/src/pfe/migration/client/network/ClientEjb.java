@@ -1,4 +1,5 @@
 package pfe.migration.client.network;
+
 import java.rmi.RemoteException;
 import java.util.Properties;
 
@@ -11,7 +12,6 @@ import net.sf.hibernate.Transaction;
 import pfe.migration.server.ejb.WanduxEjb;
 import pfe.migration.server.ejb.WanduxEjbHome;
 import pfe.migration.server.ejb.bdd.NetworkDhcpConfig;
-import pfe.migration.server.monitor.ClientMonitor;
 
 /**
  * @author dup
@@ -20,8 +20,7 @@ import pfe.migration.server.monitor.ClientMonitor;
  */
 public class ClientEjb
 {
-
-	private ClientMonitor cm = null;
+//	private ClientMonitor cm = null;
 	
 	private static String SERVER_EJB_NAME = "";
 	
@@ -30,7 +29,7 @@ public class ClientEjb
 	public ClientEjb (String ipEjb)
 	{
 		SERVER_EJB_NAME = ipEjb;
-		System.out.println("ip du serveur EJB = " + SERVER_EJB_NAME);
+		System.out.println("ip du serveur d'application = " + SERVER_EJB_NAME);
 	}
 
 	public void EjbConnect ()
@@ -41,6 +40,7 @@ public class ClientEjb
 	
 	    WanduxEjbHome home = null;
 	    
+		System.out.println("connection en cours de connection");
 	    try {
 	    	ppt = new Properties();
 	      ppt.put(Context.INITIAL_CONTEXT_FACTORY, "org.jnp.interfaces.NamingContextFactory");
@@ -56,6 +56,7 @@ public class ClientEjb
 
 	public void EjbClose()
 	{
+		System.out.println("connection en cours de fermeture");
 		try {
 			this.bean.remove();
 		} catch (RemoteException e) { e.printStackTrace();
@@ -74,9 +75,11 @@ public class ClientEjb
 		Transaction transaction;
 		Session session;
 		ComputerInformation ci = new ComputerInformation();
-		ci.ndhcp = new NetworkDhcpConfig();
+//		ci.ndhcp.newInstance();
+		ci.ndhcp = new NetworkDhcpConfig("0", "0", "0", "0", "0", "0", "0", "0");
 		ci.ndhcp.setDhcpAdress("127.0.0.2");
-		System.out.println("ci.ndhcp.getDhcpAdress()>" + ci.ndhcp.getDhcpAdress());
+		System.out.println("ci.ndhcp.setDhcpAdress(\"127.0.0.2\")\nci.ndhcp.getDhcpAdress()>"
+				+ ci.ndhcp.getDhcpAdress());
 		try {
 			bean.putComputerInformation(ci);
 		} catch (RemoteException e) {
@@ -101,14 +104,14 @@ public class ClientEjb
 		} catch (RemoteException e) { e.printStackTrace(); }
 	}
 
-	public void setClientMonitor (boolean b)
-	{
-		if (b == true)
-			cm = new ClientMonitor();
-	}
-
-	public ClientMonitor getClientMonitor()
-	{
-		return cm;
-	}
+//	public void setClientMonitor (boolean b)
+//	{
+//		if (b == true)
+//			cm = new ClientMonitor();
+//	}
+//
+//	public ClientMonitor getClientMonitor()
+//	{
+//		return cm;
+//	}
 }
