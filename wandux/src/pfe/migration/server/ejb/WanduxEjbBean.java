@@ -12,11 +12,8 @@ import javax.ejb.SessionContext;
 import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
-
 import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.server.ejb.bdd.HibernateUtil;
-import pfe.migration.server.monitor.CiList;
-import pfe.migration.server.monitor.ClientMonitor;
 import pfe.migration.server.monitor.ClientMonitorListener;
 
 /**
@@ -27,10 +24,9 @@ import pfe.migration.server.monitor.ClientMonitorListener;
  *           type="Stateless"
  *           view-type="remote"
  */
-public class WanduxEjbBean implements SessionBean {
-
+public class WanduxEjbBean implements SessionBean
+{
 //	List computerList = new ArrayList(); // ip des machines
-	
 //	private ClientMonitor cml = null;
 	
 	// -- ejb ------------------------------------------------------------------------------------ //
@@ -63,20 +59,13 @@ public class WanduxEjbBean implements SessionBean {
 	public void putComputerInformation(ComputerInformation ci) // String ip, // final  
 	{
 //		migrationInProgress.add(ip);
-
 //		final ComputerInformation ref = null;
-
-		
 //		new Thread()
 //		{
 //		  public void run()
-//		  {
-		  	
+//		  {	  	
 //			ref.setInfoNetwork(ci.getInfoNetwork());
 //		  	String ip = ref.getIp();
-
-		System.out.println("\n\ncicici:" + ci + "\n\n");
-		
 		
 	  	String ip = ci.getIp();
 		//cml.CINewIp(ip);
@@ -88,39 +77,24 @@ public class WanduxEjbBean implements SessionBean {
 			transaction = session.beginTransaction();
 			session.save(ci.ndhcp);
 			transaction.commit();
+			HibernateUtil.closeSession();
 		} catch (HibernateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-
-		try {
-			HibernateUtil.closeSession();
-		} catch (HibernateException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		
-		
-		
-		
 		System.out.println(ci.ndhcp.getDhcpAdress());
 			
-		  	// TODO signaler au module web chaque etape
-
-		  	// step1
+// TODO signaler au module web chaque etape
+//		  	// step1
 //		  	ref.setInfoUser(ci.getInfoUser());
 //		  	changeCmlStep(ip, 1, 0);
 //			// step2
 //		  	ref.setInfoPrograms(ci.getInfoPrograms());
 //		  	changeCmlStep(ip, 2, 0);
-			// step3
+//			// step3
 //		  	changeCmlStep(ip, 3, 0);
 //			computerList.add(ci);
 //		  }
 //		}.start();
-
 	}
 	
 	public void getClientMonitor(ClientMonitorListener cml)
@@ -133,11 +107,16 @@ public class WanduxEjbBean implements SessionBean {
 //		this.cml.CIProgress(ip,step,percent);
 //	}
 
+//	public ComputerInformation getComputerInformation()
+//	{
+//		return ci;
+//	}
 	
 	
 	public ComputerInformation getComputerInformation()
 	{
 		return null;
 	}
+
 
 }
