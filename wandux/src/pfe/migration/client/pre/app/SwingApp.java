@@ -105,10 +105,9 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 
 	// -- les differents tabs -- // fin
 
-	// -- partie touchant le reseaux -- // en travaux
+	// -- partie touchant le reseaux -- //
 	private EnterIpView jPaneIp = null;
 	private ClientEjb 	ce = null;
-//	private WanduxEjbBean bean = null; // a virer par la suite  / temporaire
 	
 	public static void main(String[] args)
 	{
@@ -126,8 +125,6 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 //		initGUI();
 		
 		// bean.putComputerInformation();
-		
-
 	}
 	
 	private void initIP() // pas touche !! >> DUP
@@ -173,7 +170,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 			RegistryTester();
 			FileTree();
 			
-			// Bug making independant method
+			// TODO Bug making independant method
 			{
 				FileIndex = new JPanel();
 				JButton fileindexbutton = new JButton("Generate file index");
@@ -288,8 +285,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 
 	/**
 	 * Browse file (TODO: add extension filter)
-	 *
-	 */
+W	 */
 	public void FileTree()
 	{
 		final JTextArea fileDetails = new JTextArea("");
@@ -322,7 +318,6 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	    } else {
 	    	for (int i=0; i<children.length; i++)
 	    	{
-//	    		allNameList += children[i] + "\r\n";
 	    		components.add(children[i]);
 	    	}
     	}
@@ -371,7 +366,6 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 //		this.bean = (WanduxEjbBean) ce.getBean();
 		this.getContentPane().remove(jPaneIp);
 		this.initGUI();
-		ce.Transfert();
 		ce.EjbClose();
 	}
 
