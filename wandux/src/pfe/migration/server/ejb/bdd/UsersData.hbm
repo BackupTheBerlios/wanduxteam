@@ -4,27 +4,33 @@
 	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
 
 <hibernate-mapping package="pfe.migration.server.ejb.bdd">
-	<class name="UsersData" table="users_data">
+	<class
+		name="UsersData"
+		table="users_data"
+	>
 		<id
-			column="key"
 			name="Key"
 			type="string"
+			column="key"
 		>
-			<generator class="vm" />
+			<generator class="vm"/>
 		</id>
+
 		<property
-			column="type"
-			length="50"
 			name="Type"
-			not-null="true"
+			column="type"
 			type="string"
-		 />
-		<property
-			column="login"
+			not-null="true"
 			length="50"
+		/>
+		<property
 			name="Login"
-			not-null="true"
+			column="login"
 			type="string"
-		 />
+			not-null="true"
+			length="50"
+		/>
+
+
 	</class>
 </hibernate-mapping>

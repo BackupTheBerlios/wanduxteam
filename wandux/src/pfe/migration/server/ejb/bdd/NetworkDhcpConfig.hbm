@@ -6,8 +6,8 @@
 <hibernate-mapping package="pfe.migration.server.ejb.bdd">
 	<class name="NetworkDhcpConfig" table="network_dhcp_config">
 		<id
-			column="key"
-			name="Key"
+			column="id"
+			name="Id"
 			type="string"
 		>
 			<generator class="vm" />
