@@ -4,62 +4,68 @@
 	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
 
 <hibernate-mapping package="pfe.migration.server.ejb.bdd">
-	<class name="NetworkDhcpConfig" table="network_dhcp_config">
+	<class
+		name="NetworkDhcpConfig"
+		table="network_dhcp_config"
+	>
 		<id
-			column="id"
-			name="Id"
+			name="DhcpKey"
 			type="string"
+			column="dhcp_key"
 		>
-			<generator class="vm" />
+			<generator class="vm"/>
 		</id>
+
 		<property
-			column="dhcp_domain"
-			length="50"
 			name="DhcpDomain"
-			not-null="true"
+			column="dhcp_domain"
 			type="string"
-		 />
+			not-null="true"
+			length="50"
+		/>
 		<property
-			column="dhcp_def_gateway"
-			length="16"
 			name="DhcpDefGateway"
-			not-null="true"
+			column="dhcp_def_gateway"
 			type="string"
-		 />
-		<property
-			column="dhcp_server"
+			not-null="true"
 			length="16"
+		/>
+		<property
 			name="DhcpServer"
-			not-null="true"
+			column="dhcp_server"
 			type="string"
-		 />
-		<property
-			column="dhcp_subnetmask"
+			not-null="true"
 			length="16"
+		/>
+		<property
 			name="DhcpSubnetmask"
-			not-null="true"
+			column="dhcp_subnetmask"
 			type="string"
-		 />
-		<property
-			column="dhcp_pri_dns"
+			not-null="true"
 			length="16"
+		/>
+		<property
 			name="DhcpPriDns"
-			not-null="true"
+			column="dhcp_pri_dns"
 			type="string"
-		 />
-		<property
-			column="dhcp_adress"
+			not-null="true"
 			length="16"
+		/>
+		<property
 			name="DhcpAdress"
-			not-null="true"
+			column="dhcp_adress"
 			type="string"
-		 />
-		<property
-			column="dhcp_sec_dns"
+			not-null="true"
 			length="16"
+		/>
+		<property
 			name="DhcpSecDns"
-			not-null="true"
+			column="dhcp_sec_dns"
 			type="string"
-		 />
+			not-null="true"
+			length="16"
+		/>
+
+
 	</class>
 </hibernate-mapping>
