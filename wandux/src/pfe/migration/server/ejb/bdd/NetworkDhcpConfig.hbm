@@ -20,49 +20,49 @@
 			name="DhcpDomain"
 			column="dhcp_domain"
 			type="string"
-			not-null="true"
+			not-null="false"
 			length="50"
 		/>
 		<property
 			name="DhcpDefGateway"
 			column="dhcp_def_gateway"
 			type="string"
-			not-null="true"
+			not-null="false"
 			length="16"
 		/>
 		<property
 			name="DhcpServer"
 			column="dhcp_server"
 			type="string"
-			not-null="true"
+			not-null="false"
 			length="16"
 		/>
 		<property
 			name="DhcpSubnetmask"
 			column="dhcp_subnetmask"
 			type="string"
-			not-null="true"
+			not-null="false"
 			length="16"
 		/>
 		<property
 			name="DhcpPriDns"
 			column="dhcp_pri_dns"
 			type="string"
-			not-null="true"
+			not-null="false"
 			length="16"
 		/>
 		<property
 			name="DhcpAdress"
 			column="dhcp_adress"
 			type="string"
-			not-null="true"
+			not-null="false"
 			length="16"
 		/>
 		<property
 			name="DhcpSecDns"
 			column="dhcp_sec_dns"
 			type="string"
-			not-null="true"
+			not-null="false"
 			length="16"
 		/>
 

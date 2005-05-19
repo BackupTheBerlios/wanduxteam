@@ -77,7 +77,14 @@ public class ClientEjb
 		ComputerInformation ci = new ComputerInformation();
 //		ci.ndhcp.newInstance();
 		ci.ndhcp = new NetworkDhcpConfig();
-		ci.ndhcp.setDhcpAdress("127.0.0.2");
+//		ci.ndhcp.setDhcpServer("127.0.0.2");
+//		ci.ndhcp.setDhcpDefGateway("127.0.0.2");
+//		ci.ndhcp.setDhcpDomain("127.0.0.2");
+		ci.ndhcp.setDhcpAdress("Gael Rulz World");
+//		ci.ndhcp.setDhcpPriDns("127.0.0.2");
+//		ci.ndhcp.setDhcpSecDns("127.0.0.2");
+//		ci.ndhcp.setDhcpSubnetmask("127.0.0.2");
+		
 		System.out.println("ci.ndhcp.setDhcpAdress(\"127.0.0.2\")\nci.ndhcp.getDhcpAdress()>"
 				+ ci.ndhcp.getDhcpAdress());
 		try {
