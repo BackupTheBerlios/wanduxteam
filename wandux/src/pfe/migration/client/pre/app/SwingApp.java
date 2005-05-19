@@ -247,22 +247,22 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 				+ kvusers.getKeyValLocalMachine(
 						"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
 								+ curinterface, "DhcpServer"));
-		components.add("DhcpDefaultGateway: "
+		/*components.add("DhcpDefaultGateway: "
 				+ kvusers.getKeyValLocalMachine(
 						"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-								+ curinterface, "dhcpDefaultGateway"));
-		components.add("Dhcpdomain: "
+								+ curinterface, "dhcpDefaultGateway"));*/
+		/*components.add("Dhcpdomain: "
 				+ kvusers.getKeyValLocalMachine(
 						"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-								+ curinterface, "dhcpdomain"));
+								+ curinterface, "dhcpdomain"));*/
 		components.add("DhcpIpaddress: "
 				+ kvusers.getKeyValLocalMachine(
 						"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
 								+ curinterface, "dhcpIpaddress"));
-		components.add("DhcpNameServer: "
+		/*components.add("DhcpNameServer: "
 				+ kvusers.getKeyValLocalMachine(
 						"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-								+ curinterface, "DhcpNameServer"));
+								+ curinterface, "DhcpNameServer"));*/
 		components.add("DhcpSubnetMask: "
 				+ kvusers.getKeyValLocalMachine(
 						"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
