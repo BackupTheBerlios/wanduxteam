@@ -30,17 +30,17 @@ public abstract class BaseNetworkDhcpConfigDAO extends pfe.migration.server.ejb.
 		return pfe.migration.server.ejb.bdd.NetworkDhcpConfig.class;
 	}
 	
-	public pfe.migration.server.ejb.bdd.NetworkDhcpConfig load(java.lang.String key)
+	public pfe.migration.server.ejb.bdd.NetworkDhcpConfig load(java.lang.Integer key)
 		throws net.sf.hibernate.HibernateException {
 		return (pfe.migration.server.ejb.bdd.NetworkDhcpConfig) load(getReferenceClass(), key);
 	}
 
-	public pfe.migration.server.ejb.bdd.NetworkDhcpConfig load(java.lang.String key, Session s)
+	public pfe.migration.server.ejb.bdd.NetworkDhcpConfig load(java.lang.Integer key, Session s)
 		throws net.sf.hibernate.HibernateException {
 		return (pfe.migration.server.ejb.bdd.NetworkDhcpConfig) load(getReferenceClass(), key, s);
 	}
 
-	public pfe.migration.server.ejb.bdd.NetworkDhcpConfig loadInitialize(java.lang.String key, Session s) 
+	public pfe.migration.server.ejb.bdd.NetworkDhcpConfig loadInitialize(java.lang.Integer key, Session s) 
 			throws net.sf.hibernate.HibernateException { 
 		pfe.migration.server.ejb.bdd.NetworkDhcpConfig obj = load(key, s); 
 		if (!Hibernate.isInitialized(obj)) {
@@ -55,9 +55,9 @@ public abstract class BaseNetworkDhcpConfigDAO extends pfe.migration.server.ejb.
 	 * @param networkDhcpConfig a transient instance of a persistent class 
 	 * @return the class identifier
 	 */
-	public java.lang.String save(pfe.migration.server.ejb.bdd.NetworkDhcpConfig networkDhcpConfig)
+	public java.lang.Integer save(pfe.migration.server.ejb.bdd.NetworkDhcpConfig networkDhcpConfig)
 		throws net.sf.hibernate.HibernateException {
-		return (java.lang.String) super.save(networkDhcpConfig);
+		return (java.lang.Integer) super.save(networkDhcpConfig);
 	}
 
 	/**
@@ -68,9 +68,9 @@ public abstract class BaseNetworkDhcpConfigDAO extends pfe.migration.server.ejb.
 	 * @param s the Session
 	 * @return the class identifier
 	 */
-	public java.lang.String save(pfe.migration.server.ejb.bdd.NetworkDhcpConfig networkDhcpConfig, Session s)
+	public java.lang.Integer save(pfe.migration.server.ejb.bdd.NetworkDhcpConfig networkDhcpConfig, Session s)
 		throws net.sf.hibernate.HibernateException {
-		return (java.lang.String) super.save(networkDhcpConfig, s);
+		return (java.lang.Integer) super.save(networkDhcpConfig, s);
 	}
 
 	/**
@@ -124,7 +124,7 @@ public abstract class BaseNetworkDhcpConfigDAO extends pfe.migration.server.ejb.
 	 * Session or a transient instance with an identifier associated with existing persistent state. 
 	 * @param id the instance ID to be removed
 	 */
-	public void delete(java.lang.String id)
+	public void delete(java.lang.Integer id)
 		throws net.sf.hibernate.HibernateException {
 		super.delete(load(id));
 	}
@@ -136,7 +136,7 @@ public abstract class BaseNetworkDhcpConfigDAO extends pfe.migration.server.ejb.
 	 * @param id the instance ID to be removed
 	 * @param s the Session
 	 */
-	public void delete(java.lang.String id, Session s)
+	public void delete(java.lang.Integer id, Session s)
 		throws net.sf.hibernate.HibernateException {
 		super.delete(load(id, s), s);
 	}

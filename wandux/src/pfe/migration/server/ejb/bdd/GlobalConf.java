@@ -16,7 +16,7 @@ public class GlobalConf extends BaseGlobalConf {
 	/**
 	 * Constructor for primary key
 	 */
-	public GlobalConf (java.lang.String _key) {
+	public GlobalConf (java.lang.Integer _key) {
 		super(_key);
 	}
 
@@ -24,7 +24,7 @@ public class GlobalConf extends BaseGlobalConf {
 	 * Constructor for required fields
 	 */
 	public GlobalConf (
-		java.lang.String _key,
+		java.lang.Integer _key,
 		java.lang.String _hostname) {
 
 		super (

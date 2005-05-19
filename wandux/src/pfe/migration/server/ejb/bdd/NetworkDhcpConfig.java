@@ -16,7 +16,7 @@ public class NetworkDhcpConfig extends BaseNetworkDhcpConfig {
 	/**
 	 * Constructor for primary key
 	 */
-	public NetworkDhcpConfig (java.lang.String _dhcpKey) {
+	public NetworkDhcpConfig (java.lang.Integer _dhcpKey) {
 		super(_dhcpKey);
 	}
 
@@ -24,7 +24,7 @@ public class NetworkDhcpConfig extends BaseNetworkDhcpConfig {
 	 * Constructor for required fields
 	 */
 	public NetworkDhcpConfig (
-		java.lang.String _dhcpKey,
+		java.lang.Integer _dhcpKey,
 		java.lang.String _dhcpDomain,
 		java.lang.String _dhcpDefGateway,
 		java.lang.String _dhcpServer,
@@ -43,5 +43,6 @@ public class NetworkDhcpConfig extends BaseNetworkDhcpConfig {
 			_dhcpAdress,
 			_dhcpSecDns);
 	}
+
 /*[CONSTRUCTOR MARKER END]*/
 }

@@ -76,7 +76,7 @@ public class ClientEjb
 		Session session;
 		ComputerInformation ci = new ComputerInformation();
 //		ci.ndhcp.newInstance();
-		ci.ndhcp = new NetworkDhcpConfig("0", "0", "0", "0", "0", "0", "0", "0");
+		ci.ndhcp = new NetworkDhcpConfig();
 		ci.ndhcp.setDhcpAdress("127.0.0.2");
 		System.out.println("ci.ndhcp.setDhcpAdress(\"127.0.0.2\")\nci.ndhcp.getDhcpAdress()>"
 				+ ci.ndhcp.getDhcpAdress());

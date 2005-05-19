@@ -10,7 +10,7 @@
 	>
 		<id
 			name="DhcpKey"
-			type="string"
+			type="integer"
 			column="dhcp_key"
 		>
 			<generator class="vm"/>

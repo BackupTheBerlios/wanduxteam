@@ -10,7 +10,7 @@
 	>
 		<id
 			name="Key"
-			type="string"
+			type="integer"
 			column="key"
 		>
 			<generator class="vm"/>

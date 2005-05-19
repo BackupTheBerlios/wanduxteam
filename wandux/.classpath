@@ -18,7 +18,6 @@
 	<classpathentry exported="true" kind="lib" path="utils/lib/jtds-0.8.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="utils/lib/odmg-3.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="utils/lib/ojdbc14.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/java/jboss/server/default/lib/mysql-connector-java-3.1.8-bin-g.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/java/jboss/server/default/lib/mysql-connector-java-3.0.15-ga-bin.jar"/>
+	<classpathentry kind="lib" path="C:/JBoss/server/default/lib/mysql-connector-java-3.0.15-ga-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -30,7 +30,7 @@ public abstract class BaseNetworkDhcpConfig  implements Serializable {
 	private int hashCode = Integer.MIN_VALUE;
 
 	// primary key
-	private java.lang.String _dhcpKey;
+	private java.lang.Integer _dhcpKey;
 
 	// fields
 	private java.lang.String _dhcpDomain;
@@ -50,7 +50,7 @@ public abstract class BaseNetworkDhcpConfig  implements Serializable {
 	/**
 	 * Constructor for primary key
 	 */
-	public BaseNetworkDhcpConfig (java.lang.String _dhcpKey) {
+	public BaseNetworkDhcpConfig (java.lang.Integer _dhcpKey) {
 		this.setDhcpKey(_dhcpKey);
 		initialize();
 	}
@@ -59,7 +59,7 @@ public abstract class BaseNetworkDhcpConfig  implements Serializable {
 	 * Constructor for required fields
 	 */
 	public BaseNetworkDhcpConfig (
-		java.lang.String _dhcpKey,
+		java.lang.Integer _dhcpKey,
 		java.lang.String _dhcpDomain,
 		java.lang.String _dhcpDefGateway,
 		java.lang.String _dhcpServer,
@@ -89,7 +89,7 @@ public abstract class BaseNetworkDhcpConfig  implements Serializable {
      *  generator-class="vm"
      *  column="dhcp_key"
      */
-	public java.lang.String getDhcpKey () {
+	public java.lang.Integer getDhcpKey () {
 		return _dhcpKey;
 	}
 
@@ -97,7 +97,7 @@ public abstract class BaseNetworkDhcpConfig  implements Serializable {
 	 * Set the unique identifier of this class
 	 * @param _dhcpKey the new ID
 	 */
-	public void setDhcpKey (java.lang.String _dhcpKey) {
+	public void setDhcpKey (java.lang.Integer _dhcpKey) {
 		this._dhcpKey = _dhcpKey;
 		this.hashCode = Integer.MIN_VALUE;
 	}

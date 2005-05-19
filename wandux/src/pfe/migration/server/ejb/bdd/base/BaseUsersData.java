@@ -25,7 +25,7 @@ public abstract class BaseUsersData  implements Serializable {
 	private int hashCode = Integer.MIN_VALUE;
 
 	// primary key
-	private java.lang.String _key;
+	private java.lang.Integer _key;
 
 	// fields
 	private java.lang.String _type;
@@ -40,7 +40,7 @@ public abstract class BaseUsersData  implements Serializable {
 	/**
 	 * Constructor for primary key
 	 */
-	public BaseUsersData (java.lang.String _key) {
+	public BaseUsersData (java.lang.Integer _key) {
 		this.setKey(_key);
 		initialize();
 	}
@@ -49,7 +49,7 @@ public abstract class BaseUsersData  implements Serializable {
 	 * Constructor for required fields
 	 */
 	public BaseUsersData (
-		java.lang.String _key,
+		java.lang.Integer _key,
 		java.lang.String _type,
 		java.lang.String _login) {
 
@@ -69,7 +69,7 @@ public abstract class BaseUsersData  implements Serializable {
      *  generator-class="vm"
      *  column="key"
      */
-	public java.lang.String getKey () {
+	public java.lang.Integer getKey () {
 		return _key;
 	}
 
@@ -77,7 +77,7 @@ public abstract class BaseUsersData  implements Serializable {
 	 * Set the unique identifier of this class
 	 * @param _key the new ID
 	 */
-	public void setKey (java.lang.String _key) {
+	public void setKey (java.lang.Integer _key) {
 		this._key = _key;
 		this.hashCode = Integer.MIN_VALUE;
 	}

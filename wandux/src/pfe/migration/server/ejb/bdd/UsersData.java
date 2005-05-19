@@ -16,7 +16,7 @@ public class UsersData extends BaseUsersData {
 	/**
 	 * Constructor for primary key
 	 */
-	public UsersData (java.lang.String _key) {
+	public UsersData (java.lang.Integer _key) {
 		super(_key);
 	}
 
@@ -24,7 +24,7 @@ public class UsersData extends BaseUsersData {
 	 * Constructor for required fields
 	 */
 	public UsersData (
-		java.lang.String _key,
+		java.lang.Integer _key,
 		java.lang.String _type,
 		java.lang.String _login) {
 

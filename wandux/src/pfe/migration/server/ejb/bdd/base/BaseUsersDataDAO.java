@@ -30,17 +30,17 @@ public abstract class BaseUsersDataDAO extends pfe.migration.server.ejb.bdd.dao.
 		return pfe.migration.server.ejb.bdd.UsersData.class;
 	}
 	
-	public pfe.migration.server.ejb.bdd.UsersData load(java.lang.String key)
+	public pfe.migration.server.ejb.bdd.UsersData load(java.lang.Integer key)
 		throws net.sf.hibernate.HibernateException {
 		return (pfe.migration.server.ejb.bdd.UsersData) load(getReferenceClass(), key);
 	}
 
-	public pfe.migration.server.ejb.bdd.UsersData load(java.lang.String key, Session s)
+	public pfe.migration.server.ejb.bdd.UsersData load(java.lang.Integer key, Session s)
 		throws net.sf.hibernate.HibernateException {
 		return (pfe.migration.server.ejb.bdd.UsersData) load(getReferenceClass(), key, s);
 	}
 
-	public pfe.migration.server.ejb.bdd.UsersData loadInitialize(java.lang.String key, Session s) 
+	public pfe.migration.server.ejb.bdd.UsersData loadInitialize(java.lang.Integer key, Session s) 
 			throws net.sf.hibernate.HibernateException { 
 		pfe.migration.server.ejb.bdd.UsersData obj = load(key, s); 
 		if (!Hibernate.isInitialized(obj)) {
@@ -55,9 +55,9 @@ public abstract class BaseUsersDataDAO extends pfe.migration.server.ejb.bdd.dao.
 	 * @param usersData a transient instance of a persistent class 
 	 * @return the class identifier
 	 */
-	public java.lang.String save(pfe.migration.server.ejb.bdd.UsersData usersData)
+	public java.lang.Integer save(pfe.migration.server.ejb.bdd.UsersData usersData)
 		throws net.sf.hibernate.HibernateException {
-		return (java.lang.String) super.save(usersData);
+		return (java.lang.Integer) super.save(usersData);
 	}
 
 	/**
@@ -68,9 +68,9 @@ public abstract class BaseUsersDataDAO extends pfe.migration.server.ejb.bdd.dao.
 	 * @param s the Session
 	 * @return the class identifier
 	 */
-	public java.lang.String save(pfe.migration.server.ejb.bdd.UsersData usersData, Session s)
+	public java.lang.Integer save(pfe.migration.server.ejb.bdd.UsersData usersData, Session s)
 		throws net.sf.hibernate.HibernateException {
-		return (java.lang.String) super.save(usersData, s);
+		return (java.lang.Integer) super.save(usersData, s);
 	}
 
 	/**
@@ -124,7 +124,7 @@ public abstract class BaseUsersDataDAO extends pfe.migration.server.ejb.bdd.dao.
 	 * Session or a transient instance with an identifier associated with existing persistent state. 
 	 * @param id the instance ID to be removed
 	 */
-	public void delete(java.lang.String id)
+	public void delete(java.lang.Integer id)
 		throws net.sf.hibernate.HibernateException {
 		super.delete(load(id));
 	}
@@ -136,7 +136,7 @@ public abstract class BaseUsersDataDAO extends pfe.migration.server.ejb.bdd.dao.
 	 * @param id the instance ID to be removed
 	 * @param s the Session
 	 */
-	public void delete(java.lang.String id, Session s)
+	public void delete(java.lang.Integer id, Session s)
 		throws net.sf.hibernate.HibernateException {
 		super.delete(load(id, s), s);
 	}
