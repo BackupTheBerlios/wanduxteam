@@ -18,6 +18,7 @@ import java.io.Serializable;
 public abstract class BaseNetworkDhcpConfig  implements Serializable {
 
 	public static String PROP_DHCP_DEF_GATEWAY = "DhcpDefGateway";
+	public static String PROP_DHCP_ENABLED = "DhcpEnabled";
 	public static String PROP_DHCP_ADRESS = "DhcpAdress";
 	public static String PROP_DHCP_SUBNETMASK = "DhcpSubnetmask";
 	public static String PROP_DHCP_SEC_DNS = "DhcpSecDns";
@@ -40,6 +41,7 @@ public abstract class BaseNetworkDhcpConfig  implements Serializable {
 	private java.lang.String _dhcpPriDns;
 	private java.lang.String _dhcpAdress;
 	private java.lang.String _dhcpSecDns;
+	private java.lang.Integer _dhcpEnabled;
 
 
 	// constructors
@@ -52,30 +54,6 @@ public abstract class BaseNetworkDhcpConfig  implements Serializable {
 	 */
 	public BaseNetworkDhcpConfig (java.lang.Integer _dhcpKey) {
 		this.setDhcpKey(_dhcpKey);
-		initialize();
-	}
-
-	/**
-	 * Constructor for required fields
-	 */
-	public BaseNetworkDhcpConfig (
-		java.lang.Integer _dhcpKey,
-		java.lang.String _dhcpDomain,
-		java.lang.String _dhcpDefGateway,
-		java.lang.String _dhcpServer,
-		java.lang.String _dhcpSubnetmask,
-		java.lang.String _dhcpPriDns,
-		java.lang.String _dhcpAdress,
-		java.lang.String _dhcpSecDns) {
-
-		this.setDhcpKey(_dhcpKey);
-		this.setDhcpDomain(_dhcpDomain);
-		this.setDhcpDefGateway(_dhcpDefGateway);
-		this.setDhcpServer(_dhcpServer);
-		this.setDhcpSubnetmask(_dhcpSubnetmask);
-		this.setDhcpPriDns(_dhcpPriDns);
-		this.setDhcpAdress(_dhcpAdress);
-		this.setDhcpSecDns(_dhcpSecDns);
 		initialize();
 	}
 
@@ -212,6 +190,22 @@ public abstract class BaseNetworkDhcpConfig  implements Serializable {
 	 */
 	public void setDhcpSecDns (java.lang.String _dhcpSecDns) {
 		this._dhcpSecDns = _dhcpSecDns;
+	}
+
+
+	/**
+	 * Return the value associated with the column: dhcp_enabled
+	 */
+	public java.lang.Integer getDhcpEnabled () {
+		return _dhcpEnabled;
+	}
+
+	/**
+	 * Set the value related to the column: dhcp_enabled
+	 * @param _dhcpEnabled the dhcp_enabled value
+	 */
+	public void setDhcpEnabled (java.lang.Integer _dhcpEnabled) {
+		this._dhcpEnabled = _dhcpEnabled;
 	}
 
 

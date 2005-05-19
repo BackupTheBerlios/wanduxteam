@@ -75,7 +75,9 @@ public class WanduxEjbBean implements SessionBean
 		try {
 			session = HibernateUtil.currentSession();
 			transaction = session.beginTransaction();
+			session.save(ci.gconf);
 			session.save(ci.ndhcp);
+			session.save(ci.udata);
 			transaction.commit();
 			HibernateUtil.closeSession();
 		} catch (HibernateException e) {

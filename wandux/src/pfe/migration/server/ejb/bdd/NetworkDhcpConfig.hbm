@@ -65,6 +65,13 @@
 			not-null="false"
 			length="16"
 		/>
+		<property
+			name="DhcpEnabled"
+			column="dhcp_enabled"
+			type="integer"
+			not-null="false"
+			length="11"
+		/>
 
 
 	</class>

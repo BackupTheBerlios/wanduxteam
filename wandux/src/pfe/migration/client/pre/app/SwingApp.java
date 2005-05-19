@@ -29,9 +29,13 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
 import pfe.migration.client.network.ClientEjb;
+import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.client.pre.system.FileSystemModel;
 import pfe.migration.client.pre.system.KeyVal;
 import pfe.migration.server.ejb.WanduxEjbBean;
+import pfe.migration.server.ejb.bdd.GlobalConf;
+import pfe.migration.server.ejb.bdd.NetworkDhcpConfig;
+import pfe.migration.server.ejb.bdd.UsersData;
 /** 
 * This code was generated using CloudGarden's Jigloo
 * SWT/Swing GUI Builder, which is free for non-commercial
@@ -203,78 +207,96 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 				487, 315));
 	}
 
+	
 	/**
-	 * Graphical component : System informations
+	 * Data recuperation component : System informations
 	 *
 	 */
 	public void SystemInfos()
 	{
 		JPanel testpanel = new JPanel();
 		KeyVal kvusers = new KeyVal();
-		//			tabPrincipale.addTab("system configuration", null, testpanel,
-		// null);
+		ComputerInformation ci = new ComputerInformation();
+		ci.gconf = new GlobalConf();
+		ci.ndhcp = new NetworkDhcpConfig(ci.gconf.getKey());
+		ci.udata = new UsersData(ci.gconf.getKey());
+		
+		//Hostname
+		ci.gconf.setHostname(kvusers.getKeyValLocalMachine(
+							"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+							"HostName"));
+		
+		//Dhcp Enabled
+		String curinterface = kvusers
+		.FindCurrentInterFace("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces");
+		String enabledhcp = new String(kvusers.getKeyValLocalMachine(
+		"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
+				+ curinterface, "enabledhcp"));
+		if (enabledhcp.length() == 1)
+		{
+			ci.ndhcp.setDhcpEnabled(new Integer(1));
+		}
+		else
+		{
+			ci.ndhcp.setDhcpEnabled(new Integer(0));
+		}
+		
+		//DhcpServer
+		ci.ndhcp.setDhcpServer(kvusers.getKeyValLocalMachine(
+							"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
+							+ curinterface, "DhcpServer"));
+		
+		//DHcp Ip Adress
+		ci.ndhcp.setDhcpAdress(kvusers.getKeyValLocalMachine(
+							"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
+							+ curinterface, "dhcpIpaddress"));
+		
+		//DhcpSubNetMask
+		ci.ndhcp.setDhcpSubnetmask(kvusers.getKeyValLocalMachine(
+							"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
+							+ curinterface, "DhcpSubnetMask"));
+		
+		
+		
+		PrintSystemInfos(ci);
+		ce.Transfert(ci);
+	}
+	
+	
+	/**
+	 * Graphical component : System informations
+	 *
+	 */
+	public void PrintSystemInfos(ComputerInformation ci)
+	{
 		components = new List();
-
-		//			components.add("enabledhcp: "+ kvusers.getKeyValLocalMachine
-		//					("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
-		//					"enabledhcp"));
-		//			components.add("DisableDynamicUpdate: "+
-		// kvusers.getKeyValLocalMachine
-		//					("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\{5D57A7E1-F706-438F-ADA2-3DB088E24103}",
-		//					"DisableDynamicUpdate"));
+		
 		components.add("----------   Global configuration   -------------");
 		components.add("");
-		components
-				.add("HostName: "
-						+ kvusers
-								.getKeyValLocalMachine(
-										"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
-										"HostName"));
+		components.add("HostName: " + ci.gconf.getHostname());
 		components.add("");
 		components.add("----------   Network configuration   ------------");
 		components.add("");
-
-		String curinterface = kvusers
-				.FindCurrentInterFace("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces");
-		String enabledhcp = new String(kvusers.getKeyValLocalMachine(
-				"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-						+ curinterface, "enabledhcp"));
-		if (enabledhcp.length() == 1)
+		if (ci.ndhcp.getDhcpEnabled().intValue() == 1)
 			components.add("Dhcpenabled: yes");
+		else
+			components.add("Dhcpenabled: no");
 		components.add("");
-
-		components.add("DhcpServer: "
-				+ kvusers.getKeyValLocalMachine(
-						"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-								+ curinterface, "DhcpServer"));
-		/*components.add("DhcpDefaultGateway: "
-				+ kvusers.getKeyValLocalMachine(
-						"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-								+ curinterface, "dhcpDefaultGateway"));*/
-		/*components.add("Dhcpdomain: "
-				+ kvusers.getKeyValLocalMachine(
-						"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-								+ curinterface, "dhcpdomain"));*/
-		components.add("DhcpIpaddress: "
-				+ kvusers.getKeyValLocalMachine(
-						"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-								+ curinterface, "dhcpIpaddress"));
-		/*components.add("DhcpNameServer: "
-				+ kvusers.getKeyValLocalMachine(
-						"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-								+ curinterface, "DhcpNameServer"));*/
-		components.add("DhcpSubnetMask: "
-				+ kvusers.getKeyValLocalMachine(
-						"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-								+ curinterface, "DhcpSubnetMask"));
+		components.add("DhcpServer: " + ci.ndhcp.getDhcpServer());
+		components.add("DhcpIpaddress: " + ci.ndhcp.getDhcpAdress());
+		components.add("DhcpSubnetMask: " + ci.ndhcp.getDhcpSubnetmask());
 		components.add("");
 		components.add("-----------   Users configuration   -------------");
 		components.add("");
-		getUserList();
+
+		
+		
+		
+		//getUserList();
 
 		JSplitPane jSplitPaneRegistryTester2 = new JSplitPane(
 				JSplitPane.HORIZONTAL_SPLIT, true, new JTextField(
-						"system informations"), components);
+				"system informations"), components);
 		tabPrincipale.addTab("System informations", null,
 				jSplitPaneRegistryTester2, null);
 		jSplitPaneRegistryTester2.setDividerSize(1);
@@ -308,20 +330,20 @@ W	 */
 		jSplitPaneLocalFs.setDividerSize(1);
 		tabPrincipale.addTab("Local FS", null, jSplitPaneLocalFs, null);
 	}
-
-	private void getUserList()
-	{
-		
-		File dir = new File("C:\\Documents and Settings");
-	    String[] children = dir.list();
-	    if (children == null) {
-	    } else {
-	    	for (int i=0; i<children.length; i++)
-	    	{
-	    		components.add(children[i]);
-	    	}
-    	}
-	}
+//
+//	private void getUserList()
+//	{
+//		
+//		File dir = new File("C:\\Documents and Settings");
+//	    String[] children = dir.list();
+//	    if (children == null) {
+//	    } else {
+//	    	for (int i=0; i<children.length; i++)
+//	    	{
+//	    		components.add(children[i]);
+//	    	}
+//    	}
+//	}
     
 	private String getFileDetails(File file)
 	{
@@ -365,7 +387,6 @@ W	 */
 		ce.EjbConnect();
 		this.getContentPane().remove(jPaneIp);
 		this.initGUI();
-		ce.Transfert();
 		ce.EjbClose();
 	}
 

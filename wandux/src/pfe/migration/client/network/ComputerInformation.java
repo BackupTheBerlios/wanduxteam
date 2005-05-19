@@ -8,6 +8,7 @@ package pfe.migration.client.network;
 
 import java.io.Serializable;
 
+import pfe.migration.server.ejb.bdd.GlobalConf;
 import pfe.migration.server.ejb.bdd.NetworkDhcpConfig;
 import pfe.migration.server.ejb.bdd.UsersData;
 
@@ -27,7 +28,8 @@ public class ComputerInformation implements Serializable
 //	 private InformationProgram = null; // en attendant
 //	 private int infnbprog = 0;
 
-	public UsersData us_d = null;
+	public GlobalConf gconf = null;
+	public UsersData udata = null;
 	public NetworkDhcpConfig ndhcp = null;
 	
 	public ComputerInformation (String ip)

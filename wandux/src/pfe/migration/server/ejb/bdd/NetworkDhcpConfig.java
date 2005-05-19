@@ -19,30 +19,5 @@ public class NetworkDhcpConfig extends BaseNetworkDhcpConfig {
 	public NetworkDhcpConfig (java.lang.Integer _dhcpKey) {
 		super(_dhcpKey);
 	}
-
-	/**
-	 * Constructor for required fields
-	 */
-	public NetworkDhcpConfig (
-		java.lang.Integer _dhcpKey,
-		java.lang.String _dhcpDomain,
-		java.lang.String _dhcpDefGateway,
-		java.lang.String _dhcpServer,
-		java.lang.String _dhcpSubnetmask,
-		java.lang.String _dhcpPriDns,
-		java.lang.String _dhcpAdress,
-		java.lang.String _dhcpSecDns) {
-
-		super (
-			_dhcpKey,
-			_dhcpDomain,
-			_dhcpDefGateway,
-			_dhcpServer,
-			_dhcpSubnetmask,
-			_dhcpPriDns,
-			_dhcpAdress,
-			_dhcpSecDns);
-	}
-
 /*[CONSTRUCTOR MARKER END]*/
 }
