@@ -17,19 +17,19 @@ import java.io.Serializable;
  */
 public abstract class BaseUsersData  implements Serializable {
 
-	public static String PROP_KEY = "Key";
-	public static String PROP_TYPE = "Type";
-	public static String PROP_LOGIN = "Login";
+	public static String PROP_USERS_KEY = "UsersKey";
+	public static String PROP_USERS_TYPE = "UsersType";
+	public static String PROP_USERS_LOGIN = "UsersLogin";
 
 
 	private int hashCode = Integer.MIN_VALUE;
 
 	// primary key
-	private java.lang.Integer _key;
+	private java.lang.Integer _usersKey;
 
 	// fields
-	private java.lang.String _type;
-	private java.lang.String _login;
+	private java.lang.String _usersType;
+	private java.lang.String _usersLogin;
 
 
 	// constructors
@@ -40,22 +40,8 @@ public abstract class BaseUsersData  implements Serializable {
 	/**
 	 * Constructor for primary key
 	 */
-	public BaseUsersData (java.lang.Integer _key) {
-		this.setKey(_key);
-		initialize();
-	}
-
-	/**
-	 * Constructor for required fields
-	 */
-	public BaseUsersData (
-		java.lang.Integer _key,
-		java.lang.String _type,
-		java.lang.String _login) {
-
-		this.setKey(_key);
-		this.setType(_type);
-		this.setLogin(_login);
+	public BaseUsersData (java.lang.Integer _usersKey) {
+		this.setUsersKey(_usersKey);
 		initialize();
 	}
 
@@ -67,51 +53,51 @@ public abstract class BaseUsersData  implements Serializable {
 	 * Return the unique identifier of this class
      * @hibernate.id
      *  generator-class="vm"
-     *  column="key"
+     *  column="users_key"
      */
-	public java.lang.Integer getKey () {
-		return _key;
+	public java.lang.Integer getUsersKey () {
+		return _usersKey;
 	}
 
 	/**
 	 * Set the unique identifier of this class
-	 * @param _key the new ID
+	 * @param _usersKey the new ID
 	 */
-	public void setKey (java.lang.Integer _key) {
-		this._key = _key;
+	public void setUsersKey (java.lang.Integer _usersKey) {
+		this._usersKey = _usersKey;
 		this.hashCode = Integer.MIN_VALUE;
 	}
 
 
 	/**
-	 * Return the value associated with the column: type
+	 * Return the value associated with the column: users_type
 	 */
-	public java.lang.String getType () {
-		return _type;
+	public java.lang.String getUsersType () {
+		return _usersType;
 	}
 
 	/**
-	 * Set the value related to the column: type
-	 * @param _type the type value
+	 * Set the value related to the column: users_type
+	 * @param _usersType the users_type value
 	 */
-	public void setType (java.lang.String _type) {
-		this._type = _type;
+	public void setUsersType (java.lang.String _usersType) {
+		this._usersType = _usersType;
 	}
 
 
 	/**
-	 * Return the value associated with the column: login
+	 * Return the value associated with the column: users_login
 	 */
-	public java.lang.String getLogin () {
-		return _login;
+	public java.lang.String getUsersLogin () {
+		return _usersLogin;
 	}
 
 	/**
-	 * Set the value related to the column: login
-	 * @param _login the login value
+	 * Set the value related to the column: users_login
+	 * @param _usersLogin the users_login value
 	 */
-	public void setLogin (java.lang.String _login) {
-		this._login = _login;
+	public void setUsersLogin (java.lang.String _usersLogin) {
+		this._usersLogin = _usersLogin;
 	}
 
 
@@ -120,17 +106,17 @@ public abstract class BaseUsersData  implements Serializable {
 		if (!(obj instanceof pfe.migration.server.ejb.bdd.base.BaseUsersData)) return false;
 		else {
 			pfe.migration.server.ejb.bdd.base.BaseUsersData mObj = (pfe.migration.server.ejb.bdd.base.BaseUsersData) obj;
-			if (null == this.getKey() || null == mObj.getKey()) return false;
-			else return (this.getKey().equals(mObj.getKey()));
+			if (null == this.getUsersKey() || null == mObj.getUsersKey()) return false;
+			else return (this.getUsersKey().equals(mObj.getUsersKey()));
 		}
 	}
 
 
 	public int hashCode () {
 		if (Integer.MIN_VALUE == this.hashCode) {
-			if (null == this.getKey()) return super.hashCode();
+			if (null == this.getUsersKey()) return super.hashCode();
 			else {
-				String hashStr = this.getClass().getName() + ":" + this.getKey().hashCode();
+				String hashStr = this.getClass().getName() + ":" + this.getUsersKey().hashCode();
 				this.hashCode = hashStr.hashCode();
 			}
 		}

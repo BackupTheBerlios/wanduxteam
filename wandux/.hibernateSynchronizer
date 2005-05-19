@@ -1,7 +1,7 @@
-EnumExclude=
+EnumExclude=global_conf
 package=pfe.migration.server.ejb.bdd
 databaseUrl=jdbc:mysql://127.0.0.1:3306/wandux
 driver=com.mysql.jdbc.Driver
 EnumInclude=
-username=wandux
 ConfigurationFile=wanduxsrcpfemigrationserverejbbddhibernate.cfg.xml
+username=wandux

@@ -9,18 +9,18 @@
 		table="global_conf"
 	>
 		<id
-			name="Key"
+			name="GlobalKey"
 			type="integer"
-			column="key"
+			column="global_key"
 		>
 			<generator class="vm"/>
 		</id>
 
 		<property
-			name="Hostname"
-			column="hostname"
+			name="GlobalHostname"
+			column="global_hostname"
 			type="string"
-			not-null="true"
+			not-null="false"
 			length="50"
 		/>
 

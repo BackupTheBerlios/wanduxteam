@@ -9,25 +9,25 @@
 		table="users_data"
 	>
 		<id
-			name="Key"
+			name="UsersKey"
 			type="integer"
-			column="key"
+			column="users_key"
 		>
 			<generator class="vm"/>
 		</id>
 
 		<property
-			name="Type"
-			column="type"
+			name="UsersType"
+			column="users_type"
 			type="string"
-			not-null="true"
+			not-null="false"
 			length="50"
 		/>
 		<property
-			name="Login"
-			column="login"
+			name="UsersLogin"
+			column="users_login"
 			type="string"
-			not-null="true"
+			not-null="false"
 			length="50"
 		/>
 

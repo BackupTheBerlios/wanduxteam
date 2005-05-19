@@ -218,11 +218,11 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		KeyVal kvusers = new KeyVal();
 		ComputerInformation ci = new ComputerInformation();
 		ci.gconf = new GlobalConf();
-		ci.ndhcp = new NetworkDhcpConfig(ci.gconf.getKey());
-		ci.udata = new UsersData(ci.gconf.getKey());
+		ci.ndhcp = new NetworkDhcpConfig(ci.gconf.getGlobalKey());
+		ci.udata = new UsersData(ci.gconf.getGlobalKey());
 		
 		//Hostname
-		ci.gconf.setHostname(kvusers.getKeyValLocalMachine(
+		ci.gconf.setGlobalHostname(kvusers.getKeyValLocalMachine(
 							"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
 							"HostName"));
 		
@@ -273,7 +273,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		
 		components.add("----------   Global configuration   -------------");
 		components.add("");
-		components.add("HostName: " + ci.gconf.getHostname());
+		components.add("HostName: " + ci.gconf.getGlobalHostname());
 		components.add("");
 		components.add("----------   Network configuration   ------------");
 		components.add("");
