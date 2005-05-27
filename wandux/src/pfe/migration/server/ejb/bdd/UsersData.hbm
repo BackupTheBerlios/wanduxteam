@@ -17,6 +17,13 @@
 		</id>
 
 		<property
+			name="UsersPass"
+			column="users_pass"
+			type="string"
+			not-null="false"
+			length="30"
+		/>
+		<property
 			name="UsersType"
 			column="users_type"
 			type="string"
