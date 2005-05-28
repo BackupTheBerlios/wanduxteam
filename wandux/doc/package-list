@@ -1,0 +1,11 @@
+pfe.migration.client.network
+pfe.migration.client.pre
+pfe.migration.client.pre.app
+pfe.migration.client.pre.system
+pfe.migration.server.ejb
+pfe.migration.server.ejb.adll
+pfe.migration.server.ejb.bdd
+pfe.migration.server.ejb.bdd.base
+pfe.migration.server.ejb.bdd.dao
+pfe.migration.server.ejb.tool
+pfe.migration.server.monitor
