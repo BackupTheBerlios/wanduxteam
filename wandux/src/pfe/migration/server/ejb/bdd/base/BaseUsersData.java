@@ -20,7 +20,6 @@ public abstract class BaseUsersData  implements Serializable {
 	public static String PROP_USERS_KEY = "UsersKey";
 	public static String PROP_USERS_TYPE = "UsersType";
 	public static String PROP_USERS_LOGIN = "UsersLogin";
-	public static String PROP_USERS_PASS = "UsersPass";
 
 
 	private int hashCode = Integer.MIN_VALUE;
@@ -29,7 +28,6 @@ public abstract class BaseUsersData  implements Serializable {
 	private java.lang.Integer _usersKey;
 
 	// fields
-	private java.lang.String _usersPass;
 	private java.lang.String _usersType;
 	private java.lang.String _usersLogin;
 
@@ -68,22 +66,6 @@ public abstract class BaseUsersData  implements Serializable {
 	public void setUsersKey (java.lang.Integer _usersKey) {
 		this._usersKey = _usersKey;
 		this.hashCode = Integer.MIN_VALUE;
-	}
-
-
-	/**
-	 * Return the value associated with the column: users_pass
-	 */
-	public java.lang.String getUsersPass () {
-		return _usersPass;
-	}
-
-	/**
-	 * Set the value related to the column: users_pass
-	 * @param _usersPass the users_pass value
-	 */
-	public void setUsersPass (java.lang.String _usersPass) {
-		this._usersPass = _usersPass;
 	}
 
 
