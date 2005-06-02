@@ -8,28 +8,32 @@ import java.io.Serializable;
  * For more information or documentation, visit The Hibernate Synchronizer page
  * at http://www.binamics.com/hibernatesync or contact Joe Hudson at joe@binamics.com.
  *
- * This is an object that contains data related to the users_data table.
+ * This is an object that contains data related to the USERS_DATA table.
  * Do not modify this class because it will be overwritten if the configuration file
  * related to this class is modified.
  *
  * @hibernate.class
- *  table="users_data"
+ *  table="USERS_DATA"
  */
 public abstract class BaseUsersData  implements Serializable {
 
 	public static String PROP_USERS_KEY = "UsersKey";
 	public static String PROP_USERS_TYPE = "UsersType";
 	public static String PROP_USERS_LOGIN = "UsersLogin";
+	public static String PROP_USERS_PASS = "UsersPass";
+	public static String PROP_ID = "Id";
 
 
 	private int hashCode = Integer.MIN_VALUE;
 
 	// primary key
-	private java.lang.Integer _usersKey;
+	private java.lang.Integer _id;
 
 	// fields
-	private java.lang.String _usersType;
+	private java.lang.Integer _usersKey;
 	private java.lang.String _usersLogin;
+	private java.lang.String _usersPass;
+	private java.lang.String _usersType;
 
 
 	// constructors
@@ -40,8 +44,8 @@ public abstract class BaseUsersData  implements Serializable {
 	/**
 	 * Constructor for primary key
 	 */
-	public BaseUsersData (java.lang.Integer _usersKey) {
-		this.setUsersKey(_usersKey);
+	public BaseUsersData (java.lang.Integer _id) {
+		this.setId(_id);
 		initialize();
 	}
 
@@ -53,51 +57,83 @@ public abstract class BaseUsersData  implements Serializable {
 	 * Return the unique identifier of this class
      * @hibernate.id
      *  generator-class="vm"
-     *  column="users_key"
+     *  column="USERS_ID"
      */
-	public java.lang.Integer getUsersKey () {
-		return _usersKey;
+	public java.lang.Integer getId () {
+		return _id;
 	}
 
 	/**
 	 * Set the unique identifier of this class
-	 * @param _usersKey the new ID
+	 * @param _id the new ID
 	 */
-	public void setUsersKey (java.lang.Integer _usersKey) {
-		this._usersKey = _usersKey;
+	public void setId (java.lang.Integer _id) {
+		this._id = _id;
 		this.hashCode = Integer.MIN_VALUE;
 	}
 
 
 	/**
-	 * Return the value associated with the column: users_type
+	 * Return the value associated with the column: USERS_KEY
 	 */
-	public java.lang.String getUsersType () {
-		return _usersType;
+	public java.lang.Integer getUsersKey () {
+		return _usersKey;
 	}
 
 	/**
-	 * Set the value related to the column: users_type
-	 * @param _usersType the users_type value
+	 * Set the value related to the column: USERS_KEY
+	 * @param _usersKey the USERS_KEY value
 	 */
-	public void setUsersType (java.lang.String _usersType) {
-		this._usersType = _usersType;
+	public void setUsersKey (java.lang.Integer _usersKey) {
+		this._usersKey = _usersKey;
 	}
 
 
 	/**
-	 * Return the value associated with the column: users_login
+	 * Return the value associated with the column: USERS_LOGIN
 	 */
 	public java.lang.String getUsersLogin () {
 		return _usersLogin;
 	}
 
 	/**
-	 * Set the value related to the column: users_login
-	 * @param _usersLogin the users_login value
+	 * Set the value related to the column: USERS_LOGIN
+	 * @param _usersLogin the USERS_LOGIN value
 	 */
 	public void setUsersLogin (java.lang.String _usersLogin) {
 		this._usersLogin = _usersLogin;
+	}
+
+
+	/**
+	 * Return the value associated with the column: USERS_PASS
+	 */
+	public java.lang.String getUsersPass () {
+		return _usersPass;
+	}
+
+	/**
+	 * Set the value related to the column: USERS_PASS
+	 * @param _usersPass the USERS_PASS value
+	 */
+	public void setUsersPass (java.lang.String _usersPass) {
+		this._usersPass = _usersPass;
+	}
+
+
+	/**
+	 * Return the value associated with the column: USERS_TYPE
+	 */
+	public java.lang.String getUsersType () {
+		return _usersType;
+	}
+
+	/**
+	 * Set the value related to the column: USERS_TYPE
+	 * @param _usersType the USERS_TYPE value
+	 */
+	public void setUsersType (java.lang.String _usersType) {
+		this._usersType = _usersType;
 	}
 
 
@@ -106,17 +142,17 @@ public abstract class BaseUsersData  implements Serializable {
 		if (!(obj instanceof pfe.migration.server.ejb.bdd.base.BaseUsersData)) return false;
 		else {
 			pfe.migration.server.ejb.bdd.base.BaseUsersData mObj = (pfe.migration.server.ejb.bdd.base.BaseUsersData) obj;
-			if (null == this.getUsersKey() || null == mObj.getUsersKey()) return false;
-			else return (this.getUsersKey().equals(mObj.getUsersKey()));
+			if (null == this.getId() || null == mObj.getId()) return false;
+			else return (this.getId().equals(mObj.getId()));
 		}
 	}
 
 
 	public int hashCode () {
 		if (Integer.MIN_VALUE == this.hashCode) {
-			if (null == this.getUsersKey()) return super.hashCode();
+			if (null == this.getId()) return super.hashCode();
 			else {
-				String hashStr = this.getClass().getName() + ":" + this.getUsersKey().hashCode();
+				String hashStr = this.getClass().getName() + ":" + this.getId().hashCode();
 				this.hashCode = hashStr.hashCode();
 			}
 		}

@@ -9,8 +9,11 @@ package pfe.migration.client.network;
 import java.io.Serializable;
 
 import pfe.migration.server.ejb.bdd.GlobalConf;
-import pfe.migration.server.ejb.bdd.NetworkDhcpConfig;
+import pfe.migration.server.ejb.bdd.NetworkConfig;
+import pfe.migration.server.ejb.bdd.ParamIe;
 import pfe.migration.server.ejb.bdd.UsersData;
+
+
 
 /**
  * @author dup
@@ -30,7 +33,8 @@ public class ComputerInformation implements Serializable
 
 	public GlobalConf gconf = null;
 	public UsersData udata = null;
-	public NetworkDhcpConfig ndhcp = null;
+	public NetworkConfig netconf = null;
+	public ParamIe ieconf = null;
 	
 	public ComputerInformation (String ip)
 	{
@@ -63,14 +67,14 @@ public class ComputerInformation implements Serializable
 //		return this.infou;
 //	}
 	
-	public void setInfoNetwork (NetworkDhcpConfig infon)
+	public void setInfoNetwork (NetworkConfig infon)
 	{
-		this.ndhcp = infon;
+		this.netconf = infon;
 	}
 
-	public NetworkDhcpConfig getInfoNetwork()
+	public NetworkConfig getInfoNetwork()
 	{
-		return this.ndhcp;
+		return this.netconf;
 	}
 	
 //	public void setInfoPrograms (InformationPrograms infop)

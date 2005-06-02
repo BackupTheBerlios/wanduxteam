@@ -7,7 +7,7 @@ import pfe.migration.server.ejb.bdd.base.BaseGlobalConfDAO;
  * For more information or documentation, visit The Hibernate Synchronizer page
  * at http://www.binamics.com/hibernatesync or contact Joe Hudson at joe@binamics.com.
  *
- * This is the object class that relates to the global_conf table.
+ * This is the object class that relates to the GLOBAL_CONF table.
  * Any customizations belong here.
  */
 public class GlobalConfDAO extends BaseGlobalConfDAO {

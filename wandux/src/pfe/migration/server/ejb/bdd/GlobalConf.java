@@ -3,7 +3,7 @@ package pfe.migration.server.ejb.bdd;
 import pfe.migration.server.ejb.bdd.base.BaseGlobalConf;
 
 /**
- * This is the object class that relates to the global_conf table.
+ * This is the object class that relates to the GLOBAL_CONF table.
  * Any customizations belong here.
  */
 public class GlobalConf extends BaseGlobalConf {
@@ -19,5 +19,6 @@ public class GlobalConf extends BaseGlobalConf {
 	public GlobalConf (java.lang.Integer _globalKey) {
 		super(_globalKey);
 	}
+
 /*[CONSTRUCTOR MARKER END]*/
 }

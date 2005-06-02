@@ -3,7 +3,7 @@ package pfe.migration.server.ejb.bdd;
 import pfe.migration.server.ejb.bdd.base.BaseUsersData;
 
 /**
- * This is the object class that relates to the users_data table.
+ * This is the object class that relates to the USERS_DATA table.
  * Any customizations belong here.
  */
 public class UsersData extends BaseUsersData {
@@ -16,8 +16,9 @@ public class UsersData extends BaseUsersData {
 	/**
 	 * Constructor for primary key
 	 */
-	public UsersData (java.lang.Integer _usersKey) {
-		super(_usersKey);
+	public UsersData (java.lang.Integer _id) {
+		super(_id);
 	}
+
 /*[CONSTRUCTOR MARKER END]*/
 }

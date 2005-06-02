@@ -7,12 +7,8 @@ import javax.ejb.RemoveException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
-import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 import pfe.migration.server.ejb.WanduxEjb;
 import pfe.migration.server.ejb.WanduxEjbHome;
-import pfe.migration.server.ejb.bdd.NetworkDhcpConfig;
-import pfe.migration.server.ejb.bdd.UsersData;
 
 /**
  * @author dup

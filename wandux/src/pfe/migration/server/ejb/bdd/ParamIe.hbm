@@ -4,23 +4,36 @@
 	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
 
 <hibernate-mapping package="pfe.migration.server.ejb.bdd">
-	<class name="GlobalConf" table="GLOBAL_CONF">
+	<class name="ParamIe" table="PARAM_IE">
 		<id
-			column="GLOBAL_KEY"
-			name="GlobalKey"
+			column="PROXY_ID"
+			name="Id"
 			type="integer"
 		>
 			<generator class="vm" />
 		</id>
 		<property
-			column="GLOBAL_DOMAIN_NAME"
-			name="GlobalDomainName"
+			column="PROXY_USER_ID"
+			length="11"
+			name="ProxyUserId"
+			not-null="false"
+			type="integer"
+		 />
+		<property
+			column="PROXY_OVERRIDE"
+			name="ProxyOverride"
 			not-null="false"
 			type="string"
 		 />
 		<property
-			column="GLOBAL_HOSTNAME"
-			name="GlobalHostname"
+			column="PROXY_SERVER"
+			name="ProxyServer"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="PROXY_SAVE_DIRECTORY"
+			name="ProxySaveDirectory"
 			not-null="false"
 			type="string"
 		 />

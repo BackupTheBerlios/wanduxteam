@@ -3,7 +3,6 @@ package pfe.migration.client.pre.app;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Label;
 import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,9 +31,8 @@ import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.client.pre.system.FileSystemModel;
 import pfe.migration.client.pre.system.KeyVal;
-import pfe.migration.server.ejb.WanduxEjbBean;
 import pfe.migration.server.ejb.bdd.GlobalConf;
-import pfe.migration.server.ejb.bdd.NetworkDhcpConfig;
+import pfe.migration.server.ejb.bdd.NetworkConfig;
 import pfe.migration.server.ejb.bdd.UsersData;
 /** 
 * This code was generated using CloudGarden's Jigloo
@@ -218,7 +216,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		KeyVal kvusers = new KeyVal();
 		ComputerInformation ci = new ComputerInformation();
 		ci.gconf = new GlobalConf();
-		ci.ndhcp = new NetworkDhcpConfig(ci.gconf.getGlobalKey());
+		ci.netconf = new NetworkConfig(ci.gconf.getGlobalKey());
 		ci.udata = new UsersData(ci.gconf.getGlobalKey());
 		
 		//Hostname
@@ -232,33 +230,36 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 
 		if (!curinterface.equals("dhcpdisabled"))
 		{
-			ci.ndhcp.setDhcpEnabled(new Integer(1));
+			ci.netconf.setNetworkDhcpEnabled(new Byte("1"));
 			//DhcpServer
 			System.out.println("dhcp enabled");
 			String enabledhcp = new String(kvusers.getKeyValLocalMachine(
 					"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
 							+ curinterface, "enabledhcp"));
 			
-			ci.ndhcp.setDhcpServer(kvusers.getKeyValLocalMachine(
-								"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-								+ curinterface, "DhcpServer"));
-
-			//DHcp Ip Adress
-			ci.ndhcp.setDhcpAdress(kvusers.getKeyValLocalMachine(
-								"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-								+ curinterface, "dhcpIpaddress"));
+			//DEPRECATED
+//			ci.netconf.setDhcpServer(kvusers.getKeyValLocalMachine(
+//								"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
+//								+ curinterface, "DhcpServer"));
 			
+//			DEPRECATED
+			//DHcp Ip Adress
+//			ci.netconf.setDhcpAdress(kvusers.getKeyValLocalMachine(
+//								"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
+//								+ curinterface, "dhcpIpaddress"));
+			
+//			DEPRECATED
 			//DhcpSubNetMask
-			ci.ndhcp.setDhcpSubnetmask(kvusers.getKeyValLocalMachine(
-								"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-								+ curinterface, "DhcpSubnetMask"));
+//			ci.netconf.setDhcpSubnetmask(kvusers.getKeyValLocalMachine(
+//								"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
+//								+ curinterface, "DhcpSubnetMask"));
 		}
 		else
 		{
-			ci.ndhcp.setDhcpEnabled(new Integer(0));
+			ci.netconf.setNetworkDhcpEnabled(new Byte("0"));
 			System.out.println("dhcp disabled");
-			curinterface = kvusers
-			.FindStaticInterFace("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces");
+			curinterface = kvusers.FindStaticInterFace(
+					"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces");
 
 			System.out.println(kvusers.getKeyValLocalMachine(
 								"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
@@ -290,14 +291,14 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		components.add("");
 		components.add("----------   Network configuration   ------------");
 		components.add("");
-		if (ci.ndhcp.getDhcpEnabled().intValue() == 1)
+		if (ci.netconf.getNetworkDhcpEnabled().byteValue() == 1)
 			components.add("Dhcpenabled: yes");
 		else
 			components.add("Dhcpenabled: no");
 		components.add("");
-		components.add("DhcpServer: " + ci.ndhcp.getDhcpServer());
-		components.add("DhcpIpaddress: " + ci.ndhcp.getDhcpAdress());
-		components.add("DhcpSubnetMask: " + ci.ndhcp.getDhcpSubnetmask());
+//		components.add("DhcpServer: " + ci.netconf.getDhcpServer());
+//		components.add("DhcpIpaddress: " + ci.netconf.getDhcpAdress());
+//		components.add("DhcpSubnetMask: " + ci.netconf.getDhcpSubnetmask());
 		components.add("");
 		components.add("-----------   Users configuration   -------------");
 		components.add("");

@@ -8,15 +8,16 @@ import java.io.Serializable;
  * For more information or documentation, visit The Hibernate Synchronizer page
  * at http://www.binamics.com/hibernatesync or contact Joe Hudson at joe@binamics.com.
  *
- * This is an object that contains data related to the global_conf table.
+ * This is an object that contains data related to the GLOBAL_CONF table.
  * Do not modify this class because it will be overwritten if the configuration file
  * related to this class is modified.
  *
  * @hibernate.class
- *  table="global_conf"
+ *  table="GLOBAL_CONF"
  */
 public abstract class BaseGlobalConf  implements Serializable {
 
+	public static String PROP_GLOBAL_DOMAIN_NAME = "GlobalDomainName";
 	public static String PROP_GLOBAL_HOSTNAME = "GlobalHostname";
 	public static String PROP_GLOBAL_KEY = "GlobalKey";
 
@@ -27,6 +28,7 @@ public abstract class BaseGlobalConf  implements Serializable {
 	private java.lang.Integer _globalKey;
 
 	// fields
+	private java.lang.String _globalDomainName;
 	private java.lang.String _globalHostname;
 
 
@@ -51,7 +53,7 @@ public abstract class BaseGlobalConf  implements Serializable {
 	 * Return the unique identifier of this class
      * @hibernate.id
      *  generator-class="vm"
-     *  column="global_key"
+     *  column="GLOBAL_KEY"
      */
 	public java.lang.Integer getGlobalKey () {
 		return _globalKey;
@@ -68,15 +70,31 @@ public abstract class BaseGlobalConf  implements Serializable {
 
 
 	/**
-	 * Return the value associated with the column: global_hostname
+	 * Return the value associated with the column: GLOBAL_DOMAIN_NAME
+	 */
+	public java.lang.String getGlobalDomainName () {
+		return _globalDomainName;
+	}
+
+	/**
+	 * Set the value related to the column: GLOBAL_DOMAIN_NAME
+	 * @param _globalDomainName the GLOBAL_DOMAIN_NAME value
+	 */
+	public void setGlobalDomainName (java.lang.String _globalDomainName) {
+		this._globalDomainName = _globalDomainName;
+	}
+
+
+	/**
+	 * Return the value associated with the column: GLOBAL_HOSTNAME
 	 */
 	public java.lang.String getGlobalHostname () {
 		return _globalHostname;
 	}
 
 	/**
-	 * Set the value related to the column: global_hostname
-	 * @param _globalHostname the global_hostname value
+	 * Set the value related to the column: GLOBAL_HOSTNAME
+	 * @param _globalHostname the GLOBAL_HOSTNAME value
 	 */
 	public void setGlobalHostname (java.lang.String _globalHostname) {
 		this._globalHostname = _globalHostname;

@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+
+<hibernate-mapping package="pfe.migration.server.ejb.bdd">
+	<class name="NetworkConfig" table="NETWORK_CONFIG">
+		<id
+			column="NETWORK_ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="vm" />
+		</id>
+		<property
+			column="NETWORK_IP_ADDRESS"
+			name="NetworkIpAddress"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="NETWORK_SUBNETMASK"
+			name="NetworkSubnetmask"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="NETWORK_INTERFACE"
+			name="NetworkInterface"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="NETWORK_GATEWAY"
+			name="NetworkGateway"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="NETWORK_DNS_SERVER2"
+			name="NetworkDnsServer2"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="NETWORK_STATUS"
+			length="1"
+			name="NetworkStatus"
+			not-null="false"
+			type="java.lang.Byte"
+		 />
+		<property
+			column="NETWORK_DNS_SERVER"
+			name="NetworkDnsServer"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="NETWOTK_KEY"
+			length="11"
+			name="NetwotkKey"
+			not-null="false"
+			type="integer"
+		 />
+		<property
+			column="NETWORK_DHCP_ENABLED"
+			length="1"
+			name="NetworkDhcpEnabled"
+			not-null="false"
+			type="java.lang.Byte"
+		 />
+	</class>
+</hibernate-mapping>

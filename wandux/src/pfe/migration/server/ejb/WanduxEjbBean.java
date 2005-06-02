@@ -76,14 +76,14 @@ public class WanduxEjbBean implements SessionBean
 			session = HibernateUtil.currentSession();
 			transaction = session.beginTransaction();
 			session.save(ci.gconf);
-			session.save(ci.ndhcp);
+			session.save(ci.netconf);
 			session.save(ci.udata);
 			transaction.commit();
 			HibernateUtil.closeSession();
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
-		System.out.println(ci.ndhcp.getDhcpAdress());
+		System.out.println(ci.netconf.getNetworkIpAddress());
 			
 // TODO signaler au module web chaque etape
 //		  	// step1
