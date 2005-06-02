@@ -24,8 +24,9 @@
 		<property name="jta.UserTransaction">UserTransaction</property>
 
 		<mapping resource="pfe/migration/server/ejb/bdd/GlobalConf.hbm" />
-		<mapping resource="pfe/migration/server/ejb/bdd/NetworkDhcpConfig.hbm" />
+		<mapping resource="pfe/migration/server/ejb/bdd/NetworkConfig.hbm" />
 		<mapping resource="pfe/migration/server/ejb/bdd/UsersData.hbm" />
+		<mapping resource="pfe/migration/server/ejb/bdd/ParamIe.hbm" />
 
 	</session-factory>
 </hibernate-configuration>
