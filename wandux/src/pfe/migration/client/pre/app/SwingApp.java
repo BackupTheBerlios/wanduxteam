@@ -225,39 +225,52 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		ci.gconf.setGlobalHostname(kvusers.getKeyValLocalMachine(
 							"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
 							"HostName"));
-		
+
 		//Dhcp Enabled
 		String curinterface = kvusers
 		.FindCurrentInterFace("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces");
-		String enabledhcp = new String(kvusers.getKeyValLocalMachine(
-		"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-				+ curinterface, "enabledhcp"));
-		if (enabledhcp.length() == 1)
+
+		if (!curinterface.equals("dhcpdisabled"))
 		{
 			ci.ndhcp.setDhcpEnabled(new Integer(1));
+			//DhcpServer
+			System.out.println("dhcp enabled");
+			String enabledhcp = new String(kvusers.getKeyValLocalMachine(
+					"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
+							+ curinterface, "enabledhcp"));
+			
+			ci.ndhcp.setDhcpServer(kvusers.getKeyValLocalMachine(
+								"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
+								+ curinterface, "DhcpServer"));
+
+			//DHcp Ip Adress
+			ci.ndhcp.setDhcpAdress(kvusers.getKeyValLocalMachine(
+								"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
+								+ curinterface, "dhcpIpaddress"));
+			
+			//DhcpSubNetMask
+			ci.ndhcp.setDhcpSubnetmask(kvusers.getKeyValLocalMachine(
+								"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
+								+ curinterface, "DhcpSubnetMask"));
 		}
 		else
 		{
 			ci.ndhcp.setDhcpEnabled(new Integer(0));
+			System.out.println("dhcp disabled");
+			curinterface = kvusers
+			.FindStaticInterFace("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces");
+
+			System.out.println(kvusers.getKeyValLocalMachine(
+								"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
+								+ curinterface, "DefaultGateway"));
+			System.out.println(kvusers.getKeyValLocalMachine(
+					"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
+					+ curinterface, "Ipaddress"));
+			System.out.println(kvusers.getKeyValLocalMachine(
+					"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
+					+ curinterface, "SubnetMask"));
 		}
-		
-		//DhcpServer
-		ci.ndhcp.setDhcpServer(kvusers.getKeyValLocalMachine(
-							"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-							+ curinterface, "DhcpServer"));
-		
-		//DHcp Ip Adress
-		ci.ndhcp.setDhcpAdress(kvusers.getKeyValLocalMachine(
-							"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-							+ curinterface, "dhcpIpaddress"));
-		
-		//DhcpSubNetMask
-		ci.ndhcp.setDhcpSubnetmask(kvusers.getKeyValLocalMachine(
-							"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-							+ curinterface, "DhcpSubnetMask"));
-		
-		
-		
+
 		PrintSystemInfos(ci);
 		ce.Transfert(ci);
 	}

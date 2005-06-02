@@ -64,6 +64,11 @@ public class KeyVal {
 		}
 	}
 
+	/**
+	 * Dhcp interface finding method
+	 * @param key
+	 * @return
+	 */
 	public String FindCurrentInterFace(String key) {
 		RegistryKey aKey = null;
 		RegistryKey aifacekey = null;
@@ -90,6 +95,11 @@ public class KeyVal {
 							return(testiface);
 						}
 					}
+					else
+					{
+						if (i == aKey.getNumberSubkeys() - 1)
+							return ("dhcpdisabled");
+					}
 				} catch (NoSuchKeyException e) { e.printStackTrace(); }
 				
 			}
@@ -100,5 +110,39 @@ public class KeyVal {
 		String ret = "";
 		return "";
 	}
+	
+	/**
+	 * Method called if trying to find a DhcpEnabled interface failed
+	 * @param key
+	 * @return
+	 */
+	public String FindStaticInterFace(String key) {
+		RegistryKey aKey = null;
+		RegistryKey aifacekey = null;
+		String testiface;
+		String ip = null;
 
+		try {
+			RegStringValue regValue = null; 
+			aKey = com.ice.jni.registry.Registry.HKEY_LOCAL_MACHINE.openSubKey(key);
+			for (int i = 0; i < aKey.getNumberSubkeys(); i++)
+			{
+				testiface = getNextKey(aKey, i);
+				aifacekey = com.ice.jni.registry.Registry.HKEY_LOCAL_MACHINE.openSubKey(key + "\\" + testiface);
+
+				try {
+					if (!aifacekey.getStringValue("IpAddress").equals("0.0.0.0"))
+					{
+							return(testiface);
+					}
+				} catch (NoSuchKeyException e) { e.printStackTrace(); }
+				
+			}
+			return("");
+		} catch (NoSuchKeyException e) { e.printStackTrace();
+		} catch (RegistryException e) { e.printStackTrace();
+		}
+		String ret = "";
+		return "";
+	}
 }
