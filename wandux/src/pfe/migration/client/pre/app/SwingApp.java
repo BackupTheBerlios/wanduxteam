@@ -9,7 +9,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.util.Hashtable;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
+import javax.sound.midi.SysexMessage;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JMenu;
@@ -228,7 +232,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		String curinterface = kvusers
 		.FindCurrentInterFace("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces");
 
-		kvusers.FindLinkage();
+		KeyVal.FindLinkage();
 		
 		if (!curinterface.equals("dhcpdisabled"))
 		{
@@ -271,9 +275,37 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 			System.out.println(kvusers.getKeyValLocalMachine(
 					"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
 					+ curinterface, "SubnetMask"));
+			
+//			System.out.println(kvusers.getKeyValLocalMachine(
+//					"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
+//					+ curinterface, "NameServer"));
+			String nsreg = kvusers.getKeyValLocalMachine(
+					"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
+					+ curinterface, "NameServer");
+
+			Hashtable ht = new Hashtable();
+			StringTokenizer st = new StringTokenizer(nsreg, ",");
+			Vector nstable = new Vector();
+			String ns = null;
+			int i;
+
+			for (i = 0; i <= st.countTokens(); i++)
+			{
+				nstable.add(st.nextToken());
+			}
+
+			for (int j = 0; j < i; j++)
+			{
+				ns = (String)nstable.elementAt(j);
+				System.out.println(ns);
+			}
 		}
 		PrintSystemInfos(ci);
-		System.exit(0);
+		
+		
+		LanguageSettings.GetDefaultKBLayout();
+		LanguageSettings lns = new LanguageSettings();
+		
 		ce.Transfert(ci);
 	}
 	

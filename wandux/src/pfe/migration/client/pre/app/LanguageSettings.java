@@ -6,6 +6,14 @@
  */
 package pfe.migration.client.pre.app;
 
+import java.util.Enumeration;
+
+import com.ice.jni.registry.NoSuchKeyException;
+import com.ice.jni.registry.RegistryException;
+import com.ice.jni.registry.RegistryKey;
+
+import pfe.migration.client.pre.system.KeyVal;
+
 /**
  * @author cb6
  *
@@ -14,4 +22,30 @@ package pfe.migration.client.pre.app;
  */
 public class LanguageSettings {
 
+	public static void GetDefaultKBLayout()
+	{
+		RegistryKey aKey = null;
+		KeyVal kvkb = new KeyVal();
+		String subkeyval = null;
+		String mslangid = null;
+		
+		try {
+			aKey = com.ice.jni.registry.Registry.HKEY_CURRENT_USER.openSubKey("Keyboard Layout\\Preload");
+
+			Enumeration enum = aKey.valueElements();
+			System.out.println("__langage conf");
+			while (enum.hasMoreElements()) {
+			    subkeyval = (String) enum.nextElement();
+			    mslangid = aKey.getStringValue(subkeyval);
+			    // recuperation du code de chaque entree dans la liste des langages.
+			    System.out.println(mslangid);
+			}
+		} catch (NoSuchKeyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			// TODO Auto-generated catch block
+		} catch (RegistryException e) {
+			e.printStackTrace();
+		}
+	}
 }
