@@ -11,7 +11,6 @@ import java.util.Enumeration;
 import com.ice.jni.registry.NoSuchKeyException;
 import com.ice.jni.registry.RegistryException;
 import com.ice.jni.registry.RegistryKey;
-
 import pfe.migration.client.pre.system.KeyVal;
 
 /**
