@@ -127,7 +127,9 @@ public class KeyVal {
 		RegistryKey aifacekey = null;
 		String testiface;
 		String ip = null;
+		String linkvalue = null;
 
+		linkvalue = FindLinkage();
 		try {
 			RegStringValue regValue = null; 
 			aKey = com.ice.jni.registry.Registry.HKEY_LOCAL_MACHINE.openSubKey(key);
@@ -136,13 +138,12 @@ public class KeyVal {
 				testiface = getNextKey(aKey, i);
 				aifacekey = com.ice.jni.registry.Registry.HKEY_LOCAL_MACHINE.openSubKey(key + "\\" + testiface);
 
-				try {
-					if (!aifacekey.getStringValue("IpAddress").equals("0.0.0.0"))
-					{
-							return(testiface);
-					}
-				} catch (NoSuchKeyException e) { e.printStackTrace(); }
-				
+				System.out.println("ti : " + testiface);
+
+				if ( testiface.equals(linkvalue))
+				{
+					return(testiface);
+				}
 			}
 			return("");
 		} catch (NoSuchKeyException e) { e.printStackTrace();
@@ -150,5 +151,25 @@ public class KeyVal {
 		}
 		String ret = "";
 		return "";
+	}
+	public static String FindLinkage()
+	{
+		RegistryKey aKey = null;
+		String linkvalue = null;
+
+		try {
+			aKey = com.ice.jni.registry.Registry.HKEY_LOCAL_MACHINE.openSubKey(
+					"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Linkage");
+			linkvalue = aKey.getStringValue("Route");
+			return(linkvalue.substring(1, linkvalue.length() - 1));
+		} catch (NoSuchKeyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RegistryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//System.exit(0);
+		return(null);
 	}
 }

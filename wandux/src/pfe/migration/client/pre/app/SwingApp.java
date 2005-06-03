@@ -228,6 +228,8 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		String curinterface = kvusers
 		.FindCurrentInterFace("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces");
 
+		kvusers.FindLinkage();
+		
 		if (!curinterface.equals("dhcpdisabled"))
 		{
 			ci.netconf.setNetworkDhcpEnabled(new Byte("1"));
@@ -258,8 +260,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		{
 			ci.netconf.setNetworkDhcpEnabled(new Byte("0"));
 			System.out.println("dhcp disabled");
-			curinterface = kvusers.FindStaticInterFace(
-					"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces");
+			curinterface = KeyVal.FindLinkage();
 
 			System.out.println(kvusers.getKeyValLocalMachine(
 								"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
@@ -271,8 +272,8 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 					"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
 					+ curinterface, "SubnetMask"));
 		}
-
 		PrintSystemInfos(ci);
+		System.exit(0);
 		ce.Transfert(ci);
 	}
 	
@@ -284,7 +285,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 	public void PrintSystemInfos(ComputerInformation ci)
 	{
 		components = new List();
-		
+
 		components.add("----------   Global configuration   -------------");
 		components.add("");
 		components.add("HostName: " + ci.gconf.getGlobalHostname());
@@ -324,8 +325,8 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 W	 */
 	public void FileTree()
 	{
-		final JTextArea fileDetails = new JTextArea("");
 		FileSystemModel fileSystemModel = new FileSystemModel(new File("\\"));
+		final JTextArea fileDetails = new JTextArea("");
 		final JTree fileTree = new JTree(fileSystemModel);
 		fileTree.setEditable(true);
 		fileTree.addTreeSelectionListener(new TreeSelectionListener() {
@@ -336,7 +337,7 @@ W	 */
 				}
 			});
 		JScrollPane FileDetailsSP = new JScrollPane(fileDetails);
-		
+
 		jSplitPaneLocalFs = new JSplitPane(
 				JSplitPane.HORIZONTAL_SPLIT, true,
 				new JScrollPane(fileTree), FileDetailsSP);
