@@ -37,6 +37,28 @@ public class KeyVal {
 		return (ret);
 	}
 
+	public String getKeyValClassesRoot(String key, String field) {
+		RegistryKey aKey = null;
+
+		String ret = "";
+			
+		try {
+			RegStringValue regValue = null; 
+			aKey = com.ice.jni.registry.Registry.HKEY_CLASSES_ROOT.openSubKey(key);
+			if (aKey.getStringValue(field) != null)
+			{
+				return(aKey.getStringValue(field));
+			}
+			else
+			{
+				return "no such value";
+			}
+		} catch (NoSuchKeyException e) { e.printStackTrace();
+		} catch (RegistryException e) { e.printStackTrace();
+		}
+		return (ret);
+	}
+
 	public String getKeyValLocalMachine(String key, String field) {
 		RegistryKey aKey = null;
 
@@ -66,7 +88,7 @@ public class KeyVal {
 			
 		try {
 			RegStringValue regValue = null; 
-			aKey = com.ice.jni.registry.Registry.HKEY_LOCAL_MACHINE.openSubKey(key);
+			aKey = com.ice.jni.registry.Registry.HKEY_CURRENT_USER.openSubKey(key);
 			if (aKey.getStringValue(field) != null)
 			{
 				return(aKey.getStringValue(field));

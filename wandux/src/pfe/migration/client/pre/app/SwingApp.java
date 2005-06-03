@@ -305,7 +305,9 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		
 		LanguageSettings.GetDefaultKBLayout();
 		LanguageSettings lns = new LanguageSettings();
-		
+		//ProgramsLister proglist = new ProgramsLister();
+		//ProgramsLister.ParseExtensions();
+
 		ce.Transfert(ci);
 	}
 	
