@@ -32,7 +32,7 @@ public class LanguageSettings {
 			aKey = com.ice.jni.registry.Registry.HKEY_CURRENT_USER.openSubKey("Keyboard Layout\\Preload");
 
 			Enumeration enum = aKey.valueElements();
-			System.out.println("__langage conf");
+			System.out.println("\n__langage conf");
 			while (enum.hasMoreElements()) {
 			    subkeyval = (String) enum.nextElement();
 			    mslangid = aKey.getStringValue(subkeyval);

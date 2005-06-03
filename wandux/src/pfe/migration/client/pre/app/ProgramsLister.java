@@ -23,8 +23,9 @@ public class ProgramsLister {
 		KeyVal kvpl = new KeyVal();
 		RegistryKey aKey = null;
 		String currentkey = ".init";
+		String program = null;
 
-		System.out.println("__programs conf");
+		System.out.println("\n__programs conf");
 		try {
 			aKey = com.ice.jni.registry.Registry.HKEY_CLASSES_ROOT.openSubKey("");
 			for (int i = 1; i < aKey.getNumberSubkeys(); i++)
@@ -36,6 +37,14 @@ public class ProgramsLister {
 				}
 					currentkey = kvpl.getNextKey(aKey, i);
 					System.out.print(currentkey + ", ");
+					program = kvpl.getCommandFromExtension(currentkey);
+					System.out.println(program);
+					// TODO CB6 store results under a hashtable without redundancy
+					// propose to user to add a list of extension/program association into the database
+					// if they are not already referenced > add this to log file and try to get it on
+					// the net
+					// Other example : ask user if he would like to
+					// "save all files associated with program "RegSnap.exe""
 			}
 			//System.out.println(aKey.getNumberSubkeys());
 		} catch (NoSuchKeyException e) {

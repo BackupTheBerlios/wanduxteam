@@ -216,4 +216,26 @@ public class KeyVal {
 		//System.exit(0);
 		return(null);
 	}
+	public String getCommandFromExtension(String key) {
+		RegistryKey aKey = null;
+		String ret = "";
+
+		try {
+			aKey = com.ice.jni.registry.Registry.HKEY_CLASSES_ROOT.openSubKey(key);
+		} catch (NoSuchKeyException e) { return null; // e.printStackTrace();
+		} catch (RegistryException e) { return null; // e.printStackTrace();
+		}
+
+		try {
+			aKey = com.ice.jni.registry.Registry.HKEY_CLASSES_ROOT
+					.openSubKey(aKey.getDefaultValue()
+							+ "\\shell\\open\\command");
+			ret = aKey.getDefaultValue();
+			return (ret);
+		} catch (NoSuchKeyException e1) { ret = null; // e1.printStackTrace();
+		} catch (NoSuchValueException e1) { ret = null; // e1.printStackTrace();
+		} catch (RegistryException e1) { ret = null; // e1.printStackTrace();
+		}
+		return (ret);
+	}
 }
