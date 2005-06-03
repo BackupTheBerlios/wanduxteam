@@ -7,7 +7,7 @@ import com.ice.jni.registry.RegistryException;
 import com.ice.jni.registry.RegistryKey;
 
 /**
- * @author joe star
+ * @author cb6
  *
  * Created on 4 mars 2005
  */
