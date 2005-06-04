@@ -7,10 +7,26 @@
 package pfe.migration.client.pre.app;
 
 import java.awt.Canvas;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
 
+
+/**
+* This code was generated using CloudGarden's Jigloo
+* SWT/Swing GUI Builder, which is free for non-commercial
+* use. If Jigloo is being used commercially (ie, by a corporation,
+* company or business for any purpose whatever) then you
+* should purchase a license for each developer using Jigloo.
+* Please visit www.cloudgarden.com for details.
+* Use of Jigloo implies acceptance of these licensing terms.
+* *************************************
+* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED
+* for this machine, so Jigloo or this code cannot be used legally
+* for any corporate or commercial purpose.
+* *************************************
+*/
 /**
  * @author dup
  *
@@ -43,4 +59,23 @@ public class Img extends Canvas
   {
   	super.update(g);
   }
+  
+private void initGUI() {
+	try {
+		{
+			this.setPreferredSize(new java.awt.Dimension(296, 99));
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+}
+
+
+/**
+ * @param dimension
+ */
+private void setPreferredSize(Dimension dimension) {
+	// TODO Auto-generated method stub
+	
+}
 }

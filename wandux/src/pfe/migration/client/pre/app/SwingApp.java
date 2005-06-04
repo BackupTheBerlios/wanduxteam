@@ -34,9 +34,11 @@ import javax.swing.event.TreeSelectionListener;
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.client.pre.system.FileSystemModel;
+import pfe.migration.client.pre.system.IeParam;
 import pfe.migration.client.pre.system.KeyVal;
 import pfe.migration.server.ejb.bdd.GlobalConf;
 import pfe.migration.server.ejb.bdd.NetworkConfig;
+import pfe.migration.server.ejb.bdd.ParamIe;
 import pfe.migration.server.ejb.bdd.UsersData;
 /** 
 * This code was generated using CloudGarden's Jigloo
@@ -222,6 +224,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		ci.gconf = new GlobalConf();
 		ci.netconf = new NetworkConfig(ci.gconf.getGlobalKey());
 		ci.udata = new UsersData(ci.gconf.getGlobalKey());
+		ci.ieconf = new ParamIe(ci.gconf.getGlobalKey());
 		
 		//Hostname
 		ci.gconf.setGlobalHostname(kvusers.getKeyValLocalMachine(
@@ -233,6 +236,11 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		.FindCurrentInterFace("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces");
 
 		KeyVal.FindLinkage();
+		
+		// Proxy
+		IeParam ieparam = new IeParam();
+		ci.ieconf.setProxyServer(ieparam.getProxyServer());
+		ci.ieconf.setProxyOverride(ieparam.getProxyOverride());
 		
 		if (!curinterface.equals("dhcpdisabled"))
 		{
