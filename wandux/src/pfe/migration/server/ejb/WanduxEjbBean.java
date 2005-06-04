@@ -9,11 +9,9 @@ import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 
-import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 import pfe.migration.client.network.ComputerInformation;
-import pfe.migration.server.ejb.bdd.HibernateUtil;
+import pfe.migration.server.ejb.tool.SendingData;
+import pfe.migration.server.ejb.tool.WorkQueue;
 import pfe.migration.server.monitor.ClientMonitorListener;
 
 /**
@@ -56,48 +54,28 @@ public class WanduxEjbBean implements SessionBean
 		System.out.println(ok);
 	}
 	
-	public void putComputerInformation(ComputerInformation ci) // String ip, // final  
+	public void putComputerInformation(ComputerInformation ci)
 	{
-//		migrationInProgress.add(ip);
-//		final ComputerInformation ref = null;
-//		new Thread()
-//		{
-//		  public void run()
-//		  {	  	
-//			ref.setInfoNetwork(ci.getInfoNetwork());
-//		  	String ip = ref.getIp();
-		
-	  	String ip = ci.getIp();
-		//cml.CINewIp(ip);
-	  	
-	  	Transaction transaction;
-		Session session;
-		try {
-			session = HibernateUtil.currentSession();
-			transaction = session.beginTransaction();
-			session.save(ci.gconf);
-			session.save(ci.netconf);
-			session.save(ci.udata);
-			session.save(ci.ieconf);
-			transaction.commit();
-			HibernateUtil.closeSession();
-		} catch (HibernateException e) {
-			e.printStackTrace();
-		}
-		System.out.println(ci.netconf.getNetworkIpAddress());
-			
-// TODO signaler au module web chaque etape
-//		  	// step1
-//		  	ref.setInfoUser(ci.getInfoUser());
-//		  	changeCmlStep(ip, 1, 0);
-//			// step2
-//		  	ref.setInfoPrograms(ci.getInfoPrograms());
-//		  	changeCmlStep(ip, 2, 0);
-//			// step3
-//		  	changeCmlStep(ip, 3, 0);
-//			computerList.add(ci);
-//		  }
-//		}.start();
+//	  String ip = ci.getIp();
+//	  	
+//	  Transaction transaction;
+//		Session session;
+//		try {
+//			session = HibernateUtil.currentSession();
+//			transaction = session.beginTransaction();
+//			session.save(ci.gconf);
+//			session.save(ci.ndhcp);
+//			session.save(ci.udata);
+//			transaction.commit();
+//			HibernateUtil.closeSession();
+//		} catch (HibernateException e) {
+//			e.printStackTrace();
+//		}
+
+		WorkQueue wt = new WorkQueue(10);
+		wt.execute(new SendingData(ci));
+
+//		System.out.println(ci.ndhcp.getDhcpAdress());
 	}
 	
 	public void getClientMonitor(ClientMonitorListener cml)
