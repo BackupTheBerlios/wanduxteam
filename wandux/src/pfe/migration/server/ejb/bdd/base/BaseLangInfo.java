@@ -21,8 +21,8 @@ public abstract class BaseLangInfo  implements Serializable {
 	public static String PROP_LANG_LANGUAGE = "LangLanguage";
 	public static String PROP_LANG_ISO_CODE = "LangIsoCode";
 	public static String PROP_LANG_ENV_VARIABLE = "LangEnvVariable";
-	public static String PROP_LANG_MS_LOCAL_ID_HEXA = "LangMsLocalIdHexa";
 	public static String PROP_LANG_MS_LOCAL_ID = "LangMsLocalId";
+	public static String PROP_LANG_MS_LOCAL_ID_HEXA = "LangMsLocalIdHexa";
 	public static String PROP_LANG_CODE = "LangCode";
 
 
@@ -32,11 +32,11 @@ public abstract class BaseLangInfo  implements Serializable {
 	private java.lang.String _langLanguage;
 
 	// fields
-	private java.lang.String _langMsLocalId;
-	private java.lang.String _langIsoCode;
 	private java.lang.String _langSymbolic;
-	private java.lang.String _langEnvVariable;
+	private java.lang.String _langIsoCode;
 	private java.lang.String _langMsLocalIdHexa;
+	private java.lang.String _langMsLocalId;
+	private java.lang.String _langEnvVariable;
 	private java.lang.Integer _langCode;
 
 
@@ -61,7 +61,7 @@ public abstract class BaseLangInfo  implements Serializable {
 	 * Return the unique identifier of this class
      * @hibernate.id
      *  generator-class="vm"
-     *  column="lang_language"
+     *  column="LANG_LANGUAGE"
      */
 	public java.lang.String getLangLanguage () {
 		return _langLanguage;
@@ -78,47 +78,15 @@ public abstract class BaseLangInfo  implements Serializable {
 
 
 	/**
-	 * Return the value associated with the column: lang_ms_local_id
-	 */
-	public java.lang.String getLangMsLocalId () {
-		return _langMsLocalId;
-	}
-
-	/**
-	 * Set the value related to the column: lang_ms_local_id
-	 * @param _langMsLocalId the lang_ms_local_id value
-	 */
-	public void setLangMsLocalId (java.lang.String _langMsLocalId) {
-		this._langMsLocalId = _langMsLocalId;
-	}
-
-
-	/**
-	 * Return the value associated with the column: lang_iso_code
-	 */
-	public java.lang.String getLangIsoCode () {
-		return _langIsoCode;
-	}
-
-	/**
-	 * Set the value related to the column: lang_iso_code
-	 * @param _langIsoCode the lang_iso_code value
-	 */
-	public void setLangIsoCode (java.lang.String _langIsoCode) {
-		this._langIsoCode = _langIsoCode;
-	}
-
-
-	/**
-	 * Return the value associated with the column: lang_symbolic
+	 * Return the value associated with the column: LANG_SYMBOLIC
 	 */
 	public java.lang.String getLangSymbolic () {
 		return _langSymbolic;
 	}
 
 	/**
-	 * Set the value related to the column: lang_symbolic
-	 * @param _langSymbolic the lang_symbolic value
+	 * Set the value related to the column: LANG_SYMBOLIC
+	 * @param _langSymbolic the LANG_SYMBOLIC value
 	 */
 	public void setLangSymbolic (java.lang.String _langSymbolic) {
 		this._langSymbolic = _langSymbolic;
@@ -126,31 +94,31 @@ public abstract class BaseLangInfo  implements Serializable {
 
 
 	/**
-	 * Return the value associated with the column: lang_env_variable
+	 * Return the value associated with the column: LANG_ISO_CODE
 	 */
-	public java.lang.String getLangEnvVariable () {
-		return _langEnvVariable;
+	public java.lang.String getLangIsoCode () {
+		return _langIsoCode;
 	}
 
 	/**
-	 * Set the value related to the column: lang_env_variable
-	 * @param _langEnvVariable the lang_env_variable value
+	 * Set the value related to the column: LANG_ISO_CODE
+	 * @param _langIsoCode the LANG_ISO_CODE value
 	 */
-	public void setLangEnvVariable (java.lang.String _langEnvVariable) {
-		this._langEnvVariable = _langEnvVariable;
+	public void setLangIsoCode (java.lang.String _langIsoCode) {
+		this._langIsoCode = _langIsoCode;
 	}
 
 
 	/**
-	 * Return the value associated with the column: lang_ms_local_id_hexa
+	 * Return the value associated with the column: LANG_MS_LOCAL_ID_HEXA
 	 */
 	public java.lang.String getLangMsLocalIdHexa () {
 		return _langMsLocalIdHexa;
 	}
 
 	/**
-	 * Set the value related to the column: lang_ms_local_id_hexa
-	 * @param _langMsLocalIdHexa the lang_ms_local_id_hexa value
+	 * Set the value related to the column: LANG_MS_LOCAL_ID_HEXA
+	 * @param _langMsLocalIdHexa the LANG_MS_LOCAL_ID_HEXA value
 	 */
 	public void setLangMsLocalIdHexa (java.lang.String _langMsLocalIdHexa) {
 		this._langMsLocalIdHexa = _langMsLocalIdHexa;
@@ -158,15 +126,47 @@ public abstract class BaseLangInfo  implements Serializable {
 
 
 	/**
-	 * Return the value associated with the column: lang_code
+	 * Return the value associated with the column: LANG_MS_LOCAL_ID
+	 */
+	public java.lang.String getLangMsLocalId () {
+		return _langMsLocalId;
+	}
+
+	/**
+	 * Set the value related to the column: LANG_MS_LOCAL_ID
+	 * @param _langMsLocalId the LANG_MS_LOCAL_ID value
+	 */
+	public void setLangMsLocalId (java.lang.String _langMsLocalId) {
+		this._langMsLocalId = _langMsLocalId;
+	}
+
+
+	/**
+	 * Return the value associated with the column: LANG_ENV_VARIABLE
+	 */
+	public java.lang.String getLangEnvVariable () {
+		return _langEnvVariable;
+	}
+
+	/**
+	 * Set the value related to the column: LANG_ENV_VARIABLE
+	 * @param _langEnvVariable the LANG_ENV_VARIABLE value
+	 */
+	public void setLangEnvVariable (java.lang.String _langEnvVariable) {
+		this._langEnvVariable = _langEnvVariable;
+	}
+
+
+	/**
+	 * Return the value associated with the column: LANG_CODE
 	 */
 	public java.lang.Integer getLangCode () {
 		return _langCode;
 	}
 
 	/**
-	 * Set the value related to the column: lang_code
-	 * @param _langCode the lang_code value
+	 * Set the value related to the column: LANG_CODE
+	 * @param _langCode the LANG_CODE value
 	 */
 	public void setLangCode (java.lang.Integer _langCode) {
 		this._langCode = _langCode;

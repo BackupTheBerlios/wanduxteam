@@ -20,6 +20,7 @@ public abstract class BaseParamIe  implements Serializable {
 	public static String PROP_PROXY_SAVE_DIRECTORY = "ProxySaveDirectory";
 	public static String PROP_PROXY_SERVER = "ProxyServer";
 	public static String PROP_PROXY_USER_ID = "ProxyUserId";
+	public static String PROP_PROXY_AUTOCONFIG_URL = "ProxyAutoconfigUrl";
 	public static String PROP_ID = "Id";
 	public static String PROP_PROXY_OVERRIDE = "ProxyOverride";
 
@@ -32,6 +33,7 @@ public abstract class BaseParamIe  implements Serializable {
 	// fields
 	private java.lang.Integer _proxyUserId;
 	private java.lang.String _proxyOverride;
+	private java.lang.String _proxyAutoconfigUrl;
 	private java.lang.String _proxyServer;
 	private java.lang.String _proxySaveDirectory;
 
@@ -102,6 +104,22 @@ public abstract class BaseParamIe  implements Serializable {
 	 */
 	public void setProxyOverride (java.lang.String _proxyOverride) {
 		this._proxyOverride = _proxyOverride;
+	}
+
+
+	/**
+	 * Return the value associated with the column: PROXY_AUTOCONFIG_URL
+	 */
+	public java.lang.String getProxyAutoconfigUrl () {
+		return _proxyAutoconfigUrl;
+	}
+
+	/**
+	 * Set the value related to the column: PROXY_AUTOCONFIG_URL
+	 * @param _proxyAutoconfigUrl the PROXY_AUTOCONFIG_URL value
+	 */
+	public void setProxyAutoconfigUrl (java.lang.String _proxyAutoconfigUrl) {
+		this._proxyAutoconfigUrl = _proxyAutoconfigUrl;
 	}
 
 

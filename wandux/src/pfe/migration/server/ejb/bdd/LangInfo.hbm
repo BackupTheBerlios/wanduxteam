@@ -4,55 +4,61 @@
 	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
 
 <hibernate-mapping package="pfe.migration.server.ejb.bdd">
-	<class name="LangInfo" table="LANG_INFO">
+	<class
+		name="LangInfo"
+		table="LANG_INFO"
+	>
 		<id
-			column="lang_language"
 			name="LangLanguage"
 			type="string"
+			column="LANG_LANGUAGE"
 		>
-			<generator class="vm" />
+			<generator class="vm"/>
 		</id>
+
 		<property
-			column="lang_ms_local_id"
-			length="10"
-			name="LangMsLocalId"
-			not-null="false"
-			type="string"
-		 />
-		<property
-			column="lang_iso_code"
-			length="10"
-			name="LangIsoCode"
-			not-null="false"
-			type="string"
-		 />
-		<property
-			column="lang_symbolic"
-			length="30"
 			name="LangSymbolic"
-			not-null="false"
+			column="LANG_SYMBOLIC"
 			type="string"
-		 />
-		<property
-			column="lang_env_variable"
+			not-null="false"
 			length="30"
-			name="LangEnvVariable"
-			not-null="false"
-			type="string"
-		 />
+		/>
 		<property
-			column="lang_ms_local_id_hexa"
+			name="LangIsoCode"
+			column="LANG_ISO_CODE"
+			type="string"
+			not-null="false"
 			length="10"
-			name="LangMsLocalIdHexa"
-			not-null="false"
-			type="string"
-		 />
+		/>
 		<property
-			column="lang_code"
-			length="11"
-			name="LangCode"
+			name="LangMsLocalIdHexa"
+			column="LANG_MS_LOCAL_ID_HEXA"
+			type="string"
 			not-null="false"
+			length="10"
+		/>
+		<property
+			name="LangMsLocalId"
+			column="LANG_MS_LOCAL_ID"
+			type="string"
+			not-null="false"
+			length="10"
+		/>
+		<property
+			name="LangEnvVariable"
+			column="LANG_ENV_VARIABLE"
+			type="string"
+			not-null="false"
+			length="30"
+		/>
+		<property
+			name="LangCode"
+			column="LANG_CODE"
 			type="integer"
-		 />
+			not-null="false"
+			length="11"
+		/>
+
+
 	</class>
 </hibernate-mapping>
