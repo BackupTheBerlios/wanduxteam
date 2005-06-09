@@ -56,18 +56,18 @@
 			type="string"
 		 />
 		<property
-			column="NETWOTK_KEY"
-			length="11"
-			name="NetwotkKey"
-			not-null="false"
-			type="integer"
-		 />
-		<property
 			column="NETWORK_DHCP_ENABLED"
 			length="1"
 			name="NetworkDhcpEnabled"
 			not-null="false"
 			type="java.lang.Byte"
+		 />
+		<property
+			column="NETWORK_KEY"
+			length="11"
+			name="NetworkKey"
+			not-null="false"
+			type="integer"
 		 />
 	</class>
 </hibernate-mapping>

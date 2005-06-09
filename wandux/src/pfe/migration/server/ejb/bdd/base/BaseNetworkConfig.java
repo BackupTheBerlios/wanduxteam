@@ -19,7 +19,7 @@ public abstract class BaseNetworkConfig  implements Serializable {
 
 	public static String PROP_NETWORK_DNS_SERVER = "NetworkDnsServer";
 	public static String PROP_NETWORK_IP_ADDRESS = "NetworkIpAddress";
-	public static String PROP_NETWOTK_KEY = "NetwotkKey";
+	public static String PROP_NETWORK_KEY = "NetworkKey";
 	public static String PROP_NETWORK_INTERFACE = "NetworkInterface";
 	public static String PROP_NETWORK_SUBNETMASK = "NetworkSubnetmask";
 	public static String PROP_NETWORK_STATUS = "NetworkStatus";
@@ -42,8 +42,8 @@ public abstract class BaseNetworkConfig  implements Serializable {
 	private java.lang.String _networkDnsServer2;
 	private java.lang.Byte _networkStatus;
 	private java.lang.String _networkDnsServer;
-	private java.lang.Integer _netwotkKey;
 	private java.lang.Byte _networkDhcpEnabled;
+	private java.lang.Integer _networkKey;
 
 
 	// constructors
@@ -196,22 +196,6 @@ public abstract class BaseNetworkConfig  implements Serializable {
 
 
 	/**
-	 * Return the value associated with the column: NETWOTK_KEY
-	 */
-	public java.lang.Integer getNetwotkKey () {
-		return _netwotkKey;
-	}
-
-	/**
-	 * Set the value related to the column: NETWOTK_KEY
-	 * @param _netwotkKey the NETWOTK_KEY value
-	 */
-	public void setNetwotkKey (java.lang.Integer _netwotkKey) {
-		this._netwotkKey = _netwotkKey;
-	}
-
-
-	/**
 	 * Return the value associated with the column: NETWORK_DHCP_ENABLED
 	 */
 	public java.lang.Byte getNetworkDhcpEnabled () {
@@ -224,6 +208,22 @@ public abstract class BaseNetworkConfig  implements Serializable {
 	 */
 	public void setNetworkDhcpEnabled (java.lang.Byte _networkDhcpEnabled) {
 		this._networkDhcpEnabled = _networkDhcpEnabled;
+	}
+
+
+	/**
+	 * Return the value associated with the column: NETWORK_KEY
+	 */
+	public java.lang.Integer getNetworkKey () {
+		return _networkKey;
+	}
+
+	/**
+	 * Set the value related to the column: NETWORK_KEY
+	 * @param _networkKey the NETWORK_KEY value
+	 */
+	public void setNetworkKey (java.lang.Integer _networkKey) {
+		this._networkKey = _networkKey;
 	}
 
 

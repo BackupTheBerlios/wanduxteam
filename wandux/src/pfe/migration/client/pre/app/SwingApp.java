@@ -224,7 +224,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		ci.gconf = new GlobalConf();
 		ci.netconf = new NetworkConfig(ci.gconf.getGlobalKey());
 		ci.udata = new UsersData(ci.gconf.getGlobalKey());
-		ci.ieconf = new ParamIe(ci.gconf.getGlobalKey());
+		ci.ieconf = new ParamIe(/*Mettre ici la Clé unique d'un user*/);
 		
 		//Hostname
 		ci.gconf.setGlobalHostname(kvusers.getKeyValLocalMachine(
@@ -239,8 +239,10 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		
 		// Proxy
 		IeParam ieparam = new IeParam();
-		ci.ieconf.setProxyServer(ieparam.getProxyServer());
-		ci.ieconf.setProxyOverride(ieparam.getProxyOverride());
+		ci.ieconf.setProxyServer("server_test");
+		ci.ieconf.setProxyOverride("overide_test");
+//		ci.ieconf.setProxyServer(ieparam.getProxyServer());
+//		ci.ieconf.setProxyOverride(ieparam.getProxyOverride());
 		
 		if (!curinterface.equals("dhcpdisabled"))
 		{
