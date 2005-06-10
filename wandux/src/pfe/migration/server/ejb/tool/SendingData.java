@@ -23,12 +23,15 @@ public class SendingData implements Runnable {
 	Transaction transaction;
 	Session session;
 	ComputerInformation ci;
+	
+	String mac = "";
+	String ip = "";
 
 	public SendingData(ComputerInformation ci) 
 	{
 		super();
-  	String ip = ci.getIp();
-  	this.ci = ci;
+		String ip = ci.getIp();
+		this.ci = ci;
 	}
 
 	public void run()
@@ -48,6 +51,15 @@ public class SendingData implements Runnable {
 //		System.out.println(ci.ndhcp.getDhcpAdress());
 	}
 
+	public String getMac()
+	{
+		return this.mac;
+	}
+
+	public String getIp()
+	{
+		return this.ip;
+	}
 }
 
 // TODO remettre les etapes du monitoring dans la classe ci-dessus 

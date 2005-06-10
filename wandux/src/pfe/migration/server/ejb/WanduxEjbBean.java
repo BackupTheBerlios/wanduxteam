@@ -12,6 +12,7 @@ import javax.ejb.SessionContext;
 import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.server.ejb.tool.SendingData;
 import pfe.migration.server.ejb.tool.WorkQueue;
+import pfe.migration.server.ejb.tool.XmlParse;
 import pfe.migration.server.monitor.ClientMonitorListener;
 
 /**
@@ -26,6 +27,9 @@ public class WanduxEjbBean implements SessionBean
 {
 //	List computerList = new ArrayList(); // ip des machines
 //	private ClientMonitor cml = null;
+	
+	
+	String AdllXmlFileName = "";
 	
 	// -- ejb ------------------------------------------------------------------------------------ //
 	public WanduxEjbBean()
@@ -54,6 +58,14 @@ public class WanduxEjbBean implements SessionBean
 		System.out.println(ok);
 	}
 	
+	
+	public void createAdllXmlFile(ComputerInformation ci)
+	{
+		XmlParse xmlFile = new XmlParse(ci);
+		
+		
+	}
+	
 	public void putComputerInformation(ComputerInformation ci)
 	{
 //	  String ip = ci.getIp();
@@ -71,9 +83,13 @@ public class WanduxEjbBean implements SessionBean
 //		} catch (HibernateException e) {
 //			e.printStackTrace();
 //		}
-
+		
 		WorkQueue wt = new WorkQueue(10);
 		wt.execute(new SendingData(ci));
+		
+		// c est pas pour recuppere le nom du fichier
+		
+		createAdllXmlFile (ci); // a enleve pour que ca puisse etre gere depuis le monitoring
 
 //		System.out.println(ci.ndhcp.getDhcpAdress());
 	}

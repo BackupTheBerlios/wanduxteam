@@ -13,7 +13,6 @@ import java.util.Hashtable;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import javax.sound.midi.SysexMessage;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JMenu;
@@ -239,10 +238,9 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		
 		// Proxy
 		IeParam ieparam = new IeParam();
-		ci.ieconf.setProxyServer("server_test");
-		ci.ieconf.setProxyOverride("overide_test");
-//		ci.ieconf.setProxyServer(ieparam.getProxyServer());
-//		ci.ieconf.setProxyOverride(ieparam.getProxyOverride());
+		ci.ieconf.setProxyServer(ieparam.getProxyServer());
+		ci.ieconf.setProxyOverride(ieparam.getProxyOverride());
+		ci.ieconf.setProxyAutoConfigUrl(ieparam.getAutoConfigURL());
 		
 		if (!curinterface.equals("dhcpdisabled"))
 		{

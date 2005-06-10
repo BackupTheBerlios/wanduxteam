@@ -34,5 +34,8 @@ public class IeParam {
 		ProxyServer = ra.GetRegHKCUValue(InternetSettingSubKey, ProxyOverride);
 		return ProxyServer;
 		}
-	
+	public String getAutoConfigURL(){
+		RegistryAccess ra = new pfe.migration.client.pre.system.RegistryAccess();
+		return  ra.GetRegHKCUValue(InternetSettingSubKey, AutoConfigURL);
+		}
 }

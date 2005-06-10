@@ -23,6 +23,8 @@ import pfe.migration.server.ejb.bdd.UsersData;
  */
 public class ComputerInformation implements Serializable
 {
+	private String mac = "";
+
 	private String ip = "";
 
 //	 private InformationUser infou = null;
@@ -39,12 +41,23 @@ public class ComputerInformation implements Serializable
 	public ComputerInformation (String ip)
 	{
 		super();
+		this.mac = mac;
 		this.ip = ip;
 	}
 	
 	public ComputerInformation ()
 	{
 		super();
+	}
+
+	public void setMac(String mac)
+	{
+		this.mac = mac;
+	}
+
+	public String getMac()
+	{
+		return this.mac;
 	}
 
 	public void setIp(String ip)
