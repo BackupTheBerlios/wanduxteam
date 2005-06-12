@@ -40,9 +40,7 @@ public class LanguageSettings {
 			    System.out.println(mslangid);
 			}
 		} catch (NoSuchKeyException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			// TODO Auto-generated catch block
 		} catch (RegistryException e) {
 			e.printStackTrace();
 		}

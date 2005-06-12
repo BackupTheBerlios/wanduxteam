@@ -50,12 +50,12 @@ public class SendingData implements Runnable
 	
 	public String getMac()
 	{
-		return this.mac;
+		return this.ci.getMac();
 	}
 
 	public String getIp()
 	{
-		return this.ip;
+		return this.ci.getIp();
 	}
 	
 }
