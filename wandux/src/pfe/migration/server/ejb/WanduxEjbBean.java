@@ -9,9 +9,11 @@ import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 
+import net.sf.hibernate.HibernateException;
+import net.sf.hibernate.Session;
+import net.sf.hibernate.Transaction;
 import pfe.migration.client.network.ComputerInformation;
-import pfe.migration.server.ejb.tool.SendingData;
-import pfe.migration.server.ejb.tool.WorkQueue;
+import pfe.migration.server.ejb.bdd.HibernateUtil;
 import pfe.migration.server.ejb.tool.XmlParse;
 import pfe.migration.server.monitor.ClientMonitorListener;
 
@@ -68,29 +70,29 @@ public class WanduxEjbBean implements SessionBean
 	
 	public void putComputerInformation(ComputerInformation ci)
 	{
-//	  String ip = ci.getIp();
-//	  	
-//	  Transaction transaction;
-//		Session session;
-//		try {
-//			session = HibernateUtil.currentSession();
-//			transaction = session.beginTransaction();
-//			session.save(ci.gconf);
-//			session.save(ci.ndhcp);
-//			session.save(ci.udata);
-//			transaction.commit();
-//			HibernateUtil.closeSession();
-//		} catch (HibernateException e) {
-//			e.printStackTrace();
-//		}
-		
-		WorkQueue wt = new WorkQueue(10);
-		wt.execute(new SendingData(ci));
+		String ip = ci.getIp();
+
+		Transaction transaction;
+		Session session;
+		try {
+			session = HibernateUtil.currentSession();
+			transaction = session.beginTransaction();
+			session.save(ci.gconf);
+			session.save(ci.netconf);
+			session.save(ci.udata);
+			session.save(ci.ieconf);
+			transaction.commit();
+			HibernateUtil.closeSession();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+
+//		exemple d'utilisation des threads // TODO a enleve prochainement
+//		WorkQueue wt = new WorkQueue(10);
+//		wt.execute(new SendingData(ci));
 		
 		// c est pas pour recuppere le nom du fichier
-		
 		createAdllXmlFile (ci); // a enleve pour que ca puisse etre gere depuis le monitoring
-
 //		System.out.println(ci.ndhcp.getDhcpAdress());
 	}
 	

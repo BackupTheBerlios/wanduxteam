@@ -9,6 +9,7 @@ import javax.naming.InitialContext;
 
 import pfe.migration.server.ejb.WanduxEjb;
 import pfe.migration.server.ejb.WanduxEjbHome;
+import pfe.migration.server.monitor.ClientMonitor;
 
 /**
  * @author dup
@@ -17,7 +18,7 @@ import pfe.migration.server.ejb.WanduxEjbHome;
  */
 public class ClientEjb
 {
-//	private ClientMonitor cm = null;
+	private ClientMonitor cm = null;
 	
 	private static String SERVER_EJB_NAME = "";
 	
@@ -34,7 +35,7 @@ public class ClientEjb
 	    Properties ppt = null;
 	    Context ctx = null;
 	    Object ref = null;
-	
+	    
 	    WanduxEjbHome home = null;
 	    
 		System.out.println("connection en cours de connection");
@@ -62,10 +63,7 @@ public class ClientEjb
 		System.out.println("connection ferme");
 	}
 	
-	/**
-	 * methotes d'exemple
-	 * @return
-	 */
+// -- client pre installation --
 	public void Transfert (ComputerInformation ci)
 	{
 		System.out.println("transfer commence");
@@ -93,14 +91,10 @@ public class ClientEjb
 		} catch (RemoteException e) { e.printStackTrace(); }
 	}
 
-//	public void setClientMonitor (boolean b)
-//	{
-//		if (b == true)
-//			cm = new ClientMonitor();
-//	}
-//
-//	public ClientMonitor getClientMonitor()
-//	{
-//		return cm;
-//	}
+// -- client monitoring --
+	public ClientMonitor makeTheClientMonitoring ()
+	{
+		return new ClientMonitor();
+	}
+	
 }

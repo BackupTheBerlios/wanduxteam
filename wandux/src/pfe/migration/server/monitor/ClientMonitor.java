@@ -29,6 +29,11 @@ public class ClientMonitor implements ClientMonitorListener
 	{
 		cl.add(ip);
 	}
+	
+	public String pouet()
+	{
+		return "pouet";
+	}
 
 //	public CiList getCI(String ip)
 //	{
