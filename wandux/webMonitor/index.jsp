@@ -19,10 +19,9 @@ ce.EjbConnect();
 
 out.println("connection established ... <br>");
 
-
-ce.setClientMonitor (true);
-
 //ClientMonitor cm = (ClientMonitor)ce.ClientMonitor();
+ClientMonitor cm = ce.makeTheClientMonitoring();
+//out.println(cm.pouet() + "<br>");
 
 ce.EjbClose();
 
