@@ -16,9 +16,9 @@
 	<property name="jar.client.pre.name" value="clientPre.jar"/>
 	<property name="jar.serverEjb.name" value="WanduxEjb.jar"/>
 	<property name="jar.monitor.name" value="webMonitor.war"/>
-	<!-- property name="deploy.dir" value="C:\java\jboss-4.0.1sp1/server/default/deploy/"/ -->
-	<property name="deploy.dir" value="C:\java\jboss/server/default/deploy/"/>
-	<property name="jboss.bin.dir" value="C:\java\jboss\bin"/>
+	
+	
+	<property name="jboss.dir" value="C:\java\jboss"/>
 	
 	<target name="all" depends="copie de fichiers, deploy">
 		<echo message=":)"/>
@@ -32,27 +32,54 @@
 			<include name="${dir.build}"/>
 			<include name="${dir.plugin}"/>
 		</tar -->
+		<echo message="----------------------------------------------------------------------------------"/>
+		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
+		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
+		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
+		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
+		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
+		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
+		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
+		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
+		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
+		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
 	</target>
 	
 	<target name="copie de fichiers">
+		<echo message="creation des repertoires et copies des fichiers xml de adll"/>
+		<mkdir dir="c:\wandux\adll\" />
+		<mkdir dir="c:\wandux\output\" />
+		<copy todir="c:\wandux\adll\">
+			<fileset dir="${dir.utils}\adll\" includes="adll.dtd"/>
+			<fileset dir="${dir.utils}\adll\" includes="mandrake_10_1_FR.xml"/>
+		</copy>
+		<copy todir="c:\wandux\output\">
+			<fileset dir="${dir.utils}\adll\" includes="adll.dtd"/>
+		</copy>
+		
+		<echo message="copie du jar jdom dans jboss"/>
+		<copy todir="${jboss.dir}\server\default\lib">
+			<fileset dir="${dir.lib}" includes="jdom.jar"/>
+		</copy>
+
 		<echo message="copie la dll"/>
 		<copy todir="C:\WINDOWS\system32">
 			<fileset dir="${dir.lib}" includes="ICE_JNIRegistry.dll"/>
 		</copy>
 		
 		<echo message="copie mysql-ds"/>
-		<copy todir="${deploy.dir}">
+		<copy todir="${jboss.dir}\server\default\deploy\">
 			<fileset dir="${dir.utils}" includes="mysql-ds.xml"/>
 		</copy>
-		<copy todir="${jboss.bin.dir}">
+		<copy todir="${jboss.dir}\bin">
 			<fileset dir="${dir.utils}" includes="mysql-ds.xml"/>
 		</copy>
 		
 		<echo message="copie hibernate.cfg.xml"/>
-		<copy todir="${deploy.dir}/../conf">
+		<copy todir="${jboss.dir}\server\default\conf">
 			<fileset dir="${dir.sources}" includes="hibernate.cfg.xml"/>
 		</copy>
-		<copy todir="${jboss.bin.dir}">
+		<copy todir="${jboss.dir}\bin">
 			<fileset dir="${dir.sources}" includes="hibernate.cfg.xml"/>
 		</copy>
 		
@@ -66,9 +93,9 @@
 		<!-- copy todir="${dir.build}/" file="${dir.sources}/makeEjbJar.bat"/ -->
 		<!-- les choses annexes -->
 		
-		<echo message="verifier dans build.xml que la variable property deploy.dir pointe vers votre jboss"/>
-		<delete file="${deploy.dir}/${jar.serverEjb.name}" />
-		<copy todir="${deploy.dir}">
+		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
+		<delete file="${jboss.dir}\server\default\deploy\${jar.serverEjb.name}" />
+		<copy todir="${jboss.dir}\server\default\deploy\">
 			<fileset dir="${dir.build}" includes="${jar.serverEjb.name}"/>
 			<fileset dir="${dir.build}" includes="${jar.monitor.name}"/>
 		</copy>
