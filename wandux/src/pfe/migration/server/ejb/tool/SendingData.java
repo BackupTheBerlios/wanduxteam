@@ -18,20 +18,17 @@ import pfe.migration.server.ejb.bdd.HibernateUtil;
  * To change the template for this generated type comment go to
  * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
-public class SendingData implements Runnable {
-
+public class SendingData implements Runnable 
+{
 	Transaction transaction;
 	Session session;
 	ComputerInformation ci;
-	
-	String mac = "";
-	String ip = "";
 
 	public SendingData(ComputerInformation ci) 
 	{
 		super();
-		String ip = ci.getIp();
-		this.ci = ci;
+	  	String ip = ci.getIp();
+	  	this.ci = ci;
 	}
 
 	public void run()
@@ -50,7 +47,7 @@ public class SendingData implements Runnable {
 		}
 //		System.out.println(ci.ndhcp.getDhcpAdress());
 	}
-
+	
 	public String getMac()
 	{
 		return this.mac;
@@ -60,6 +57,7 @@ public class SendingData implements Runnable {
 	{
 		return this.ip;
 	}
+	
 }
 
 // TODO remettre les etapes du monitoring dans la classe ci-dessus 

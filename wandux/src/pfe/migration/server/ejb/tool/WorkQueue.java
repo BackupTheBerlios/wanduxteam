@@ -22,14 +22,14 @@ public class WorkQueue {
 
 	public WorkQueue(int nThreads)
 	{
-    this.nThreads = nThreads;
-    queue = new LinkedList();
-    threads = new PoolWorker[nThreads];
-    for (int i=0; i<nThreads; i++)
-    {
-    	threads[i] = new PoolWorker();
-      threads[i].start();
-    }
+	    this.nThreads = nThreads;
+	    queue = new LinkedList();
+	    threads = new PoolWorker[nThreads];
+	    for (int i=0; i<nThreads; i++)
+	    {
+	    	threads[i] = new PoolWorker();
+	    	threads[i].start();
+	    }
 	}
 
   public void execute(Runnable r)
