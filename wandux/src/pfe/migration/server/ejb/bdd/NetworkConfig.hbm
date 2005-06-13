@@ -69,5 +69,11 @@
 			not-null="false"
 			type="integer"
 		 />
+		<property
+			column="NETWORK_MAC_ADRESS"
+			name="NetworkMacAdress"
+			not-null="false"
+			type="string"
+		 />
 	</class>
 </hibernate-mapping>

@@ -21,6 +21,7 @@ public abstract class BaseNetworkConfig  implements Serializable {
 	public static String PROP_NETWORK_IP_ADDRESS = "NetworkIpAddress";
 	public static String PROP_NETWORK_KEY = "NetworkKey";
 	public static String PROP_NETWORK_INTERFACE = "NetworkInterface";
+	public static String PROP_NETWORK_MAC_ADRESS = "NetworkMacAdress";
 	public static String PROP_NETWORK_SUBNETMASK = "NetworkSubnetmask";
 	public static String PROP_NETWORK_STATUS = "NetworkStatus";
 	public static String PROP_NETWORK_DNS_SERVER2 = "NetworkDnsServer2";
@@ -44,6 +45,7 @@ public abstract class BaseNetworkConfig  implements Serializable {
 	private java.lang.String _networkDnsServer;
 	private java.lang.Byte _networkDhcpEnabled;
 	private java.lang.Integer _networkKey;
+	private java.lang.String _networkMacAdress;
 
 
 	// constructors
@@ -224,6 +226,22 @@ public abstract class BaseNetworkConfig  implements Serializable {
 	 */
 	public void setNetworkKey (java.lang.Integer _networkKey) {
 		this._networkKey = _networkKey;
+	}
+
+
+	/**
+	 * Return the value associated with the column: NETWORK_MAC_ADRESS
+	 */
+	public java.lang.String getNetworkMacAdress () {
+		return _networkMacAdress;
+	}
+
+	/**
+	 * Set the value related to the column: NETWORK_MAC_ADRESS
+	 * @param _networkMacAdress the NETWORK_MAC_ADRESS value
+	 */
+	public void setNetworkMacAdress (java.lang.String _networkMacAdress) {
+		this._networkMacAdress = _networkMacAdress;
 	}
 
 
