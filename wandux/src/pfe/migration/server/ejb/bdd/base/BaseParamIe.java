@@ -20,8 +20,8 @@ public abstract class BaseParamIe  implements Serializable {
 	public static String PROP_IE_PROXY_AUTO_CONFIG_URL = "IeProxyAutoConfigUrl";
 	public static String PROP_IE_PROXY_OVERRIDE = "IeProxyOverride";
 	public static String PROP_IE_PROXY_SERVER = "IeProxyServer";
-	public static String PROP_IE_PROXY_SAVE_DIRECTORY = "IeProxySaveDirectory";
-	public static String PROP_IE_PROXY_USER_ID = "IeProxyUserId";
+	public static String PROP_IE_PARAM_USER_ID = "IeParamUserId";
+	public static String PROP_IE_PARAM_SAVE_DIRECTORY = "IeParamSaveDirectory";
 	public static String PROP_ID = "Id";
 
 
@@ -31,8 +31,8 @@ public abstract class BaseParamIe  implements Serializable {
 	private java.lang.Integer _id;
 
 	// fields
-	private java.lang.String _ieProxySaveDirectory;
-	private java.lang.Integer _ieProxyUserId;
+	private java.lang.String _ieParamSaveDirectory;
+	private java.lang.Integer _ieParamUserId;
 	private java.lang.String _ieProxyServer;
 	private java.lang.String _ieProxyAutoConfigUrl;
 	private java.lang.String _ieProxyOverride;
@@ -59,7 +59,7 @@ public abstract class BaseParamIe  implements Serializable {
 	 * Return the unique identifier of this class
      * @hibernate.id
      *  generator-class="vm"
-     *  column="IE_PROXY_ID"
+     *  column="IE_PARAM_ID"
      */
 	public java.lang.Integer getId () {
 		return _id;
@@ -76,34 +76,34 @@ public abstract class BaseParamIe  implements Serializable {
 
 
 	/**
-	 * Return the value associated with the column: IE_PROXY_SAVE_DIRECTORY
+	 * Return the value associated with the column: IE_PARAM_SAVE_DIRECTORY
 	 */
-	public java.lang.String getIeProxySaveDirectory () {
-		return _ieProxySaveDirectory;
+	public java.lang.String getIeParamSaveDirectory () {
+		return _ieParamSaveDirectory;
 	}
 
 	/**
-	 * Set the value related to the column: IE_PROXY_SAVE_DIRECTORY
-	 * @param _ieProxySaveDirectory the IE_PROXY_SAVE_DIRECTORY value
+	 * Set the value related to the column: IE_PARAM_SAVE_DIRECTORY
+	 * @param _ieParamSaveDirectory the IE_PARAM_SAVE_DIRECTORY value
 	 */
-	public void setIeProxySaveDirectory (java.lang.String _ieProxySaveDirectory) {
-		this._ieProxySaveDirectory = _ieProxySaveDirectory;
+	public void setIeParamSaveDirectory (java.lang.String _ieParamSaveDirectory) {
+		this._ieParamSaveDirectory = _ieParamSaveDirectory;
 	}
 
 
 	/**
-	 * Return the value associated with the column: IE_PROXY_USER_ID
+	 * Return the value associated with the column: IE_PARAM_USER_ID
 	 */
-	public java.lang.Integer getIeProxyUserId () {
-		return _ieProxyUserId;
+	public java.lang.Integer getIeParamUserId () {
+		return _ieParamUserId;
 	}
 
 	/**
-	 * Set the value related to the column: IE_PROXY_USER_ID
-	 * @param _ieProxyUserId the IE_PROXY_USER_ID value
+	 * Set the value related to the column: IE_PARAM_USER_ID
+	 * @param _ieParamUserId the IE_PARAM_USER_ID value
 	 */
-	public void setIeProxyUserId (java.lang.Integer _ieProxyUserId) {
-		this._ieProxyUserId = _ieProxyUserId;
+	public void setIeParamUserId (java.lang.Integer _ieParamUserId) {
+		this._ieParamUserId = _ieParamUserId;
 	}
 
 

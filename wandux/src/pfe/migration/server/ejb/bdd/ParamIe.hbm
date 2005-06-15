@@ -6,22 +6,22 @@
 <hibernate-mapping package="pfe.migration.server.ejb.bdd">
 	<class name="ParamIe" table="PARAM_IE">
 		<id
-			column="IE_PROXY_ID"
+			column="IE_PARAM_ID"
 			name="Id"
 			type="integer"
 		>
 			<generator class="vm" />
 		</id>
 		<property
-			column="IE_PROXY_SAVE_DIRECTORY"
-			name="IeProxySaveDirectory"
+			column="IE_PARAM_SAVE_DIRECTORY"
+			name="IeParamSaveDirectory"
 			not-null="false"
 			type="string"
 		 />
 		<property
-			column="IE_PROXY_USER_ID"
+			column="IE_PARAM_USER_ID"
 			length="11"
-			name="IeProxyUserId"
+			name="IeParamUserId"
 			not-null="false"
 			type="integer"
 		 />
