@@ -17,12 +17,12 @@ import java.io.Serializable;
  */
 public abstract class BaseParamIe  implements Serializable {
 
-	public static String PROP_PROXY_AUTO_CONFIG_URL = "ProxyAutoConfigUrl";
-	public static String PROP_PROXY_SAVE_DIRECTORY = "ProxySaveDirectory";
-	public static String PROP_PROXY_SERVER = "ProxyServer";
-	public static String PROP_PROXY_USER_ID = "ProxyUserId";
+	public static String PROP_IE_PROXY_AUTO_CONFIG_URL = "IeProxyAutoConfigUrl";
+	public static String PROP_IE_PROXY_OVERRIDE = "IeProxyOverride";
+	public static String PROP_IE_PROXY_SERVER = "IeProxyServer";
+	public static String PROP_IE_PROXY_SAVE_DIRECTORY = "IeProxySaveDirectory";
+	public static String PROP_IE_PROXY_USER_ID = "IeProxyUserId";
 	public static String PROP_ID = "Id";
-	public static String PROP_PROXY_OVERRIDE = "ProxyOverride";
 
 
 	private int hashCode = Integer.MIN_VALUE;
@@ -31,11 +31,11 @@ public abstract class BaseParamIe  implements Serializable {
 	private java.lang.Integer _id;
 
 	// fields
-	private java.lang.String _proxyAutoConfigUrl;
-	private java.lang.Integer _proxyUserId;
-	private java.lang.String _proxyOverride;
-	private java.lang.String _proxyServer;
-	private java.lang.String _proxySaveDirectory;
+	private java.lang.String _ieProxySaveDirectory;
+	private java.lang.Integer _ieProxyUserId;
+	private java.lang.String _ieProxyServer;
+	private java.lang.String _ieProxyAutoConfigUrl;
+	private java.lang.String _ieProxyOverride;
 
 
 	// constructors
@@ -59,7 +59,7 @@ public abstract class BaseParamIe  implements Serializable {
 	 * Return the unique identifier of this class
      * @hibernate.id
      *  generator-class="vm"
-     *  column="PROXY_ID"
+     *  column="IE_PROXY_ID"
      */
 	public java.lang.Integer getId () {
 		return _id;
@@ -76,82 +76,82 @@ public abstract class BaseParamIe  implements Serializable {
 
 
 	/**
-	 * Return the value associated with the column: PROXY_AUTO_CONFIG_URL
+	 * Return the value associated with the column: IE_PROXY_SAVE_DIRECTORY
 	 */
-	public java.lang.String getProxyAutoConfigUrl () {
-		return _proxyAutoConfigUrl;
+	public java.lang.String getIeProxySaveDirectory () {
+		return _ieProxySaveDirectory;
 	}
 
 	/**
-	 * Set the value related to the column: PROXY_AUTO_CONFIG_URL
-	 * @param _proxyAutoConfigUrl the PROXY_AUTO_CONFIG_URL value
+	 * Set the value related to the column: IE_PROXY_SAVE_DIRECTORY
+	 * @param _ieProxySaveDirectory the IE_PROXY_SAVE_DIRECTORY value
 	 */
-	public void setProxyAutoConfigUrl (java.lang.String _proxyAutoConfigUrl) {
-		this._proxyAutoConfigUrl = _proxyAutoConfigUrl;
-	}
-
-
-	/**
-	 * Return the value associated with the column: PROXY_USER_ID
-	 */
-	public java.lang.Integer getProxyUserId () {
-		return _proxyUserId;
-	}
-
-	/**
-	 * Set the value related to the column: PROXY_USER_ID
-	 * @param _proxyUserId the PROXY_USER_ID value
-	 */
-	public void setProxyUserId (java.lang.Integer _proxyUserId) {
-		this._proxyUserId = _proxyUserId;
+	public void setIeProxySaveDirectory (java.lang.String _ieProxySaveDirectory) {
+		this._ieProxySaveDirectory = _ieProxySaveDirectory;
 	}
 
 
 	/**
-	 * Return the value associated with the column: PROXY_OVERRIDE
+	 * Return the value associated with the column: IE_PROXY_USER_ID
 	 */
-	public java.lang.String getProxyOverride () {
-		return _proxyOverride;
+	public java.lang.Integer getIeProxyUserId () {
+		return _ieProxyUserId;
 	}
 
 	/**
-	 * Set the value related to the column: PROXY_OVERRIDE
-	 * @param _proxyOverride the PROXY_OVERRIDE value
+	 * Set the value related to the column: IE_PROXY_USER_ID
+	 * @param _ieProxyUserId the IE_PROXY_USER_ID value
 	 */
-	public void setProxyOverride (java.lang.String _proxyOverride) {
-		this._proxyOverride = _proxyOverride;
-	}
-
-
-	/**
-	 * Return the value associated with the column: PROXY_SERVER
-	 */
-	public java.lang.String getProxyServer () {
-		return _proxyServer;
-	}
-
-	/**
-	 * Set the value related to the column: PROXY_SERVER
-	 * @param _proxyServer the PROXY_SERVER value
-	 */
-	public void setProxyServer (java.lang.String _proxyServer) {
-		this._proxyServer = _proxyServer;
+	public void setIeProxyUserId (java.lang.Integer _ieProxyUserId) {
+		this._ieProxyUserId = _ieProxyUserId;
 	}
 
 
 	/**
-	 * Return the value associated with the column: PROXY_SAVE_DIRECTORY
+	 * Return the value associated with the column: IE_PROXY_SERVER
 	 */
-	public java.lang.String getProxySaveDirectory () {
-		return _proxySaveDirectory;
+	public java.lang.String getIeProxyServer () {
+		return _ieProxyServer;
 	}
 
 	/**
-	 * Set the value related to the column: PROXY_SAVE_DIRECTORY
-	 * @param _proxySaveDirectory the PROXY_SAVE_DIRECTORY value
+	 * Set the value related to the column: IE_PROXY_SERVER
+	 * @param _ieProxyServer the IE_PROXY_SERVER value
 	 */
-	public void setProxySaveDirectory (java.lang.String _proxySaveDirectory) {
-		this._proxySaveDirectory = _proxySaveDirectory;
+	public void setIeProxyServer (java.lang.String _ieProxyServer) {
+		this._ieProxyServer = _ieProxyServer;
+	}
+
+
+	/**
+	 * Return the value associated with the column: IE_PROXY_AUTO_CONFIG_URL
+	 */
+	public java.lang.String getIeProxyAutoConfigUrl () {
+		return _ieProxyAutoConfigUrl;
+	}
+
+	/**
+	 * Set the value related to the column: IE_PROXY_AUTO_CONFIG_URL
+	 * @param _ieProxyAutoConfigUrl the IE_PROXY_AUTO_CONFIG_URL value
+	 */
+	public void setIeProxyAutoConfigUrl (java.lang.String _ieProxyAutoConfigUrl) {
+		this._ieProxyAutoConfigUrl = _ieProxyAutoConfigUrl;
+	}
+
+
+	/**
+	 * Return the value associated with the column: IE_PROXY_OVERRIDE
+	 */
+	public java.lang.String getIeProxyOverride () {
+		return _ieProxyOverride;
+	}
+
+	/**
+	 * Set the value related to the column: IE_PROXY_OVERRIDE
+	 * @param _ieProxyOverride the IE_PROXY_OVERRIDE value
+	 */
+	public void setIeProxyOverride (java.lang.String _ieProxyOverride) {
+		this._ieProxyOverride = _ieProxyOverride;
 	}
 
 

@@ -238,9 +238,9 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		
 		// Proxy
 		IeParam ieparam = new IeParam();
-		ci.ieconf.setProxyServer(ieparam.getProxyServer());
-		ci.ieconf.setProxyOverride(ieparam.getProxyOverride());
-		ci.ieconf.setProxyAutoConfigUrl(ieparam.getAutoConfigURL());
+		ci.ieconf.setIeProxyServer(ieparam.getProxyServer());
+		ci.ieconf.setIeProxyOverride(ieparam.getProxyOverride());
+		ci.ieconf.setIeProxyAutoConfigUrl(ieparam.getAutoConfigURL());
 		
 		if (!curinterface.equals("dhcpdisabled"))
 		{
