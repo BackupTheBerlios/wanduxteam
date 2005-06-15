@@ -6,36 +6,36 @@
 <hibernate-mapping package="pfe.migration.server.ejb.bdd">
 	<class name="UsersData" table="USERS_DATA">
 		<id
-			column="USERS_ID"
+			column="USER_ID"
 			name="Id"
 			type="integer"
 		>
 			<generator class="vm" />
 		</id>
 		<property
-			column="USERS_KEY"
+			column="USER_TYPE"
+			name="UserType"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="USER_LOGIN"
+			name="UserLogin"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="USER_PASS"
+			name="UserPass"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="USER_KEY"
 			length="11"
-			name="UsersKey"
+			name="UserKey"
 			not-null="false"
 			type="integer"
-		 />
-		<property
-			column="USERS_LOGIN"
-			name="UsersLogin"
-			not-null="false"
-			type="string"
-		 />
-		<property
-			column="USERS_PASS"
-			name="UsersPass"
-			not-null="false"
-			type="string"
-		 />
-		<property
-			column="USERS_TYPE"
-			name="UsersType"
-			not-null="false"
-			type="string"
 		 />
 	</class>
 </hibernate-mapping>
