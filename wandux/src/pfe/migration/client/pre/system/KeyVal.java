@@ -190,7 +190,7 @@ public class KeyVal {
 				}
 			}
 			return("");
-		} catch (NoSuchKeyException e) { e.printStackTrace();
+		} catch (NoSuchKeyException e) { System.err.println("cle inexistante !!"); // e.printStackTrace();
 		} catch (RegistryException e) { e.printStackTrace();
 		}
 		String ret = "";
@@ -207,13 +207,10 @@ public class KeyVal {
 			linkvalue = aKey.getStringValue("Route");
 			return(linkvalue.substring(1, linkvalue.length() - 1));
 		} catch (NoSuchKeyException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (RegistryException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//System.exit(0);
 		return(null);
 	}
 	public String getCommandFromExtension(String key) {
