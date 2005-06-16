@@ -16,9 +16,8 @@
 	<property name="jar.client.pre.name" value="clientPre.jar"/>
 	<property name="jar.serverEjb.name" value="WanduxEjb.jar"/>
 	<property name="jar.monitor.name" value="webMonitor.war"/>
-	
-	
-	<property name="jboss.dir" value="C:\java\jboss"/>
+	<property environment="env"/>
+	<property name="jboss.dir" location="${env.JBOSS_HOME}" />
 	
 	<target name="all" depends="copie de fichiers, deploy">
 		<echo message=":)"/>
@@ -32,17 +31,6 @@
 			<include name="${dir.build}"/>
 			<include name="${dir.plugin}"/>
 		</tar -->
-		<echo message="----------------------------------------------------------------------------------"/>
-		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
-		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
-		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
-		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
-		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
-		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
-		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
-		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
-		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
-		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
 	</target>
 	
 	<target name="copie de fichiers">
@@ -93,7 +81,6 @@
 		<!-- copy todir="${dir.build}/" file="${dir.sources}/makeEjbJar.bat"/ -->
 		<!-- les choses annexes -->
 		
-		<echo message="verifier dans build.xml que la variable property jboss.dir pointe vers votre jboss"/>
 		<delete file="${jboss.dir}\server\default\deploy\${jar.serverEjb.name}" />
 		<copy todir="${jboss.dir}\server\default\deploy\">
 			<fileset dir="${dir.build}" includes="${jar.serverEjb.name}"/>
