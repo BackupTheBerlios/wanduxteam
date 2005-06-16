@@ -19,7 +19,7 @@
 	<property environment="env"/>
 	<property name="jboss.dir" location="${env.JBOSS_HOME}" />
 	
-	<target name="all" depends="copie de fichiers, deploy">
+	<target name="all" depends="verification des versions, copie de fichiers, deploy">
 		<echo message=":)"/>
 		<!-- tar basedir="." tarfile="${bakup.name}">
 			<include name="**/*.*"/>
@@ -31,6 +31,26 @@
 			<include name="${dir.build}"/>
 			<include name="${dir.plugin}"/>
 		</tar -->
+	</target>
+
+	<target name="get-jvm">
+	    <condition property="jvm.ok">
+	      <not>
+			<or>
+	          <equals arg1="${ant.java.version}" arg2="1.3"/>
+		      <!-- equals arg1="${java.version}" arg2="1.5"/ -->
+	        </or>
+	      </not>
+	    </condition>
+	</target>
+	
+	<target name="check-jvm" depends="get-jvm" unless="jvm.ok" >
+		<fail message="Wrong JVM - ${ant.java.version}"/>
+	</target>
+
+	<target name="verification des versions" depends="check-jvm">
+		<echo message="${java.version}" />
+	    <echo message="JVM OK - ${ant.java.version}"/>
 	</target>
 	
 	<target name="copie de fichiers">
