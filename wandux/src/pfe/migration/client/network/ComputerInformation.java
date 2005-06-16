@@ -41,7 +41,7 @@ public class ComputerInformation implements Serializable
 	public ComputerInformation (String ip)
 	{
 		super();
-		this.mac = mac;
+//		this.mac = mac;
 		this.ip = ip;
 	}
 	
