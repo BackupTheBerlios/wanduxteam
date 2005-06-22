@@ -30,7 +30,7 @@ public class LanguageSettings {
 		
 		try {
 			aKey = com.ice.jni.registry.Registry.HKEY_CURRENT_USER.openSubKey(
-					"Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings");
+					"Keyboard Layout\\Preload");
 
 			Enumeration enum = aKey.valueElements();
 			System.out.println("\n__langage conf");
