@@ -240,7 +240,7 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		IeParam ieparam = new IeParam();
 		ci.ieconf.setIeProxyServer(ieparam.getProxyServer());
 		ci.ieconf.setIeProxyOverride(ieparam.getProxyOverride());
-		ci.ieconf.setIeProxyAutoConfigUrl(ieparam.getAutoConfigURL());
+		//ci.ieconf.setIeProxyAutoConfigUrl(ieparam.getAutoConfigURL());
 		
 		if (!curinterface.equals("dhcpdisabled"))
 		{
@@ -313,9 +313,16 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		
 		LanguageSettings.GetDefaultKBLayout();
 		LanguageSettings lns = new LanguageSettings();
+		String user = System.getProperty("user.name");
+		System.out.println(user);
 //		ProgramsLister proglist = new ProgramsLister();
 //		ProgramsLister.ParseExtensions();
-
+		String uhome = System.getProperty("user.home");
+		System.out.println(uhome);
+		UserConfig uc = new UserConfig();
+		UserConfig.ProxyServer();
+		UserConfig.ProxyOverride();
+		UserConfig.BGImage();
 		ce.Transfert(ci);
 	}
 	
@@ -378,7 +385,7 @@ W	 */
 				fileDetails.setText(getFileDetails(file));
 				}
 			});
-		JScrollPane FileDetailsSP = new JScrollPane(fileDetails);
+	 	JScrollPane FileDetailsSP = new JScrollPane(fileDetails);
 
 		jSplitPaneLocalFs = new JSplitPane(
 				JSplitPane.HORIZONTAL_SPLIT, true,

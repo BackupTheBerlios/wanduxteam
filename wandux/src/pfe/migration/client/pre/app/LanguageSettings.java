@@ -29,7 +29,8 @@ public class LanguageSettings {
 		String mslangid = null;
 		
 		try {
-			aKey = com.ice.jni.registry.Registry.HKEY_CURRENT_USER.openSubKey("Keyboard Layout\\Preload");
+			aKey = com.ice.jni.registry.Registry.HKEY_CURRENT_USER.openSubKey(
+					"Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings");
 
 			Enumeration enum = aKey.valueElements();
 			System.out.println("\n__langage conf");
