@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.Hashtable;
 import java.util.StringTokenizer;
@@ -29,6 +31,7 @@ import javax.swing.JTree;
 import javax.swing.WindowConstants;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.TreeCellEditor;
 
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
@@ -374,10 +377,27 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 W	 */
 	public void FileTree()
 	{
+	
 		FileSystemModel fileSystemModel = new FileSystemModel(new File("\\"));
 		final JTextArea fileDetails = new JTextArea("");
 		final JTree fileTree = new JTree(fileSystemModel);
-		fileTree.setEditable(true);
+		// final JTree fileTree = new JTree();
+	
+	
+		
+		CheckBoxNodeRenderer checkbox = new CheckBoxNodeRenderer();
+	//	CheckBoxRenderer checkbox = new CheckBoxRenderer();
+		fileTree.setCellRenderer( checkbox);
+		//fileTree.setCellEditor((TreeCellEditor) new CheckBoxNodeEditor(fileTree));
+		
+		
+		
+		
+		
+		fileTree.setEditable(false);
+			
+
+		
 		fileTree.addTreeSelectionListener(new TreeSelectionListener() {
 			public void valueChanged(
 					TreeSelectionEvent event) {
@@ -392,7 +412,9 @@ W	 */
 				new JScrollPane(fileTree), FileDetailsSP);
 
 		jSplitPaneLocalFs.setDividerSize(1);
+	
 		tabPrincipale.addTab("Local FS", null, jSplitPaneLocalFs, null);
+		jSplitPaneLocalFs.setPreferredSize(new java.awt.Dimension(250, 125));
 	}
 //
 //	private void getUserList()
