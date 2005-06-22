@@ -8,26 +8,18 @@ package pfe.migration.server.monitor;
 
 public class ClientMonitor implements ClientMonitorListener
 {
-	CiList cl = null;
+	CiList cil = null;
 	
-	public ClientMonitor()
+	public ClientMonitor(CiList cil)
 	{
-		cl = new CiList();
-	}
-	
-	public ClientMonitorListener getListener()
-	{
-		return this;
-	}
-	
-	// -- listener client --
-	public void CIProgress(String ip, int step, int percent)
-	{
+		this.cil = cil;
 	}
 
-	public void CINewIp(String ip)
+	public String affichage()
 	{
-		cl.add(ip);
+		if (this.cil == null)
+			return "null";
+		return this.cil.getAllMac();
 	}
 	
 	public String pouet()
@@ -35,13 +27,19 @@ public class ClientMonitor implements ClientMonitorListener
 		return "pouet";
 	}
 
-//	public CiList getCI(String ip)
-//	{
-//		return (CiList)list.get(ip);
-//	}
-//	
-//	public int getCiListSize()
-//	{
-//		return list.size();
-//	}
+	// -- listener client --
+	public ClientMonitorListener getListener()
+	{
+		return this;
+	}
+
+	public void CIProgress(String ip, int step, int percent)
+	{
+	}
+
+	public void CINewIp(String ip)
+	{
+//		cl.add(ip);
+	}
+	
 }

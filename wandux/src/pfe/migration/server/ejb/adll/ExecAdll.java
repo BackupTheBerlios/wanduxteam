@@ -16,8 +16,8 @@ import	java.io.*;
  */
 public class ExecAdll {
 
-	String cfgFileName = "";
-	String xmlFileName = "";
+	String cfgFileName = "C:\\wandux\\output\\mandrake_10_1_FR.pl";
+	String xmlFileName = "C:\\wandux\\output\\mandrake_10_1_FR.xml";
 	
   public ExecAdll (String cfgFileName, String xmlFileName)
   {

@@ -19,9 +19,7 @@ import pfe.migration.server.monitor.ClientMonitor;
 public class ClientEjb
 {
 	private ClientMonitor cm = null;
-	
 	private static String SERVER_EJB_NAME = "";
-	
 	protected WanduxEjb bean = null;
 	
 	public ClientEjb (String ipEjb)
@@ -75,7 +73,8 @@ public class ClientEjb
 		System.out.println("transfer termine");
 	}
 	
-	public String[] giveMsg ()
+	// TODO methode utilise pour lapplication de test client main
+	public String[] giveMsg () 
 	{
 		String [] st = new String[2];
 		try {
@@ -84,17 +83,21 @@ public class ClientEjb
 		return st;
 	}
 	
-	public void putListName(String [] str)
-	{
-		try {
-			bean.putListName(str);
-		} catch (RemoteException e) { e.printStackTrace(); }
-	}
+//	public void putListName(String [] str)
+//	{
+//		try {
+//			bean.putListName(str);
+//		} catch (RemoteException e) { e.printStackTrace(); }
+//	}
 
 // -- client monitoring --
 	public ClientMonitor makeTheClientMonitoring ()
 	{
-		return new ClientMonitor();
+		ClientMonitor cm = null;
+		try {
+			cm = new ClientMonitor(bean.getCiList());
+		} catch (RemoteException e) { e.printStackTrace(); }
+		return cm;
 	}
 	
 }

@@ -48,10 +48,8 @@ public class ProgramsLister {
 			}
 			//System.out.println(aKey.getNumberSubkeys());
 		} catch (NoSuchKeyException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (RegistryException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

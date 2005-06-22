@@ -14,12 +14,11 @@ import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.server.ejb.bdd.HibernateUtil;
-import pfe.migration.server.ejb.tool.XmlParse;
-import pfe.migration.server.monitor.ClientMonitorListener;
+import pfe.migration.server.ejb.tool.XmlAdllParse;
+import pfe.migration.server.monitor.CiList;
 
 /**
  * @ejb.bean name="ServerEjb"
- *           display-name="Name for ServerEjb"
  *           description="Description for ServerEjb"
  *           jndi-name="ejb/ServerEjb"
  *           type="Stateless"
@@ -27,11 +26,9 @@ import pfe.migration.server.monitor.ClientMonitorListener;
  */
 public class WanduxEjbBean implements SessionBean
 {
-//	List computerList = new ArrayList(); // ip des machines
-//	private ClientMonitor cml = null;
+	public static CiList cil;
 	
-	
-	String AdllXmlFileName = "";
+//	String AdllXmlFileName = "";
 	
 	// -- ejb ------------------------------------------------------------------------------------ //
 	public WanduxEjbBean()
@@ -55,22 +52,23 @@ public class WanduxEjbBean implements SessionBean
 		return "koukouk";
 	}
 	
-	public void putListName(String [] ok)
-	{
-		System.out.println(ok);
-	}
+//	public void putListName(String [] ok)
+//	{
+//		System.out.println(ok);
+//	}
 	
-	
+	// -- client normal et taches internes ------------------------------------------------------- //
 	public void createAdllXmlFile(ComputerInformation ci)
 	{
-		XmlParse xmlFile = new XmlParse(ci);
-		
-		
+		XmlAdllParse xml = new XmlAdllParse();
 	}
 	
 	public void putComputerInformation(ComputerInformation ci)
 	{
 		String ip = ci.getIp();
+
+		useCiList();
+		cil.add(ip);
 
 		Transaction transaction;
 		Session session;
@@ -90,32 +88,33 @@ public class WanduxEjbBean implements SessionBean
 //		exemple d'utilisation des threads // TODO a enleve prochainement
 //		WorkQueue wt = new WorkQueue(10);
 //		wt.execute(new SendingData(ci));
-		
+
 		// c est pas pour recuppere le nom du fichier
 		createAdllXmlFile (ci); // a enleve pour que ca puisse etre gere depuis le monitoring
-//		System.out.println(ci.ndhcp.getDhcpAdress());
 	}
 	
-	public void getClientMonitor(ClientMonitorListener cml)
-	{
-//		this.cml = (ClientMonitor) cml;
-	}
 
-//	public void changeCmlStep (String ip, int step, int percent)
-//	{
-//		this.cml.CIProgress(ip,step,percent);
-//	}
-
-//	public ComputerInformation getComputerInformation()
-//	{
-//		return ci;
-//	}
-	
-	
 	public ComputerInformation getComputerInformation()
 	{
 		return null;
 	}
 
-
+	// -- monitoring ----------------------------------------------------------------------------- //
+	private void useCiList ()
+	{
+		if (WanduxEjbBean.cil == null)
+			WanduxEjbBean.cil = new CiList();
+	}
+	
+	public CiList getCiList ()
+	{
+		if (WanduxEjbBean.cil == null)
+		{
+			System.out.println("WanduxEjbBean.cil = null");
+			WanduxEjbBean.cil = new CiList();
+		}
+		else
+			System.out.println("WanduxEjbBean.cil = not null");
+		return WanduxEjbBean.cil;
+	}
 }

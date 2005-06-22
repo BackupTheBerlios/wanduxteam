@@ -20,6 +20,7 @@ public class CiList
 	
 	public void add(String ip)
 	{
+		System.out.println("cilist add : " + ip);
 		l.add(new Cellule(ip));
 	}
 	
@@ -29,7 +30,7 @@ public class CiList
 		while (it.hasNext())
 		{
 			Cellule c = (Cellule) it.next();
-			if (ip.equals(c.getIp()) == true)
+			if (ip.equals(c.getMac()) == true)
 			{
 				c.setPercent(percent);
 				if (setpup == true)
@@ -37,23 +38,37 @@ public class CiList
 				return ;
 			}
 		}
-		System.out.println("[PB] ip non reference");
+		System.out.println("[PB!!] mac non reference");
+	}
+	
+	public String getAllMac()
+	{
+		String allMac = " - ";
+		Iterator it = l.iterator();
+		while (it.hasNext())
+		{
+			Cellule c = (Cellule) it.next();
+			allMac += c.getMac() + " - ";
+		}
+		return allMac;
 	}
 	
 	class Cellule
 	{
-		private String ip = "";
+//		private String ip = "";
+//		private String ipMac  = ""; // choisir qqchose		
+		private String mac = "";
 		private int percent = 0;
 		private  int step = 0; 
 		
-		public Cellule(String ip)
+		public Cellule(String mac)
 		{
-			this.ip = ip;
+			this.mac = mac;
 		}
 	
-		public String getIp()
+		public String getMac()
 		{
-			return this.ip;
+			return this.mac;
 		}
 		
 		public void setPercent(int percent)
