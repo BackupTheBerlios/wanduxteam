@@ -16,13 +16,12 @@ import	java.io.*;
  */
 public class ExecAdll {
 
-	String cfgFileName = "C:\\wandux\\output\\mandrake_10_1_FR.pl";
+	String cfgFileName = "C:\\wandux\\output\\";
 	String xmlFileName = "C:\\wandux\\output\\mandrake_10_1_FR.xml";
 	
-  public ExecAdll (String cfgFileName, String xmlFileName)
+  public ExecAdll (String cfgFileName)
   {
-  	this.cfgFileName = cfgFileName;
-  	this.xmlFileName = xmlFileName;
+  	this.cfgFileName += cfgFileName + ".pl";
   }
 	
   public void doExec ()

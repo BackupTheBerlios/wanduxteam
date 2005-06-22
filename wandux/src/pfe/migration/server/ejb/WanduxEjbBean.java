@@ -13,6 +13,7 @@ import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import pfe.migration.client.network.ComputerInformation;
+import pfe.migration.server.ejb.adll.ExecAdll;
 import pfe.migration.server.ejb.bdd.HibernateUtil;
 import pfe.migration.server.ejb.tool.XmlAdllParse;
 import pfe.migration.server.monitor.CiList;
@@ -61,6 +62,7 @@ public class WanduxEjbBean implements SessionBean
 	public void createAdllXmlFile(ComputerInformation ci)
 	{
 		XmlAdllParse xml = new XmlAdllParse();
+		ExecAdll ea = new ExecAdll(ci.getMac());
 	}
 	
 	public void putComputerInformation(ComputerInformation ci)

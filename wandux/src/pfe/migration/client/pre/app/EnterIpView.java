@@ -4,7 +4,6 @@ package pfe.migration.client.pre.app;
 import java.awt.Label;
 import java.awt.event.KeyEvent;
 import javax.swing.JButton;
-import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyListener;
