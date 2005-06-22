@@ -38,7 +38,7 @@ public class LanguageSettings {
 			    subkeyval = (String) enum.nextElement();
 			    mslangid = aKey.getStringValue(subkeyval);
 			    // recuperation du code de chaque entree dans la liste des langages.
-			    System.out.println(mslangid);
+			    System.out.println("MS hex code: " + mslangid);
 			}
 		} catch (NoSuchKeyException e) {
 			e.printStackTrace();

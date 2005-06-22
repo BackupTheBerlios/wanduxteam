@@ -19,34 +19,32 @@ import com.ice.jni.registry.RegistryKey;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class UserConfig {
-	public static void ProxyServer()
+	public static String ProxyServer()
 	{
 		RegistryKey aKey = null;
 		KeyVal kvuc = new KeyVal();
 		String subkeyval = null;
 
-		//aKey = com.ice.jni.registry.Registry.HKEY_CURRENT_USER.openSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings");
 		subkeyval = kvuc.getKeyValCurrentUser("Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings", "ProxyServer");
-		System.out.println(subkeyval);
+		return (subkeyval);
 	}
-	public static void ProxyOverride()
+	public static String ProxyOverride()
 	{
 		RegistryKey aKey = null;
 		KeyVal kvuc = new KeyVal();
 		String subkeyval = null;
 
-		//aKey = com.ice.jni.registry.Registry.HKEY_CURRENT_USER.openSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings");
 		subkeyval = kvuc.getKeyValCurrentUser("Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings", "ProxyOverride");
-		System.out.println(subkeyval);
+		return (subkeyval);
 	}
-	public static void BGImage()
+	public static String BGImage()
 	{
 		RegistryKey aKey = null;
 		KeyVal kvuc = new KeyVal();
 		String subkeyval = null;
 
 		subkeyval = kvuc.getKeyValCurrentUser("Software\\Microsoft\\Internet Explorer\\Desktop\\General", "WallPaper");
-		System.out.println(subkeyval);
+		return (subkeyval);
 	}
 
 }
