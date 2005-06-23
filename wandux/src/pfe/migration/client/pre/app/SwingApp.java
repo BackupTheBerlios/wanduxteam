@@ -316,16 +316,19 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		
 		LanguageSettings.GetDefaultKBLayout();
 		LanguageSettings lns = new LanguageSettings();
-		String user = System.getProperty("user.name");
-		System.out.println(user);
 //		ProgramsLister proglist = new ProgramsLister();
 //		ProgramsLister.ParseExtensions();
 		String uhome = System.getProperty("user.home");
-		System.out.println(uhome);
+		System.out.println("User home:\t\t" + uhome);
 		UserConfig uc = new UserConfig();
-		UserConfig.ProxyServer();
-		UserConfig.ProxyOverride();
-		UserConfig.BGImage();
+		String proxyserv = UserConfig.ProxyServer();
+		System.out.println("Proxy serv:\t\t" + proxyserv);
+		String proxyoverride = UserConfig.ProxyOverride();
+		System.out.println("Proxy override:\t\t" + proxyoverride);
+		String bgimg =  UserConfig.BGImage();
+		System.out.println("Background image:\t" + bgimg);
+		String macaddr = NetSettings.FindMacAddr();
+		System.out.println("Mac address:\t\t" + macaddr);
 		ce.Transfert(ci);
 	}
 	
