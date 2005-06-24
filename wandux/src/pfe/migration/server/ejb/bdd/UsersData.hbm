@@ -4,38 +4,68 @@
 	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
 
 <hibernate-mapping package="pfe.migration.server.ejb.bdd">
-	<class name="UsersData" table="USERS_DATA">
+	<class
+		name="UsersData"
+		table="USERS_DATA"
+	>
 		<id
-			column="USER_ID"
 			name="Id"
 			type="integer"
+			column="USER_ID"
 		>
-			<generator class="vm" />
+			<generator class="vm"/>
 		</id>
+
 		<property
-			column="USER_TYPE"
+			name="UserProxyServ"
+			column="USER_PROXY_SERV"
+			type="string"
+			not-null="false"
+		/>
+		<property
 			name="UserType"
-			not-null="false"
+			column="USER_TYPE"
 			type="string"
-		 />
+			not-null="false"
+		/>
 		<property
-			column="USER_LOGIN"
+			name="UserProxyOverride"
+			column="USER_PROXY_OVERRIDE"
+			type="string"
+			not-null="false"
+		/>
+		<property
+			name="UserHome"
+			column="USER_HOME"
+			type="string"
+			not-null="false"
+		/>
+		<property
+			name="UserBgimg"
+			column="USER_BGIMG"
+			type="string"
+			not-null="false"
+		/>
+		<property
 			name="UserLogin"
-			not-null="false"
+			column="USER_LOGIN"
 			type="string"
-		 />
+			not-null="false"
+		/>
 		<property
-			column="USER_PASS"
 			name="UserPass"
-			not-null="false"
+			column="USER_PASS"
 			type="string"
-		 />
-		<property
-			column="USER_KEY"
-			length="11"
-			name="UserKey"
 			not-null="false"
+		/>
+		<property
+			name="UserKey"
+			column="USER_KEY"
 			type="integer"
-		 />
+			not-null="false"
+			length="11"
+		/>
+
+
 	</class>
 </hibernate-mapping>

@@ -18,9 +18,13 @@ import java.io.Serializable;
 public abstract class BaseUsersData  implements Serializable {
 
 	public static String PROP_USER_PASS = "UserPass";
+	public static String PROP_USER_PROXY_SERV = "UserProxyServ";
+	public static String PROP_USER_PROXY_OVERRIDE = "UserProxyOverride";
 	public static String PROP_USER_TYPE = "UserType";
+	public static String PROP_USER_BGIMG = "UserBgimg";
 	public static String PROP_USER_LOGIN = "UserLogin";
 	public static String PROP_USER_KEY = "UserKey";
+	public static String PROP_USER_HOME = "UserHome";
 	public static String PROP_ID = "Id";
 
 
@@ -30,7 +34,11 @@ public abstract class BaseUsersData  implements Serializable {
 	private java.lang.Integer _id;
 
 	// fields
+	private java.lang.String _userProxyServ;
 	private java.lang.String _userType;
+	private java.lang.String _userProxyOverride;
+	private java.lang.String _userHome;
+	private java.lang.String _userBgimg;
 	private java.lang.String _userLogin;
 	private java.lang.String _userPass;
 	private java.lang.Integer _userKey;
@@ -74,6 +82,22 @@ public abstract class BaseUsersData  implements Serializable {
 
 
 	/**
+	 * Return the value associated with the column: USER_PROXY_SERV
+	 */
+	public java.lang.String getUserProxyServ () {
+		return _userProxyServ;
+	}
+
+	/**
+	 * Set the value related to the column: USER_PROXY_SERV
+	 * @param _userProxyServ the USER_PROXY_SERV value
+	 */
+	public void setUserProxyServ (java.lang.String _userProxyServ) {
+		this._userProxyServ = _userProxyServ;
+	}
+
+
+	/**
 	 * Return the value associated with the column: USER_TYPE
 	 */
 	public java.lang.String getUserType () {
@@ -86,6 +110,54 @@ public abstract class BaseUsersData  implements Serializable {
 	 */
 	public void setUserType (java.lang.String _userType) {
 		this._userType = _userType;
+	}
+
+
+	/**
+	 * Return the value associated with the column: USER_PROXY_OVERRIDE
+	 */
+	public java.lang.String getUserProxyOverride () {
+		return _userProxyOverride;
+	}
+
+	/**
+	 * Set the value related to the column: USER_PROXY_OVERRIDE
+	 * @param _userProxyOverride the USER_PROXY_OVERRIDE value
+	 */
+	public void setUserProxyOverride (java.lang.String _userProxyOverride) {
+		this._userProxyOverride = _userProxyOverride;
+	}
+
+
+	/**
+	 * Return the value associated with the column: USER_HOME
+	 */
+	public java.lang.String getUserHome () {
+		return _userHome;
+	}
+
+	/**
+	 * Set the value related to the column: USER_HOME
+	 * @param _userHome the USER_HOME value
+	 */
+	public void setUserHome (java.lang.String _userHome) {
+		this._userHome = _userHome;
+	}
+
+
+	/**
+	 * Return the value associated with the column: USER_BGIMG
+	 */
+	public java.lang.String getUserBgimg () {
+		return _userBgimg;
+	}
+
+	/**
+	 * Set the value related to the column: USER_BGIMG
+	 * @param _userBgimg the USER_BGIMG value
+	 */
+	public void setUserBgimg (java.lang.String _userBgimg) {
+		this._userBgimg = _userBgimg;
 	}
 
 
