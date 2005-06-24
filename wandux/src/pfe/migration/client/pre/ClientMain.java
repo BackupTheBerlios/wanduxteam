@@ -25,8 +25,8 @@ public class ClientMain {
 		}
 		ClientEjb ce = new ClientEjb (args[0]);
 		ce.EjbConnect();
-		System.out.println("main : " + ce.giveMsg()[0]);
-		System.out.println("main : " + ce.giveMsg()[1]);
+//		System.out.println("main : " + ce.giveMsg()[0]);
+//		System.out.println("main : " + ce.giveMsg()[1]);
 		ce.EjbClose();
 	}
 
