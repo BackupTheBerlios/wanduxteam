@@ -13,10 +13,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+import javax.swing.tree.TreePath;
 
+import pfe.migration.client.network.ClientEjb;
+import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.client.pre.app.Img;
 import pfe.migration.client.pre.app.apparence.steps.FirstStep;
+import pfe.migration.client.pre.app.apparence.steps.JTreeWithCheckbox;
 import pfe.migration.client.pre.app.apparence.steps.LastStep;
+import pfe.migration.client.pre.app.apparence.steps.PrintFromTreePath;
 import pfe.migration.client.pre.app.apparence.steps.ProgressBarStep;
 import pfe.migration.client.pre.app.apparence.steps.UserNetStep;
 /**
@@ -32,11 +37,17 @@ public class WanduxApp implements WanduxAppListener
 	private JPanel middle = null;
 
 	private String applicationServer = "";
-
-	private int currentStep = 0;
+	private TreePath[] tp = null;
 	
+	private int currentStep = 0;
+
+	// -- les variables necessaires -- //
+	private ComputerInformation ci = null; // voir si c est oblige de le mettre la 
+	private ClientEjb ce = null;
+	
+	// -- initialisation -- //
 	public WanduxApp()
-	{		
+	{
 		jFrame = getJFrame();
 		jFrame.setVisible(true);
 		jFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -45,8 +56,7 @@ public class WanduxApp implements WanduxAppListener
 		jFrame.getContentPane().add(initBoutons(), BorderLayout.SOUTH);
 		middle = new FirstStep();
   		middle.setBackground(Color.white);
-		jFrame.getContentPane().add(middle, BorderLayout.CENTER);
-		
+		jFrame.getContentPane().add(middle, BorderLayout.CENTER);		
 		jFrame.getContentPane().setBackground(Color.white);
 		jFrame.show();
 	}
@@ -79,11 +89,7 @@ public class WanduxApp implements WanduxAppListener
 		return banner;
 	}
 	
-	/**
-	 * This method initializes jContentPane	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */    
+	// -- visual editor -- //
 	private JPanel getJContentPane()
 	{
 		if (jContentPane == null) {
@@ -93,11 +99,6 @@ public class WanduxApp implements WanduxAppListener
 		return jContentPane;
 	}
 	
-	/**
-	 * This method initializes jFrame	
-	 * 	
-	 * @return javax.swing.JFrame	
-	 */    
 	private JFrame getJFrame()
 	{
 		if (jFrame == null)
@@ -126,10 +127,39 @@ public class WanduxApp implements WanduxAppListener
   		jFrame.getContentPane().validate();
   	}
 
+  	private boolean makeConnection()
+	{
+  		if (this.ce == null)
+  		{
+  			this.ce = new ClientEjb(applicationServer);
+			this.ce.EjbConnect();
+  		}
+//  		// gestion de la mauvaise url (ca marche)
+
+//		else if (ce.IsConnected())
+//		{
+//			this.ce.EjbClose();
+//			this.ce = new ClientEjb(applicationServer);
+//			this.ce.EjbConnect();
+//		}
+//		else
+//		{
+//			this.ce = new ClientEjb(applicationServer);
+//			this.ce.EjbConnect();
+//		}
+  		return ce.IsConnected();
+	}
+  	
   	public void moveStepUserAndNetwork()
   	{
+  		if (makeConnection() == false)
+  		{
+  			this.currentStep--;
+  			return ;
+  		}
   		jFrame.getContentPane().remove(middle);
-  		middle = new UserNetStep();
+ 		middle = new UserNetStep(this.ce);
+
   		middle.setBackground(Color.white);
   		jFrame.getContentPane().add(middle);
   		jFrame.getContentPane().invalidate();
@@ -155,12 +185,31 @@ public class WanduxApp implements WanduxAppListener
   		jFrame.getContentPane().invalidate();
   		jFrame.getContentPane().validate();
   	}
+
+  	public void moveJtree()
+  	{
+  		jFrame.getContentPane().remove(middle);
+  		middle = new JTreeWithCheckbox();
+  		middle.setBackground(Color.white);
+  		jFrame.getContentPane().add(middle);
+  		jFrame.getContentPane().invalidate();
+  		jFrame.getContentPane().validate();
+  	}
+
+  	public void movePrintJtree()
+  	{
+  		jFrame.getContentPane().remove(middle);
+  		middle = new PrintFromTreePath(tp);
+  		middle.setBackground(Color.white);
+  		jFrame.getContentPane().add(middle);
+  		jFrame.getContentPane().invalidate();
+  		jFrame.getContentPane().validate();
+  	}
   	
   	// -- le listener -- //
   	public void incStep()
 	{
 		this.currentStep++;
-  		System.out.println(this.currentStep);
   		switch (this.currentStep)
 		{
   			case 1:
@@ -168,31 +217,41 @@ public class WanduxApp implements WanduxAppListener
   				moveStepUserAndNetwork();
   				break ;
   			case 2:
+  				moveJtree();
+  				break ;
+  			case 3:
+  				tp = ((JTreeWithCheckbox)middle).getSelectionnedPaths();
+  				movePrintJtree();
+  				break ;
+  			case 4:
   				moveProgressBar();
   				break ;
   			default:
-  		  		this.currentStep = 3;
+  		  		this.currentStep = 5;
   				moveLastStep();
-  				System.out.println("c est fini inc");
 		}
 	}
 
   	public void decStep()
 	{
 		this.currentStep--;
-  		System.out.println(this.currentStep);
   		switch (this.currentStep)
 		{
   			case 1:
   				moveStepUserAndNetwork();
   				break ;
   			case 2:
-  				moveProgressBar();
+  				moveJtree();
   				break ;
+  			case 3:
+  				movePrintJtree();
+  				break ;
+			case 4:
+				moveProgressBar();
+				break ;
   			default:
   		  		this.currentStep = 0;
   				moveFirstStep();
-  				System.out.println("c est fini dec");
 		}
 	}
 
