@@ -8,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.Hashtable;
 import java.util.StringTokenizer;
@@ -17,6 +15,7 @@ import java.util.Vector;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -31,7 +30,9 @@ import javax.swing.JTree;
 import javax.swing.WindowConstants;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeCellEditor;
+import javax.swing.tree.TreeCellRenderer;
 
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
@@ -383,24 +384,13 @@ W	 */
 	
 		FileSystemModel fileSystemModel = new FileSystemModel(new File("\\"));
 		final JTextArea fileDetails = new JTextArea("");
-		final JTree fileTree = new JTree(fileSystemModel);
-		// final JTree fileTree = new JTree();
-	
-	
+        final JTree fileTree = new JTree(fileSystemModel);
 		
-		CheckBoxNodeRenderer checkbox = new CheckBoxNodeRenderer();
-	//	CheckBoxRenderer checkbox = new CheckBoxRenderer();
-		fileTree.setCellRenderer( checkbox);
-		//fileTree.setCellEditor((TreeCellEditor) new CheckBoxNodeEditor(fileTree));
-		
-		
-		
-		
-		
-		fileTree.setEditable(false);
-			
-
-		
+        // Tintinninin *bruit de tromepettes*
+        // Voila le Manager magique de Jtree ^^
+        CheckTreeManager checkTreeManager = new CheckTreeManager(fileTree);
+        
+        
 		fileTree.addTreeSelectionListener(new TreeSelectionListener() {
 			public void valueChanged(
 					TreeSelectionEvent event) {
@@ -417,9 +407,10 @@ W	 */
 		jSplitPaneLocalFs.setDividerSize(1);
 	
 		tabPrincipale.addTab("Local FS", null, jSplitPaneLocalFs, null);
-		jSplitPaneLocalFs.setPreferredSize(new java.awt.Dimension(250, 125));
+		jSplitPaneLocalFs.setPreferredSize(new java.awt.Dimension(400, 125));
 	}
-//
+
+	
 //	private void getUserList()
 //	{
 //		
