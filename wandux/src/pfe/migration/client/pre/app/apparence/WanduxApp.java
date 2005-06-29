@@ -105,7 +105,7 @@ public class WanduxApp implements WanduxAppListener
 		{
 			jFrame = new JFrame();
 			jFrame.setContentPane(getJContentPane());
-			jFrame.setSize(554, 302);
+			jFrame.setSize(450, 580);
 			jFrame.setTitle("Wandux");
 		}
 		return jFrame;
