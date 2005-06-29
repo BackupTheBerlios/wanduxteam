@@ -62,7 +62,7 @@ public class JTreeWithCheckbox extends JPanel
 	public String formatPath(TreePath t)
 	{
 		String s = "";
-		s = t.toString().replaceAll(", ", "/");
+		s = t.toString().replaceAll(", ", "\\\\");
 		s = s.replaceFirst("\\\\", "");
 		return s;
 	}
