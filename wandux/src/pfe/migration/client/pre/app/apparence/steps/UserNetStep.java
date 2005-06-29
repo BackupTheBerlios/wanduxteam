@@ -7,6 +7,8 @@
 package pfe.migration.client.pre.app.apparence.steps;
 
 import java.awt.Dimension;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -149,12 +151,46 @@ public class UserNetStep extends JPanel
 		System.out.println("Proxy serv:\t\t" + proxyserv);
 		String proxyoverride = UserConfig.ProxyOverride();
 		System.out.println("Proxy override:\t\t" + proxyoverride);
+		String s = null;
+		try {
+			Process p = Runtime.getRuntime().exec(
+					"CMD /c \"echo %systemroot%\"");
+			BufferedReader stdInput = new BufferedReader(new InputStreamReader(
+					p.getInputStream()));
+			s = stdInput.readLine();
+//			if ((s = stdInput.readLine()) != null) {
+//				System.out.println(s);
+//			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 		String bgimg =  UserConfig.BGImage();
-		System.out.println("Background image:\t" + bgimg);
+        System.out.println("Background image:\t" + replace(bgimg, "%SystemRoot%", s));
 		String macaddr = NetSettings.FindMacAddr();
 		System.out.println("Mac address:\t\t" + macaddr);
 		ce.Transfert(ci);
 		return ci;
+	}
+	
+	public static String replace(String orig, String from, String to)
+	{
+		int start = orig.indexOf(from);
+		if (start == -1)
+			return orig;
+		int lf = from.length();
+		char [] origChars = orig.toCharArray();
+		StringBuffer buffer = new StringBuffer();
+		int copyFrom = 0;
+
+		while (start != -1)
+		{
+			buffer.append(origChars, copyFrom, start - copyFrom);
+			buffer.append(to);
+			copyFrom = start + lf;
+			start = orig.indexOf(from, copyFrom);
+		}
+		buffer.append(origChars, copyFrom, origChars.length - copyFrom);
+		return buffer.toString();
 	}
 	
 	/**
