@@ -16,9 +16,20 @@ public class LangInfo extends BaseLangInfo {
 	/**
 	 * Constructor for primary key
 	 */
-	public LangInfo (java.lang.String _langLanguage) {
-		super(_langLanguage);
+	public LangInfo (java.lang.Integer _id) {
+		super(_id);
 	}
 
+	/**
+	 * Constructor for required fields
+	 */
+	public LangInfo (
+		java.lang.Integer _id,
+		java.lang.String _langLanguage) {
+
+		super (
+			_id,
+			_langLanguage);
+	}
 /*[CONSTRUCTOR MARKER END]*/
 }

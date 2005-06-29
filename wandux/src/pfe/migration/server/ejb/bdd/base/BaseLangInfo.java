@@ -24,12 +24,13 @@ public abstract class BaseLangInfo  implements Serializable {
 	public static String PROP_LANG_MS_LOCAL_ID = "LangMsLocalId";
 	public static String PROP_LANG_MS_LOCAL_ID_HEXA = "LangMsLocalIdHexa";
 	public static String PROP_LANG_CODE = "LangCode";
+	public static String PROP_ID = "Id";
 
 
 	private int hashCode = Integer.MIN_VALUE;
 
 	// primary key
-	private java.lang.String _langLanguage;
+	private java.lang.Integer _id;
 
 	// fields
 	private java.lang.String _langSymbolic;
@@ -38,6 +39,7 @@ public abstract class BaseLangInfo  implements Serializable {
 	private java.lang.String _langMsLocalId;
 	private java.lang.String _langEnvVariable;
 	private java.lang.Integer _langCode;
+	private java.lang.String _langLanguage;
 
 
 	// constructors
@@ -48,7 +50,19 @@ public abstract class BaseLangInfo  implements Serializable {
 	/**
 	 * Constructor for primary key
 	 */
-	public BaseLangInfo (java.lang.String _langLanguage) {
+	public BaseLangInfo (java.lang.Integer _id) {
+		this.setId(_id);
+		initialize();
+	}
+
+	/**
+	 * Constructor for required fields
+	 */
+	public BaseLangInfo (
+		java.lang.Integer _id,
+		java.lang.String _langLanguage) {
+
+		this.setId(_id);
 		this.setLangLanguage(_langLanguage);
 		initialize();
 	}
@@ -61,18 +75,18 @@ public abstract class BaseLangInfo  implements Serializable {
 	 * Return the unique identifier of this class
      * @hibernate.id
      *  generator-class="vm"
-     *  column="LANG_LANGUAGE"
+     *  column="LANG_ID"
      */
-	public java.lang.String getLangLanguage () {
-		return _langLanguage;
+	public java.lang.Integer getId () {
+		return _id;
 	}
 
 	/**
 	 * Set the unique identifier of this class
-	 * @param _langLanguage the new ID
+	 * @param _id the new ID
 	 */
-	public void setLangLanguage (java.lang.String _langLanguage) {
-		this._langLanguage = _langLanguage;
+	public void setId (java.lang.Integer _id) {
+		this._id = _id;
 		this.hashCode = Integer.MIN_VALUE;
 	}
 
@@ -173,22 +187,38 @@ public abstract class BaseLangInfo  implements Serializable {
 	}
 
 
+	/**
+	 * Return the value associated with the column: LANG_LANGUAGE
+	 */
+	public java.lang.String getLangLanguage () {
+		return _langLanguage;
+	}
+
+	/**
+	 * Set the value related to the column: LANG_LANGUAGE
+	 * @param _langLanguage the LANG_LANGUAGE value
+	 */
+	public void setLangLanguage (java.lang.String _langLanguage) {
+		this._langLanguage = _langLanguage;
+	}
+
+
 	public boolean equals (Object obj) {
 		if (null == obj) return false;
 		if (!(obj instanceof pfe.migration.server.ejb.bdd.base.BaseLangInfo)) return false;
 		else {
 			pfe.migration.server.ejb.bdd.base.BaseLangInfo mObj = (pfe.migration.server.ejb.bdd.base.BaseLangInfo) obj;
-			if (null == this.getLangLanguage() || null == mObj.getLangLanguage()) return false;
-			else return (this.getLangLanguage().equals(mObj.getLangLanguage()));
+			if (null == this.getId() || null == mObj.getId()) return false;
+			else return (this.getId().equals(mObj.getId()));
 		}
 	}
 
 
 	public int hashCode () {
 		if (Integer.MIN_VALUE == this.hashCode) {
-			if (null == this.getLangLanguage()) return super.hashCode();
+			if (null == this.getId()) return super.hashCode();
 			else {
-				String hashStr = this.getClass().getName() + ":" + this.getLangLanguage().hashCode();
+				String hashStr = this.getClass().getName() + ":" + this.getId().hashCode();
 				this.hashCode = hashStr.hashCode();
 			}
 		}

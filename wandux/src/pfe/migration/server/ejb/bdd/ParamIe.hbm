@@ -4,44 +4,50 @@
 	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
 
 <hibernate-mapping package="pfe.migration.server.ejb.bdd">
-	<class name="ParamIe" table="PARAM_IE">
+	<class
+		name="ParamIe"
+		table="PARAM_IE"
+	>
 		<id
-			column="IE_PARAM_ID"
 			name="Id"
 			type="integer"
+			column="IE_PARAM_ID"
 		>
-			<generator class="vm" />
+			<generator class="vm"/>
 		</id>
+
 		<property
-			column="IE_PARAM_SAVE_DIRECTORY"
 			name="IeParamSaveDirectory"
-			not-null="false"
+			column="IE_PARAM_SAVE_DIRECTORY"
 			type="string"
-		 />
+			not-null="false"
+		/>
 		<property
-			column="IE_PARAM_USER_ID"
-			length="11"
 			name="IeParamUserId"
-			not-null="false"
+			column="IE_PARAM_USER_ID"
 			type="integer"
-		 />
+			not-null="false"
+			length="11"
+		/>
 		<property
-			column="IE_PROXY_SERVER"
 			name="IeProxyServer"
-			not-null="false"
+			column="IE_PROXY_SERVER"
 			type="string"
-		 />
+			not-null="false"
+		/>
 		<property
-			column="IE_PROXY_AUTO_CONFIG_URL"
 			name="IeProxyAutoConfigUrl"
-			not-null="false"
+			column="IE_PROXY_AUTO_CONFIG_URL"
 			type="string"
-		 />
+			not-null="false"
+		/>
 		<property
-			column="IE_PROXY_OVERRIDE"
 			name="IeProxyOverride"
-			not-null="false"
+			column="IE_PROXY_OVERRIDE"
 			type="string"
-		 />
+			not-null="false"
+		/>
+
+
 	</class>
 </hibernate-mapping>

@@ -4,76 +4,82 @@
 	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
 
 <hibernate-mapping package="pfe.migration.server.ejb.bdd">
-	<class name="NetworkConfig" table="NETWORK_CONFIG">
+	<class
+		name="NetworkConfig"
+		table="NETWORK_CONFIG"
+	>
 		<id
-			column="NETWORK_ID"
 			name="Id"
 			type="integer"
+			column="NETWORK_ID"
 		>
-			<generator class="vm" />
+			<generator class="vm"/>
 		</id>
+
 		<property
-			column="NETWORK_IP_ADDRESS"
 			name="NetworkIpAddress"
-			not-null="false"
+			column="NETWORK_IP_ADDRESS"
 			type="string"
-		 />
+			not-null="false"
+		/>
 		<property
-			column="NETWORK_SUBNETMASK"
 			name="NetworkSubnetmask"
-			not-null="false"
+			column="NETWORK_SUBNETMASK"
 			type="string"
-		 />
+			not-null="false"
+		/>
 		<property
-			column="NETWORK_INTERFACE"
 			name="NetworkInterface"
-			not-null="false"
+			column="NETWORK_INTERFACE"
 			type="string"
-		 />
+			not-null="false"
+		/>
 		<property
-			column="NETWORK_GATEWAY"
 			name="NetworkGateway"
-			not-null="false"
+			column="NETWORK_GATEWAY"
 			type="string"
-		 />
+			not-null="false"
+		/>
 		<property
-			column="NETWORK_DNS_SERVER2"
 			name="NetworkDnsServer2"
-			not-null="false"
+			column="NETWORK_DNS_SERVER2"
 			type="string"
-		 />
+			not-null="false"
+		/>
 		<property
-			column="NETWORK_STATUS"
-			length="1"
 			name="NetworkStatus"
-			not-null="false"
+			column="NETWORK_STATUS"
 			type="java.lang.Byte"
-		 />
-		<property
-			column="NETWORK_DNS_SERVER"
-			name="NetworkDnsServer"
 			not-null="false"
-			type="string"
-		 />
-		<property
-			column="NETWORK_DHCP_ENABLED"
 			length="1"
-			name="NetworkDhcpEnabled"
-			not-null="false"
-			type="java.lang.Byte"
-		 />
+		/>
 		<property
-			column="NETWORK_KEY"
-			length="11"
-			name="NetworkKey"
-			not-null="false"
-			type="integer"
-		 />
-		<property
-			column="NETWORK_MAC_ADRESS"
-			name="NetworkMacAdress"
-			not-null="false"
+			name="NetworkDnsServer"
+			column="NETWORK_DNS_SERVER"
 			type="string"
-		 />
+			not-null="false"
+		/>
+		<property
+			name="NetworkDhcpEnabled"
+			column="NETWORK_DHCP_ENABLED"
+			type="java.lang.Byte"
+			not-null="false"
+			length="1"
+		/>
+		<property
+			name="NetworkKey"
+			column="NETWORK_KEY"
+			type="integer"
+			not-null="false"
+			length="11"
+		/>
+		<property
+			name="NetworkMacAdress"
+			column="NETWORK_MAC_ADRESS"
+			type="string"
+			not-null="false"
+		/>
+
+
 	</class>
 </hibernate-mapping>

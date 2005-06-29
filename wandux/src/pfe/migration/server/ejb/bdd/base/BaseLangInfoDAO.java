@@ -30,17 +30,17 @@ public abstract class BaseLangInfoDAO extends pfe.migration.server.ejb.bdd.dao._
 		return pfe.migration.server.ejb.bdd.LangInfo.class;
 	}
 	
-	public pfe.migration.server.ejb.bdd.LangInfo load(java.lang.String key)
+	public pfe.migration.server.ejb.bdd.LangInfo load(java.lang.Integer key)
 		throws net.sf.hibernate.HibernateException {
 		return (pfe.migration.server.ejb.bdd.LangInfo) load(getReferenceClass(), key);
 	}
 
-	public pfe.migration.server.ejb.bdd.LangInfo load(java.lang.String key, Session s)
+	public pfe.migration.server.ejb.bdd.LangInfo load(java.lang.Integer key, Session s)
 		throws net.sf.hibernate.HibernateException {
 		return (pfe.migration.server.ejb.bdd.LangInfo) load(getReferenceClass(), key, s);
 	}
 
-	public pfe.migration.server.ejb.bdd.LangInfo loadInitialize(java.lang.String key, Session s) 
+	public pfe.migration.server.ejb.bdd.LangInfo loadInitialize(java.lang.Integer key, Session s) 
 			throws net.sf.hibernate.HibernateException { 
 		pfe.migration.server.ejb.bdd.LangInfo obj = load(key, s); 
 		if (!Hibernate.isInitialized(obj)) {
@@ -55,9 +55,9 @@ public abstract class BaseLangInfoDAO extends pfe.migration.server.ejb.bdd.dao._
 	 * @param langInfo a transient instance of a persistent class 
 	 * @return the class identifier
 	 */
-	public java.lang.String save(pfe.migration.server.ejb.bdd.LangInfo langInfo)
+	public java.lang.Integer save(pfe.migration.server.ejb.bdd.LangInfo langInfo)
 		throws net.sf.hibernate.HibernateException {
-		return (java.lang.String) super.save(langInfo);
+		return (java.lang.Integer) super.save(langInfo);
 	}
 
 	/**
@@ -68,9 +68,9 @@ public abstract class BaseLangInfoDAO extends pfe.migration.server.ejb.bdd.dao._
 	 * @param s the Session
 	 * @return the class identifier
 	 */
-	public java.lang.String save(pfe.migration.server.ejb.bdd.LangInfo langInfo, Session s)
+	public java.lang.Integer save(pfe.migration.server.ejb.bdd.LangInfo langInfo, Session s)
 		throws net.sf.hibernate.HibernateException {
-		return (java.lang.String) super.save(langInfo, s);
+		return (java.lang.Integer) super.save(langInfo, s);
 	}
 
 	/**
@@ -124,7 +124,7 @@ public abstract class BaseLangInfoDAO extends pfe.migration.server.ejb.bdd.dao._
 	 * Session or a transient instance with an identifier associated with existing persistent state. 
 	 * @param id the instance ID to be removed
 	 */
-	public void delete(java.lang.String id)
+	public void delete(java.lang.Integer id)
 		throws net.sf.hibernate.HibernateException {
 		super.delete(load(id));
 	}
@@ -136,7 +136,7 @@ public abstract class BaseLangInfoDAO extends pfe.migration.server.ejb.bdd.dao._
 	 * @param id the instance ID to be removed
 	 * @param s the Session
 	 */
-	public void delete(java.lang.String id, Session s)
+	public void delete(java.lang.Integer id, Session s)
 		throws net.sf.hibernate.HibernateException {
 		super.delete(load(id, s), s);
 	}

@@ -4,25 +4,31 @@
 	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
 
 <hibernate-mapping package="pfe.migration.server.ejb.bdd">
-	<class name="GlobalConf" table="GLOBAL_CONF">
+	<class
+		name="GlobalConf"
+		table="GLOBAL_CONF"
+	>
 		<id
-			column="GLOBAL_KEY"
 			name="GlobalKey"
 			type="integer"
+			column="GLOBAL_KEY"
 		>
-			<generator class="vm" />
+			<generator class="vm"/>
 		</id>
+
 		<property
-			column="GLOBAL_DOMAIN_NAME"
 			name="GlobalDomainName"
-			not-null="false"
+			column="GLOBAL_DOMAIN_NAME"
 			type="string"
-		 />
+			not-null="false"
+		/>
 		<property
-			column="GLOBAL_HOSTNAME"
 			name="GlobalHostname"
-			not-null="false"
+			column="GLOBAL_HOSTNAME"
 			type="string"
-		 />
+			not-null="false"
+		/>
+
+
 	</class>
 </hibernate-mapping>
