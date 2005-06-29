@@ -66,11 +66,6 @@ public class JTreeWithCheckbox extends JPanel
 		s = s.replaceFirst("\\\\", "");
 		return s;
 	}
-	
-//	public TreePath[] getSelectionnedPaths()
-//	{
-//		return checkTreeManager.getSelectionModel().getSelectionPaths();
-//	}
 
 	public String [] getSelectionnedPaths()
 	{
