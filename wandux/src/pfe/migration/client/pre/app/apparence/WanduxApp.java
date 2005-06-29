@@ -23,6 +23,8 @@ import pfe.migration.client.pre.app.apparence.steps.LastStep;
 import pfe.migration.client.pre.app.apparence.steps.PrintFromTreePath;
 import pfe.migration.client.pre.app.apparence.steps.ProgressBarStep;
 import pfe.migration.client.pre.app.apparence.steps.UserNetStep;
+import pfe.migration.client.pre.app.tools.CopyDataOnFileServer;
+import pfe.migration.client.pre.app.tools.WorkQueue;
 /**
  * @author dupadmin
  *
@@ -44,10 +46,13 @@ public class WanduxApp implements WanduxAppListener
 	// -- les variables necessaires -- //
 	private ComputerInformation ci = null; // voir si c est oblige de le mettre la 
 	private ClientEjb ce = null;
+	private WorkQueue wq = null;
 	
 	// -- initialisation -- //
 	public WanduxApp()
 	{
+		wq = new WorkQueue(10); 
+		
 		jFrame = getJFrame();
 		jFrame.setVisible(true);
 		jFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -168,6 +173,8 @@ public class WanduxApp implements WanduxAppListener
   	
   	public void moveProgressBar()
   	{
+		wq.execute(new CopyDataOnFileServer(this.tp));
+
   		jFrame.getContentPane().remove(middle);
   		middle = new ProgressBarStep();
   		middle.setBackground(Color.white);

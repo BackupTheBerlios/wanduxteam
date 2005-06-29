@@ -6,7 +6,6 @@
  */
 package pfe.migration.client.pre.app.apparence.steps;
 
-import java.awt.Cursor;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
