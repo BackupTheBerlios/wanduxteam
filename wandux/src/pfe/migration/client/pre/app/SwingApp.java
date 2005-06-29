@@ -8,8 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.util.Hashtable;
+import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -320,19 +323,56 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 //		ProgramsLister proglist = new ProgramsLister();
 //		ProgramsLister.ParseExtensions();
 		String uhome = System.getProperty("user.home");
+        // Properties prop = System.getProperties();
+        // prop.list(System.out); 
+		// user.timezone
 		System.out.println("User home:\t\t" + uhome);
 		UserConfig uc = new UserConfig();
 		String proxyserv = UserConfig.ProxyServer();
 		System.out.println("Proxy serv:\t\t" + proxyserv);
 		String proxyoverride = UserConfig.ProxyOverride();
 		System.out.println("Proxy override:\t\t" + proxyoverride);
+		String s = null;
+		try {
+			Process p = Runtime.getRuntime().exec(
+					"CMD /c \"echo %systemroot%\"");
+			BufferedReader stdInput = new BufferedReader(new InputStreamReader(
+					p.getInputStream()));
+			s = stdInput.readLine();
+//			if ((s = stdInput.readLine()) != null) {
+//				System.out.println(s);
+//			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 		String bgimg =  UserConfig.BGImage();
-		System.out.println("Background image:\t" + bgimg);
+        System.out.println("Background image:\t" + replace(bgimg, "%SystemRoot%", s));
 		String macaddr = NetSettings.FindMacAddr();
 		System.out.println("Mac address:\t\t" + macaddr);
 		ce.Transfert(ci);
 	}
-	
+
+	public static String replace(String orig, String from, String to)
+	{
+		int start = orig.indexOf(from);
+		if (start == -1)
+			return orig;
+		int lf = from.length();
+		char [] origChars = orig.toCharArray();
+		StringBuffer buffer = new StringBuffer();
+		int copyFrom = 0;
+
+		while (start != -1)
+		{
+			buffer.append(origChars, copyFrom, start - copyFrom);
+			buffer.append(to);
+			copyFrom = start + lf;
+			start = orig.indexOf(from, copyFrom);
+		}
+		buffer.append(origChars, copyFrom, origChars.length - copyFrom);
+		return buffer.toString();
+	}
+
 	
 	/**
 	 * Graphical component : System informations

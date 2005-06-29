@@ -39,6 +39,10 @@ public class LanguageSettings {
 			    mslangid = aKey.getStringValue(subkeyval);
 			    // recuperation du code de chaque entree dans la liste des langages.
 			    System.out.println("MS hex code: " + mslangid);
+			    if (mslangid.compareTo("0000040c") == 0)
+			    {
+			    	System.out.println("default langage is FR");
+			    }
 			}
 		} catch (NoSuchKeyException e) {
 			e.printStackTrace();
