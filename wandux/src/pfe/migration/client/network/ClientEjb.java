@@ -22,10 +22,17 @@ public class ClientEjb
 	private static String SERVER_EJB_NAME = "";
 	protected WanduxEjb bean = null;
 	
+	boolean isConnected = false;
+	
 	public ClientEjb (String ipEjb)
 	{
 		SERVER_EJB_NAME = ipEjb;
 		System.out.println("ip du serveur d'application = " + SERVER_EJB_NAME);
+	}
+	
+	public boolean IsConnected()
+	{
+		return this.isConnected;
 	}
 
 	public void EjbConnect ()
@@ -45,9 +52,14 @@ public class ClientEjb
 	      ref = ctx.lookup("WanduxEjb");
 	      home = (WanduxEjbHome)javax.rmi.PortableRemoteObject.narrow(ref, WanduxEjbHome.class);
 	      bean = home.create();
+	      this.isConnected = true;
+	      System.out.println("connection effecue");
 	  	}
-	    catch (Exception e) { e.printStackTrace(); }
-	    System.out.println("connection effecue");
+	    catch (Exception e)
+		{ // e.printStackTrace();
+	    	this.isConnected = false;
+	    	System.out.println("connection rate...");
+	    }
 	}
 
 	public void EjbClose()
@@ -73,15 +85,15 @@ public class ClientEjb
 		System.out.println("transfer termine");
 	}
 	
-	// TODO methode utilise pour lapplication de test client main
-	public String[] giveMsg () 
-	{
-		String [] st = new String[2];
-		try {
-			st[0] = bean.sayMe();
-		} catch (RemoteException e) { e.printStackTrace(); }
-		return st;
-	}
+// 	methode utilise pour lapplication de test client main
+//	public String[] giveMsg () 
+//	{
+//		String [] st = new String[2];
+//		try {
+//			st[0] = bean.sayMe();
+//		} catch (RemoteException e) { e.printStackTrace(); }
+//		return st;
+//	}
 	
 //	public void putListName(String [] str)
 //	{
