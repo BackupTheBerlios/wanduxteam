@@ -6,8 +6,11 @@
  */
 package pfe.migration.client.pre.app.apparence.steps;
 
-import javax.swing.JLabel;
+import java.awt.Cursor;
+import java.awt.Dimension;
+
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 /**
  * @author dup
@@ -17,8 +20,13 @@ import javax.swing.JPanel;
  */
 public class ProgressBarStep extends JPanel
 {
+	JProgressBar jpb = null;
+	
 	public ProgressBarStep()
 	{
-		this.add(new JLabel("ProgressBarStep"));
+		jpb = new JProgressBar();
+		jpb.setPreferredSize(new Dimension(400, 20));
+		
+		this.add(jpb);
 	}
 }

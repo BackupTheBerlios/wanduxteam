@@ -6,6 +6,7 @@
  */
 package pfe.migration.client.pre.app.apparence.steps;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Vector;
 
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
@@ -38,6 +40,10 @@ public class UserNetStep extends JPanel
 	
 	public UserNetStep(ClientEjb ce)
 	{
+//		JScrollPane scrollPane= new JScrollPane();
+//		scrollPane.setPreferredSize(new Dimension(400,400));
+//		scrollPane.setViewportView(printSystemInfos(systemInformation(ce)));
+//		this.add(scrollPane);
 		this.add(printSystemInfos(systemInformation(ce)));
 	}
 

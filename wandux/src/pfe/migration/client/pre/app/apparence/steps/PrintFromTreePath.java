@@ -6,8 +6,11 @@
  */
 package pfe.migration.client.pre.app.apparence.steps;
 
+import java.awt.Dimension;
+
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.tree.TreePath;
 
 /**
@@ -36,8 +39,12 @@ public class PrintFromTreePath extends JPanel
 			}
 		}
 		JList jl = new JList(allPath);
-		// jl.scrollRectToVisible(new Rectangle(400, 400)); // TODO trouver comment mettre les scrollbar
-		this.add(jl);
+//		jl.setFocusable(false);
+
+		JScrollPane scrollPane= new JScrollPane();
+		scrollPane.setPreferredSize(new Dimension(400,400));
+		scrollPane.setViewportView(jl);
+		this.add(scrollPane);
 	}
 
 	public String formatPath(TreePath t)
@@ -47,4 +54,5 @@ public class PrintFromTreePath extends JPanel
 		s = s.replaceFirst("\\\\", "");
 		return s;
 	}
+	
 }
