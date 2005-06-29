@@ -59,9 +59,38 @@ public class JTreeWithCheckbox extends JPanel
 		this.add(jSplitPaneLocalFs);
 	}
 	
-	public TreePath[] getSelectionnedPaths()
+	public String formatPath(TreePath t)
 	{
-		return checkTreeManager.getSelectionModel().getSelectionPaths();
+		String s = "";
+		s = t.toString().replaceAll(", ", "/");
+		s = s.replaceFirst("\\\\", "");
+		return s;
+	}
+	
+//	public TreePath[] getSelectionnedPaths()
+//	{
+//		return checkTreeManager.getSelectionModel().getSelectionPaths();
+//	}
+
+	public String [] getSelectionnedPaths()
+	{
+		String [] list = null;
+		TreePath [] tp = checkTreeManager.getSelectionModel().getSelectionPaths(); 
+		if (tp == null || tp.length == 0)
+		{
+			list = new String [1];
+			list[0] = "Aucun élément n'a été sélectionné";
+		}
+		else
+		{
+			list = new String [tp.length+1];
+			list[0] = "Liste des fichiers séléctionnés";
+			for (int i = 0; i < tp.length ; i++)
+			{
+				list[i+1] = formatPath(tp[i]);
+			}
+		}
+		return list;
 	}
 	
 	private String getFileDetails(File file)

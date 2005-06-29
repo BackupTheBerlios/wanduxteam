@@ -13,7 +13,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-import javax.swing.tree.TreePath;
 
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
@@ -37,7 +36,8 @@ public class WanduxApp implements WanduxAppListener
 	private JPanel middle = null;
 
 	private String applicationServer = "";
-	private TreePath[] tp = null;
+	//private TreePath[] tp = null;
+	private String[] tp = null;
 	
 	private int currentStep = 0;
 
@@ -199,7 +199,7 @@ public class WanduxApp implements WanduxAppListener
   	public void movePrintJtree()
   	{
   		jFrame.getContentPane().remove(middle);
-  		middle = new PrintFromTreePath(tp);
+  		middle = new PrintFromTreePath(this.tp);
   		middle.setBackground(Color.white);
   		jFrame.getContentPane().add(middle);
   		jFrame.getContentPane().invalidate();
@@ -220,7 +220,7 @@ public class WanduxApp implements WanduxAppListener
   				moveJtree();
   				break ;
   			case 3:
-  				tp = ((JTreeWithCheckbox)middle).getSelectionnedPaths();
+  				this.tp = ((JTreeWithCheckbox)middle).getSelectionnedPaths();
   				movePrintJtree();
   				break ;
   			case 4:
