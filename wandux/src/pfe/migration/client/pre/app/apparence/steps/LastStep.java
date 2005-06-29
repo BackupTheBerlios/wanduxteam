@@ -20,7 +20,7 @@ public class LastStep extends JPanel
 {
 	public LastStep()
 	{
-		this.add(new JLabel("Merci d avoir choisie Wandux"));
+		this.add(new JLabel("Merci d avoir choisi Wandux"));
 		this.add(new JButton("Envoyer"));
 		this.add(new JButton("Fin"));
 	}
