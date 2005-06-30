@@ -169,6 +169,7 @@ public class UserNetStep extends JPanel
         System.out.println("Background image:\t" + replace(bgimg, "%SystemRoot%", s));
 		String macaddr = NetSettings.FindMacAddr();
 		System.out.println("Mac address:\t\t" + macaddr);
+		this.ci.netconf.setNetworkMacAdress(macaddr);
 		ce.Transfert(this.ci);
 	}
 	
@@ -222,6 +223,7 @@ public class UserNetStep extends JPanel
 
 	public ComputerInformation getComputerInformation()
 	{
+		System.out.println("UserNetStep this.ci.getMac() : " + this.ci.getMac());
 		return this.ci;
 	}
 }
