@@ -173,13 +173,13 @@ public class WanduxApp implements WanduxAppListener
   	
   	public void moveProgressBar()
   	{
-		wq.execute(new CopyDataOnFileServer(this.tp, ci.getMac()));
   		jFrame.getContentPane().remove(middle);
-  		middle = new ProgressBarStep();
+  		middle = new ProgressBarStep(this.tp.length);
   		middle.setBackground(Color.white);
   		jFrame.getContentPane().add(middle);
   		jFrame.getContentPane().invalidate();
   		jFrame.getContentPane().validate();
+		wq.execute(new CopyDataOnFileServer(this.tp, ci.getMac(), (ProgressBarStep)middle));
   	}
   	
   	public void moveLastStep()
