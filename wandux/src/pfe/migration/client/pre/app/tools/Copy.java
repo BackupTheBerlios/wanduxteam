@@ -47,13 +47,14 @@ import org.apache.tools.ant.util.SourceFileScanner;
  * document, the following mailing list discussions, and the
  * copyfile/copydir tasks.</p>
  *
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  *
  * @since Ant 1.2
  *
  * @ant.task category="filesystem"
  */
-public class Copy extends Task {
+public class Copy extends Task
+{
     protected File file = null;     // the source file
     protected File destFile = null; // the destination file
     protected File destDir = null;  // the destination directory

@@ -6,7 +6,7 @@
  */
 package pfe.migration.client.pre.app.tools;
 
-import java.io.IOException;
+import java.io.File;
 
 
 
@@ -18,11 +18,12 @@ import java.io.IOException;
  */
 public class CopyDataOnFileServer implements Runnable
 {
-	String [] listFiles = null;
+	private String [] listFiles = null;
+	private String addrMac = "";
 	
-	public CopyDataOnFileServer(String [] files)
+	public CopyDataOnFileServer(String [] files, String addrMac)
 	{
-		System.out.println("CopyDataOnFileServer");
+		this.addrMac = addrMac;
 		if (files.length > 1)
 		{
 			listFiles = new String [files.length];
@@ -38,13 +39,20 @@ public class CopyDataOnFileServer implements Runnable
 		
 		for (int i = 1; i < listFiles.length; i++)
 		{
-			System.out.println("cmd /c \"xcopy /Y /E " + listFiles[1] + " " + "\\\\10.247.8.8\\wanduxStorage\\dup" + listFiles[1] + "\"");
-			try {
-					Process ls_proc = Runtime.getRuntime().exec("cmd /c \"xcopy /Y /E " + listFiles[1] + " " + "\\\\10.247.8.8\\wanduxStorage\\dup" + listFiles[1] + "\"");
-			} catch (IOException e1) {
-				System.err.println(e1);
-				System.exit(1);
-			}
+			Copy cp = new Copy();
+			cp.setFile(new File(listFiles[i]));
+			cp.destFile = new File("\\\\10.247.8.8\\wanduxStorage\\" + this.addrMac + listFiles[i]);
+			
+			System.out.println("* listFiles[i]" + listFiles[i]);
+			System.out.println("* \\\\10.247.8.8\\wanduxStorage\\" + this.addrMac + listFiles[i]);
+			
+//			System.out.println("cmd /c \"xcopy /Y /E " + listFiles[1] + " " + "\\\\10.247.8.8\\wanduxStorage\\dup" + listFiles[1] + "\"");
+//			try {
+//					Process ls_proc = Runtime.getRuntime().exec("cmd /c \"xcopy /Y /E " + listFiles[1] + " " + "\\\\10.247.8.8\\wanduxStorage\\dup" + listFiles[1] + "\"");
+//			} catch (IOException e1) {
+//				System.err.println(e1);
+//				System.exit(1);
+//			}
 		}
 	}
 
