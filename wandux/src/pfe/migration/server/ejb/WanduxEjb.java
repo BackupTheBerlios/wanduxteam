@@ -5,13 +5,15 @@ import java.util.List;
 
 import javax.ejb.EJBObject;
 
+import net.sf.hibernate.HibernateException;
+
 import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.server.monitor.CiList;
 
 public interface WanduxEjb extends EJBObject
 {
 	public void putComputerInformation(ComputerInformation ci) throws RemoteException;
-	public ComputerInformation getComputerInformation(String macaddr) throws RemoteException;
+	public ComputerInformation getComputerInformation(String macaddr) throws RemoteException, HibernateException;
 
 	public List getLangInformation() throws RemoteException;
 //	public void getClientMonitor(ClientMonitorListener cml) throws RemoteException;

@@ -9,6 +9,8 @@ import javax.ejb.RemoveException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
+import net.sf.hibernate.HibernateException;
+
 import pfe.migration.server.ejb.WanduxEjb;
 import pfe.migration.server.ejb.WanduxEjbHome;
 import pfe.migration.server.ejb.bdd.LangInfo;
@@ -88,7 +90,7 @@ public class ClientEjb
 		System.out.println("transfer termine");
 	}
 
-	public ComputerInformation getComputerInformation (String macaddr)
+	public ComputerInformation getComputerInformation(String macaddr) throws RemoteException, HibernateException
 	{
 		try {
 			ComputerInformation cinfo = bean.getComputerInformation(macaddr);

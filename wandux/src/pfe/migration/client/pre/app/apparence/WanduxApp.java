@@ -167,9 +167,11 @@ public class WanduxApp implements WanduxAppListener
   		}
   		jFrame.getContentPane().remove(middle);
  		middle = new UserNetStep(this.ce);
+ 		
  		if (this.ci == null)
- 			this.ci = ((UserNetStep)middle).getComputerInformation();
-  		middle.setBackground(Color.white);
+ 			this.ci = ((UserNetStep)middle).getCurrentComputerInformation();
+  		
+ 		middle.setBackground(Color.white);
   		jFrame.getContentPane().add(middle);
   		jFrame.getContentPane().invalidate();
   		jFrame.getContentPane().validate();

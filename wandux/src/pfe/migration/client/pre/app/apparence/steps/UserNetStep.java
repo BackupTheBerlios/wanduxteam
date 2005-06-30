@@ -8,6 +8,7 @@ package pfe.migration.client.pre.app.apparence.steps;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -16,6 +17,8 @@ import java.util.Vector;
 
 import javax.swing.JList;
 import javax.swing.JPanel;
+
+import net.sf.hibernate.HibernateException;
 
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
@@ -170,6 +173,21 @@ public class UserNetStep extends JPanel
 		String macaddr = NetSettings.FindMacAddr();
 		System.out.println("Mac address:\t\t" + macaddr);
 		this.ci.netconf.setNetworkMacAdress(macaddr);
+		
+//		try {
+//			ComputerInformation toto =  ce.getComputerInformation(macaddr);
+//			System.out.println("Ca MARCHE : " + toto.gconf.getGlobalHostname());
+//		} catch (RemoteException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} catch (HibernateException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+		
+		
+		
+		
 		ce.Transfert(this.ci);
 	}
 	
@@ -221,7 +239,7 @@ public class UserNetStep extends JPanel
 		return new JList (components.toArray());
 	}
 
-	public ComputerInformation getComputerInformation()
+	public ComputerInformation getCurrentComputerInformation()
 	{
 		return this.ci;
 	}

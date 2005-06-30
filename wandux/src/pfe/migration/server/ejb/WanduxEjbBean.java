@@ -116,7 +116,7 @@ public class WanduxEjbBean implements SessionBean
 		return l;
 	}
 
-	public ComputerInformation getComputerInformation(String macaddr) throws HibernateException
+	public ComputerInformation getComputerInformation(String macaddr) throws RemoteException, HibernateException
 	{
 		List l = null;
 		Integer key_machine = null;
