@@ -16,7 +16,6 @@ import javax.swing.WindowConstants;
 
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
-import pfe.migration.client.pre.app.Img;
 import pfe.migration.client.pre.app.apparence.steps.FirstStep;
 import pfe.migration.client.pre.app.apparence.steps.JTreeWithCheckbox;
 import pfe.migration.client.pre.app.apparence.steps.LastStep;
@@ -87,9 +86,15 @@ public class WanduxApp implements WanduxAppListener
 	
 	private JPanel initPanel()
 	{
-		JPanel banner = new JPanel();
+		final JPanel banner = new JPanel();
 		banner.setBackground(Color.white);
-		banner.add(new Img(new ImageIcon("utils/logo.png").getImage()));
+		new Thread()
+		{
+		  public void run()
+		  {
+		  	banner.add(new ImageCanvas(new ImageIcon("utils/logo.png").getImage()));
+		  }
+		}.start();
 		return banner;
 	}
 	
@@ -139,7 +144,6 @@ public class WanduxApp implements WanduxAppListener
 			this.ce.EjbConnect();
   		}
 //  		// gestion de la mauvaise url (ca marche)
-
 //		else if (ce.IsConnected())
 //		{
 //			this.ce.EjbClose();
