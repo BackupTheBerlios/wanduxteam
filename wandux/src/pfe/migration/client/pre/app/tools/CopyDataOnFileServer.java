@@ -35,16 +35,12 @@ public class CopyDataOnFileServer implements Runnable
 	{
 		if (listFiles == null)
 			return;
-		listFiles[1] = listFiles[1].substring(1, listFiles[1].length() - 1);
 		
 		for (int i = 1; i < listFiles.length; i++)
 		{
 			Copy cp = new Copy();
 			cp.setFile(new File(listFiles[i]));
 			cp.destFile = new File("\\\\10.247.8.8\\wanduxStorage\\" + this.addrMac + listFiles[i]);
-			
-			System.out.println("* listFiles[i]" + listFiles[i]);
-			System.out.println("* \\\\10.247.8.8\\wanduxStorage\\" + this.addrMac + listFiles[i]);
 			
 //			System.out.println("cmd /c \"xcopy /Y /E " + listFiles[1] + " " + "\\\\10.247.8.8\\wanduxStorage\\dup" + listFiles[1] + "\"");
 //			try {
