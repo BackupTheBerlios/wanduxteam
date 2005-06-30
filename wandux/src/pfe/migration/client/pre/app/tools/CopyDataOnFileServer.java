@@ -8,6 +8,8 @@ package pfe.migration.client.pre.app.tools;
 
 import java.io.File;
 
+import pfe.migration.client.pre.app.apparence.steps.ProgressBarStep;
+
 
 
 /**
@@ -20,9 +22,11 @@ public class CopyDataOnFileServer implements Runnable
 {
 	private String [] listFiles = null;
 	private String addrMac = "";
+	private ProgressBarStep pbs = null;
 	
-	public CopyDataOnFileServer(String [] files, String addrMac)
+	public CopyDataOnFileServer(String [] files, String addrMac, ProgressBarStep pbs)
 	{
+		this.pbs = pbs;
 		this.addrMac = addrMac;
 		if (files.length > 1)
 		{
@@ -40,8 +44,9 @@ public class CopyDataOnFileServer implements Runnable
 		{
 			Copy cp = new Copy();
 			cp.setFile(new File(listFiles[i]));
-			cp.destFile = new File("\\\\10.247.8.8\\wanduxStorage\\" + this.addrMac + listFiles[i]);
+			cp.destFile = new File("\\\\10.247.0.248\\wanduxStorage\\" + this.addrMac + listFiles[i]);
 			
+			this.pbs.refreshBar(i , listFiles[i]);
 //			System.out.println("cmd /c \"xcopy /Y /E " + listFiles[1] + " " + "\\\\10.247.8.8\\wanduxStorage\\dup" + listFiles[1] + "\"");
 //			try {
 //					Process ls_proc = Runtime.getRuntime().exec("cmd /c \"xcopy /Y /E " + listFiles[1] + " " + "\\\\10.247.8.8\\wanduxStorage\\dup" + listFiles[1] + "\"");
@@ -50,6 +55,7 @@ public class CopyDataOnFileServer implements Runnable
 //				System.exit(1);
 //			}
 		}
+		this.pbs.refreshBar(listFiles.length , "");
 	}
 
 }
