@@ -27,6 +27,7 @@
 		<mapping resource="pfe/migration/server/ejb/bdd/NetworkConfig.hbm" />
 		<mapping resource="pfe/migration/server/ejb/bdd/UsersData.hbm" />
 		<mapping resource="pfe/migration/server/ejb/bdd/ParamIe.hbm" />
+		<mapping resource="pfe/migration/server/ejb/bdd/LangInfo.hbm" />
 
 	</session-factory>
 </hibernate-configuration>
