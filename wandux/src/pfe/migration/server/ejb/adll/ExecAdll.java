@@ -16,12 +16,12 @@ import	java.io.*;
  */
 public class ExecAdll {
 
-	String cfgFileName = "C:\\wandux\\output\\";
-	String xmlFileName = "C:\\wandux\\output\\mandrake_10_1_FR.xml";
+	String cfgFileName = "/wandux/mandrake/unattended/";
+	String xmlFileName = "/wandux/mandrake/unattended/mandrake_10_1_FR.xml";
 	
   public ExecAdll (String cfgFileName)
   {
-  	this.cfgFileName += cfgFileName + ".pl";
+  	this.cfgFileName += cfgFileName + ".cfg";
   }
 	
   public void doExec ()
@@ -29,7 +29,7 @@ public class ExecAdll {
 	String ls_str;
 	
 	try {
-		Process ls_proc = Runtime.getRuntime().exec("./utils/adll/linux/adll -q -o " + cfgFileName + " " + xmlFileName);
+		Process ls_proc = Runtime.getRuntime().exec("/wandux/utils/adll -q -o " + cfgFileName + " " + xmlFileName);
 	} catch (IOException e1) {
 		System.err.println(e1);
 		System.exit(1);
