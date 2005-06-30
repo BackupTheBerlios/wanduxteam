@@ -15,7 +15,8 @@ import java.io.FileOutputStream;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class DirCopy {
+public class DirCopy
+{
 	public static void CopyRec(String old_path, String new_path) {
 		//create file objects from method parameters
 		File oldPath = new File(old_path);
@@ -28,6 +29,7 @@ public class DirCopy {
 				newPath.mkdir();
 			}
 			//list files in old directory in array
+			
 			String[] oldFiles = oldPath.list();
 			//get length of file array
 			int numOldFiles = oldFiles.length;
@@ -65,7 +67,7 @@ public class DirCopy {
 								newFileLocation);
 					}
 				} catch (Exception e) {
-					System.out.println("TODO");
+					//System.out.println("TODO");
 					//do whatever here
 				}
 			}
@@ -76,6 +78,6 @@ public class DirCopy {
 	}
 //	public static void main(String args[])
 //	{
-//		CopyRec("C:\\test\\toto","C:\\test\\tutu");
+//		CopyRec("C:\\test\\toto\\titi.txt","C:\\test\\tutu");
 //	}
 }

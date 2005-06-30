@@ -42,18 +42,14 @@ public class CopyDataOnFileServer implements Runnable
 		
 		for (int i = 1; i < listFiles.length; i++)
 		{
-			Copy cp = new Copy();
-			cp.setFile(new File(listFiles[i]));
-			cp.destFile = new File("\\\\10.247.0.248\\wanduxStorage\\" + this.addrMac + listFiles[i]);
-			
+			File f = new File(listFiles[i]);
+			if (f.isDirectory() == true)
+			{
+				DirCopy.CopyRec(listFiles[i] , "\\\\10.247.0.248\\wanduxStorage\\" + this.addrMac + listFiles[i]);
+			}
+			else
+				FileCopy.CopyRec(listFiles[i] , "\\\\10.247.0.248\\wanduxStorage\\" + this.addrMac + listFiles[i]);
 			this.pbs.refreshBar(i , listFiles[i]);
-//			System.out.println("cmd /c \"xcopy /Y /E " + listFiles[1] + " " + "\\\\10.247.8.8\\wanduxStorage\\dup" + listFiles[1] + "\"");
-//			try {
-//					Process ls_proc = Runtime.getRuntime().exec("cmd /c \"xcopy /Y /E " + listFiles[1] + " " + "\\\\10.247.8.8\\wanduxStorage\\dup" + listFiles[1] + "\"");
-//			} catch (IOException e1) {
-//				System.err.println(e1);
-//				System.exit(1);
-//			}
 		}
 		this.pbs.refreshBar(listFiles.length , "");
 	}
