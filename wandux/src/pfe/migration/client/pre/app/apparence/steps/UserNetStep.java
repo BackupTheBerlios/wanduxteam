@@ -37,6 +37,7 @@ import pfe.migration.server.ejb.bdd.UsersData;
  */
 public class UserNetStep extends JPanel
 {
+	private ComputerInformation ci = null;
 	
 	public UserNetStep(ClientEjb ce)
 	{
@@ -45,20 +46,21 @@ public class UserNetStep extends JPanel
 //		scrollPane.setViewportView(printSystemInfos(systemInformation(ce)));
 //		this.add(scrollPane);
 		
-		this.add(printSystemInfos(systemInformation(ce)));
+		systemInformation(ce);
+		this.add(printSystemInfos());
 	}
 
-	public ComputerInformation systemInformation(ClientEjb ce)
+	public void systemInformation(ClientEjb ce)
 	{
 		KeyVal kvusers = new KeyVal();
-		ComputerInformation ci = new ComputerInformation();
-		ci.gconf = new GlobalConf();
-		ci.netconf = new NetworkConfig(ci.gconf.getGlobalKey());
-		ci.udata = new UsersData(ci.gconf.getGlobalKey());
-		ci.ieconf = new ParamIe(/*Mettre ici la Clé unique d'un user*/);
+		this.ci = new ComputerInformation();
+		this.ci.gconf = new GlobalConf();
+		this.ci.netconf = new NetworkConfig(this.ci.gconf.getGlobalKey());
+		this.ci.udata = new UsersData(this.ci.gconf.getGlobalKey());
+		this.ci.ieconf = new ParamIe(/*Mettre ici la Clé unique d'un user*/);
 		
 		//Hostname
-		ci.gconf.setGlobalHostname(kvusers.getKeyValLocalMachine(
+		this.ci.gconf.setGlobalHostname(kvusers.getKeyValLocalMachine(
 							"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", "HostName"));
 
 		//Dhcp Enabled
@@ -69,13 +71,13 @@ public class UserNetStep extends JPanel
 		
 		// Proxy
 		IeParam ieparam = new IeParam();
-		ci.ieconf.setIeProxyServer(ieparam.getProxyServer());
-		ci.ieconf.setIeProxyOverride(ieparam.getProxyOverride());
+		this.ci.ieconf.setIeProxyServer(ieparam.getProxyServer());
+		this.ci.ieconf.setIeProxyOverride(ieparam.getProxyOverride());
 		//ci.ieconf.setIeProxyAutoConfigUrl(ieparam.getAutoConfigURL());
 		
 		if (!curinterface.equals("dhcpdisabled"))
 		{
-			ci.netconf.setNetworkDhcpEnabled(new Byte("1"));
+			this.ci.netconf.setNetworkDhcpEnabled(new Byte("1"));
 			//DhcpServer
 			System.out.println("dhcp enabled");
 			String enabledhcp = new String(kvusers.getKeyValLocalMachine(
@@ -89,7 +91,7 @@ public class UserNetStep extends JPanel
 			
 //			DEPRECATED
 			//DHcp Ip Adress
-			ci.netconf.setNetworkIpAddress(kvusers.getKeyValLocalMachine(
+			this.ci.netconf.setNetworkIpAddress(kvusers.getKeyValLocalMachine(
 								"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
 								+ curinterface, "dhcpIpaddress"));
 			
@@ -101,7 +103,7 @@ public class UserNetStep extends JPanel
 		}
 		else
 		{
-			ci.netconf.setNetworkDhcpEnabled(new Byte("0"));
+			this.ci.netconf.setNetworkDhcpEnabled(new Byte("0"));
 			System.out.println("dhcp disabled");
 			curinterface = KeyVal.FindLinkage();
 
@@ -167,8 +169,7 @@ public class UserNetStep extends JPanel
         System.out.println("Background image:\t" + replace(bgimg, "%SystemRoot%", s));
 		String macaddr = NetSettings.FindMacAddr();
 		System.out.println("Mac address:\t\t" + macaddr);
-		ce.Transfert(ci);
-		return ci;
+		ce.Transfert(this.ci);
 	}
 	
 	public static String replace(String orig, String from, String to)
@@ -195,17 +196,17 @@ public class UserNetStep extends JPanel
 	/**
 	 * Graphical component : System informations
 	 */
-	public JList printSystemInfos(ComputerInformation ci)
+	public JList printSystemInfos()
 	{
 		List components  = new ArrayList();
 		
 		components.add("----------   Global configuration   -------------");
 		components.add("");
-		components.add("HostName: " + ci.gconf.getGlobalHostname());
+		components.add("HostName: " + this.ci.gconf.getGlobalHostname());
 		components.add("");
 		components.add("----------   Network configuration   ------------");
 		components.add("");
-		if (ci.netconf.getNetworkDhcpEnabled().byteValue() == 1)
+		if (this.ci.netconf.getNetworkDhcpEnabled().byteValue() == 1)
 			components.add("Dhcpenabled: yes");
 		else
 			components.add("Dhcpenabled: no");
@@ -219,4 +220,8 @@ public class UserNetStep extends JPanel
 		return new JList (components.toArray());
 	}
 
+	public ComputerInformation getComputerInformation()
+	{
+		return this.ci;
+	}
 }
