@@ -16,8 +16,11 @@ import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.server.ejb.adll.ExecAdll;
+import pfe.migration.server.ejb.bdd.GlobalConf;
 import pfe.migration.server.ejb.bdd.HibernateUtil;
-import pfe.migration.server.ejb.bdd.LangInfo;
+import pfe.migration.server.ejb.bdd.NetworkConfig;
+import pfe.migration.server.ejb.bdd.ParamIe;
+import pfe.migration.server.ejb.bdd.UsersData;
 import pfe.migration.server.ejb.tool.XmlAdllParse;
 import pfe.migration.server.monitor.CiList;
 
@@ -113,8 +116,104 @@ public class WanduxEjbBean implements SessionBean
 		return l;
 	}
 
-	public ComputerInformation getComputerInformation()
+	public ComputerInformation getComputerInformation(String macaddr) throws HibernateException
 	{
+		List l = null;
+		Integer key_machine = null;
+		Integer user_id = null;
+		Session session;
+		ComputerInformation ci = new ComputerInformation();
+		
+		session = HibernateUtil.currentSession();
+		l = session.find(" from NetworkConfig ");
+		Iterator i = l.iterator();
+		while (i.hasNext())
+		{
+			NetworkConfig nconf = (NetworkConfig)i.next();
+			if (nconf.getNetworkMacAdress() == macaddr)
+			{
+				key_machine = nconf.getNetworkKey();
+			}
+		}
+		
+		ci.gconf = new GlobalConf();
+		l = session.find(" from GlobalConf ");
+		i = l.iterator();
+		while (i.hasNext())
+		{
+			GlobalConf gconf = (GlobalConf)i.next();
+			if (gconf.getGlobalKey() == key_machine)
+			{
+				ci.gconf.setGlobalDomainName(gconf.getGlobalDomainName());
+				ci.gconf.setGlobalHostname(gconf.getGlobalHostname());
+				ci.gconf.setGlobalKey(gconf.getGlobalKey());
+			}
+		}
+		
+		
+		ci.netconf = new NetworkConfig();
+		l = session.find(" from NetworkConfig ");
+		i = l.iterator();
+		while (i.hasNext())
+		{
+			NetworkConfig netconf = (NetworkConfig)i.next();
+			if (netconf.getNetworkKey() == key_machine)
+			{
+				ci.netconf.setId(netconf.getId());
+				ci.netconf.setNetworkDhcpEnabled(netconf.getNetworkDhcpEnabled());
+				ci.netconf.setNetworkDnsServer(netconf.getNetworkDnsServer());
+				ci.netconf.setNetworkDnsServer2(netconf.getNetworkDnsServer2());
+				ci.netconf.setNetworkGateway(netconf.getNetworkGateway());
+				ci.netconf.setNetworkInterface(netconf.getNetworkInterface());
+				ci.netconf.setNetworkIpAddress(netconf.getNetworkIpAddress());
+				ci.netconf.setNetworkKey(netconf.getNetworkKey());
+				ci.netconf.setNetworkMacAdress(netconf.getNetworkMacAdress());
+				ci.netconf.setNetworkStatus(netconf.getNetworkStatus());
+				ci.netconf.setNetworkSubnetmask(netconf.getNetworkSubnetmask());
+			}
+		}
+
+		
+		ci.udata = new UsersData();
+		l = session.find(" from UsersData ");
+		i = l.iterator();
+		while (i.hasNext())
+		{
+			UsersData udata = (UsersData)i.next();
+			if (udata.getUserKey() == key_machine)
+			{
+				user_id = udata.getId();
+				ci.udata.setId(udata.getId());
+				ci.udata.setUserBgimg(udata.getUserBgimg());
+				ci.udata.setUserHome(udata.getUserHome());
+				ci.udata.setUserKey(udata.getUserKey());
+				ci.udata.setUserLogin(udata.getUserLogin());
+				ci.udata.setUserPass(udata.getUserPass());
+				ci.udata.setUserProxyOverride(udata.getUserProxyOverride());
+				ci.udata.setUserProxyServ(udata.getUserProxyServ());
+				ci.udata.setUserType(udata.getUserType());
+			}
+		}
+		
+
+		ci.ieconf = new ParamIe();
+		l = session.find(" from ParamIe ");
+		i = l.iterator();
+		while (i.hasNext())
+		{
+			ParamIe ieconf = (ParamIe)i.next();
+			if (ieconf.getIeParamUserId() == user_id)
+			{
+				ci.ieconf.setId(ieconf.getId());
+				ci.ieconf.setIeParamSaveDirectory(ieconf.getIeParamSaveDirectory());
+				ci.ieconf.setIeParamUserId(ieconf.getIeParamUserId());
+				ci.ieconf.setIeProxyAutoConfigUrl(ieconf.getIeProxyAutoConfigUrl());
+				ci.ieconf.setIeProxyOverride(ieconf.getIeProxyOverride());
+				ci.ieconf.setIeProxyServer(ieconf.getIeProxyServer());
+			}
+		}
+		
+		HibernateUtil.closeSession();
 		return null;
 	}
 

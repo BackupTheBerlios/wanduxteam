@@ -88,19 +88,17 @@ public class ClientEjb
 		System.out.println("transfer termine");
 	}
 
-//	public void getLangInformation ()
-//	{
-//		try {
-//			List l = bean.getLangInformation();
-//			Iterator i = l.iterator();
-//			while (i.hasNext())
-//			{
-//				System.out.println(((LangInfo)i.next()).getLangLanguage());
-//			}
-//		} catch (RemoteException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	public ComputerInformation getComputerInformation (String macaddr)
+	{
+		try {
+			ComputerInformation cinfo = bean.getComputerInformation(macaddr);
+
+			return cinfo;
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public List getLangInformation ()
 	{

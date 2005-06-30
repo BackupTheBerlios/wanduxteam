@@ -57,7 +57,7 @@ public class UserNetStep extends JPanel
 		this.ci.gconf = new GlobalConf();
 		this.ci.netconf = new NetworkConfig(this.ci.gconf.getGlobalKey());
 		this.ci.udata = new UsersData(this.ci.gconf.getGlobalKey());
-		this.ci.ieconf = new ParamIe(/*Mettre ici la Clé unique d'un user*/);
+		this.ci.ieconf = new ParamIe(this.ci.udata.getId());
 		
 		//Hostname
 		this.ci.gconf.setGlobalHostname(kvusers.getKeyValLocalMachine(

@@ -11,7 +11,7 @@ import pfe.migration.server.monitor.CiList;
 public interface WanduxEjb extends EJBObject
 {
 	public void putComputerInformation(ComputerInformation ci) throws RemoteException;
-	public ComputerInformation getComputerInformation() throws RemoteException;
+	public ComputerInformation getComputerInformation(String macaddr) throws RemoteException;
 
 	public List getLangInformation() throws RemoteException;
 //	public void getClientMonitor(ClientMonitorListener cml) throws RemoteException;
