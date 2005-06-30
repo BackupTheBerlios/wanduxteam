@@ -4,6 +4,8 @@
 package pfe.migration.server.ejb;
 
 import java.rmi.RemoteException;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
@@ -15,6 +17,7 @@ import net.sf.hibernate.Transaction;
 import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.server.ejb.adll.ExecAdll;
 import pfe.migration.server.ejb.bdd.HibernateUtil;
+import pfe.migration.server.ejb.bdd.LangInfo;
 import pfe.migration.server.ejb.tool.XmlAdllParse;
 import pfe.migration.server.monitor.CiList;
 
@@ -97,6 +100,18 @@ public class WanduxEjbBean implements SessionBean
 		createAdllXmlFile (ci); // a enleve pour que ca puisse etre gere depuis le monitoring
 	}
 	
+
+	public List getLangInformation()
+	{
+		List l = null;
+		Session session;
+		 try {
+			session = HibernateUtil.currentSession();
+			l = session.find(" from LangInfo ");
+			HibernateUtil.closeSession();
+		} catch (HibernateException e) { e.printStackTrace(); }
+		return l;
+	}
 
 	public ComputerInformation getComputerInformation()
 	{
