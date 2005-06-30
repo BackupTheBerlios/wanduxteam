@@ -38,13 +38,12 @@ public class WanduxApp implements WanduxAppListener
 	private JPanel middle = null;
 
 	private String applicationServer = "";
-	//private TreePath[] tp = null;
 	private String[] tp = null;
 	
 	private int currentStep = 0;
 
 	// -- les variables necessaires -- //
-	private ComputerInformation ci = null; // voir si c est oblige de le mettre la 
+	private ComputerInformation ci = null;
 	private ClientEjb ce = null;
 	private WorkQueue wq = null;
 	
@@ -164,7 +163,8 @@ public class WanduxApp implements WanduxAppListener
   		}
   		jFrame.getContentPane().remove(middle);
  		middle = new UserNetStep(this.ce);
-
+ 		if (this.ci == null)
+ 			this.ci = ((UserNetStep)middle).getComputerInformation();
   		middle.setBackground(Color.white);
   		jFrame.getContentPane().add(middle);
   		jFrame.getContentPane().invalidate();
@@ -173,8 +173,7 @@ public class WanduxApp implements WanduxAppListener
   	
   	public void moveProgressBar()
   	{
-		wq.execute(new CopyDataOnFileServer(this.tp));
-
+		wq.execute(new CopyDataOnFileServer(this.tp, ci.getMac()));
   		jFrame.getContentPane().remove(middle);
   		middle = new ProgressBarStep();
   		middle.setBackground(Color.white);
