@@ -64,6 +64,7 @@ public class JTreeWithCheckbox extends JPanel
 		String s = "";
 		s = t.toString().replaceAll(", ", "\\\\");
 		s = s.replaceFirst("\\\\", "");
+		s = s.substring(1, s.length() - 1);
 		return s;
 	}
 
