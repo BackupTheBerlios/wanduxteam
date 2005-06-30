@@ -1,6 +1,8 @@
 package pfe.migration.client.network;
 
 import java.rmi.RemoteException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 
 import javax.ejb.RemoveException;
@@ -9,6 +11,7 @@ import javax.naming.InitialContext;
 
 import pfe.migration.server.ejb.WanduxEjb;
 import pfe.migration.server.ejb.WanduxEjbHome;
+import pfe.migration.server.ejb.bdd.LangInfo;
 import pfe.migration.server.monitor.ClientMonitor;
 
 /**
@@ -84,6 +87,31 @@ public class ClientEjb
 		}
 		System.out.println("transfer termine");
 	}
+
+//	public void getLangInformation ()
+//	{
+//		try {
+//			List l = bean.getLangInformation();
+//			Iterator i = l.iterator();
+//			while (i.hasNext())
+//			{
+//				System.out.println(((LangInfo)i.next()).getLangLanguage());
+//			}
+//		} catch (RemoteException e) {
+//			e.printStackTrace();
+//		}
+//	}
+
+	public List getLangInformation ()
+	{
+		try {
+			return bean.getLangInformation();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	
 // 	methode utilise pour lapplication de test client main
 //	public String[] giveMsg () 
