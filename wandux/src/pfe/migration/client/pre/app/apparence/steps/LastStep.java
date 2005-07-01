@@ -6,9 +6,6 @@
  */
 package pfe.migration.client.pre.app.apparence.steps;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,7 +23,7 @@ public class LastStep extends JPanel
 		JButton fin = new JButton("Fin");
 		
 		this.add(new JLabel("Merci d avoir choisi Wandux"));
-		this.add(new JButton("Envoyer"));
+		//this.add(new JButton("Envoyer"));
 		this.add(fin);
 		fin.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseReleased(java.awt.event.MouseEvent e) {
