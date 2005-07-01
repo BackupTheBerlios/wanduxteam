@@ -30,17 +30,6 @@ public class LastStep extends JPanel
 				System.exit(0);
 			}
 		});
-
-//		parent.addMouseListener(new java.awt.event.MouseAdapter() {
-//			public void mousePressed(java.awt.event.MouseEvent e) {
-//				if (e.isPopupTrigger())
-//					menu.show(parent, e.getX(), e.getY());
-//			}
-//			public void mouseReleased(java.awt.event.MouseEvent e) {
-//				if (e.isPopupTrigger())
-//					menu.show(parent, e.getX(), e.getY());
-//			}
-//		});
 	}
 
 }
