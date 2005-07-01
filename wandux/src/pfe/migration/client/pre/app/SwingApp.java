@@ -223,8 +223,8 @@ public class SwingApp extends javax.swing.JFrame implements ActionListener, KeyL
 		KeyVal kvusers = new KeyVal();
 		ComputerInformation ci = new ComputerInformation();
 		ci.gconf = new GlobalConf();
-		ci.netconf = new NetworkConfig(ci.gconf.getGlobalKey());
-		ci.udata = new UsersData(ci.gconf.getGlobalKey());
+		ci.netconf = new NetworkConfig();
+		ci.udata = new UsersData();
 		ci.ieconf = new ParamIe(/*Mettre ici la Clé unique d'un user*/);
 		
 		//Hostname
