@@ -17,11 +17,12 @@ import	java.io.*;
 public class ExecAdll {
 
 	String cfgFileName = "/wandux/mandrake/unattended/";
-	String xmlFileName = "/wandux/mandrake/unattended/mandrake_10_1_FR.xml";
+	String xmlFileName = "/wandux/mandrake/unattended/";
 	
   public ExecAdll (String cfgFileName)
   {
   	this.cfgFileName += cfgFileName + ".cfg";
+  	xmlFileName += cfgFileName + ".xml";
   }
 	
   public void doExec ()
