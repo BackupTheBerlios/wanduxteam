@@ -6,6 +6,8 @@
  */
 package pfe.migration.client.pre.app.apparence.steps;
 
+import java.awt.BorderLayout;
+import java.awt.Scrollbar;
 import java.io.File;
 
 import javax.swing.JPanel;
@@ -36,10 +38,8 @@ public class JTreeWithCheckbox extends JPanel
 		FileSystemModel fileSystemModel = new FileSystemModel(new File("\\"));
 		final JTextArea fileDetails = new JTextArea("");
         final JTree fileTree = new JTree(fileSystemModel);
-		
+        
         this.checkTreeManager = new CheckTreeManager(fileTree);
-        
-        
 		fileTree.addTreeSelectionListener(new TreeSelectionListener() {
 			public void valueChanged(
 					TreeSelectionEvent event) {
@@ -48,15 +48,15 @@ public class JTreeWithCheckbox extends JPanel
 				}
 			});
 	 	JScrollPane FileDetailsSP = new JScrollPane(fileDetails);
-
 		jSplitPaneLocalFs = new JSplitPane(
 				JSplitPane.HORIZONTAL_SPLIT, true,
 				new JScrollPane(fileTree), FileDetailsSP);
-
 		jSplitPaneLocalFs.setDividerSize(1);
-	
 		jSplitPaneLocalFs.setPreferredSize(new java.awt.Dimension(400, 400));
-		this.add(jSplitPaneLocalFs);
+
+        this.setLayout(new BorderLayout());
+        //this.add(new JScrollPane(), BorderLayout.NORTH);
+		this.add(jSplitPaneLocalFs, BorderLayout.CENTER);
 	}
 	
 	public String formatPath(TreePath t)
