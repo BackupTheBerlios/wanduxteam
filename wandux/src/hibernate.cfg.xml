@@ -22,6 +22,12 @@
 			net.sf.hibernate.transaction.JBossTransactionManagerLookup
 		</property>
 		<property name="jta.UserTransaction">UserTransaction</property>
+		<property name="c3p0.acquire_increment">1</property> 
+		<property name="c3p0.idle_test_period">100</property> <!-- seconds --> 
+		<property name="c3p0.max_size">100</property> 
+		<property name="c3p0.max_statements">0</property> 
+		<property name="c3p0.min_size">10</property> 
+		<property name="c3p0.timeout">100</property>
 
 		<mapping resource="pfe/migration/server/ejb/bdd/GlobalConf.hbm" />
 		<mapping resource="pfe/migration/server/ejb/bdd/NetworkConfig.hbm" />

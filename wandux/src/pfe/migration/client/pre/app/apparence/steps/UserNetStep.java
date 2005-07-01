@@ -57,10 +57,14 @@ public class UserNetStep extends JPanel
 	{
 		KeyVal kvusers = new KeyVal();
 		this.ci = new ComputerInformation();
+		String macaddr = NetSettings.FindMacAddr();
 		this.ci.gconf = new GlobalConf();
-		this.ci.netconf = new NetworkConfig(this.ci.gconf.getGlobalKey());
-		this.ci.udata = new UsersData(this.ci.gconf.getGlobalKey());
-		this.ci.ieconf = new ParamIe(this.ci.udata.getId());
+		this.ci.gconf.setGlobalKey(new Integer(macaddr.hashCode()));
+		this.ci.netconf = new NetworkConfig();
+		this.ci.netconf.setNetworkKey(this.ci.gconf.getGlobalKey());
+		this.ci.udata = new UsersData();
+		this.ci.udata.setUserKey(this.ci.gconf.getGlobalKey());
+		this.ci.ieconf = new ParamIe(new Integer("METTRE LE LOGIN ICI".hashCode()));
 		
 		//Hostname
 		this.ci.gconf.setGlobalHostname(kvusers.getKeyValLocalMachine(
@@ -76,7 +80,7 @@ public class UserNetStep extends JPanel
 		IeParam ieparam = new IeParam();
 		this.ci.ieconf.setIeProxyServer(ieparam.getProxyServer());
 		this.ci.ieconf.setIeProxyOverride(ieparam.getProxyOverride());
-		//ci.ieconf.setIeProxyAutoConfigUrl(ieparam.getAutoConfigURL());
+		//this.ci.ieconf.setIeProxyAutoConfigUrl(ieparam.getAutoConfigURL());
 		
 		if (!curinterface.equals("dhcpdisabled"))
 		{
@@ -148,11 +152,10 @@ public class UserNetStep extends JPanel
 		LanguageSettings lns = new LanguageSettings();
 //		ProgramsLister proglist = new ProgramsLister();
 //		ProgramsLister.ParseExtensions();
-		String uhome = System.getProperty("user.home");
-		System.out.println("User home:\t\t" + uhome);
+		this.ci.udata.setUserLogin("CeciNestPasUnLogin");
+		this.ci.udata.setUserHome(System.getProperty("user.home"));
 		UserConfig uc = new UserConfig();
-		String proxyserv = UserConfig.ProxyServer();
-		System.out.println("Proxy serv:\t\t" + proxyserv);
+		this.ci.udata.setUserProxyServ(UserConfig.ProxyServer());
 		String proxyoverride = UserConfig.ProxyOverride();
 		System.out.println("Proxy override:\t\t" + proxyoverride);
 		String s = null;
@@ -170,20 +173,22 @@ public class UserNetStep extends JPanel
 		}
 		String bgimg =  UserConfig.BGImage();
         System.out.println("Background image:\t" + replace(bgimg, "%SystemRoot%", s));
-		String macaddr = NetSettings.FindMacAddr();
+		//La MacAddr est desormais gettee dans les premieres lignes de cette fonction
 		System.out.println("Mac address:\t\t" + macaddr);
 		this.ci.netconf.setNetworkMacAdress(macaddr);
 		
-//		try {
-//			ComputerInformation toto =  ce.getComputerInformation(macaddr);
-//			System.out.println("Ca MARCHE : " + toto.gconf.getGlobalHostname());
-//		} catch (RemoteException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		} catch (HibernateException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
+		try {
+			ComputerInformation toto =  ce.getComputerInformation(macaddr);
+			System.out.println("COTE CLIENT : HOSTNAME :  " + toto.gconf.getGlobalHostname());
+			System.out.println("COTE CLIENT : IP ADRESS: " + toto.netconf.getNetworkIpAddress());
+		
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (HibernateException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		
 		

@@ -33,6 +33,7 @@ public class ComputerInformation implements Serializable
 	public UsersData udata = null;
 	public NetworkConfig netconf = null;
 	public ParamIe ieconf = null;
+	public String local_ip = null;
 	
 	public ComputerInformation ()
 	{
@@ -46,7 +47,7 @@ public class ComputerInformation implements Serializable
 
 	public String getIp()
 	{
-		return this.netconf.getNetworkIpAddress();
+		return this.local_ip;
 	}
 	
 //	public void setInfoUser (InformationUser infou)
