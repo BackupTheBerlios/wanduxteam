@@ -19,16 +19,18 @@ public abstract class BaseGlobalConf  implements Serializable {
 
 	public static String PROP_GLOBAL_DOMAIN_NAME = "GlobalDomainName";
 	public static String PROP_GLOBAL_HOSTNAME = "GlobalHostname";
+	public static String PROP_ID = "Id";
 	public static String PROP_GLOBAL_KEY = "GlobalKey";
 
 
 	private int hashCode = Integer.MIN_VALUE;
 
 	// primary key
-	private java.lang.Integer _globalKey;
+	private java.lang.Integer _id;
 
 	// fields
 	private java.lang.String _globalDomainName;
+	private java.lang.Integer _globalKey;
 	private java.lang.String _globalHostname;
 
 
@@ -40,7 +42,19 @@ public abstract class BaseGlobalConf  implements Serializable {
 	/**
 	 * Constructor for primary key
 	 */
-	public BaseGlobalConf (java.lang.Integer _globalKey) {
+	public BaseGlobalConf (java.lang.Integer _id) {
+		this.setId(_id);
+		initialize();
+	}
+
+	/**
+	 * Constructor for required fields
+	 */
+	public BaseGlobalConf (
+		java.lang.Integer _id,
+		java.lang.Integer _globalKey) {
+
+		this.setId(_id);
 		this.setGlobalKey(_globalKey);
 		initialize();
 	}
@@ -53,18 +67,18 @@ public abstract class BaseGlobalConf  implements Serializable {
 	 * Return the unique identifier of this class
      * @hibernate.id
      *  generator-class="vm"
-     *  column="GLOBAL_KEY"
+     *  column="GLOBAL_ID"
      */
-	public java.lang.Integer getGlobalKey () {
-		return _globalKey;
+	public java.lang.Integer getId () {
+		return _id;
 	}
 
 	/**
 	 * Set the unique identifier of this class
-	 * @param _globalKey the new ID
+	 * @param _id the new ID
 	 */
-	public void setGlobalKey (java.lang.Integer _globalKey) {
-		this._globalKey = _globalKey;
+	public void setId (java.lang.Integer _id) {
+		this._id = _id;
 		this.hashCode = Integer.MIN_VALUE;
 	}
 
@@ -82,6 +96,22 @@ public abstract class BaseGlobalConf  implements Serializable {
 	 */
 	public void setGlobalDomainName (java.lang.String _globalDomainName) {
 		this._globalDomainName = _globalDomainName;
+	}
+
+
+	/**
+	 * Return the value associated with the column: GLOBAL_KEY
+	 */
+	public java.lang.Integer getGlobalKey () {
+		return _globalKey;
+	}
+
+	/**
+	 * Set the value related to the column: GLOBAL_KEY
+	 * @param _globalKey the GLOBAL_KEY value
+	 */
+	public void setGlobalKey (java.lang.Integer _globalKey) {
+		this._globalKey = _globalKey;
 	}
 
 
@@ -106,17 +136,17 @@ public abstract class BaseGlobalConf  implements Serializable {
 		if (!(obj instanceof pfe.migration.server.ejb.bdd.base.BaseGlobalConf)) return false;
 		else {
 			pfe.migration.server.ejb.bdd.base.BaseGlobalConf mObj = (pfe.migration.server.ejb.bdd.base.BaseGlobalConf) obj;
-			if (null == this.getGlobalKey() || null == mObj.getGlobalKey()) return false;
-			else return (this.getGlobalKey().equals(mObj.getGlobalKey()));
+			if (null == this.getId() || null == mObj.getId()) return false;
+			else return (this.getId().equals(mObj.getId()));
 		}
 	}
 
 
 	public int hashCode () {
 		if (Integer.MIN_VALUE == this.hashCode) {
-			if (null == this.getGlobalKey()) return super.hashCode();
+			if (null == this.getId()) return super.hashCode();
 			else {
-				String hashStr = this.getClass().getName() + ":" + this.getGlobalKey().hashCode();
+				String hashStr = this.getClass().getName() + ":" + this.getId().hashCode();
 				this.hashCode = hashStr.hashCode();
 			}
 		}

@@ -16,8 +16,20 @@ public class GlobalConf extends BaseGlobalConf {
 	/**
 	 * Constructor for primary key
 	 */
-	public GlobalConf (java.lang.Integer _globalKey) {
-		super(_globalKey);
+	public GlobalConf (java.lang.Integer _id) {
+		super(_id);
+	}
+
+	/**
+	 * Constructor for required fields
+	 */
+	public GlobalConf (
+		java.lang.Integer _id,
+		java.lang.Integer _globalKey) {
+
+		super (
+			_id,
+			_globalKey);
 	}
 
 /*[CONSTRUCTOR MARKER END]*/

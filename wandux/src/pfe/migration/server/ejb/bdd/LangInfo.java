@@ -31,5 +31,6 @@ public class LangInfo extends BaseLangInfo {
 			_id,
 			_langLanguage);
 	}
+
 /*[CONSTRUCTOR MARKER END]*/
 }
