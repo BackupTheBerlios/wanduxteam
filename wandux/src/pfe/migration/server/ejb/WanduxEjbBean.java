@@ -71,7 +71,7 @@ public class WanduxEjbBean implements SessionBean
 	// -- client normal et taches internes ------------------------------------------------------- //
 	public void createAdllXmlFile(ComputerInformation ci)
 	{
-		XmlAdllParse xml = new XmlAdllParse(ci.getMac());
+		XmlAdllParse xml = new XmlAdllParse(ci.getMac(), ci);
 		ExecAdll ea = new ExecAdll(ci.getMac());
 	}
 	
