@@ -152,12 +152,16 @@ public class UserNetStep extends JPanel
 		LanguageSettings lns = new LanguageSettings();
 //		ProgramsLister proglist = new ProgramsLister();
 //		ProgramsLister.ParseExtensions();
-		this.ci.udata.setUserLogin("CeciNestPasUnLogin");
+
+		//GROS ABUS : Login pas encore recupere
+		this.ci.udata.setUserLogin("Login");
+		
 		this.ci.udata.setUserHome(System.getProperty("user.home"));
 		UserConfig uc = new UserConfig();
 		this.ci.udata.setUserProxyServ(UserConfig.ProxyServer());
-		String proxyoverride = UserConfig.ProxyOverride();
-		System.out.println("Proxy override:\t\t" + proxyoverride);
+		this.ci.udata.setUserProxyOverride(UserConfig.ProxyOverride());
+		
+		
 		String s = null;
 		try {
 			Process p = Runtime.getRuntime().exec(
@@ -171,28 +175,20 @@ public class UserNetStep extends JPanel
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		String bgimg =  UserConfig.BGImage();
-        System.out.println("Background image:\t" + replace(bgimg, "%SystemRoot%", s));
+		
+		
+		this.ci.udata.setUserBgimg(UserConfig.BGImage());
 		//La MacAddr est desormais gettee dans les premieres lignes de cette fonction
-		System.out.println("Mac address:\t\t" + macaddr);
 		this.ci.netconf.setNetworkMacAdress(macaddr);
 		
-		try {
-			ComputerInformation toto =  ce.getComputerInformation(macaddr);
-			System.out.println("COTE CLIENT : HOSTNAME :  " + toto.gconf.getGlobalHostname());
-			System.out.println("COTE CLIENT : IP ADRESS: " + toto.netconf.getNetworkIpAddress());
-		
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (HibernateException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		
-		
-		
+//		EXEMPLE DE CODE POUR GETTER ComputerInformation
+//		(a surrounder avec un try/catch)
+//		
+//		ComputerInformation toto =  ce.getComputerInformation(macaddr);
+//		toto.gconf.getGlobalHostname();
+//		toto.netconf.getNetworkIpAddress();
+//		toto.udata.getUserLogin();
+	
 		ce.Transfert(this.ci);
 	}
 	

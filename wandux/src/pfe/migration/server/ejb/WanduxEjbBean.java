@@ -67,10 +67,10 @@ public class WanduxEjbBean implements SessionBean
 	// -- client normal et taches internes ------------------------------------------------------- //
 	public void createAdllXmlFile(ComputerInformation ci)
 	{
-		XmlAdllParse xml = new XmlAdllParse();
+	//	XmlAdllParse xml = new XmlAdllParse();
 //		System.out.println("ip pouet " + ci.netconf.getNetworkIpAddress());
 //		System.out.println("ip pouet " + ci.getIp());
-		ExecAdll ea = new ExecAdll(ci.getIp()); // TODO mettre l adresse mac quand ce sera bon
+	//	ExecAdll ea = new ExecAdll(ci.getIp()); // TODO mettre l adresse mac quand ce sera bon
 	}
 	
 	public void putComputerInformation(ComputerInformation ci)
@@ -103,27 +103,6 @@ public class WanduxEjbBean implements SessionBean
 		createAdllXmlFile (ci); // a enleve pour que ca puisse etre gere depuis le monitoring
 	}
 
-//	UNUSED
-//	public void putGconfInformation(ComputerInformation ci)
-//	{
-//		String ip = ci.getIp();
-//
-//		useCiList();
-//		cil.add(ip);
-//
-//		Transaction transaction;
-//		Session session;
-//		try {
-//			session = HibernateUtil.currentSession();
-//			transaction = session.beginTransaction();
-//			session.save(ci.gconf);
-//			transaction.commit();
-//			HibernateUtil.closeSession();
-//		} catch (HibernateException e) {
-//			e.printStackTrace();
-//		}
-//	}
-	
 
 	public List getLangInformation()
 	{
@@ -153,10 +132,10 @@ public class WanduxEjbBean implements SessionBean
 		while (i.hasNext())
 		{
 			GlobalConf gconf = (GlobalConf)i.next();
-			System.out.println("COMPARE " + gconf.getGlobalKey() + " and " + new Integer(macaddr.hashCode()));
-			if (gconf.getGlobalKey().equals(new Integer(macaddr.hashCode())))
+			if (gconf != null)
+				if (gconf.getGlobalKey() != null)
+					if (gconf.getGlobalKey().equals(new Integer(macaddr.hashCode())))
 			{
-				System.out.println("COMPARE OK");
 				ci.gconf.setGlobalDomainName(gconf.getGlobalDomainName());
 				ci.gconf.setGlobalHostname(gconf.getGlobalHostname());
 				ci.gconf.setGlobalKey(gconf.getGlobalKey());
@@ -171,7 +150,9 @@ public class WanduxEjbBean implements SessionBean
 		while (i.hasNext())
 		{
 			NetworkConfig netconf = (NetworkConfig)i.next();
-			if (netconf.getNetworkKey().equals(new Integer(macaddr.hashCode())))
+			if (netconf != null)
+				if (netconf.getNetworkKey() != null)
+					if (netconf.getNetworkKey().equals(new Integer(macaddr.hashCode())))
 			{
 				ci.netconf.setId(netconf.getId());
 				ci.netconf.setNetworkDhcpEnabled(netconf.getNetworkDhcpEnabled());
@@ -195,7 +176,9 @@ public class WanduxEjbBean implements SessionBean
 		while (i.hasNext())
 		{
 			UsersData udata = (UsersData)i.next();
-			if (udata.getUserKey().equals(new Integer(macaddr.hashCode())))
+			if (udata != null)
+				if (udata.getUserKey() != null)
+					if (udata.getUserKey().equals(new Integer(macaddr.hashCode())))
 			{
 				user_id = new Integer(udata.getUserLogin().hashCode());
 				ci.udata.setUserLogin(udata.getUserLogin());
@@ -211,27 +194,27 @@ public class WanduxEjbBean implements SessionBean
 		}
 		
 
-//		ci.ieconf = new ParamIe();
-//		l = session.find(" from ParamIe ");
-//		i = l.iterator();
-//		while (i.hasNext())
-//		{
-//			ParamIe ieconf = (ParamIe)i.next();
-//			if (ieconf.getIeParamUserId().equals(user_id))
-//			{
-//				ci.ieconf.setId(ieconf.getId());
-//				ci.ieconf.setIeParamSaveDirectory(ieconf.getIeParamSaveDirectory());
-//				ci.ieconf.setIeParamUserId(ieconf.getIeParamUserId());
-//				ci.ieconf.setIeProxyAutoConfigUrl(ieconf.getIeProxyAutoConfigUrl());
-//				ci.ieconf.setIeProxyOverride(ieconf.getIeProxyOverride());
-//				ci.ieconf.setIeProxyServer(ieconf.getIeProxyServer());
-//				break;
-//			}
-//		}
+		ci.ieconf = new ParamIe();
+		l = session.find(" from ParamIe ");
+		i = l.iterator();
+		while (i.hasNext())
+		{
+			ParamIe ieconf = (ParamIe)i.next();
+			if (ieconf != null)
+				if (ieconf.getIeParamUserId() != null)
+					if (ieconf.getIeParamUserId().equals(user_id))
+			{
+				ci.ieconf.setId(ieconf.getId());
+				ci.ieconf.setIeParamSaveDirectory(ieconf.getIeParamSaveDirectory());
+				ci.ieconf.setIeParamUserId(ieconf.getIeParamUserId());
+				ci.ieconf.setIeProxyAutoConfigUrl(ieconf.getIeProxyAutoConfigUrl());
+				ci.ieconf.setIeProxyOverride(ieconf.getIeProxyOverride());
+				ci.ieconf.setIeProxyServer(ieconf.getIeProxyServer());
+				break;
+			}
+		}
 		
 		HibernateUtil.closeSession();
-		System.out.println("SERVER SIDE : HOSTNAME : " + ci.gconf.getGlobalHostname());
-		System.out.println("SERVER SIDE : IP ADRESS: " + ci.netconf.getNetworkIpAddress());
 		return ci;
 	}
 
