@@ -43,12 +43,18 @@ public class CopyDataOnFileServer implements Runnable
 		for (int i = 1; i < listFiles.length; i++)
 		{
 			File f = new File(listFiles[i]);
+			
+			String disk = "disk" + listFiles[i].substring(0,1);
+			String path = listFiles[i].substring(3,listFiles[i].length());
+			
 			if (f.isDirectory() == true)
 			{
-				DirCopy.CopyRec(listFiles[i] , "\\\\10.247.0.248\\wanduxStorage\\" + this.addrMac + listFiles[i]);
+				DirCopy.CopyRec(listFiles[i] , "\\\\10.247.0.248\\wanduxStorage\\" + this.addrMac + "\\"+ disk + "\\" + path);
 			}
 			else
-				FileCopy.CopyRec(listFiles[i] , "\\\\10.247.0.248\\wanduxStorage\\" + this.addrMac + listFiles[i]);
+			{
+				FileCopy.CopyRec(listFiles[i] , "\\\\10.247.0.248\\wanduxStorage\\" + this.addrMac + "\\"+ disk + "\\" + path);
+			}
 			this.pbs.refreshBar(i , listFiles[i]);
 		}
 		this.pbs.refreshBar(listFiles.length , "");

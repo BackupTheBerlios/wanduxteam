@@ -62,40 +62,41 @@ public class FileCopy {
 	{
 		String TmpDir = "";
 		File newPath = new File("");
-		//System.out.println(tree);
 		StringTokenizer st = new StringTokenizer(tree, "\\", true);
 		for (int i = st.countTokens(); i > 0; i--)
 		{
 			TmpDir = TmpDir + st.nextToken();
 			if (i % 2 != 0)
 			{
-				System.out.println(TmpDir);
 				newPath = new File(TmpDir);
-				newPath.mkdir();
+				if (newPath.isDirectory())
+					newPath.mkdir();
 			}
 		}
 	}
 	
 	public static void CopyRec(String old_path, String new_path) {
 		//create file objects from method parameters
+		
 		File oldPath = new File(old_path);
 		File newPath = new File(new_path + File.separator);
 
-		if (oldPath.exists()) {
-			if (!newPath.exists()) {
+		if (oldPath.exists())
+		{
+			if (!newPath.exists() && oldPath.isDirectory())
 				newPath.mkdir();
-			}
 			File inputFile = oldPath;
 			String dir = getTmpDirName(newPath + old_path.substring(2));
-			BuildFileTree(dir);
-			File mkpath = new File(dir);
-			mkpath.mkdir();
 			
-			File outputFile = new File(newPath + old_path.substring(2));
-			System.out.println(newPath + old_path.substring(2));
+			BuildFileTree(getTmpDirName(dir));
+
+			File mkpath = new File(dir);
+			if (inputFile.isDirectory() == true)
+				mkpath.mkdir();
+			
 				try {
 					if (inputFile.isFile()) {
-						//create streams for in and out files
+						File outputFile = new File(newPath + getTmpDirName(old_path.substring(2)));
 						FileInputStream in = new FileInputStream(inputFile);
 						FileOutputStream out = new FileOutputStream(outputFile);
 
@@ -108,10 +109,7 @@ public class FileCopy {
 							out.write(b, 0, readBytes);
 						}
 					}
-				} catch (Exception e) {
-					//System.out.println("TODO");
-					//do whatever here
-				}
+				} catch (Exception e) {	}
 			}
 	}
 //	public static void main(String args[])
