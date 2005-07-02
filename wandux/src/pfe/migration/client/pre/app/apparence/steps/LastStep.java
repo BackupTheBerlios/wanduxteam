@@ -23,7 +23,6 @@ public class LastStep extends JPanel
 		JButton fin = new JButton("Fin");
 		
 		this.add(new JLabel("Merci d avoir choisi Wandux"));
-		//this.add(new JButton("Envoyer"));
 		this.add(fin);
 		fin.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseReleased(java.awt.event.MouseEvent e) {
