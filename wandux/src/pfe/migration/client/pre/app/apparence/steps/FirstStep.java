@@ -24,7 +24,7 @@ public class FirstStep extends JPanel
 	
 	public FirstStep()
 	{
-		text = new JTextField("127.0.0.1", 6);
+		text = new JTextField("10.247.0.248", 6);
 		this.add(new JLabel("Bienvenue"));
 		this.add(new Label("enter l'addresse du serveur d'application : "));
 		this.add(text);
@@ -34,7 +34,7 @@ public class FirstStep extends JPanel
 	public FirstStep(String ip)
 	{
 		if (ip == "")
-			ip = "127.0.0.1";
+			ip = "10.247.0.248";
 		text = new JTextField(ip, 6);
 		this.add(new JLabel("Bienvenue"));
 		this.add(new Label("enter l'addresse du serveur d'application : "));
