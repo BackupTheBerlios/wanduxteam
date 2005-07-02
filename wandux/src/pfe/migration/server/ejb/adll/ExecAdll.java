@@ -18,12 +18,14 @@ public class ExecAdll {
 
 	String cfgFileName = "/wandux/mandrake/unattended/";
 	String xmlFileName = "/wandux/mandrake/unattended/";
+	String macAdress = null;
 	
   public ExecAdll (String cfgFileName)
   {
   	this.cfgFileName += cfgFileName + ".cfg";
   	xmlFileName += cfgFileName + ".xml";
   	
+  	macAdress = cfgFileName;
   	createBootFile (this.cfgFileName);
   	System.out.println(this.xmlFileName);
   	System.out.println(this.cfgFileName);
@@ -43,7 +45,8 @@ public class ExecAdll {
 		System.exit(1);
 	}
 	try {
-		Runtime.getRuntime().exec("/wandux/utils/createBootFile.pl " + cfgFileName);
+		//System.out.println("lahous >>>" +this.macAdress);
+		Runtime.getRuntime().exec("/wandux/utils/createBootFile.pl " + this.macAdress);
 	} catch (IOException e1) {
 		System.err.println(e1);
 		System.err.println("[pb] exec createBootFile.pl");
