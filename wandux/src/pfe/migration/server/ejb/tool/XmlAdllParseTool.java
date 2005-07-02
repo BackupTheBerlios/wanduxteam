@@ -11,120 +11,47 @@ import java.util.List;
 
 import org.jdom.Element;
 
+import pfe.migration.client.network.ComputerInformation;
+
 /**
  * @author Corn
  * 
- *	Classe XmlAdllParseTool qui contient les outils de parsing
+ * Classe XmlAdllParseTool qui contient les outils de parsing
  */
 public class XmlAdllParseTool {
 
-	public void parse() {
+	public void parse(ComputerInformation ci) { // Object[] info
 
-		// TODO penser à switcher le "yes" en "no" et inversement 
-		// de même le text "1" en "0" et inversement pour les choix 
-		// simple de type "yes" ou "no"
+		/*
+		 * section_change_txt(XmlAdllParse.racine, "Méthode d'authentification",
+		 * "", "10.0.0.1", "Utiliser un serveur NIS pour l'authentification",
+		 * "Ip du serveur");
+		 * 
+		 * section_change_txt(XmlAdllParse.racine, "Méthode d'authentification",
+		 * "", "10.0.0.2", "Utiliser un serveur LDAP pour l'authentification",
+		 * "Ip du serveur");
+		 */
 
-		//change_select_txt(XmlAdllParse.racine, "Utiliser l'encryption md5",
-		//		"Oui", "yes", "1");
+		XmlAdllParseUser pu = new XmlAdllParseUser();
+		XmlAdllParseSelTxt pst = new XmlAdllParseSelTxt();
+		XmlAdllParseSel ps = new XmlAdllParseSel();
+		XmlAdllParseTxt pt = new XmlAdllParseTxt();
+		
+		ps.section_change_select(XmlAdllParse.racine, "Creation des partitions",
+				"Primary Master", "no", "Peripherique d'installation");
 
-		//change_select(XmlAdllParse.racine, "Utiliser l'encryption md5", 
-		//		"Oui", "yes");
+		ps.section_change_select(XmlAdllParse.racine, "Creation des partitions",
+				"Secondary Master", "yes", "Peripherique d'installation");
+		
+		pu.ChangeUser(ci);
+		//pu.AddUser(XmlAdllParse.racine, ci.udata);
+		
+		/*
+		 * section_change_select_txt(XmlAdllParse.racine, "Méthode
+		 * d'authentification", "Oui", "no", "0", "Utiliser les shadow
+		 * password");
+		 */
 
-		// TODO Bug change tous les text des child Ip du serveur 
-		// dans "Utiliser un serveur NIS pour l'authentification"
-		// et dans "Utiliser un serveur LDAP pour l'authentification"
-
-		//change_text(XmlAdllParse.racine, "Ip du serveur", "", "10.0.0.1");
-
-		//change_section(XmlAdllParse.racine, "netboot", "port", "23");
-	}
-
-	// TODO pensez à rajouter les try catch ou condition NullPointer
-
-	public void change_select_txt(Element element, String optionlbl,
-			String choicelbl, String selected, String text) {
-
-		List list = element.getChildren();
-		Iterator i = list.iterator();
-
-		while (i.hasNext()) {
-			Element courant = (Element) i.next();
-			if (courant.getName() == "option"
-					&& optionlbl.equals(courant.getAttributeValue("label")))
-				choice_select_text(courant, choicelbl, selected, text);
-			else
-				change_select_txt(courant, optionlbl, choicelbl, selected, text);
-		}
-	}
-
-	private void choice_select_text(Element element, String choicelbl,
-			String selected, String text) {
-		List list = element.getChildren();
-		Iterator i = list.iterator();
-
-		while (i.hasNext()) {
-			Element courant = (Element) i.next();
-			if (courant.getName() == "choice"
-					&& choicelbl.equals(courant.getAttributeValue("label"))) {
-				courant.setAttribute("selected", selected);
-				courant.setText(text);
-			}
-		}
-	}
-
-	public void change_select(Element element, String optionlbl,
-			String choicelbl, String selected) {
-		List list = element.getChildren();
-		Iterator i = list.iterator();
-
-		while (i.hasNext()) {
-			Element courant = (Element) i.next();
-			if (courant.getName() == "option"
-					&& optionlbl.equals(courant.getAttributeValue("label")))
-				choice_select(courant, choicelbl, selected);
-			else
-				change_select(courant, optionlbl, choicelbl, selected);
-		}
-	}
-
-	private void choice_select(Element element, String choicelbl,
-			String selected) {
-		List list = element.getChildren();
-		Iterator i = list.iterator();
-
-		while (i.hasNext()) {
-			Element courant = (Element) i.next();
-			if (courant.getName() == "choice"
-					&& choicelbl.equals(courant.getAttributeValue("label")))
-				courant.setAttribute("selected", selected);
-		}
-	}
-
-	public void change_text(Element element, String optionlbl,
-			String choicelbl, String text) {
-		List list = element.getChildren();
-		Iterator i = list.iterator();
-
-		while (i.hasNext()) {
-			Element courant = (Element) i.next();
-			if (courant.getName() == "option"
-					&& optionlbl.equals(courant.getAttributeValue("label")))
-				choice_text(courant, choicelbl, text);
-			else
-				change_text(courant, optionlbl, choicelbl, text);
-		}
-	}
-
-	private void choice_text(Element element, String choicelbl, String text) {
-		List list = element.getChildren();
-		Iterator i = list.iterator();
-
-		while (i.hasNext()) {
-			Element courant = (Element) i.next();
-			if (courant.getName() == "choice"
-					&& choicelbl.equals(courant.getAttributeValue("label")))
-				courant.setText(text);
-		}
 	}
 
 	public void change_section(Element element, String sectionlbl,

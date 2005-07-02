@@ -15,39 +15,65 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
+import pfe.migration.client.network.ComputerInformation;
+
 /**
  * @author Corn
- *
- *	Classe XmlAdllParse qui contient les outils input output
+ * 
+ * Classe XmlAdllParse qui contient les outils input output
  */
+
 public class XmlAdllParse extends XmlAdllParseTool {
 
 	public static Element racine;
 
 	public static Document document;
+	
+//	public Object[] info = new Object[6];
 
-	public XmlAdllParse(String mac) {
+
+	
+	public XmlAdllParse(String macAddr, ComputerInformation ci) {
+
+		// TODO Pensez à changer le chemin du FilePath
 
 		String FilePath = "/wandux/mandrake/unattended/";
 
 		String OriFilePath = FilePath.toString()
 				+ "mandrake_10_1_FR.xml";
 
-		String ChanFilePath = FilePath + mac + ".xml";
+		String ChanFilePath = FilePath + macAddr + ".xml";
 
 		try {
 			lire(OriFilePath.toString());
 		} catch (Exception e) {
-			System.out.println("Can't read Xml File " + OriFilePath);
+			System.out.println("Can't read Xml File");
 		}
-		parse();
-		//affiche();
+
+//		info[0] = new String("cornflaks");
+//		info[1] = new String("cyril");
+//		info[2] = new String("password");
+//		info[3] = new String("/bin/bash");
+//		info[4] = new String("/home/" + info[0]);
+//		info[5] = new String("");
 		
-		boolean result_enregistre = enregistre(ChanFilePath.toString());
-		if (result_enregistre)
-			System.out.println("le fichier a ete cree avec success " + ChanFilePath.toString());
-		else
-			System.out.println("echec lors de la creation du fichier " + ChanFilePath.toString());	
+		try {
+			parse(ci);
+		} catch (Exception e) {
+			System.out.println("Parse Error");
+		}
+
+		/*
+		 * try { affiche(); } catch (Exception e) { System.out.println("OutPut
+		 * Error"); }
+		 */
+
+		try {
+			enregistre(ChanFilePath.toString());
+		} catch (Exception e) {
+			System.out.println("Can't save File");
+		}
+
 	}
 
 	public static void affiche() {
@@ -64,14 +90,11 @@ public class XmlAdllParse extends XmlAdllParseTool {
 		racine = document.getRootElement();
 	}
 
-	public static boolean enregistre(String fichier) {
+	public static void enregistre(String fichier) {
 		try {
 			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
 			sortie.output(document, new FileOutputStream(fichier));
-			return true; 
 		} catch (java.io.IOException e) {
-			return false;
 		}
 	}
-
 }
