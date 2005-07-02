@@ -31,8 +31,8 @@ public class RegistryAccess {
 				 regValue = (RegStringValue)aKey.getValue(Key);
 				 Value = regValue.getData();
 				  
-			} catch (NoSuchKeyException e) {  e.printStackTrace();
-			} catch (RegistryException e) { e.printStackTrace();
+			} catch (NoSuchKeyException e) { System.err.println("pas de cle"); //e.printStackTrace();
+			} catch (RegistryException e) { System.err.println("RegistryException"); // e.printStackTrace();
 			}
 		return Value;
 	}

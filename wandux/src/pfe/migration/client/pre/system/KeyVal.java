@@ -97,8 +97,8 @@ public class KeyVal {
 			{
 				return "no such value";
 			}
-		} catch (NoSuchKeyException e) { e.printStackTrace();
-		} catch (RegistryException e) { e.printStackTrace();
+		} catch (NoSuchKeyException e) {System.err.println("pas de cle"); // e.printStackTrace();
+		} catch (RegistryException e) { System.err.println("RegistryException");e.printStackTrace();
 		}
 		return (ret);
 	}
