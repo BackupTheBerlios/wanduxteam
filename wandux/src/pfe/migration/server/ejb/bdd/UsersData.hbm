@@ -13,6 +13,12 @@
 			<generator class="vm" />
 		</id>
 		<property
+			column="USER_TIMEZONE"
+			name="UserTimezone"
+			not-null="false"
+			type="string"
+		 />
+		<property
 			column="USER_PROXY_SERV"
 			name="UserProxyServ"
 			not-null="false"
@@ -21,6 +27,12 @@
 		<property
 			column="USER_TYPE"
 			name="UserType"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="USER_KB_LAYOUT"
+			name="UserKbLayout"
 			not-null="false"
 			type="string"
 		 />

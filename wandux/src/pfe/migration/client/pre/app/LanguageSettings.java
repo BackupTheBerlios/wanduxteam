@@ -27,7 +27,7 @@ import pfe.migration.server.ejb.bdd.LangInfo;
  */
 public class LanguageSettings {
 
-	public static void GetDefaultKBLayout(ClientEjb ce) {
+	public static String GetDefaultKBLayout(ClientEjb ce) {
 		RegistryKey aKey = null;
 		KeyVal kvkb = new KeyVal();
 		String subkeyval = null;
@@ -61,7 +61,7 @@ public class LanguageSettings {
 						linfo = (LangInfo) i.next();
 						String mshexa = "00000" + linfo.getLangMsLocalIdHexa();
 						if (mshexa.equals(curlang)) {
-							System.out.println(linfo.getLangLanguage());
+							return(linfo.getLangLanguage());
 						}
 					}
 				}
@@ -71,5 +71,6 @@ public class LanguageSettings {
 		} catch (RegistryException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 }

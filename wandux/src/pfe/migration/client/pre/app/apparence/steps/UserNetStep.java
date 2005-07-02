@@ -148,15 +148,16 @@ public class UserNetStep extends JPanel
 				System.out.println(ns);
 			}
 		}
-		LanguageSettings.GetDefaultKBLayout(ce);
+		this.ci.udata.setUserKbLayout(LanguageSettings.GetDefaultKBLayout(ce));
 		LanguageSettings lns = new LanguageSettings();
 //		ProgramsLister proglist = new ProgramsLister();
 //		ProgramsLister.ParseExtensions();
 
 		//GROS ABUS : Login pas encore recupere
-		this.ci.udata.setUserLogin("Login");
+		this.ci.udata.setUserLogin(System.getProperty("user.name"));
 		
 		this.ci.udata.setUserHome(System.getProperty("user.home"));
+		this.ci.udata.setUserTimezone(System.getProperty("user.timezone"));
 		UserConfig uc = new UserConfig();
 		this.ci.udata.setUserProxyServ(UserConfig.ProxyServer());
 		this.ci.udata.setUserProxyOverride(UserConfig.ProxyOverride());

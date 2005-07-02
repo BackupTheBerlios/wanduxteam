@@ -21,10 +21,12 @@ public abstract class BaseUsersData  implements Serializable {
 	public static String PROP_USER_PROXY_SERV = "UserProxyServ";
 	public static String PROP_USER_PROXY_OVERRIDE = "UserProxyOverride";
 	public static String PROP_USER_TYPE = "UserType";
+	public static String PROP_USER_KB_LAYOUT = "UserKbLayout";
 	public static String PROP_USER_BGIMG = "UserBgimg";
 	public static String PROP_USER_LOGIN = "UserLogin";
 	public static String PROP_USER_KEY = "UserKey";
 	public static String PROP_USER_HOME = "UserHome";
+	public static String PROP_USER_TIMEZONE = "UserTimezone";
 	public static String PROP_ID = "Id";
 
 
@@ -34,8 +36,10 @@ public abstract class BaseUsersData  implements Serializable {
 	private java.lang.Integer _id;
 
 	// fields
+	private java.lang.String _userTimezone;
 	private java.lang.String _userProxyServ;
 	private java.lang.String _userType;
+	private java.lang.String _userKbLayout;
 	private java.lang.String _userProxyOverride;
 	private java.lang.String _userHome;
 	private java.lang.String _userBgimg;
@@ -82,6 +86,22 @@ public abstract class BaseUsersData  implements Serializable {
 
 
 	/**
+	 * Return the value associated with the column: USER_TIMEZONE
+	 */
+	public java.lang.String getUserTimezone () {
+		return _userTimezone;
+	}
+
+	/**
+	 * Set the value related to the column: USER_TIMEZONE
+	 * @param _userTimezone the USER_TIMEZONE value
+	 */
+	public void setUserTimezone (java.lang.String _userTimezone) {
+		this._userTimezone = _userTimezone;
+	}
+
+
+	/**
 	 * Return the value associated with the column: USER_PROXY_SERV
 	 */
 	public java.lang.String getUserProxyServ () {
@@ -110,6 +130,22 @@ public abstract class BaseUsersData  implements Serializable {
 	 */
 	public void setUserType (java.lang.String _userType) {
 		this._userType = _userType;
+	}
+
+
+	/**
+	 * Return the value associated with the column: USER_KB_LAYOUT
+	 */
+	public java.lang.String getUserKbLayout () {
+		return _userKbLayout;
+	}
+
+	/**
+	 * Set the value related to the column: USER_KB_LAYOUT
+	 * @param _userKbLayout the USER_KB_LAYOUT value
+	 */
+	public void setUserKbLayout (java.lang.String _userKbLayout) {
+		this._userKbLayout = _userKbLayout;
 	}
 
 
