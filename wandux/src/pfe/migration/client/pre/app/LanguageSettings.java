@@ -6,12 +6,18 @@
  */
 package pfe.migration.client.pre.app;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
 
 import com.ice.jni.registry.NoSuchKeyException;
 import com.ice.jni.registry.RegistryException;
 import com.ice.jni.registry.RegistryKey;
+
+import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.pre.system.KeyVal;
+import pfe.migration.server.ejb.bdd.LangInfo;
 
 /**
  * @author cb6
@@ -21,28 +27,44 @@ import pfe.migration.client.pre.system.KeyVal;
  */
 public class LanguageSettings {
 
-	public static void GetDefaultKBLayout()
-	{
+	public static void GetDefaultKBLayout(ClientEjb ce) {
 		RegistryKey aKey = null;
 		KeyVal kvkb = new KeyVal();
 		String subkeyval = null;
 		String mslangid = null;
-		
+
 		try {
-			aKey = com.ice.jni.registry.Registry.HKEY_CURRENT_USER.openSubKey(
-					"Keyboard Layout\\Preload");
+			aKey = com.ice.jni.registry.Registry.HKEY_CURRENT_USER
+					.openSubKey("Keyboard Layout\\Preload");
 
 			Enumeration enum = aKey.valueElements();
-			System.out.println("\n__langage conf");
+			ArrayList locallanglist = new ArrayList();
+
 			while (enum.hasMoreElements()) {
-			    subkeyval = (String) enum.nextElement();
-			    mslangid = aKey.getStringValue(subkeyval);
-			    // recuperation du code de chaque entree dans la liste des langages.
-			    System.out.println("MS hex code: " + mslangid);
-			    if (mslangid.compareTo("0000040c") == 0)
-			    {
-			    	System.out.println("default langage is FR");
-			    }
+				subkeyval = (String) enum.nextElement();
+				mslangid = aKey.getStringValue(subkeyval);
+				// Retreival of local MS language Hex codes
+				if (mslangid != null)
+					locallanglist.add(mslangid.toUpperCase());
+			}
+
+			// Comparison between local and database lang entries
+			if (locallanglist != null) {
+				Iterator li = locallanglist.iterator();
+				List l = ce.getLangInformation();
+				Iterator i = l.iterator();
+				LangInfo linfo = null;
+
+				while (li.hasNext()) {
+					String curlang = li.next().toString();
+					for (i = l.iterator() ; i.hasNext(); ) {
+						linfo = (LangInfo) i.next();
+						String mshexa = "00000" + linfo.getLangMsLocalIdHexa();
+						if (mshexa.equals(curlang)) {
+							System.out.println(linfo.getLangLanguage());
+						}
+					}
+				}
 			}
 		} catch (NoSuchKeyException e) {
 			e.printStackTrace();
