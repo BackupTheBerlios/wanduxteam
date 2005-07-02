@@ -48,7 +48,7 @@ public class XmlAdllParseUser {
 
 	}
 
-	public void AddUser(Element element, UsersData udata) {
+	/*public void AddUser(Element element, UsersData udata) {
 
 		// Element Option
 
@@ -235,5 +235,5 @@ public class XmlAdllParseUser {
 				}
 			}
 		}
-	}
+	}*/
 }

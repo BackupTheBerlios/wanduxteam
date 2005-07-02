@@ -37,7 +37,7 @@ public class XmlAdllParse extends XmlAdllParseTool {
 
 		// TODO Pensez à changer le chemin du FilePath
 
-		String FilePath = "/wandux/mandrake/unattended/";
+		String FilePath = "C:/adll/";
 
 		String OriFilePath = FilePath.toString()
 				+ "mandrake_10_1_FR.xml";
