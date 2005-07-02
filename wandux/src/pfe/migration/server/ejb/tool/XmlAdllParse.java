@@ -26,19 +26,19 @@ public class XmlAdllParse extends XmlAdllParseTool {
 
 	public static Document document;
 
-	public XmlAdllParse() {
+	public XmlAdllParse(String mac) {
 
-		String FilePath = "C:\\wandux\\";
+		String FilePath = "/wandux/mandrake/unattended/";
 
 		String OriFilePath = FilePath.toString()
-				+ "adll\\mandrake_10_1_FR.xml";
+				+ "mandrake_10_1_FR.xml";
 
-		String ChanFilePath = FilePath + "output\\mandrake_10_1_FR.xml";
+		String ChanFilePath = FilePath + mac + ".xml";
 
 		try {
 			lire(OriFilePath.toString());
 		} catch (Exception e) {
-			System.out.println("Can't read Xml File");
+			System.out.println("Can't read Xml File " + OriFilePath);
 		}
 		parse();
 		affiche();
