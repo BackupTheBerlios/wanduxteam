@@ -41,9 +41,13 @@ public class XmlAdllParse extends XmlAdllParseTool {
 			System.out.println("Can't read Xml File " + OriFilePath);
 		}
 		parse();
-		affiche();
-		enregistre(ChanFilePath.toString());
-
+		//affiche();
+		
+		boolean result_enregistre = enregistre(ChanFilePath.toString());
+		if (result_enregistre)
+			System.out.println("le fichier a ete cree avec success " + ChanFilePath.toString());
+		else
+			System.out.println("echec lors de la creation du fichier " + ChanFilePath.toString());	
 	}
 
 	public static void affiche() {
@@ -60,11 +64,13 @@ public class XmlAdllParse extends XmlAdllParseTool {
 		racine = document.getRootElement();
 	}
 
-	public static void enregistre(String fichier) {
+	public static boolean enregistre(String fichier) {
 		try {
 			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
 			sortie.output(document, new FileOutputStream(fichier));
+			return true; 
 		} catch (java.io.IOException e) {
+			return false;
 		}
 	}
 
