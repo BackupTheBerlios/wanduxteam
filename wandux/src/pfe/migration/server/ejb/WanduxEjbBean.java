@@ -67,10 +67,8 @@ public class WanduxEjbBean implements SessionBean
 	// -- client normal et taches internes ------------------------------------------------------- //
 	public void createAdllXmlFile(ComputerInformation ci)
 	{
-	//	XmlAdllParse xml = new XmlAdllParse();
-//		System.out.println("ip pouet " + ci.netconf.getNetworkIpAddress());
-//		System.out.println("ip pouet " + ci.getIp());
-	//	ExecAdll ea = new ExecAdll(ci.getIp()); // TODO mettre l adresse mac quand ce sera bon
+		XmlAdllParse xml = new XmlAdllParse();
+		ExecAdll ea = new ExecAdll(ci.getMac());
 	}
 	
 	public void putComputerInformation(ComputerInformation ci)
