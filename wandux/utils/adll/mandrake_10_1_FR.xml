@@ -1,4 +1,4 @@
-<template author="Cyril Galissant" os_name="Mandrake" os_version="10.1" adll_version="1.0" date="31-05-2004">
+<template author="Olivier AUDRY" os_name="Mandrake" os_version="10.1" adll_version="1.0" date="31-05-2004">
   <netboot>
     <address>192.168.1.1</address>
     <port>21</port>
@@ -8,8 +8,8 @@
     <option label="Debut du fichier de reponse" name="#!/usr/bin/perl -cw&#xD;&#xA;$o = {&#xD;&#xA;">
     </option>
   </section>
-  <section label="Méthode d'authentification" name="'authentication' =&gt; {&#xD;&#xA;">
-    <comment>Cette option permet de déterminer la méthode d'authentification à utiliser</comment>
+  <section label="MÃ©thode d'authentification" name="'authentication' =&gt; {&#xD;&#xA;">
+    <comment>Cette option permet de dÃ©terminer la mÃ©thode d'authentification Ã  utiliser</comment>
     <option label="Utiliser les shadow password" name="'shadow' =&gt;" needed="no" type="radio" terminator=",&#xD;&#xA;">
       <choice label="Oui" selected="yes"> 1</choice>
       <choice label="Non"> 0</choice>
@@ -48,28 +48,28 @@
     </option>
   </section>
   <section label="Option de fin d'installation" name="">
-    <comment>Cette option est directement utilisé pour autommatiquement sortir du programme d'installation et redémmarrer l'ordinateur</comment>
+    <comment>Cette option est directement utilisÃ© pour autommatiquement sortir du programme d'installation et redÃ©mmarrer l'ordinateur</comment>
     <option label="Quitter et rebooter" name="'autoExitInstall' =&gt; " terminator=",&#xD;&#xA;&#xD;&#xA;" type="radio">
       <choice label="Non" selected="no">0</choice>
       <choice label="Oui" selected="yes">1</choice>
     </option>
   </section>
   <section label="Option de login" name="">
-    <comment>Cette option permet au système de se logger automatiquement sur un compte défini</comment>
+    <comment>Cette option permet au systÃ¨me de se logger automatiquement sur un compte dÃ©fini</comment>
     <option label="Login automatique au demarrage" name="'autologin' =&gt; '" terminator="',&#xD;&#xA;&#xD;&#xA;">
       <choice label="">adll</choice>
     </option>
   </section>
-  <section label="Paquets à installer" name="">
-    <comment>Définition de l'importance des paquets à installer</comment>
-    <option label="Définition de l'importance des paquets à installer" name="'compssListLevel' =&gt; " terminator=",&#xD;&#xA;&#xD;&#xA;" type="list">
-      <choice label="Peut être utile" selected="no">0</choice>
+  <section label="Paquets Ã  installer" name="">
+    <comment>DÃ©finition de l'importance des paquets Ã  installer</comment>
+    <option label="DÃ©finition de l'importance des paquets Ã  installer" name="'compssListLevel' =&gt; " terminator=",&#xD;&#xA;&#xD;&#xA;" type="list">
+      <choice label="Peut Ãªtre utile" selected="no">0</choice>
       <choice label="Utile" selected="no">1</choice>
-      <choice label="Trés utile" selected="yes">2</choice>
+      <choice label="TrÃ©s utile" selected="yes">2</choice>
       <choice label="Important" selected="no">3</choice>
-      <choice label="Trés important" selected="no">4</choice>
+      <choice label="TrÃ©s important" selected="no">4</choice>
     </option>
-    <option label="Choississez les paquets à installer" name="'compssUsersChoice' =&gt; { &#xD;&#xA;" separator=",&#xD;&#xA;" terminator=" },&#xD;&#xA;&#xD;&#xA;" type="combo">
+    <option label="Choississez les paquets Ã  installer" name="'compssUsersChoice' =&gt; { &#xD;&#xA;" separator=",&#xD;&#xA;" terminator=" },&#xD;&#xA;&#xD;&#xA;" type="combo">
       <choice label="3D" selected="no">'3D' =&gt; 1</choice>
       <choice label="ACCESSIBILITY" selected="no">'ACCESSIBILITY' =&gt; 1</choice>
       <choice label="ARCHIVING" selected="no">'ARCHIVING' =&gt; 1</choice>
@@ -146,8 +146,8 @@
     </option>
   </section>
   <section label="Choix de l'environnement grahique" name="">
-    <comment>"Choix du bureau par défaut"</comment>
-    <option label="Choix du bureau par défaut" name="'desktop' =&gt;" terminator=",&#xD;&#xA;&#xD;&#xA;" type="list">
+    <comment>"Choix du bureau par dÃ©faut"</comment>
+    <option label="Choix du bureau par dÃ©faut" name="'desktop' =&gt;" terminator=",&#xD;&#xA;&#xD;&#xA;" type="list">
       <choice label="KDE Desktop" selected="no">'KDE'</choice>
       <choice label="GNOME" selected="yes">'GNOME'</choice>
       <choice label="WindowMaker" selected="no">'WindowMaker'</choice>
@@ -160,30 +160,30 @@
     </option>
   </section>
   <section label="Installation de la documentation" name="">
-    <comment>Cette option permet de ne pas installer la documentation des paquets à installer</comment>
+    <comment>Cette option permet de ne pas installer la documentation des paquets Ã  installer</comment>
     <option label="Installation de la documentation" name="'excludedocs' =&gt;" terminator=",&#xD;&#xA;&#xD;&#xA;" type="radio">
       <choice label="Oui">1</choice>
       <choice label="Non" selected="yes">0</choice>
     </option>
   </section>
   <section label="Type d'interface graphique lors de l'installation" name="">
-    <comment>newt - interface légère gtk - interface complète</comment>
+    <comment>newt - interface lÃ©gÃ¨re gtk - interface complÃ¨te</comment>
     <option label="Type d'interface graphique lors de l'installation" name="'interactive' =&gt; '" terminator="',&#xD;&#xA;&#xD;&#xA;" type="radio">
       <choice label="newt">newt</choice>
       <choice label="gtk" selected="yes">gtk</choice>
     </option>
   </section>
   <section label="L'installation est un upgrade ?" name="">
-    <comment>Cette option permet de spécifier si l'installation est une installlation complèete une une mise à jour</comment>
+    <comment>Cette option permet de spÃ©cifier si l'installation est une installlation complÃ¨ete une une mise Ã  jour</comment>
     <option label="L'installation est un upgrade ?" name="'isUpgrade' =&gt;" terminator=",&#xD;&#xA;&#xD;&#xA;" type="radio">
       <choice label="Oui">1</choice>
       <choice label="Non" selected="yes">0</choice>
     </option>
   </section>
   <section label="Configuration de la langue du systeme" name="">
-    <comment>Cette option permet de choisir le type de clavier à installer en fonction du pays</comment>
-    <comment>Cette option permet de spécifier la séquence de touche à utiliser pour changer de type de clavier</comment>
-    <comment>Vous devez choisir le même charset que celui que vous avez choisi pour les locales</comment>
+    <comment>Cette option permet de choisir le type de clavier Ã  installer en fonction du pays</comment>
+    <comment>Cette option permet de spÃ©cifier la sÃ©quence de touche Ã  utiliser pour changer de type de clavier</comment>
+    <comment>Vous devez choisir le mÃªme charset que celui que vous avez choisi pour les locales</comment>
     <option label="Configuration du clavier" name="'keyboard' =&gt; { &#xD;&#xA;" separator=",&#xD;&#xA;" terminator="},&#xD;&#xA;">
       <option label="Changer la langue du clavier" name="'GRP_TOGGLE' =&gt;" type="list">
         <choice label="Right Alt key" selected="no">'toggle'</choice>
@@ -298,7 +298,7 @@
         <choice label="Occitan" selected="no">'oc'</choice>
         <choice label="Polish" selected="no">'pl'</choice>
         <choice label="Portuguese (Brazil)" selected="no">'pt_BR'</choice>
-       <choice label="Portuguese" selected="no">'pt'</choice>
+        <choice label="Portuguese" selected="no">'pt'</choice>
         <choice label="Romanian" selected="no">'ro'</choice>
         <choice label="Russian" selected="no">'ru'</choice>
         <choice label="Saami" selected="no">'se'</choice>
@@ -328,7 +328,7 @@
         <choice label="Zulu" selected="no">'zu'</choice>
       </option>
     </option>
-    <comment>Cette option vous permet de choisir la langue qui sera utilisé par votre système. ATTENTION !! : vous devez choisir le même charset que pour le clavier</comment>
+    <comment>Cette option vous permet de choisir la langue qui sera utilisÃ© par votre systÃ¨me. ATTENTION !! : vous devez choisir le mÃªme charset que pour le clavier</comment>
     <option label="Configuration des locales" name="'locale' =&gt; {&#xD;&#xA;" separator=",&#xD;&#xA;" terminator="},&#xD;&#xA;">
       <option label="Choix de la langue" name="'lang' =&gt; " type="list">
         <choice label="Afrikaans" selected="no">'af'</choice>
@@ -425,7 +425,7 @@
         <choice label="Afrikaans" selected="no">'af' =&gt; 1</choice>
         <choice label="Amharic" selected="no">'am' =&gt; 1</choice>
         <choice label="Arabic" selected="no">'ar' =&gt; 1</choice>
-        <choice label="Assamse" selected="n">'as' =&gt; 1</choice>
+        <choice label="Assamse" selected="no">'as' =&gt; 1</choice>
         <choice label="Azeri (latin)" selected="no">'az' =&gt; 1</choice>
         <choice label="Belarussian" selected="no">'be' =&gt; 1</choice>
         <choice label="Bulgarian" selected="no">'bg' =&gt; 1</choice>
@@ -482,7 +482,7 @@
         <choice label="Norwegian Nynorsk" selected="no">'nn' =&gt; 1</choice>
         <choice label="Occitan" selected="no">'oc' =&gt; 1</choice>
         <choice label="Polish" selected="no">'pl' =&gt; 1</choice>
-        <choice label="Portuguese (Brazil)" selected="no">'pt_BR' =&gt; 1</hoice>
+        <choice label="Portuguese (Brazil)" selected="no">'pt_BR' =&gt; 1</choice>
         <choice label="Portuguese" selected="no">'pt' =&gt; 1</choice>
         <choice label="Romanian" selected="no">'ro' =&gt; 1</choice>
         <choice label="Russian" selected="no">'ru' =&gt; 1</choice>
@@ -544,7 +544,7 @@
         <choice label="Galician" selected="no">'gl'</choice>
         <choice label="Gujarati" selected="no">'gu'</choice>
         <choice label="Hebrew" selected="no">'he'</choice>
-        <choice label="Hindi" selected="o">'hi'</choice>
+        <choice label="Hindi" selected="no">'hi'</choice>
         <choice label="Croatian" selected="no">'hr'</choice>
         <choice label="Hungarian" selected="no">'hu'</choice>
         <choice label="Armenian" selected="no">'hy'</choice>
@@ -611,27 +611,27 @@
   </section>
   <section label="Options diverses" name="">
     <option label="" name="'miscellaneous' =&gt; { &#xD;&#xA;" separator=",&#xD;&#xA;" terminator="},&#xD;&#xA;&#xD;&#xA;" needed="no">
-      <option label="Activer le pavé numérique au démarrage" name="'numlock' =&gt; " type="radio">
+      <option label="Activer le pavÃ© numÃ©rique au dÃ©marrage" name="'numlock' =&gt; " type="radio">
         <choice label="Oui" selected="yes">1</choice>
         <choice label="Non">0</choice>
       </option>
-      <option label="Activer le DMA sur les périphérique IDE" name="'HDPARM' =&gt; " type="radio">
+      <option label="Activer le DMA sur les pÃ©riphÃ©rique IDE" name="'HDPARM' =&gt; " type="radio">
         <choice label="Oui" selected="yes">1</choice>
         <choice label="Non">0</choice>
       </option>
-      <option label="Paramètrage du proxy http" name="'http_proxy' =&gt; '" terminator="'">
+      <option label="ParamÃ¨trage du proxy http" name="'http_proxy' =&gt; '" terminator="'">
         <choice label="">
         </choice>
       </option>
-      <option label="Paramètrage du proxy ftp" name="'ftp_proxy' =&gt; '" terminator="'">
+      <option label="ParamÃ¨trage du proxy ftp" name="'ftp_proxy' =&gt; '" terminator="'">
         <choice label="">
         </choice>
       </option>
     </option>
   </section>
-  <section label="Création de disquette de démarrage" name="">
-    <comment>Cette option vous permet de créer une disquette de boot lors de la phase d'installation</comment>
-    <option label="Création de disquette de démarrage" name="'mkbootdisk' =&gt; '" needed="no" terminator="',&#xD;&#xA;" type="list">
+  <section label="CrÃ©ation de disquette de dÃ©marrage" name="">
+    <comment>Cette option vous permet de crÃ©er une disquette de boot lors de la phase d'installation</comment>
+    <option label="CrÃ©ation de disquette de dÃ©marrage" name="'mkbootdisk' =&gt; '" needed="no" terminator="',&#xD;&#xA;" type="list">
       <choice label="Oui" selected="no">1</choice>
       <choice label="Non" selected="yes">0</choice>
       <choice label="Lecteur de disquette" selected="no">fd0</choice>
@@ -650,16 +650,16 @@
             <choice label="Busmouse" selected="no">busmouse</choice>
             <choice label="Universal" selected="no">universal</choice>
           </option>
-          <option label="Périphérique" name="'device' =&gt; '" type="list" terminator="'">
+          <option label="PÃ©riphÃ©rique" name="'device' =&gt; '" type="list" terminator="'">
             <choice label="Souris PS2" selected="yes">psaux</choice>
-            <choice label="Port Série 0" selected="no">ttyS0</choice>
-            <choice label="Port Série 1" selected="no">ttyS1</choice>
-            <choice label="Port Série 2" selected="no">ttyS2</choice>
-            <choice label="Port Série 3" selected="no">ttyS3</choice>
-            <choice label="Dépend de la carte installé (atibm)" selected="no">atibm</choice>
-            <choice label="Dépend de la carte installé (inportbm)" selected="no">inportbm</choice>
-            <choice label="Dépend de la carte installé (logibm)" selected="no">logibm</choice>
-            <choice label="Souris Série Power PC" selected="no">adbmouse</choice>
+            <choice label="Port SÃ©rie 0" selected="no">ttyS0</choice>
+            <choice label="Port SÃ©rie 1" selected="no">ttyS1</choice>
+            <choice label="Port SÃ©rie 2" selected="no">ttyS2</choice>
+            <choice label="Port SÃ©rie 3" selected="no">ttyS3</choice>
+            <choice label="DÃ©pend de la carte installÃ© (atibm)" selected="no">atibm</choice>
+            <choice label="DÃ©pend de la carte installÃ© (inportbm)" selected="no">inportbm</choice>
+            <choice label="DÃ©pend de la carte installÃ© (logibm)" selected="no">logibm</choice>
+            <choice label="Souris SÃ©rie Power PC" selected="no">adbmouse</choice>
             <choice label="Souris USB" selected="no">usbmouse</choice>
             <choice label="Souris Universelle" selected="no">input/mice</choice>
           </option>
@@ -754,7 +754,7 @@
         <choice label="GMT-0" selected="no">GMT-0</choice>
         <choice label="GMT+0" selected="no">GMT+0</choice>
         <choice label="Greenwich" selected="no">Greenwich</choice>
-       <choice label="Hongkong" selected="no">Hongkong</choice>
+        <choice label="Hongkong" selected="no">Hongkong</choice>
         <choice label="HST" selected="no">HST</choice>
         <choice label="Iceland" selected="no">Iceland</choice>
         <choice label="Indian" selected="no">Indian</choice>
@@ -815,7 +815,7 @@
         <choice label="Africa/Dar_es_Salaam" selected="no">Africa/Dar_es_Salaam</choice>
         <choice label="Africa/Djibouti" selected="no">Africa/Djibouti</choice>
         <choice label="Africa/Douala" selected="no">Africa/Douala</choice>
-       <choice label="Africa/El_Aaiun" selected="no">Africa/El_Aaiun</choice>
+        <choice label="Africa/El_Aaiun" selected="no">Africa/El_Aaiun</choice>
         <choice label="Africa/Freetown" selected="no">Africa/Freetown</choice>
         <choice label="Africa/Gaborone" selected="no">Africa/Gaborone</choice>
         <choice label="Africa/Harare" selected="no">Africa/Harare</choice>
@@ -866,7 +866,7 @@
         <choice label="America/Buenos_Aires" selected="no">America/Buenos_Aires</choice>
         <choice label="America/Cambridge_Bay" selected="no">America/Cambridge_Bay</choice>
         <choice label="America/Campo_Grande" selected="no">America/Campo_Grande</choice>
-        <choice label="America/Cancun" seected="no">America/Cancun</choice>
+        <choice label="America/Cancun" selected="no">America/Cancun</choice>
         <choice label="America/Caracas" selected="no">America/Caracas</choice>
         <choice label="America/Catamarca" selected="no">America/Catamarca</choice>
         <choice label="America/Cayenne" selected="no">America/Cayenne</choice>
@@ -916,7 +916,7 @@
         <choice label="America/Louisville" selected="no">America/Louisville</choice>
         <choice label="America/Maceio" selected="no">America/Maceio</choice>
         <choice label="America/Managua" selected="no">America/Managua</choice>
-        <choice label="America/Manaus" selected"no">America/Manaus</choice>
+        <choice label="America/Manaus" selected="no">America/Manaus</choice>
         <choice label="America/Martinique" selected="no">America/Martinique</choice>
         <choice label="America/Mazatlan" selected="no">America/Mazatlan</choice>
         <choice label="America/Mendoza" selected="no">America/Mendoza</choice>
@@ -965,7 +965,7 @@
         <choice label="America/Thunder_Bay" selected="no">America/Thunder_Bay</choice>
         <choice label="America/Tijuana" selected="no">America/Tijuana</choice>
         <choice label="America/Toronto" selected="no">America/Toronto</choice>
-        <choice label="America/ortola" selected="no">America/Tortola</choice>
+        <choice label="America/Tortola" selected="no">America/Tortola</choice>
         <choice label="America/Vancouver" selected="no">America/Vancouver</choice>
         <choice label="America/Virgin" selected="no">America/Virgin</choice>
         <choice label="America/Whitehorse" selected="no">America/Whitehorse</choice>
@@ -1015,7 +1015,7 @@
         <choice label="Asia/Choibalsan" selected="no">Asia/Choibalsan</choice>
         <choice label="Asia/Chongqing" selected="no">Asia/Chongqing</choice>
         <choice label="Asia/Chungking" selected="no">Asia/Chungking</choice>
-        <choice label="Asia/Colombo" selectd="no">Asia/Colombo</choice>
+        <choice label="Asia/Colombo" selected="no">Asia/Colombo</choice>
         <choice label="Asia/Dacca" selected="no">Asia/Dacca</choice>
         <choice label="Asia/Damascus" selected="no">Asia/Damascus</choice>
         <choice label="Asia/Dhaka" selected="no">Asia/Dhaka</choice>
@@ -1070,7 +1070,7 @@
         <choice label="Asia/Tashkent" selected="no">Asia/Tashkent</choice>
         <choice label="Asia/Tbilisi" selected="no">Asia/Tbilisi</choice>
         <choice label="Asia/Tehran" selected="no">Asia/Tehran</choice>
-        <choice label="Asia/Tel_Aviv" selected="no">Asia/el_Aviv</choice>
+        <choice label="Asia/Tel_Aviv" selected="no">Asia/Tel_Aviv</choice>
         <choice label="Asia/Thimbu" selected="no">Asia/Thimbu</choice>
         <choice label="Asia/Thimphu" selected="no">Asia/Thimphu</choice>
         <choice label="Asia/Tokyo" selected="no">Asia/Tokyo</choice>
@@ -1121,7 +1121,7 @@
         <choice label="Brazil/Acre" selected="no">Brazil/Acre</choice>
         <choice label="Brazil/DeNoronha" selected="no">Brazil/DeNoronha</choice>
         <choice label="Brazil/East" selected="no">Brazil/East</choice>
-        <choice label="Brazil/West" selcted="no">Brazil/West</choice>
+        <choice label="Brazil/West" selected="no">Brazil/West</choice>
         <choice label="Brazil/" selected="no">Brazil/</choice>
         <choice label="Canada/Atlantic" selected="no">Canada/Atlantic</choice>
         <choice label="Canada/Central" selected="no">Canada/Central</choice>
@@ -1178,7 +1178,7 @@
         <choice label="Europe/Belfast" selected="no">Europe/Belfast</choice>
         <choice label="Europe/Belgrade" selected="no">Europe/Belgrade</choice>
         <choice label="Europe/Berlin" selected="no">Europe/Berlin</choice>
-        <choice label="Europe/Bratilava" selected="no">Europe/Bratislava</choice>
+        <choice label="Europe/Bratislava" selected="no">Europe/Bratislava</choice>
         <choice label="Europe/Brussels" selected="no">Europe/Brussels</choice>
         <choice label="Europe/Bucharest" selected="no">Europe/Bucharest</choice>
         <choice label="Europe/Budapest" selected="no">Europe/Budapest</choice>
@@ -1230,7 +1230,7 @@
         <choice label="Indian/Christmas" selected="no">Indian/Christmas</choice>
         <choice label="Indian/Cocos" selected="no">Indian/Cocos</choice>
         <choice label="Indian/Comoro" selected="no">Indian/Comoro</choice>
-        <choice label="Indian/Kerguelen" selected="no">Indian/Kerguelen</choce>
+        <choice label="Indian/Kerguelen" selected="no">Indian/Kerguelen</choice>
         <choice label="Indian/Mahe" selected="no">Indian/Mahe</choice>
         <choice label="Indian/Maldives" selected="no">Indian/Maldives</choice>
         <choice label="Indian/Mauritius" selected="no">Indian/Mauritius</choice>
@@ -1282,7 +1282,7 @@
         <choice label="Pacific/Tarawa" selected="no">Pacific/Tarawa</choice>
         <choice label="Pacific/Tongatapu" selected="no">Pacific/Tongatapu</choice>
         <choice label="Pacific/Truk" selected="no">Pacific/Truk</choice>
-        <choice label="Pacific/Wake" selected="no">Pacific/Wak</choice>
+        <choice label="Pacific/Wake" selected="no">Pacific/Wake</choice>
         <choice label="Pacific/Wallis" selected="no">Pacific/Wallis</choice>
         <choice label="Pacific/Yap" selected="no">Pacific/Yap</choice>
         <choice label="Pacific/" selected="no">Pacific/</choice>
@@ -1338,7 +1338,7 @@
         <choice label="posix/PRC" selected="no">posix/PRC</choice>
         <choice label="posix/PST8PDT" selected="no">posix/PST8PDT</choice>
         <choice label="posix/ROC" selected="no">posix/ROC</choice>
-        <choice label="posix/ROK" selected="no">posix/ROK</choic>
+        <choice label="posix/ROK" selected="no">posix/ROK</choice>
         <choice label="posix/Singapore" selected="no">posix/Singapore</choice>
         <choice label="posix/SystemV" selected="no">posix/SystemV</choice>
         <choice label="posix/Turkey" selected="no">posix/Turkey</choice>
@@ -1386,7 +1386,7 @@
         <choice label="posix/Africa/Lubumbashi" selected="no">posix/Africa/Lubumbashi</choice>
         <choice label="posix/Africa/Lusaka" selected="no">posix/Africa/Lusaka</choice>
         <choice label="posix/Africa/Malabo" selected="no">posix/Africa/Malabo</choice>
-        <choice label="posix/Africa/Maputo selected="no">posix/Africa/Maputo</choice>
+        <choice label="posix/Africa/Maputo" selected="no">posix/Africa/Maputo</choice>
         <choice label="posix/Africa/Maseru" selected="no">posix/Africa/Maseru</choice>
         <choice label="posix/Africa/Mbabane" selected="no">posix/Africa/Mbabane</choice>
         <choice label="posix/Africa/Mogadishu" selected="no">posix/Africa/Mogadishu</choice>
@@ -1430,7 +1430,7 @@
         <choice label="posix/America/Chihuahua" selected="no">posix/America/Chihuahua</choice>
         <choice label="posix/America/Cordoba" selected="no">posix/America/Cordoba</choice>
         <choice label="posix/America/Costa_Rica" selected="no">posix/America/Costa_Rica</choice>
-        <choice label="posix/America/Cuiaba" selected="no">posix/America/Cuiaba</choce>
+        <choice label="posix/America/Cuiaba" selected="no">posix/America/Cuiaba</choice>
         <choice label="posix/America/Curacao" selected="no">posix/America/Curacao</choice>
         <choice label="posix/America/Danmarkshavn" selected="no">posix/America/Danmarkshavn</choice>
         <choice label="posix/America/Dawson" selected="no">posix/America/Dawson</choice>
@@ -1474,7 +1474,7 @@
         <choice label="posix/America/Manaus" selected="no">posix/America/Manaus</choice>
         <choice label="posix/America/Martinique" selected="no">posix/America/Martinique</choice>
         <choice label="posix/America/Mazatlan" selected="no">posix/America/Mazatlan</choice>
-        <choice label="posix/America/Mendoza" elected="no">posix/America/Mendoza</choice>
+        <choice label="posix/America/Mendoza" selected="no">posix/America/Mendoza</choice>
         <choice label="posix/America/Menominee" selected="no">posix/America/Menominee</choice>
         <choice label="posix/America/Merida" selected="no">posix/America/Merida</choice>
         <choice label="posix/America/Mexico_City" selected="no">posix/America/Mexico_City</choice>
@@ -1517,7 +1517,7 @@
         <choice label="posix/America/Swift_Current" selected="no">posix/America/Swift_Current</choice>
         <choice label="posix/America/Tegucigalpa" selected="no">posix/America/Tegucigalpa</choice>
         <choice label="posix/America/Thule" selected="no">posix/America/Thule</choice>
-        choice label="posix/America/Thunder_Bay" selected="no">posix/America/Thunder_Bay</choice>
+        <choice label="posix/America/Thunder_Bay" selected="no">posix/America/Thunder_Bay</choice>
         <choice label="posix/America/Tijuana" selected="no">posix/America/Tijuana</choice>
         <choice label="posix/America/Toronto" selected="no">posix/America/Toronto</choice>
         <choice label="posix/America/Tortola" selected="no">posix/America/Tortola</choice>
@@ -1560,7 +1560,7 @@
         <choice label="posix/Asia/Ashgabat" selected="no">posix/Asia/Ashgabat</choice>
         <choice label="posix/Asia/Ashkhabad" selected="no">posix/Asia/Ashkhabad</choice>
         <choice label="posix/Asia/Baghdad" selected="no">posix/Asia/Baghdad</choice>
-       <choice label="posix/Asia/Bahrain" selected="no">posix/Asia/Bahrain</choice>
+        <choice label="posix/Asia/Bahrain" selected="no">posix/Asia/Bahrain</choice>
         <choice label="posix/Asia/Baku" selected="no">posix/Asia/Baku</choice>
         <choice label="posix/Asia/Bangkok" selected="no">posix/Asia/Bangkok</choice>
         <choice label="posix/Asia/Beirut" selected="no">posix/Asia/Beirut</choice>
@@ -1607,7 +1607,7 @@
         <choice label="posix/Asia/Oral" selected="no">posix/Asia/Oral</choice>
         <choice label="posix/Asia/Phnom_Penh" selected="no">posix/Asia/Phnom_Penh</choice>
         <choice label="posix/Asia/Pontianak" selected="no">posix/Asia/Pontianak</choice>
-        <choice label="posix/Asia/Pyongyang" seleced="no">posix/Asia/Pyongyang</choice>
+        <choice label="posix/Asia/Pyongyang" selected="no">posix/Asia/Pyongyang</choice>
         <choice label="posix/Asia/Qatar" selected="no">posix/Asia/Qatar</choice>
         <choice label="posix/Asia/Qyzylorda" selected="no">posix/Asia/Qyzylorda</choice>
         <choice label="posix/Asia/Rangoon" selected="no">posix/Asia/Rangoon</choice>
@@ -1653,7 +1653,7 @@
         <choice label="posix/Atlantic/" selected="no">posix/Atlantic/</choice>
         <choice label="posix/Australia/ACT" selected="no">posix/Australia/ACT</choice>
         <choice label="posix/Australia/Adelaide" selected="no">posix/Australia/Adelaide</choice>
-        <choice label="posx/Australia/Brisbane" selected="no">posix/Australia/Brisbane</choice>
+        <choice label="posix/Australia/Brisbane" selected="no">posix/Australia/Brisbane</choice>
         <choice label="posix/Australia/Broken_Hill" selected="no">posix/Australia/Broken_Hill</choice>
         <choice label="posix/Australia/Canberra" selected="no">posix/Australia/Canberra</choice>
         <choice label="posix/Australia/Darwin" selected="no">posix/Australia/Darwin</choice>
@@ -1698,7 +1698,7 @@
         <choice label="posix/Etc/GMT-1" selected="no">posix/Etc/GMT-1</choice>
         <choice label="posix/Etc/GMT+1" selected="no">posix/Etc/GMT+1</choice>
         <choice label="posix/Etc/GMT-10" selected="no">posix/Etc/GMT-10</choice>
-        <choice label="posix/Etc/GMT+10" selcted="no">posix/Etc/GMT+10</choice>
+        <choice label="posix/Etc/GMT+10" selected="no">posix/Etc/GMT+10</choice>
         <choice label="posix/Etc/GMT-11" selected="no">posix/Etc/GMT-11</choice>
         <choice label="posix/Etc/GMT+11" selected="no">posix/Etc/GMT+11</choice>
         <choice label="posix/Etc/GMT-12" selected="no">posix/Etc/GMT-12</choice>
@@ -1746,7 +1746,7 @@
         <choice label="posix/Europe/Kaliningrad" selected="no">posix/Europe/Kaliningrad</choice>
         <choice label="posix/Europe/Kiev" selected="no">posix/Europe/Kiev</choice>
         <choice label="posix/Europe/Lisbon" selected="no">posix/Europe/Lisbon</choice>
-        <choice label="posix/Europe/Ljubljana" selected="no">posix/Erope/Ljubljana</choice>
+        <choice label="posix/Europe/Ljubljana" selected="no">posix/Europe/Ljubljana</choice>
         <choice label="posix/Europe/London" selected="no">posix/Europe/London</choice>
         <choice label="posix/Europe/Luxembourg" selected="no">posix/Europe/Luxembourg</choice>
         <choice label="posix/Europe/Madrid" selected="no">posix/Europe/Madrid</choice>
@@ -1792,7 +1792,7 @@
         <choice label="posix/Indian/Mayotte" selected="no">posix/Indian/Mayotte</choice>
         <choice label="posix/Indian/Reunion" selected="no">posix/Indian/Reunion</choice>
         <choice label="posix/Indian/" selected="no">posix/Indian/</choice>
-        <choice label="posix/Mexico/BajaNorte" selected="no">posx/Mexico/BajaNorte</choice>
+        <choice label="posix/Mexico/BajaNorte" selected="no">posix/Mexico/BajaNorte</choice>
         <choice label="posix/Mexico/BajaSur" selected="no">posix/Mexico/BajaSur</choice>
         <choice label="posix/Mexico/General" selected="no">posix/Mexico/General</choice>
         <choice label="posix/Mexico/" selected="no">posix/Mexico/</choice>
@@ -1837,7 +1837,7 @@
         <choice label="posix/Pacific/Tarawa" selected="no">posix/Pacific/Tarawa</choice>
         <choice label="posix/Pacific/Tongatapu" selected="no">posix/Pacific/Tongatapu</choice>
         <choice label="posix/Pacific/Truk" selected="no">posix/Pacific/Truk</choice>
-        <choice label="posix/Pacific/Wake" selcted="no">posix/Pacific/Wake</choice>
+        <choice label="posix/Pacific/Wake" selected="no">posix/Pacific/Wake</choice>
         <choice label="posix/Pacific/Wallis" selected="no">posix/Pacific/Wallis</choice>
         <choice label="posix/Pacific/Yap" selected="no">posix/Pacific/Yap</choice>
         <choice label="posix/Pacific/" selected="no">posix/Pacific/</choice>
@@ -1888,7 +1888,7 @@
         <choice label="right/EST5EDT" selected="no">right/EST5EDT</choice>
         <choice label="right/Etc" selected="no">right/Etc</choice>
         <choice label="right/Europe" selected="no">right/Europe</choice>
-        <choice label="right/Fctory" selected="no">right/Factory</choice>
+        <choice label="right/Factory" selected="no">right/Factory</choice>
         <choice label="right/GB" selected="no">right/GB</choice>
         <choice label="right/GB-Eire" selected="no">right/GB-Eire</choice>
         <choice label="right/GMT" selected="no">right/GMT</choice>
@@ -1942,7 +1942,7 @@
         <choice label="right/Africa/Banjul" selected="no">right/Africa/Banjul</choice>
         <choice label="right/Africa/Bissau" selected="no">right/Africa/Bissau</choice>
         <choice label="right/Africa/Blantyre" selected="no">right/Africa/Blantyre</choice>
-        <choice label="right/Africa/Brazaville" selected="no">right/Africa/Brazzaville</choice>
+        <choice label="right/Africa/Brazzaville" selected="no">right/Africa/Brazzaville</choice>
         <choice label="right/Africa/Bujumbura" selected="no">right/Africa/Bujumbura</choice>
         <choice label="right/Africa/Cairo" selected="no">right/Africa/Cairo</choice>
         <choice label="right/Africa/Casablanca" selected="no">right/Africa/Casablanca</choice>
@@ -1987,7 +1987,7 @@
         <choice label="right/Africa/" selected="no">right/Africa/</choice>
         <choice label="right/America/Adak" selected="no">right/America/Adak</choice>
         <choice label="right/America/Anchorage" selected="no">right/America/Anchorage</choice>
-        <choice label="right/America/Anguila" selected="no">right/America/Anguilla</choice>
+        <choice label="right/America/Anguilla" selected="no">right/America/Anguilla</choice>
         <choice label="right/America/Antigua" selected="no">right/America/Antigua</choice>
         <choice label="right/America/Araguaina" selected="no">right/America/Araguaina</choice>
         <choice label="right/America/Aruba" selected="no">right/America/Aruba</choice>
@@ -2031,7 +2031,7 @@
         <choice label="right/America/Goose_Bay" selected="no">right/America/Goose_Bay</choice>
         <choice label="right/America/Grand_Turk" selected="no">right/America/Grand_Turk</choice>
         <choice label="right/America/Grenada" selected="no">right/America/Grenada</choice>
-       <choice label="right/America/Guadeloupe" selected="no">right/America/Guadeloupe</choice>
+        <choice label="right/America/Guadeloupe" selected="no">right/America/Guadeloupe</choice>
         <choice label="right/America/Guatemala" selected="no">right/America/Guatemala</choice>
         <choice label="right/America/Guayaquil" selected="no">right/America/Guayaquil</choice>
         <choice label="right/America/Guyana" selected="no">right/America/Guyana</choice>
@@ -2074,7 +2074,7 @@
         <choice label="right/America/Panama" selected="no">right/America/Panama</choice>
         <choice label="right/America/Pangnirtung" selected="no">right/America/Pangnirtung</choice>
         <choice label="right/America/Paramaribo" selected="no">right/America/Paramaribo</choice>
-        <choice label="right/America/Phoenix" selected="no">right/merica/Phoenix</choice>
+        <choice label="right/America/Phoenix" selected="no">right/America/Phoenix</choice>
         <choice label="right/America/Port-au-Prince" selected="no">right/America/Port-au-Prince</choice>
         <choice label="right/America/Porto_Acre" selected="no">right/America/Porto_Acre</choice>
         <choice label="right/America/Port_of_Spain" selected="no">right/America/Port_of_Spain</choice>
@@ -2116,7 +2116,7 @@
         <choice label="right/America/Indiana/Vevay" selected="no">right/America/Indiana/Vevay</choice>
         <choice label="right/America/Indiana/" selected="no">right/America/Indiana/</choice>
         <choice label="right/America/Kentucky/Louisville" selected="no">right/America/Kentucky/Louisville</choice>
-        <choice label="right/America/Kentucky/Monticello" selectd="no">right/America/Kentucky/Monticello</choice>
+        <choice label="right/America/Kentucky/Monticello" selected="no">right/America/Kentucky/Monticello</choice>
         <choice label="right/America/Kentucky/" selected="no">right/America/Kentucky/</choice>
         <choice label="right/America/North_Dakota/Center" selected="no">right/America/North_Dakota/Center</choice>
         <choice label="right/America/North_Dakota/" selected="no">right/America/North_Dakota/</choice>
@@ -2162,7 +2162,7 @@
         <choice label="right/Asia/Gaza" selected="no">right/Asia/Gaza</choice>
         <choice label="right/Asia/Harbin" selected="no">right/Asia/Harbin</choice>
         <choice label="right/Asia/Hong_Kong" selected="no">right/Asia/Hong_Kong</choice>
-        <choice abel="right/Asia/Hovd" selected="no">right/Asia/Hovd</choice>
+        <choice label="right/Asia/Hovd" selected="no">right/Asia/Hovd</choice>
         <choice label="right/Asia/Irkutsk" selected="no">right/Asia/Irkutsk</choice>
         <choice label="right/Asia/Istanbul" selected="no">right/Asia/Istanbul</choice>
         <choice label="right/Asia/Jakarta" selected="no">right/Asia/Jakarta</choice>
@@ -2209,7 +2209,7 @@
         <choice label="right/Asia/Tehran" selected="no">right/Asia/Tehran</choice>
         <choice label="right/Asia/Tel_Aviv" selected="no">right/Asia/Tel_Aviv</choice>
         <choice label="right/Asia/Thimbu" selected="no">right/Asia/Thimbu</choice>
-        <choice label="right/Asia/Thimph" selected="no">right/Asia/Thimphu</choice>
+        <choice label="right/Asia/Thimphu" selected="no">right/Asia/Thimphu</choice>
         <choice label="right/Asia/Tokyo" selected="no">right/Asia/Tokyo</choice>
         <choice label="right/Asia/Ujung_Pandang" selected="no">right/Asia/Ujung_Pandang</choice>
         <choice label="right/Asia/Ulaanbaatar" selected="no">right/Asia/Ulaanbaatar</choice>
@@ -2253,7 +2253,7 @@
         <choice label="right/Australia/Tasmania" selected="no">right/Australia/Tasmania</choice>
         <choice label="right/Australia/Victoria" selected="no">right/Australia/Victoria</choice>
         <choice label="right/Australia/West" selected="no">right/Australia/West</choice>
-        <choice label="rightAustralia/Yancowinna" selected="no">right/Australia/Yancowinna</choice>
+        <choice label="right/Australia/Yancowinna" selected="no">right/Australia/Yancowinna</choice>
         <choice label="right/Australia/" selected="no">right/Australia/</choice>
         <choice label="right/Brazil/Acre" selected="no">right/Brazil/Acre</choice>
         <choice label="right/Brazil/DeNoronha" selected="no">right/Brazil/DeNoronha</choice>
@@ -2301,7 +2301,7 @@
         <choice label="right/Etc/GMT+7" selected="no">right/Etc/GMT+7</choice>
         <choice label="right/Etc/GMT-8" selected="no">right/Etc/GMT-8</choice>
         <choice label="right/Etc/GMT+8" selected="no">right/Etc/GMT+8</choice>
-        <choice label="right/Etc/GMT-9" selected="no">right/Etc/GMT-9</coice>
+        <choice label="right/Etc/GMT-9" selected="no">right/Etc/GMT-9</choice>
         <choice label="right/Etc/GMT+9" selected="no">right/Etc/GMT+9</choice>
         <choice label="right/Etc/Greenwich" selected="no">right/Etc/Greenwich</choice>
         <choice label="right/Etc/UCT" selected="no">right/Etc/UCT</choice>
@@ -2348,7 +2348,7 @@
         <choice label="right/Europe/Simferopol" selected="no">right/Europe/Simferopol</choice>
         <choice label="right/Europe/Skopje" selected="no">right/Europe/Skopje</choice>
         <choice label="right/Europe/Sofia" selected="no">right/Europe/Sofia</choice>
-        <choic label="right/Europe/Stockholm" selected="no">right/Europe/Stockholm</choice>
+        <choice label="right/Europe/Stockholm" selected="no">right/Europe/Stockholm</choice>
         <choice label="right/Europe/Tallinn" selected="no">right/Europe/Tallinn</choice>
         <choice label="right/Europe/Tirane" selected="no">right/Europe/Tirane</choice>
         <choice label="right/Europe/Tiraspol" selected="no">right/Europe/Tiraspol</choice>
@@ -2393,7 +2393,7 @@
         <choice label="right/Pacific/Funafuti" selected="no">right/Pacific/Funafuti</choice>
         <choice label="right/Pacific/Galapagos" selected="no">right/Pacific/Galapagos</choice>
         <choice label="right/Pacific/Gambier" selected="no">right/Pacific/Gambier</choice>
-        <choice label="right/Pacific/Guadalcanal" selected="no">right/acific/Guadalcanal</choice>
+        <choice label="right/Pacific/Guadalcanal" selected="no">right/Pacific/Guadalcanal</choice>
         <choice label="right/Pacific/Guam" selected="no">right/Pacific/Guam</choice>
         <choice label="right/Pacific/Honolulu" selected="no">right/Pacific/Honolulu</choice>
         <choice label="right/Pacific/Johnston" selected="no">right/Pacific/Johnston</choice>
@@ -2439,7 +2439,7 @@
         <choice label="right/SystemV/" selected="no">right/SystemV/</choice>
         <choice label="right/US/Alaska" selected="no">right/US/Alaska</choice>
         <choice label="right/US/Aleutian" selected="no">right/US/Aleutian</choice>
-        <choice label="right/US/rizona" selected="no">right/US/Arizona</choice>
+        <choice label="right/US/Arizona" selected="no">right/US/Arizona</choice>
         <choice label="right/US/Central" selected="no">right/US/Central</choice>
         <choice label="right/US/Eastern" selected="no">right/US/Eastern</choice>
         <choice label="right/US/East-Indiana" selected="no">right/US/East-Indiana</choice>
@@ -2482,7 +2482,7 @@
   <section label="Configuration de l'affichage" name="">
     <option label="Activer le serveur X " name="'X' =&gt; { &#xD;&#xA; 'disabled' =&gt; " separator="',&#xD;&#xA;" terminator="},&#xD;&#xA;&#xD;&#xA;" type="radio">
       <choice label="Non">1</choice>
-      <choice label="Oui" selected="yes">0, <option label="Resolution" name="&#xD;&#xA; 'resolution_wanted' =&gt; '" type="list" terminator="',&#xD;&#xA;"><choice label="640x480" selected="no">640x480</choice><choice label="800x600" selected="no">800x600</choice><choice label="1024x768" selected="yes">1024x768</choice><choice label="1152x864" selected="no">1152x864</choice><choice label="1280x1024" selected="no">1280x1024</choice><choice label="1400x1050" selected="no">1400x1050</choice><choice label="1600x1200" selected="no">1600x1200</choice><choice label="1920x1440" selected="no">1920x1440</choice><choice label="2048x1536" selected="no">2048x1536</choice></option><option label="Profondeur des couleurs" name="'default_depth' =&gt; " type="list"><choice label="8" selected="no">'8'</choice><choice label="15" selected="no">'15'</choice><choice label="16" selected="no">'16'</choice><choice label="24" selected="yes">'24'</choice><choice label="32" selected="no">'32'</coice></option></choice>
+      <choice label="Oui" selected="yes">0, <option label="Resolution" name="&#xD;&#xA; 'resolution_wanted' =&gt; '" type="list" terminator="',&#xD;&#xA;"><choice label="640x480" selected="no">640x480</choice><choice label="800x600" selected="no">800x600</choice><choice label="1024x768" selected="yes">1024x768</choice><choice label="1152x864" selected="no">1152x864</choice><choice label="1280x1024" selected="no">1280x1024</choice><choice label="1400x1050" selected="no">1400x1050</choice><choice label="1600x1200" selected="no">1600x1200</choice><choice label="1920x1440" selected="no">1920x1440</choice><choice label="2048x1536" selected="no">2048x1536</choice></option><option label="Profondeur des couleurs" name="'default_depth' =&gt; " type="list"><choice label="8" selected="no">'8'</choice><choice label="15" selected="no">'15'</choice><choice label="16" selected="no">'16'</choice><choice label="24" selected="yes">'24'</choice><choice label="32" selected="no">'32'</choice></option></choice>
     </option>
   </section>
   <section label="Configuration du reseau" name="">
@@ -2513,7 +2513,7 @@
         <option label="Point de montage" name="{&#xD;&#xA;'mntpoint' =&gt; " type="list">
           <choice label="Partition de boot" selected="no">'/boot'</choice>
           <choice label="Partition de swap" selected="yes">'swap'</choice>
-         <choice label="Partition root" selected="no">'/'</choice>
+          <choice label="Partition root" selected="no">'/'</choice>
           <choice label="Partition home" selected="no">'/home'</choice>
           <choice label="Partition var" selected="no">'/var'</choice>
           <choice label="Partition usr" selected="no">'/usr'</choice>
@@ -2577,7 +2577,7 @@
           <choice label="Partition home" selected="yes">'/home'</choice>
           <choice label="Partition var" selected="no">'/var'</choice>
           <choice label="Partition usr" selected="no">'/usr'</choice>
-          <choice label="Partition tmp" selcted="no">'/tmp'</choice>
+          <choice label="Partition tmp" selected="no">'/tmp'</choice>
         </option>
         <option label="Type de partition" name="'type' =&gt; " type="list">
           <choice label="Ext2" selected="no">131</choice>
@@ -2627,9 +2627,9 @@
      </option>
   </section>
   <section label="Option du systeme obligatoire non modifiable par l'utilisateur" name="" visible="no">
-    <option label="Toutes les partitions seront supprimees et remplacees par celles configurees" name="'partitioning' =&gt; { &#xD;&#xA;'clearall' =&gt; 1,&#xD;&#xA;'auto_allocate' =&gt; 1},&#xD;&#xA;">
+    <option label="Toute les partition seront supprime et remplace par celles configure" name="'partitioning' =&gt; { &#xD;&#xA;'clearall' =&gt; 1,&#xD;&#xA;'auto_allocate' =&gt; 1},&#xD;&#xA;">
     </option>
-    <option label="Le programme d'installation ne posera pas de questions" name="'interactiveSteps' =&gt; []">
+    <option label="Le programme d'installetion ne possera pas de question" name="'interactiveSteps' =&gt; []">
     </option>
     <option label="fermeture de la table de hash" name="};">
     </option>
