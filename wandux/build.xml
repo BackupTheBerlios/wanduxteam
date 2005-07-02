@@ -87,6 +87,12 @@
 		<copy todir="${jboss.dir}\server\default\conf">
 			<fileset dir="${dir.sources}" includes="hibernate.cfg.xml"/>
 		</copy>
+		
+		<echo message="copie transaction-service.xml"/>
+		<copy todir="${jboss.dir}\server\default\deploy">
+			<fileset dir="${dir.utils}" includes="transaction-service.xml"/>
+		</copy>
+		
 		<copy todir="${jboss.dir}\bin">
 			<fileset dir="${dir.sources}" includes="hibernate.cfg.xml"/>
 		</copy>
