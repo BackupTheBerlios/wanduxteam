@@ -43,7 +43,23 @@ public class XmlAdllParseTool {
 		ps.section_change_select(XmlAdllParse.racine, "Creation des partitions",
 				"Secondary Master", "yes", "Peripherique d'installation");
 		
+		pt.option_change_txt(XmlAdllParse.racine, "",
+				ci.gconf.getGlobalHostname(), "Nom de la machine");
+		
+		ps.option_change_select(XmlAdllParse.racine, "French",
+				"no", "Type de clavier");
+		
+		ps.option_change_select(XmlAdllParse.racine, ci.udata.getUserKbLayout(),
+				"yes", "Type de clavier");
+		
+		ps.option_change_select(XmlAdllParse.racine, "Europe/Paris",
+				"no", "Choix du fuseau horaire");
+		
+		ps.option_change_select(XmlAdllParse.racine, ci.udata.getUserTimezone(),
+				"yes", "Choix du fuseau horaire");
+		
 		pu.ChangeUser(ci);
+		
 		//pu.AddUser(XmlAdllParse.racine, ci.udata);
 		
 		/*
