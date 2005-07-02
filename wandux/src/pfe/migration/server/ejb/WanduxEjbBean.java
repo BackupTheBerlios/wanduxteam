@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJBException;
+import javax.ejb.RemoveException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 
@@ -45,7 +46,10 @@ public class WanduxEjbBean implements SessionBean
 
 	public void setSessionContext(SessionContext ctx) throws EJBException, RemoteException { }
 
-	public void ejbRemove() throws EJBException, RemoteException { }
+	public void ejbRemove() throws EJBException, RemoteException
+	{
+		System.out.println("connection removed!!");
+	}
 
 	public void ejbActivate() throws EJBException, RemoteException { }
 
