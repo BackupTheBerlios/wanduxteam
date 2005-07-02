@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import pfe.migration.client.network.ClientEjb;
+
 /**
  * @author dup
  *
@@ -18,7 +20,7 @@ import javax.swing.JPanel;
  */
 public class LastStep extends JPanel
 {
-	public LastStep()
+	public LastStep(final ClientEjb ce)
 	{
 		JButton fin = new JButton("Fin");
 		
@@ -26,6 +28,7 @@ public class LastStep extends JPanel
 		this.add(fin);
 		fin.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseReleased(java.awt.event.MouseEvent e) {
+				ce.EjbClose();
 				System.exit(0);
 			}
 		});
