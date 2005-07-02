@@ -191,7 +191,7 @@ public class WanduxApp implements WanduxAppListener
   	public void moveLastStep()
   	{
   		jFrame.getContentPane().remove(middle);
-  		middle = new LastStep();
+  		middle = new LastStep(ce);
   		middle.setBackground(Color.white);
   		jFrame.getContentPane().add(middle);
   		jFrame.getContentPane().invalidate();
