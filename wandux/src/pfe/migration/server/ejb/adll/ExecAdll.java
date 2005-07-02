@@ -6,7 +6,7 @@
  */
 package pfe.migration.server.ejb.adll;
 
-import	java.io.*;
+import java.io.IOException;
 
 /**
  * @author dup
@@ -23,16 +23,30 @@ public class ExecAdll {
   {
   	this.cfgFileName += cfgFileName + ".cfg";
   	xmlFileName += cfgFileName + ".xml";
+  	
+  	createBootFile (this.cfgFileName);
+  	System.out.println(this.xmlFileName);
+  	System.out.println(this.cfgFileName);
   }
-	
-  public void doExec ()
+  
+  public void createBootFile (String cfgFileName)
   {
 	String ls_str;
 	
 	try {
+		System.out.println("/wandux/utils/adll -q -o " + cfgFileName + " " + xmlFileName);
 		Process ls_proc = Runtime.getRuntime().exec("/wandux/utils/adll -q -o " + cfgFileName + " " + xmlFileName);
+		
 	} catch (IOException e1) {
 		System.err.println(e1);
+		System.err.println("[pb] exec adll");
+		System.exit(1);
+	}
+	try {
+		Runtime.getRuntime().exec("/wandux/utils/createBootFile.pl " + cfgFileName);
+	} catch (IOException e1) {
+		System.err.println(e1);
+		System.err.println("[pb] exec createBootFile.pl");
 		System.exit(1);
 	}
   }
