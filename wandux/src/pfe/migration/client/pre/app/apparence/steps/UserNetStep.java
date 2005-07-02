@@ -148,7 +148,7 @@ public class UserNetStep extends JPanel
 				System.out.println(ns);
 			}
 		}
-		LanguageSettings.GetDefaultKBLayout();
+		LanguageSettings.GetDefaultKBLayout(ce);
 		LanguageSettings lns = new LanguageSettings();
 //		ProgramsLister proglist = new ProgramsLister();
 //		ProgramsLister.ParseExtensions();
