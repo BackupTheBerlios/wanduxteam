@@ -185,7 +185,8 @@ public class WanduxApp implements WanduxAppListener
   		jFrame.getContentPane().add(middle);
   		jFrame.getContentPane().invalidate();
   		jFrame.getContentPane().validate();
-		wq.execute(new CopyDataOnFileServer(this.tp, ci.getMac(), (ProgressBarStep)middle));
+//		wq.execute(new CopyDataOnFileServer(this.tp, ci.getMac(), (ProgressBarStep)middle));
+  		wq.execute(new CopyDataOnFileServer(this.ci, this.tp, ci.getMac(), (ProgressBarStep)middle));
   	}
   	
   	public void moveLastStep()

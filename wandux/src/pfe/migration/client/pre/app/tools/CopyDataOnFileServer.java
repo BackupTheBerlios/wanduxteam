@@ -8,6 +8,7 @@ package pfe.migration.client.pre.app.tools;
 
 import java.io.File;
 
+import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.client.pre.app.apparence.steps.ProgressBarStep;
 
 
@@ -23,9 +24,22 @@ public class CopyDataOnFileServer implements Runnable
 	private String [] listFiles = null;
 	private String addrMac = "";
 	private ProgressBarStep pbs = null;
+	private ComputerInformation ci = null;
 	
 	public CopyDataOnFileServer(String [] files, String addrMac, ProgressBarStep pbs)
 	{
+		this.pbs = pbs;
+		this.addrMac = addrMac;
+		if (files.length > 1)
+		{
+			listFiles = new String [files.length];
+			listFiles = files;
+		}
+	}
+
+	public CopyDataOnFileServer(ComputerInformation ci , String [] files, String addrMac, ProgressBarStep pbs)
+	{
+		this.ci = ci;
 		this.pbs = pbs;
 		this.addrMac = addrMac;
 		if (files.length > 1)
@@ -39,6 +53,9 @@ public class CopyDataOnFileServer implements Runnable
 	{
 		if (listFiles == null)
 			return;
+
+		FileCopy.CopyRec(ci.udata.getUserHome()+"\\Favoris" , "\\\\10.247.0.248\\wanduxStorage\\" + this.addrMac + "\\diskc\\" + ci.udata.getUserLogin() + "\\Favoris");
+		this.pbs.refreshBar(0 , "copie du bookmark");
 		
 		for (int i = 1; i < listFiles.length; i++)
 		{

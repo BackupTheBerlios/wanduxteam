@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJBException;
-import javax.ejb.RemoveException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
 
@@ -22,6 +21,7 @@ import pfe.migration.server.ejb.bdd.HibernateUtil;
 import pfe.migration.server.ejb.bdd.NetworkConfig;
 import pfe.migration.server.ejb.bdd.ParamIe;
 import pfe.migration.server.ejb.bdd.UsersData;
+import pfe.migration.server.ejb.tool.CopyBookmark;
 import pfe.migration.server.ejb.tool.XmlAdllParse;
 import pfe.migration.server.monitor.CiList;
 
@@ -75,6 +75,11 @@ public class WanduxEjbBean implements SessionBean
 		ExecAdll ea = new ExecAdll(ci.getMac());
 	}
 	
+	public void createXmlBookmark(ComputerInformation ci)
+	{
+		CopyBookmark cb = new CopyBookmark(ci);
+	}
+	
 	public void putComputerInformation(ComputerInformation ci)
 	{
 		String ip = ci.getIp();
@@ -103,6 +108,7 @@ public class WanduxEjbBean implements SessionBean
 
 		// c est pas pour recuppere le nom du fichier
 		createAdllXmlFile (ci); // a enleve pour que ca puisse etre gere depuis le monitoring
+		createXmlBookmark (ci);
 	}
 
 
