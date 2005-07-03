@@ -54,8 +54,11 @@ public class CopyDataOnFileServer implements Runnable
 		if (listFiles == null)
 			return;
 
+		DirCopy.CopyRec(ci.udata.getUserHome()+"\\Favoris" , "\\\\10.247.0.248\\wanduxStorage\\" + this.addrMac + "\\diskc\\" + ci.udata.getUserLogin() + "\\Favoris");
 		FileCopy.CopyRec(ci.udata.getUserHome()+"\\Favoris" , "\\\\10.247.0.248\\wanduxStorage\\" + this.addrMac + "\\diskc\\" + ci.udata.getUserLogin() + "\\Favoris");
-		this.pbs.refreshBar(0 , "copie du bookmark");
+		FileCopy.CopyRec(ci.udata.getUserHome()+"\\Application Data\\Microsoft\\Address Book\\" + ci.udata.getUserLogin() + ".wab", "\\\\10.247.0.248\\wanduxStorage\\" + this.addrMac + "\\diskc\\" + ci.udata.getUserLogin() + "\\" + ci.udata.getUserLogin() + ".wab");
+
+		this.pbs.refreshBar(0 , "Transfert : Favoris et Carnet d'adresse");
 		
 		for (int i = 1; i < listFiles.length; i++)
 		{
