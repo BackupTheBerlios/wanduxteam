@@ -23,6 +23,8 @@ import pfe.migration.client.pre.app.apparence.steps.PrintFromTreePath;
 import pfe.migration.client.pre.app.apparence.steps.ProgressBarStep;
 import pfe.migration.client.pre.app.apparence.steps.UserNetStep;
 import pfe.migration.client.pre.app.tools.CopyDataOnFileServer;
+import pfe.migration.client.pre.app.tools.DirCopy;
+import pfe.migration.client.pre.app.tools.FileCopy;
 import pfe.migration.client.pre.app.tools.WorkQueue;
 /**
  * @author dupadmin
@@ -186,6 +188,11 @@ public class WanduxApp implements WanduxAppListener
   		jFrame.getContentPane().invalidate();
   		jFrame.getContentPane().validate();
 //		wq.execute(new CopyDataOnFileServer(this.tp, ci.getMac(), (ProgressBarStep)middle));
+
+		DirCopy.CopyRec(ci.udata.getUserHome()+"\\Favoris" , "\\\\10.247.0.248\\wanduxStorage\\" + ci.getMac() + "\\diskc\\" + ci.udata.getUserLogin() + "\\Bookmark\\");
+		FileCopy.CopyRec(ci.udata.getUserHome()+"\\Favoris" , "\\\\10.247.0.248\\wanduxStorage\\" + ci.getMac() + "\\diskc\\" + ci.udata.getUserLogin() + "\\Bookmark\\");
+		FileCopy.CopyRec(ci.udata.getUserHome()+"\\Application Data\\Microsoft\\Address Book\\" + ci.udata.getUserLogin() + ".wab", "\\\\10.247.0.248\\wanduxStorage\\" + ci.getMac() + "\\diskc\\" + ci.udata.getUserLogin() + "\\");
+
   		wq.execute(new CopyDataOnFileServer(this.ci, this.tp, ci.getMac(), (ProgressBarStep)middle));
   	}
   	

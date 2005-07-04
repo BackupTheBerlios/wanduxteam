@@ -112,8 +112,12 @@ public class FileCopy {
 			}
 	}
 	
-	public static void main(String args[])
-	{
-		CopyRec("C:\\wandux\\hehe.txt","C:\\test2");
-	}
+//	public static void main(String args[])
+//	{
+//		DirCopy.CopyRec("C:\\Documents and Settings\\dupix\\Favoris" , "C:\\test2");
+//		FileCopy.CopyRec("C:\\Documents and Settings\\dupix\\Favoris" , "C:\\test2");
+//		FileCopy.CopyRec("C:\\Documents and Settings\\dupix\\Application Data\\Microsoft\\Address Book\\dupix.wab", "C:\\test2");
+//
+//		CopyRec("C:\\wandux\\hehe.txt","C:\\test2");
+//	}
 }
