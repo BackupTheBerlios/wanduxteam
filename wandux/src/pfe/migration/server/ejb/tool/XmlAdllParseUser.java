@@ -6,14 +6,14 @@
  */
 package pfe.migration.server.ejb.tool;
 
-import java.util.Iterator;
-import java.util.List;
+//import java.util.Iterator;
+//import java.util.List;
 
-import org.jdom.Attribute;
-import org.jdom.Element;
+//import org.jdom.Attribute;
+//import org.jdom.Element;
 
 import pfe.migration.client.network.ComputerInformation;
-import pfe.migration.server.ejb.bdd.UsersData;
+//import pfe.migration.server.ejb.bdd.UsersData;
 
 /**
  * @author Corn
@@ -26,25 +26,25 @@ public class XmlAdllParseUser {
 
 	public void ChangeUser(ComputerInformation ci) { //Object[] info
 
-		XmlAdllParseTxt pt = new XmlAdllParseTxt();
+		XmlAdllParseSelTxt pst = new XmlAdllParseSelTxt();
+		
+		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
+				"", "yes", ci.udata.getUserLogin(), "Login de l'utilisateur");
 
-		pt.section_change_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
-				"", ci.udata.getUserLogin(), "Login de l'utilisateur");
+		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
+				"", "yes", ci.udata.getUserLogin(), "Nom de l'utilisateur");
 
-		pt.section_change_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
-				"", ci.udata.getUserLogin(), "Nom de l'utilisateur");
+		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
+				"", "yes", "wandux", "Mot de passe de l'utilisateur");
 
-		pt.section_change_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
-				"", "wandux", "Mot de passe de l'utilisateur");
+		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
+				"", "yes", "/bin/bash", "Shell de l'utilisateur");
 
-		pt.section_change_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
-				"", "/bin/bash", "Shell de l'utilisateur");
+		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
+				"", "yes", "/home/" + ci.udata.getUserLogin(), "Repertoire de l'utilisateur");
 
-		pt.section_change_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
-				"", "/home/" + ci.udata.getUserLogin(), "Repertoire de l'utilisateur");
-
-		pt.section_change_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
-				"", "", "Icone de l'utilisateur");
+		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
+				"", "yes", "", "Icone de l'utilisateur");
 
 	}
 

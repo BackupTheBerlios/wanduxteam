@@ -35,38 +35,80 @@ public class XmlAdllParseTool {
 		XmlAdllParseUser pu = new XmlAdllParseUser();
 		XmlAdllParseSelTxt pst = new XmlAdllParseSelTxt();
 		XmlAdllParseSel ps = new XmlAdllParseSel();
-		XmlAdllParseTxt pt = new XmlAdllParseTxt();
-		
-		ps.section_change_select(XmlAdllParse.racine, "Creation des partitions",
-				"Primary Master", "no", "Peripherique d'installation");
 
-		ps.section_change_select(XmlAdllParse.racine, "Creation des partitions",
-				"Secondary Master", "yes", "Peripherique d'installation");
+		// PARTITIONS 
+
+		ps.section_change_select(XmlAdllParse.racine,
+				"Creation des partitions", "Primary Master", "no",
+				"Peripherique d'installation");
+
+		ps.section_change_select(XmlAdllParse.racine,
+				"Creation des partitions", "Secondary Master", "yes",
+				"Peripherique d'installation");
+
+		ps.option_change_select(XmlAdllParse.racine, "", "yes",
+				"Taille en pourcentage de la partion");
+
+		// CONFIG RESEAU
 		
-		pt.option_change_txt(XmlAdllParse.racine, "",
-				ci.gconf.getGlobalHostname(), "Nom de la machine");
-		
-		ps.option_change_select(XmlAdllParse.racine, "French",
-				"no", "Type de clavier");
-		
-		ps.option_change_select(XmlAdllParse.racine, ci.udata.getUserKbLayout(),
-				"yes", "Type de clavier");
-		
-		ps.option_change_select(XmlAdllParse.racine, "Europe/Paris",
-				"no", "Choix du fuseau horaire");
-		
-		ps.option_change_select(XmlAdllParse.racine, ci.udata.getUserTimezone(),
-				"yes", "Choix du fuseau horaire");
-		
+		ps.section_change_select(XmlAdllParse.racine,
+				"Configuration du reseau", "Statique", "no",
+				"Type de configuration reseau");
+
+		ps.section_change_select(XmlAdllParse.racine,
+				"Configuration du reseau", "Dhcp", "yes",
+				"Type de configuration reseau");
+
+		// CONFIG PARAM RESEAU
+
+		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.gconf
+				.getGlobalHostname(), "Nom de la machine");
+
+		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.gconf
+				.getGlobalDomainName(), "Domaine de la machine");
+
+		// AUTOLOGIN
+
+		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.udata
+				.getUserLogin(), "Login automatique au demarrage");
+
+		// PROXY HTTP
+
+		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.udata
+				.getUserProxyServ(), "Paramètrage du proxy http");
+
+		// PROXY FTP 
+
+		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.udata
+				.getUserProxyServ(), "Paramètrage du proxy ftp");
+
+		// TYPE DE CLAVIER
+
+		ps.option_change_select(XmlAdllParse.racine, "French", "no",
+				"Type de clavier");
+
+		ps.option_change_select(XmlAdllParse.racine,
+				ci.udata.getUserKbLayout(), "yes", "Type de clavier");
+
+		// CHOIX DU FUSEAUX
+
+		ps.option_change_select(XmlAdllParse.racine, "Europe/Paris", "no",
+				"Choix du fuseau horaire");
+
+		ps.option_change_select(XmlAdllParse.racine,
+				ci.udata.getUserTimezone(), "yes", "Choix du fuseau horaire");
+
+		// SUPER UTILISATEUR
+
+		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
+						"root@" + ci.gconf.getGlobalDomainName(),
+						"Adresse E-Mail de l'utilisateur a prevenir en cas d'alerte de securite");
+
+		// UTILISATEUR
+
 		pu.ChangeUser(ci);
-		
-		//pu.AddUser(XmlAdllParse.racine, ci.udata);
-		
-		/*
-		 * section_change_select_txt(XmlAdllParse.racine, "Méthode
-		 * d'authentification", "Oui", "no", "0", "Utiliser les shadow
-		 * password");
-		 */
+
+		// pu.AddUser(XmlAdllParse.racine, ci.udata);
 
 	}
 
