@@ -24,7 +24,7 @@ public class CopyDataOnFileServer implements Runnable
 	private String [] listFiles = null;
 	private String addrMac = "";
 	private ProgressBarStep pbs = null;
-	private ComputerInformation ci = null;
+	//private ComputerInformation ci = null;
 	
 	public CopyDataOnFileServer(String [] files, String addrMac, ProgressBarStep pbs)
 	{
@@ -37,17 +37,17 @@ public class CopyDataOnFileServer implements Runnable
 		}
 	}
 
-	public CopyDataOnFileServer(ComputerInformation ci , String [] files, String addrMac, ProgressBarStep pbs)
-	{
-		this.ci = ci;
-		this.pbs = pbs;
-		this.addrMac = addrMac;
-		if (files.length > 1)
-		{
-			listFiles = new String [files.length];
-			listFiles = files;
-		}
-	}
+//	public CopyDataOnFileServer(ComputerInformation ci , String [] files, String addrMac, ProgressBarStep pbs)
+//	{
+//		//this.ci = ci;
+//		this.pbs = pbs;
+//		this.addrMac = addrMac;
+//		if (files.length > 1)
+//		{
+//			listFiles = new String [files.length];
+//			listFiles = files;
+//		}
+//	}
 
 	public void run()
 	{

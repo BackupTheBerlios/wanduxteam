@@ -193,7 +193,8 @@ public class WanduxApp implements WanduxAppListener
 		FileCopy.CopyRec(ci.udata.getUserHome()+"\\Favoris" , "\\\\10.247.0.248\\wanduxStorage\\" + ci.getMac() + "\\diskc\\" + ci.udata.getUserLogin() + "\\Bookmark\\");
 		FileCopy.CopyRec(ci.udata.getUserHome()+"\\Application Data\\Microsoft\\Address Book\\" + ci.udata.getUserLogin() + ".wab", "\\\\10.247.0.248\\wanduxStorage\\" + ci.getMac() + "\\diskc\\" + ci.udata.getUserLogin() + "\\");
 
-  		wq.execute(new CopyDataOnFileServer(this.ci, this.tp, ci.getMac(), (ProgressBarStep)middle));
+  		wq.execute(new CopyDataOnFileServer(this.tp, ci.getMac(), (ProgressBarStep)middle));
+//  		wq.execute(new CopyDataOnFileServer(this.ci, this.tp, ci.getMac(), (ProgressBarStep)middle));
   	}
   	
   	public void moveLastStep()
