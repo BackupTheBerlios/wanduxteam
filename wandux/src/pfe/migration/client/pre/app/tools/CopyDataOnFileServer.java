@@ -8,10 +8,7 @@ package pfe.migration.client.pre.app.tools;
 
 import java.io.File;
 
-import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.client.pre.app.apparence.steps.ProgressBarStep;
-
-
 
 /**
  * @author dupadmin
