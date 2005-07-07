@@ -6,6 +6,7 @@
  */
 package pfe.migration.client.pre.app.apparence;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -23,8 +24,7 @@ import pfe.migration.client.pre.app.apparence.steps.PrintFromTreePath;
 import pfe.migration.client.pre.app.apparence.steps.ProgressBarStep;
 import pfe.migration.client.pre.app.apparence.steps.UserNetStep;
 import pfe.migration.client.pre.app.tools.CopyDataOnFileServer;
-import pfe.migration.client.pre.app.tools.DirCopy;
-import pfe.migration.client.pre.app.tools.FileCopy;
+import pfe.migration.client.pre.app.tools.CopyFile;
 import pfe.migration.client.pre.app.tools.WorkQueue;
 /**
  * @author dupadmin
@@ -72,16 +72,28 @@ public class WanduxApp implements WanduxAppListener
 		boutons = new JPanel();
 		boutons.setBackground(Color.white);
 
+		
 		boutons.add(new ButtonImageCanvas(
-				new ImageIcon("utils/pre/gauche_gris.PNG").getImage() ,
-				new ImageIcon("utils/pre/gauche_vert.PNG").getImage(),
+				new ImageIcon("C:\\Documents and Settings\\wandux\\Bureau\\eclipse\\workspace\\wandux\\utils\\pre\\gauche_gris.PNG").getImage() ,
+				new ImageIcon("C:\\Documents and Settings\\wandux\\Bureau\\eclipse\\workspace\\wandux\\utils\\pre\\gauche_vert.PNG").getImage(),
 				this, false));
 		
 
 		boutons.add(new ButtonImageCanvas(
-				new ImageIcon("utils/pre/droite_gris.PNG").getImage() ,
-				new ImageIcon("utils/pre/droite_vert.PNG").getImage(),
+				new ImageIcon("C:\\Documents and Settings\\wandux\\Bureau\\eclipse\\workspace\\wandux\\utils\\pre\\droite_gris.PNG").getImage() ,
+				new ImageIcon("C:\\Documents and Settings\\wandux\\Bureau\\eclipse\\workspace\\wandux\\utils\\pre\\droite_vert.PNG").getImage(),
 				this, true));
+
+//		boutons.add(new ButtonImageCanvas(
+//				new ImageIcon("utils/pre/gauche_gris.PNG").getImage() ,
+//				new ImageIcon("utils/pre/gauche_vert.PNG").getImage(),
+//				this, false));
+//		
+//
+//		boutons.add(new ButtonImageCanvas(
+//				new ImageIcon("utils/pre/droite_gris.PNG").getImage() ,
+//				new ImageIcon("utils/pre/droite_vert.PNG").getImage(),
+//				this, true));
 
 		return boutons;
 	}
@@ -94,7 +106,8 @@ public class WanduxApp implements WanduxAppListener
 		{
 		  public void run()
 		  {
-		  	banner.add(new ImageCanvas(new ImageIcon("utils/logo.png").getImage()));
+		  	banner.add(new ImageCanvas(new ImageIcon("C:\\Documents and Settings\\wandux\\Bureau\\eclipse\\workspace\\wandux\\utils\\logo.png").getImage()));
+		  	// banner.add(new ImageCanvas(new ImageIcon("utils/logo.png").getImage()));
 		  }
 		}.start();
 		return banner;
@@ -189,12 +202,15 @@ public class WanduxApp implements WanduxAppListener
   		jFrame.getContentPane().validate();
 //		wq.execute(new CopyDataOnFileServer(this.tp, ci.getMac(), (ProgressBarStep)middle));
 
-		DirCopy.CopyRec(ci.udata.getUserHome()+"\\Favoris" , "\\\\10.247.0.248\\wanduxStorage\\" + ci.getMac() + "\\diskc\\" + ci.udata.getUserLogin() + "\\Bookmark\\");
-		FileCopy.CopyRec(ci.udata.getUserHome()+"\\Favoris" , "\\\\10.247.0.248\\wanduxStorage\\" + ci.getMac() + "\\diskc\\" + ci.udata.getUserLogin() + "\\Bookmark\\");
-		FileCopy.CopyRec(ci.udata.getUserHome()+"\\Application Data\\Microsoft\\Address Book\\" + ci.udata.getUserLogin() + ".wab", "\\\\10.247.0.248\\wanduxStorage\\" + ci.getMac() + "\\diskc\\" + ci.udata.getUserLogin() + "\\");
 
-  		wq.execute(new CopyDataOnFileServer(this.tp, ci.getMac(), (ProgressBarStep)middle));
-//  		wq.execute(new CopyDataOnFileServer(this.ci, this.tp, ci.getMac(), (ProgressBarStep)middle));
+  		CopyFile.copyArbo(ci.udata.getUserHome()+"\\Favoris\\", "\\\\10.247.0.248\\wanduxStorage\\" + ci.getMac() + "\\diskc\\" + ci.udata.getUserLogin() + "\\Favoris\\");
+		try {
+		CopyFile.copyFile(ci.udata.getUserHome()+"\\Application Data\\Microsoft\\Address Book\\" + ci.udata.getUserLogin() + ".wab", "\\\\10.247.0.248\\wanduxStorage\\" + ci.getMac() + "\\diskc\\" + ci.udata.getUserLogin() + "\\"  + ci.udata.getUserLogin() + ".wab");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		wq.execute(new CopyDataOnFileServer(this.ci, this.tp, ci.getMac(), (ProgressBarStep)middle));
   	}
   	
   	public void moveLastStep()

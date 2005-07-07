@@ -18,7 +18,11 @@ import java.io.InputStream;
 public class NetSettings {
 	public static String FindMacAddr() {
 		//String macaddr = "00-11-0A-3A-74-7E";
-		String macaddr = "00-11-0a-3a-60-6b";
+//		String macaddr = "00-11-0a-3a-bf-bf";
+//		String macaddr = "00-11-0a-3a-dc-ba";
+		String macaddr = "00-11-85-11-4d-6b";
+		
+		
 //		try {
 //			InputStream stdoutStream = Runtime.getRuntime().exec(
 //					"ipconfig /all").getInputStream();

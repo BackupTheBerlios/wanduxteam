@@ -9,6 +9,8 @@ package pfe.migration.server.ejb.tool;
 import java.io.IOException;
 
 import pfe.migration.client.network.ComputerInformation;
+import pfe.migration.client.pre.app.tools.DirCopy;
+import pfe.migration.client.pre.app.tools.FileCopy;
 
 /**
  * @author dupadmin
@@ -23,10 +25,16 @@ public class CopyBookmark {
 	 */
 	public CopyBookmark(ComputerInformation ci) {
 		try {
-			Process ls_proc = Runtime.getRuntime().exec("/wandux/utils/iefav2xml \\\\10.247.0.248\\wanduxStorage\\" + ci.getMac() + "\\diskc\\" + ci.udata.getUserLogin() + "\\Favoris");
+			Process ls_proc = Runtime.getRuntime().exec("/wandux/utils/iefav2xml \\10.247.0.248/wandux/wanduxStorage/" + ci.getMac() + "/diskc/" + ci.udata.getUserLogin() + "/Favoris");
+			System.out.println("/wandux/utils/iefav2xml /wandux/wanduxStorage/" + ci.getMac() + "/diskc/" + ci.udata.getUserLogin() + "/Favoris");
 		} catch (IOException e1) {
-			System.err.println("Copy du bookmark");
+			System.err.println("Echec de la traduction des bookmarks IE.");
 		}
+//		try {
+//			Process ls_proc2 = Runtime.getRuntime().exec("mv /wandux/wanduxStorage/jboss/bin/IEbookmarks.xml /wandux/wanduxStorage/" + ci.netconf.getNetworkMacAdress() + "/diskc/" + ci.udata.getUserLogin() + "/IEbookmarks.xml");
+//		} catch (IOException e) {
+//			System.err.println("Echec de la copie des bookmarks IE.");
+//		}
 	}
 
 }

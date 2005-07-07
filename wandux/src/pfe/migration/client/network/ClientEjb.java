@@ -11,6 +11,8 @@ import javax.naming.InitialContext;
 
 import net.sf.hibernate.HibernateException;
 
+import pfe.migration.client.pre.app.tools.DirCopy;
+import pfe.migration.client.pre.app.tools.FileCopy;
 import pfe.migration.server.ejb.WanduxEjb;
 import pfe.migration.server.ejb.WanduxEjbHome;
 import pfe.migration.server.ejb.bdd.LangInfo;

@@ -18,7 +18,7 @@ import java.util.StringTokenizer;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class FileCopy {
+public class CopyOfFileCopy {
 	
 	public static String replace(String orig, String from, String to)
 	{
@@ -49,8 +49,10 @@ public class FileCopy {
 		String TmpDir = "";
 
 		for (int i = st.countTokens(); i > 1; i--)
+//		for (int i = st.countTokens(); i > 3; i--)
 		{
 			TmpDir = TmpDir + st.nextToken();
+			System.out.println("TmpDir>"+TmpDir + " i>" + i);
 			//System.out.println(st.nextToken());
 		}
 		//TmpDir = replace(TmpDir, "///", "/");
@@ -64,7 +66,7 @@ public class FileCopy {
 		File newPath = new File("");
 		//System.out.println(tree);
 		StringTokenizer st = new StringTokenizer(tree, "\\", true);
-		for (int i = st.countTokens(); i > 0; i--)
+		for (int i = st.countTokens(); i > 1; i--)
 		{
 			TmpDir = TmpDir + st.nextToken();
 			if (i % 2 != 0)
@@ -75,27 +77,40 @@ public class FileCopy {
 			}
 		}
 	}
-
+	
 	public static void CopyRec(String old_path, String new_path) {
 		//create file objects from method parameters
+		
+		System.out.println("src>" + old_path);
+		System.out.println("dest>" + new_path);
+		
 		File oldPath = new File(old_path);
 		File newPath = new File(new_path + File.separator);
 
 		if (oldPath.exists()) {
-			if (!newPath.exists()) {
+			if (!newPath.exists() && !oldPath.isFile()) {
+				System.out.println("1>"+newPath);
 				newPath.mkdir();
 			}
 			File inputFile = oldPath;
+			
 			String dir = getTmpDirName(newPath + old_path.substring(2));
 			
-			BuildFileTree(dir);
-			File mkpath = new File(dir);
-			mkpath.mkdir();
+			System.out.println("dir>"+dir);
 			
+			BuildFileTree(dir);
+			
+			File mkpath = new File(dir);
+			if (inputFile.isDirectory() == true)
+			{
+				System.out.println("2>"+mkpath);
+				mkpath.mkdir();
+			}
 			//System.out.println(newPath + old_path.substring(2));
 				try {
 					if (inputFile.isFile()) {
-						File outputFile = new File(newPath + old_path.substring(2));
+						File outputFile = new File(getTmpDirName(newPath + old_path.substring(2)));
+						System.out.println("dup>" + outputFile);
 						//create streams for in and out files
 						FileInputStream in = new FileInputStream(inputFile);
 						FileOutputStream out = new FileOutputStream(outputFile);
@@ -113,16 +128,8 @@ public class FileCopy {
 			}
 	}
 	
-	
-	
-	
-	
 //	public static void main(String args[])
 //	{
-//		DirCopy.CopyRec("C:\\Documents and Settings\\dupix\\Favoris" , "C:\\test2");
-//		FileCopy.CopyRec("C:\\Documents and Settings\\dupix\\Favoris" , "C:\\test2");
-//		FileCopy.CopyRec("C:\\Documents and Settings\\dupix\\Application Data\\Microsoft\\Address Book\\dupix.wab", "C:\\test2");
-//
 //		CopyRec("C:\\wandux\\hehe.txt","C:\\test2");
 //	}
 }

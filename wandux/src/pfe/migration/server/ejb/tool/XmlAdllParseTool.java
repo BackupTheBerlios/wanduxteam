@@ -36,7 +36,7 @@ public class XmlAdllParseTool {
 		XmlAdllParseSelTxt pst = new XmlAdllParseSelTxt();
 		XmlAdllParseSel ps = new XmlAdllParseSel();
 
-		// PARTITIONS 
+		// PARTITIONS
 
 		ps.section_change_select(XmlAdllParse.racine,
 				"Creation des partitions", "Primary Master", "no",
@@ -50,7 +50,7 @@ public class XmlAdllParseTool {
 				"Taille en pourcentage de la partion");
 
 		// CONFIG RESEAU
-		
+
 		ps.section_change_select(XmlAdllParse.racine,
 				"Configuration du reseau", "Statique", "no",
 				"Type de configuration reseau");
@@ -77,7 +77,7 @@ public class XmlAdllParseTool {
 		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.udata
 				.getUserProxyServ(), "Paramètrage du proxy http");
 
-		// PROXY FTP 
+		// PROXY FTP
 
 		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.udata
 				.getUserProxyServ(), "Paramètrage du proxy ftp");
@@ -103,6 +103,27 @@ public class XmlAdllParseTool {
 		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
 						"root@" + ci.gconf.getGlobalDomainName(),
 						"Adresse E-Mail de l'utilisateur a prevenir en cas d'alerte de securite");
+
+		ps.option_change_select(XmlAdllParse.racine, "", "yes",
+				"Identifiant du super utilisateur");
+
+		ps.option_change_select(XmlAdllParse.racine, "", "yes",
+				"Identifiant du groupe du super utilisateur l'utilisateur");
+
+		ps.option_change_select(XmlAdllParse.racine, "", "yes",
+				"Nom du super utilisateur");
+
+		ps.option_change_select(XmlAdllParse.racine, "", "yes",
+				"Mot de passe du super utilisateur");
+
+		ps.option_change_select(XmlAdllParse.racine, "", "yes",
+				"Shell du super utilisateur");
+
+		ps.option_change_select(XmlAdllParse.racine, "", "yes",
+				"Repertoire du super utilisateur");
+
+		ps.option_change_select(XmlAdllParse.racine, "", "yes",
+				"Icone du super utilisateur");
 
 		// UTILISATEUR
 
