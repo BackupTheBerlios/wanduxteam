@@ -15,8 +15,6 @@ import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import pfe.migration.client.network.ComputerInformation;
-import pfe.migration.client.pre.app.tools.DirCopy;
-import pfe.migration.client.pre.app.tools.FileCopy;
 import pfe.migration.server.ejb.adll.ExecAdll;
 import pfe.migration.server.ejb.bdd.GlobalConf;
 import pfe.migration.server.ejb.bdd.HibernateUtil;
@@ -25,7 +23,6 @@ import pfe.migration.server.ejb.bdd.ParamIe;
 import pfe.migration.server.ejb.bdd.UsersData;
 import pfe.migration.server.ejb.tool.CopyBookmark;
 import pfe.migration.server.ejb.tool.XmlAdllParse;
-import pfe.migration.server.monitor.CiList;
 
 /**
  * @ejb.bean name="ServerEjb"
@@ -70,7 +67,7 @@ public class WanduxEjbBean implements SessionBean
 //		System.out.println(ok);
 //	}
 	
-	// -- client normal et taches internes ------------------------------------------------------- //
+	// -- taches internes ------------------------------------------------------- //
 	public void createAdllXmlFile(ComputerInformation ci)
 	{
 		XmlAdllParse xml = new XmlAdllParse(ci.getMac(), ci);
@@ -82,13 +79,36 @@ public class WanduxEjbBean implements SessionBean
 		CopyBookmark cb = new CopyBookmark(ci);
 	}
 	
+	// -- client admin ------------------------------------------------------- //
+	
+	// -- client normal ------------------------------------------------------- //
+	public void putIp(String ip)
+	{
+		cil.add(ip);
+	}
+	
+	public List getIps()
+	{
+		return cil.getListIp();	
+	}
+	
+	public void putCi(ComputerInformation ci)
+	{
+		cil.fill(ci);
+	}
+
+	public ComputerInformation getCi(String ip)
+	{
+		return (ComputerInformation)cil.get(ip);
+	}
+	
 	public void putComputerInformation(ComputerInformation ci)
 	{
 		String ip = ci.getIp();
 
-		useCiList();
-		cil.add(ip);
-
+//		useCiList();
+//		cil.add(ip);
+		
 		Transaction transaction;
 		Session session;
 		try {
@@ -112,7 +132,6 @@ public class WanduxEjbBean implements SessionBean
 		createAdllXmlFile (ci); // a enleve pour que ca puisse etre gere depuis le monitoring
 		createXmlBookmark (ci);
 	}
-
 
 	public List getLangInformation()
 	{
@@ -229,21 +248,21 @@ public class WanduxEjbBean implements SessionBean
 	}
 
 	// -- monitoring ----------------------------------------------------------------------------- //
-	private void useCiList ()
-	{
-		if (WanduxEjbBean.cil == null)
-			WanduxEjbBean.cil = new CiList();
-	}
-	
-	public CiList getCiList ()
-	{
-		if (WanduxEjbBean.cil == null)
-		{
-			System.out.println("WanduxEjbBean.cil = null");
-			WanduxEjbBean.cil = new CiList();
-		}
-		else
-			System.out.println("WanduxEjbBean.cil = not null");
-		return WanduxEjbBean.cil;
-	}
+//	private void useCiList ()
+//	{
+//		if (WanduxEjbBean.cil == null)
+//			WanduxEjbBean.cil = new CiList();
+//	}
+//	
+//	public CiList getCiList ()
+//	{
+//		if (WanduxEjbBean.cil == null)
+//		{
+//			System.out.println("WanduxEjbBean.cil = null");
+//			WanduxEjbBean.cil = new CiList();
+//		}
+//		else
+//			System.out.println("WanduxEjbBean.cil = not null");
+//		return WanduxEjbBean.cil;
+//	}
 }
