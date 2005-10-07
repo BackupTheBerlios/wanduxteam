@@ -33,7 +33,7 @@ import pfe.migration.server.ejb.tool.XmlAdllParse;
  */
 public class WanduxEjbBean implements SessionBean
 {
-	public static CiList cil;
+	public static CiList cil = new CiList();
 	
 //	String AdllXmlFileName = "";
 	
@@ -89,6 +89,11 @@ public class WanduxEjbBean implements SessionBean
 	
 	public List getIps()
 	{
+		cil.add("192.168.0.1");
+		cil.add("192.168.0.2");
+		cil.add("192.168.0.3");
+		cil.add("192.168.0.4");
+		System.out.println(cil);
 		return cil.getListIp();	
 	}
 	

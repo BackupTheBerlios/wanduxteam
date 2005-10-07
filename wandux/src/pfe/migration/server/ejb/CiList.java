@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Set;
 
 import pfe.migration.client.network.ComputerInformation;
 
@@ -47,10 +47,12 @@ public class CiList
 	public List getListIp()
 	{
 		List l = new ArrayList();
-		Iterator i = ((Collection)m.values()).iterator();
+		
+		Set ensemble = m.entrySet();
+		Iterator i = ensemble.iterator();
 		while (i.hasNext())
 		{
-			Entry e = (Entry)i.next();
+			Map.Entry e = (Map.Entry) i.next(); 
 			l.add(e.getKey());
 		}
 		return l;

@@ -1,3 +1,4 @@
+
 package pfe.migration.server.ejb;
 
 import java.rmi.RemoteException;
@@ -12,6 +13,7 @@ import pfe.migration.server.monitor.CiList;
 
 public interface WanduxEjb extends EJBObject
 {
+
 	public void putIp(String ip) throws RemoteException;
 	public List getIps() throws RemoteException;
 	public void putCi(ComputerInformation ci) throws RemoteException;
@@ -29,5 +31,5 @@ public interface WanduxEjb extends EJBObject
 
 	public void createAdllXmlFile(ComputerInformation ci) throws RemoteException;
 	
-	public CiList getCiList () throws RemoteException; 
+//	public CiList getCiList () throws RemoteException; 
 }
