@@ -16,6 +16,9 @@
 	<property name="jar.client.pre.name" value="clientPre.jar"/>
 	<property name="jar.serverEjb.name" value="WanduxEjb.jar"/>
 	<property name="jar.monitor.name" value="webMonitor.war"/>
+
+	<property name="dir.frontEnd" value="webFrontEnd/"/>
+	<property name="jar.frontEnd.name" value="webFrontEnd.war"/>
 	<property environment="env"/>
 	<property name="jboss.dir" location="${env.JBOSS_HOME}" />
 	
@@ -101,7 +104,7 @@
 		
 	</target>
 
-	<target name="deploy" depends="make serverEjb jar,make client pre jar, make monitor war"> <!-- make client post jar ,make client pre jar " -->
+	<target name="deploy" depends="make serverEjb jar, make frontEnd war"> <!-- make client post jar ,make client pre jar " make client pre jar, make monitor war  -->
 		
 		<!-- copy todir="${dir.build}/" file="${dir.sources}/launchEJBClient.bat"/ -->
 		<!-- copy todir="${dir.build}/" file="${dir.sources}/makeEjbJar.bat"/ -->
@@ -110,7 +113,7 @@
 		<delete file="${jboss.dir}\server\default\deploy\${jar.serverEjb.name}" />
 		<copy todir="${jboss.dir}\server\default\deploy\">
 			<fileset dir="${dir.build}" includes="${jar.serverEjb.name}"/>
-			<fileset dir="${dir.build}" includes="${jar.monitor.name}"/>
+			<fileset dir="${dir.build}" includes="${jar.frontEnd.name}"/>
 		</copy>
 		
 	</target>
@@ -177,6 +180,18 @@
 	        	<include name="**/client/network/**/*.class"/>
 	        </fileset>
 	        <fileset dir="${dir.monitor}">
+		   		<include name="**/*.*"/>
+	        </fileset>
+	      </jar>
+	</target>
+	
+	<target name="make frontEnd war">
+	      <jar jarfile="${dir.build}/${jar.frontEnd.name}">
+	        <fileset dir="${dir.classes}">
+	        	<include name="**/client/network/**/*.class"/>
+	        	<include name="**/client/pre/app/web/**/*.class"/>
+	        </fileset>
+	        <fileset dir="${dir.frontEnd}">
 		   		<include name="**/*.*"/>
 	        </fileset>
 	      </jar>

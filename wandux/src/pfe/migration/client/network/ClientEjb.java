@@ -13,6 +13,7 @@ import net.sf.hibernate.HibernateException;
 
 import pfe.migration.client.pre.app.tools.DirCopy;
 import pfe.migration.client.pre.app.tools.FileCopy;
+
 import pfe.migration.server.ejb.WanduxEjb;
 import pfe.migration.server.ejb.WanduxEjbHome;
 import pfe.migration.server.ejb.bdd.LangInfo;
@@ -92,6 +93,11 @@ public class ClientEjb
 		System.out.println("transfer termine");
 	}
 
+	public WanduxEjb getBean()
+	{
+		return this.bean;
+	}
+	
 	public ComputerInformation getComputerInformation(String macaddr) throws RemoteException, HibernateException
 	{
 		try {
@@ -133,13 +139,13 @@ public class ClientEjb
 //	}
 
 // -- client monitoring --
-	public ClientMonitor makeTheClientMonitoring ()
-	{
-		ClientMonitor cm = null;
-		try {
-			cm = new ClientMonitor(bean.getCiList());
-		} catch (RemoteException e) { e.printStackTrace(); }
-		return cm;
-	}
+//	public ClientMonitor makeTheClientMonitoring ()
+//	{
+//		ClientMonitor cm = null;
+//		try {
+//			cm = new ClientMonitor(bean.getCiList());
+//		} catch (RemoteException e) { e.printStackTrace(); }
+//		return cm;
+//	}
 	
 }
