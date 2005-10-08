@@ -16,6 +16,20 @@
     var last_ip = "no";
     var temp;
     
+    function init_trees()
+	{
+<%
+				ClientEjb ce = (ClientEjb)application.getAttribute("ClientEjb");
+				WanduxEjb bean = ce.getBean();
+				List cl = bean.getIps();
+				int i;
+				for (i=0; i < cl.size(); i++)
+				{
+					out.print("this['tree'+'" + cl.get(i) +"'] = 0;\n");
+				}
+%>
+    }
+    
     function isdefined(variable)
 	{
     	return (typeof(window[variable]) == "undefined")?  false: true;
@@ -25,7 +39,6 @@
 	{
 		if (document.myform.machine.value != 'none')
 		{
-			alert("loading : xml/" + document.myform.machine.value + ".xml");
 			if (last_ip != "no")
 			{
 				temp = document.getElementById('treeBox'+last_ip);
@@ -33,44 +46,53 @@
 				temp.style.width = 0;
 				temp.style.height = 0;
 			}
+			temp = document.getElementById('none');
+			temp.style.visibility = 'hidden';
+			temp.style.width = 0;
+			temp.style.height = 0;
 			
 			temp = document.getElementById('treeBox'+document.myform.machine.value);
 			temp.style.visibility = 'visible';
 			temp.style.width = 200;
 			temp.style.height = 200;
-			tree = new dhtmlXTreeObject(document.getElementById('treeBox'+document.myform.machine.value),"100%","100%",0);
-			tree.setImagePath("img/tree/");
-			tree.loadXML("xml/" + document.myform.machine.value + ".xml");
-			tree.enableCheckBoxes(true);
-			tree.enableThreeStateCheckboxes(true);
+			if (this['tree'+document.myform.machine.value] == 0)
+			{
+				alert("loading : xml/" + document.myform.machine.value + ".xml");
+				this['tree'+document.myform.machine.value] = new dhtmlXTreeObject(document.getElementById('treeBox'+document.myform.machine.value),"100%","100%",0);
+				this['tree'+document.myform.machine.value].setImagePath("img/tree/");
+				this['tree'+document.myform.machine.value].enableCheckBoxes(true);
+				this['tree'+document.myform.machine.value].enableThreeStateCheckboxes(true);
+				this['tree'+document.myform.machine.value].loadXML("xml/" + document.myform.machine.value + ".xml");
+			}
+			last_ip  = document.myform.machine.value;
 		}
-		last_ip  = document.myform.machine.value;
+		else
+		{
+			temp = document.getElementById('none');
+			temp.style.visibility = 'visible';
+			temp.style.width = 200;
+			temp.style.height = 200;
+		}
 	}
 	</script>
-    <BODY>
+    <BODY onLoad="init_trees();">
 	<TABLE>
 	<tr>
-		<td align=left>
-			<img src="img/wandux.gif">
-		</td>
-		<td align=left>
-			&nbsp;&nbsp;<b>Wandux Administration Page</b>
+		<td align=left colspan=2>
+			<img src="img/barrewandux.bmp">
 		</td>
 	</tr>
 	<tr>
 		<td valign=top>
-			<FORM name="myform" action="finish.jsp" method="post">
+			<FORM name="myform" action="test.jsp" method="post">
 			<div id="select_ip">
 				<SELECT name="machine" onChange="selectMachine();">
+				<OPTION value=\"none\">none</OPTION>
 				
 <%
-				ClientEjb ce = (ClientEjb)application.getAttribute("ClientEjb");
-				WanduxEjb bean = ce.getBean();
-				List cl = bean.getIps();
-				int i;
 				for (i=0; i < cl.size(); i++)
 				{
-					out.print("<OPTION value=\"" + cl.get(i) +"\">" + cl.get(i) + "</OPTION>");
+					out.print("<OPTION value=\"" + cl.get(i) +"\">" + cl.get(i) + "</OPTION>\n");
 				}
 %>
 				
@@ -78,21 +100,25 @@
 			</div>
 		</td>
 		<td>
+		<div id="none" style=\"width:200;height:200;visibility:visible\">
+		<br><br><center>Choose a machine please<center>
+		</div>
 <%				for (i=0; i < cl.size(); i++)
 				{
-					out.print("<div id=\"treeBox" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden\"></div");
+					out.print("<div id=\"treeBox" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden\"></div>\n");
 				}
 %>
 		</td>
 	</tr>
 	<tr>
 		<td align=left>
-			<a href="javascript:void(0);" onclick="alert(tree.getAllChecked());">Get list of checked</a>
+			<a href="javascript:void(0);" onclick="alert(this['tree'+document.myform.machine.value].getAllChecked());">Get list of checked</a>
 		</td>
 		<td align=right>
-			<a href="test.jsp"><img src="img/go.gif" border=0></a>
+			<a href="javascript:document.myform.paths.value = this['tree'+document.myform.machine.value].getAllChecked();document.myform.submit();"><img src="img/go.gif" border=0></a>
 		</td>
 	</tr>
+	<INPUT name="paths" type="hidden">
 	</FORM>
 	</TABLE>
     </BODY>

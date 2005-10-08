@@ -8,16 +8,13 @@
     
     <TABLE>
 	<tr>
-		<td align=left>
-			<img src="img/wandux.gif">
-		</td>
-		<td align=left>
-			&nbsp;&nbsp;<b>Wandux Administration Page</b>
+		<td align=left colspan=2>
+			<img src="img/barrewandux.bmp">
 		</td>
 	</tr>
 	<tr>
 		<td colspan=2 valign=top>
-			Please, enter here the IP Adress of the application server:<br><br>
+			<br><b>&nbsp;&nbsp;&nbsp;Please, enter here the IP Adress of the application server:</b><br><br>
 			<center><FORM action="connect.jsp" method="post">
 			<INPUT type="text" name="ipadress" size=16>
 			<INPUT type="image" src="img/go.gif">

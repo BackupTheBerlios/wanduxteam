@@ -7,18 +7,15 @@
     <BODY>
         <TABLE>
 	<tr>
-		<td align=left>
-			<img src="img/wandux.gif">
-		</td>
-		<td align=left>
-			&nbsp;&nbsp;<b>Wandux Administration Page</b>
+		<td align=left colspan=2>
+			<img src="img/barrewandux.bmp">
 		</td>
 	</tr>
 	<tr>
 		<td colspan=2 valign=top>
 			<center>
-	<br><br><br>
-	Trying to connect to Wandux Server on :<br><br>
+	<br><br>
+	<b>Trying to connect to Wandux Server on :</b><br><br>
 	<%
 		String[] ipServer;
 		ipServer = (String[])request.getParameterValues("ipadress");
@@ -40,7 +37,7 @@
 		}
 		if (ce.IsConnected() == false) {
 		%>
-		<DIV class="alert">Cannot etablish connection.<br><br></DIV>
+		<DIV class="alert"><b>Cannot etablish connection.<b><br><br></DIV>
 		Retry connectint with the same adresse or change it below :<br>
 		<FORM action="connect.jsp" method="post">
 		<INPUT type="text" name="ipadress" size=16>
@@ -49,7 +46,7 @@
 		<%
 		} else {
 		%>
-		<DIV class="succes">Successfully Connected to <%out.print(ipServer[0]);%>.<br><br></DIV><br><br>
+		<DIV class="succes"><b>Successfully Connected to <%out.print(ipServer[0]);%></b><br><br></DIV><br><br>
 		<a href="admin.jsp"><img src="img/go.gif" border=0></a>
 		<%
 		}

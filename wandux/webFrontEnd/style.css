@@ -1,14 +1,19 @@
-#welcome {
+body {
+font-family: arial, helvetica;
+color: #000000;
+}
+
+.welcome {
 font-family: arial, helvetica;
 color: #FF2200;
 }
 
-#succes {
+.succes {
 font-family: arial, helvetica;
-color: #00FF00;
+color: #3FAD26;
 }
 
-#alert {
+.alert {
 font-family: arial, helvetica;
 color: #FF0000;
 }
