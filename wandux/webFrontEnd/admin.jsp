@@ -11,7 +11,13 @@
     <script language="JavaScript" src="js/tree/dhtmlXCommon.js"></script>
     <script language="JavaScript" src="js/tree/dhtmlXTree.js"></script>
     <script language="JavaScript">
-    
+ 
+<%				ClientEjb ce = (ClientEjb)application.getAttribute("ClientEjb");
+				WanduxEjb bean = ce.getBean();
+				List cl = bean.getIps();
+				int i;
+%>
+
     var tree;
     var last_ip = "no";
     var temp;
@@ -19,10 +25,6 @@
     function init_trees()
 	{
 <%
-				ClientEjb ce = (ClientEjb)application.getAttribute("ClientEjb");
-				WanduxEjb bean = ce.getBean();
-				List cl = bean.getIps();
-				int i;
 				for (i=0; i < cl.size(); i++)
 				{
 					out.print("this['tree'+'" + cl.get(i) +"'] = 0;\n");
@@ -53,11 +55,10 @@
 			
 			temp = document.getElementById('treeBox'+document.myform.machine.value);
 			temp.style.visibility = 'visible';
-			temp.style.width = 200;
-			temp.style.height = 200;
+			temp.style.width = 650;
+			temp.style.height = 400;
 			if (this['tree'+document.myform.machine.value] == 0)
 			{
-				alert("loading : xml/" + document.myform.machine.value + ".xml");
 				this['tree'+document.myform.machine.value] = new dhtmlXTreeObject(document.getElementById('treeBox'+document.myform.machine.value),"100%","100%",0);
 				this['tree'+document.myform.machine.value].setImagePath("img/tree/");
 				this['tree'+document.myform.machine.value].enableCheckBoxes(true);
@@ -70,51 +71,54 @@
 		{
 			temp = document.getElementById('none');
 			temp.style.visibility = 'visible';
-			temp.style.width = 200;
-			temp.style.height = 200;
+			temp.style.width = 650;
+			temp.style.height = 400;
 		}
 	}
+		
 	</script>
     <BODY onLoad="init_trees();">
-	<TABLE>
+	<TABLE border=0>
 	<tr>
-		<td align=left colspan=2>
-			<img src="img/barrewandux.bmp">
+		<td align="left" valign="down" colspan="2" width="800" height="82">
+			<img src="img/barrewandux.bmp" border=0>
 		</td>
 	</tr>
 	<tr>
-		<td valign=top>
+		<td valign="top" width="150" height="400" style="background-image: url(img/barre_grise.jpg);">
 			<FORM name="myform" action="test.jsp" method="post">
-			<div id="select_ip">
 				<SELECT name="machine" onChange="selectMachine();">
-				<OPTION value=\"none\">none</OPTION>
-				
-<%
-				for (i=0; i < cl.size(); i++)
+				<OPTION value=\"none\">none</OPTION>				
+<%				for (i=0; i < cl.size(); i++)
 				{
 					out.print("<OPTION value=\"" + cl.get(i) +"\">" + cl.get(i) + "</OPTION>\n");
-				}
-%>
-				
+				}%>
 				</SELECT>
 			</div>
 		</td>
-		<td>
-		<div id="none" style=\"width:200;height:200;visibility:visible\">
-		<br><br><center>Choose a machine please<center>
+		<td width="650" height="400">
+
+
+
+
+
+		<div id="none" style=\"width:650;height:400;visibility:visible;position:absolute;top:120;left:160;\">
+		<br><br><center><b>Please, choose a computer to migrate in the list on the left of your screen.</b><center>
 		</div>
 <%				for (i=0; i < cl.size(); i++)
 				{
-					out.print("<div id=\"treeBox" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden\"></div>\n");
+					out.print("<div id=\"treeBox" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;\"><b>This tree represent the whole Windows file system of " + cl.get(i) + ".<br><br> Please, select the files and folders that you want to migrate on the new Linux system using this tree :</b><br><br></div>\n");
 				}
 %>
+
+
+
+
+
 		</td>
 	</tr>
 	<tr>
-		<td align=left>
-			<a href="javascript:void(0);" onclick="alert(this['tree'+document.myform.machine.value].getAllChecked());">Get list of checked</a>
-		</td>
-		<td align=right>
+	<td align=right colspan=2 width="800" height="40">
 			<a href="javascript:document.myform.paths.value = this['tree'+document.myform.machine.value].getAllChecked();document.myform.submit();"><img src="img/go.gif" border=0></a>
 		</td>
 	</tr>
