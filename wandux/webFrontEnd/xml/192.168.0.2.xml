@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<tree id="0">
+	<item text="C:" id="C:" im0="leaf.gif" im1="folderOpen.gif" im2="folderClosed.gif">
+		<item text="System2" id="C:/System" im0="leaf.gif" im1="folderOpen.gif" im2="folderClosed.gif">
+			<item text="config2.sys" id="C:/System/config.sys" im0="leaf.gif" im1="folderOpen.gif" im2="folderClosed.gif"></item>
+			<item text="winconf2.ini" id="C:/System/winconf.ini" im0="leaf.gif" im1="folderOpen.gif" im2="folderClosed.gif"></item>
+			<item text="NTDLR2" id="C:/System/NTDLR" im0="leaf.gif" im1="folderOpen.gif" im2="folderClosed.gif"></item>
+			<item text="program2.exe" id="C:/System/program.exe" im0="leaf.gif" im1="folderOpen.gif" im2="folderClosed.gif"></item>
+		</item>
+		<item text="Temp2" id="C:/Temp" im0="leaf.gif" im1="folderOpen.gif" im2="folderClosed.gif">
+			<item text="tempfile2.jpg" id="C:/Temp/tempfile.jpg" im0="leaf.gif" im1="folderOpen.gif" im2="folderClosed.gif"></item>
+			<item text="tempfile2.exe" id="C:/Temp/tempfile.exe" im0="leaf.gif" im1="folderOpen.gif" im2="folderClosed.gif"></item>
+			<item text="tempfile2.html" id="C:/Temp/tempfile.html" im0="leaf.gif" im1="folderOpen.gif" im2="folderClosed.gif"></item>
+		</item>	
+	</item>
+	<item text="D:" id="D:" im0="leaf.gif" im1="folderOpen.gif" im2="folderClosed.gif">
+		<item text="Archives2" id="D:/Archives" im0="leaf.gif" im1="folderOpen.gif" im2="folderClosed.gif">
+			<item text="film2.avi" id="D:/Archives/film.avi" im0="leaf.gif" im1="folderOpen.gif" im2="folderClosed.gif"></item>
+			<item text="document2.doc" id="D:/Archives/document.doc" im0="leaf.gif" im1="folderOpen.gif" im2="folderClosed.gif"></item>
+			<item text="archive2.zip" id="D:/Archives/archive.zip" im0="leaf.gif" im1="folderOpen.gif" im2="folderClosed.gif"></item>
+		</item>
+	</item>
+</tree> 
