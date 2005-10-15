@@ -32,7 +32,7 @@ import pfe.migration.client.pre.app.tools.WorkQueue;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class WanduxApp implements WanduxAppListener
+public class WanduxAppOld implements WanduxAppListener
 {
 	private JPanel jContentPane = null;
 	private JFrame jFrame = null;  //  @jve:decl-index=0:visual-constraint="75,55"
@@ -49,7 +49,7 @@ public class WanduxApp implements WanduxAppListener
 	private WorkQueue wq = null;
 	
 	// -- initialisation -- //
-	public WanduxApp()
+	public WanduxAppOld()
 	{
 		wq = new WorkQueue(10); 
 		
@@ -137,7 +137,7 @@ public class WanduxApp implements WanduxAppListener
 	
   	public static void main(String[] args)
 	{
-		new WanduxApp();
+		new WanduxAppOld();
 	}
   	
   	// -- les differents cas -- //
