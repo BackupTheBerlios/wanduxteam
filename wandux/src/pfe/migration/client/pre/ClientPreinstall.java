@@ -27,6 +27,11 @@ import pfe.migration.client.network.ClientEjb;
 */
 public class ClientPreinstall extends javax.swing.JPanel {
 
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private List list;
 
 	private ClientEjb ce = null;

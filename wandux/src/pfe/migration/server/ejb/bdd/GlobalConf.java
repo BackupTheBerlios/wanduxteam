@@ -8,7 +8,12 @@ import pfe.migration.server.ejb.bdd.base.BaseGlobalConf;
  */
 public class GlobalConf extends BaseGlobalConf {
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
+/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/*[CONSTRUCTOR MARKER BEGIN]*/
 	public GlobalConf () {
 		super();
 	}

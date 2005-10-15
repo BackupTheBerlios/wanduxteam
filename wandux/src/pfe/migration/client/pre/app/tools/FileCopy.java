@@ -113,6 +113,15 @@ public class FileCopy {
 			}
 	}
 	
+	public static void main(String args[])
+	{
+/*		DirCopy.CopyRec("C:\\Documents and Settings\\Corn\\Favoris" , "C:\\pouet");
+		FileCopy.CopyRec("C:\\Documents and Settings\\Corn\\Favoris" , "C:\\pouet");
+		FileCopy.CopyRec("C:\\Documents and Settings\\Corn\\Application Data\\Microsoft\\Address Book\\wandux.wab", "C:\\pouet");
+
+		CopyRec("C:\\wandux\\hehe.txt","C:\\test2"); 
+*/
+	}
 	
 	
 	

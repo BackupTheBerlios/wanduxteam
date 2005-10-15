@@ -23,7 +23,11 @@ import java.awt.*;
  * wraps the original button model and does state management.
  */
 public class TristateCheckBox extends JCheckBox{
-    private final TristateDecorator model;
+    /**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 1L;
+	private final TristateDecorator model;
 
     public TristateCheckBox(String text, Icon icon, Boolean initial){
         super(text, icon);
@@ -36,7 +40,12 @@ public class TristateCheckBox extends JCheckBox{
         });
         // Reset the keyboard action map
         ActionMap map = new ActionMapUIResource();
-        map.put("pressed", new AbstractAction(){      //NOI18N
+        map.put("pressed", new AbstractAction(){      /**
+			 * Comment for <code>serialVersionUID</code>
+			 */
+			private static final long serialVersionUID = 1L;
+
+		//NOI18N
             public void actionPerformed(ActionEvent e){
                 grabFocus();
                 model.nextState();

@@ -8,7 +8,7 @@ package pfe.migration.client.pre.app.apparence.steps;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.rmi.RemoteException;
+//import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.Vector;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
-import net.sf.hibernate.HibernateException;
+//import net.sf.hibernate.HibernateException;
 
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
@@ -40,6 +40,10 @@ import pfe.migration.server.ejb.bdd.UsersData;
  */
 public class UserNetStep extends JPanel
 {
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 1L;
 	private ComputerInformation ci = null;
 	
 	public UserNetStep(ClientEjb ce)

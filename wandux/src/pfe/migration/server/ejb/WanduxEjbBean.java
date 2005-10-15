@@ -33,7 +33,15 @@ import pfe.migration.server.ejb.tool.XmlAdllParse;
  */
 public class WanduxEjbBean implements SessionBean
 {
+
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 1L;
+	//public static CiList cil;
+
 	public static CiList cil = new CiList();
+
 	
 //	String AdllXmlFileName = "";
 	

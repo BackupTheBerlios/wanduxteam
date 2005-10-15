@@ -1,7 +1,7 @@
 package pfe.migration.client.network;
 
 import java.rmi.RemoteException;
-import java.util.Iterator;
+//import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -11,13 +11,18 @@ import javax.naming.InitialContext;
 
 import net.sf.hibernate.HibernateException;
 
-import pfe.migration.client.pre.app.tools.DirCopy;
-import pfe.migration.client.pre.app.tools.FileCopy;
+
+//import pfe.migration.client.pre.app.tools.DirCopy;
+//import pfe.migration.client.pre.app.tools.FileCopy;
+
+//import pfe.migration.client.pre.app.tools.DirCopy;
+//import pfe.migration.client.pre.app.tools.FileCopy;
+
 
 import pfe.migration.server.ejb.WanduxEjb;
 import pfe.migration.server.ejb.WanduxEjbHome;
-import pfe.migration.server.ejb.bdd.LangInfo;
-import pfe.migration.server.monitor.ClientMonitor;
+//import pfe.migration.server.ejb.bdd.LangInfo;
+//import pfe.migration.server.monitor.ClientMonitor;
 
 /**
  * @author dup
@@ -26,7 +31,7 @@ import pfe.migration.server.monitor.ClientMonitor;
  */
 public class ClientEjb
 {
-	private ClientMonitor cm = null;
+	//private ClientMonitor cm = null;
 	private static String SERVER_EJB_NAME = "";
 	protected WanduxEjb bean = null;
 	

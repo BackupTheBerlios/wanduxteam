@@ -37,11 +37,11 @@ public class LanguageSettings {
 			aKey = com.ice.jni.registry.Registry.HKEY_CURRENT_USER
 					.openSubKey("Keyboard Layout\\Preload");
 
-			Enumeration enum = aKey.valueElements();
+			Enumeration enumeration = aKey.valueElements();
 			ArrayList locallanglist = new ArrayList();
 
-			while (enum.hasMoreElements()) {
-				subkeyval = (String) enum.nextElement();
+			while (enumeration.hasMoreElements()) {
+				subkeyval = (String) enumeration.nextElement();
 				mslangid = aKey.getStringValue(subkeyval);
 				// Retreival of local MS language Hex codes
 				if (mslangid != null)

@@ -8,8 +8,8 @@ package pfe.migration.client.pre.app;
 
 import pfe.migration.client.pre.system.KeyVal;
 
-import com.ice.jni.registry.NoSuchKeyException;
-import com.ice.jni.registry.RegistryException;
+//import com.ice.jni.registry.NoSuchKeyException;
+//import com.ice.jni.registry.RegistryException;
 import com.ice.jni.registry.RegistryKey;
 
 /**

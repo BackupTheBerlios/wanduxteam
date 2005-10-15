@@ -11,7 +11,11 @@ import javax.swing.tree.TreeSelectionModel;
 
 
 public class CheckTreeSelectionModel extends DefaultTreeSelectionModel{ 
-    private TreeModel model; 
+    /**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 1L;
+	private TreeModel model; 
  
     public CheckTreeSelectionModel(TreeModel model){ 
         this.model = model; 

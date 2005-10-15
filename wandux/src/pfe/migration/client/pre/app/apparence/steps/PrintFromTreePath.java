@@ -21,6 +21,11 @@ import javax.swing.JScrollPane;
 public class PrintFromTreePath extends JPanel
 {
 
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public PrintFromTreePath(String[] tp)
 	{
 		JList jl = new JList(tp);

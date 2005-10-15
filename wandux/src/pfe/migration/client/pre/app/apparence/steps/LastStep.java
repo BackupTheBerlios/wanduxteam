@@ -20,6 +20,11 @@ import pfe.migration.client.network.ClientEjb;
  */
 public class LastStep extends JPanel
 {
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public LastStep(final ClientEjb ce)
 	{
 		JButton fin = new JButton("Fin");

@@ -20,6 +20,10 @@ import javax.swing.JProgressBar;
  */
 public class ProgressBarStep extends JPanel
 {
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 1L;
 	private JProgressBar jpb = null;
 	private JLabel jl = null;
 	private JLabel topText = null;

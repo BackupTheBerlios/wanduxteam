@@ -29,6 +29,10 @@ public class ComputerInformation implements Serializable
 //	 private InformationProgram = null; // en attendant
 //	 private int infnbprog = 0;
 
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 1L;
 	public GlobalConf gconf = null;
 	public UsersData udata = null;
 	public NetworkConfig netconf = null;

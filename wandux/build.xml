@@ -13,9 +13,9 @@
 	<property name="dir.utils" value="utils"/>
 	<property name="bakup.name" value="bakup\bakup.rar"/>
 	<property name="jar.client.post.name" value="clientPost.jar"/>
-	<property name="jar.client.pre.name" value="clientPre.jar"/>
-	<property name="jar.serverEjb.name" value="WanduxEjb.jar"/>
-	<property name="jar.monitor.name" value="webMonitor.war"/>
+	<property name="jar.client.pre.name" value="WanduxAgent.jar"/>
+	<property name="jar.serverEjb.name" value="WanduxServer.jar"/>
+	<property name="jar.monitor.name" value="WanduxMonitor.war"/>
 
 	<property name="dir.frontEnd" value="webFrontEnd/"/>
 	<property name="jar.frontEnd.name" value="webFrontEnd.war"/>
@@ -104,7 +104,7 @@
 		
 	</target>
 
-	<target name="deploy" depends="make serverEjb jar, make frontEnd war"> <!-- make client post jar ,make client pre jar " make client pre jar, make monitor war  -->
+	<target name="deploy" depends="make serverEjb jar, make frontEnd war, make client pre jar"> <!-- make client post jar ,make client pre jar " make client pre jar, make monitor war  -->
 		
 		<!-- copy todir="${dir.build}/" file="${dir.sources}/launchEJBClient.bat"/ -->
 		<!-- copy todir="${dir.build}/" file="${dir.sources}/makeEjbJar.bat"/ -->

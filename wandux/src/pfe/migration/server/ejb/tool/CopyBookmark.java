@@ -9,8 +9,8 @@ package pfe.migration.server.ejb.tool;
 import java.io.IOException;
 
 import pfe.migration.client.network.ComputerInformation;
-import pfe.migration.client.pre.app.tools.DirCopy;
-import pfe.migration.client.pre.app.tools.FileCopy;
+//import pfe.migration.client.pre.app.tools.DirCopy;
+//import pfe.migration.client.pre.app.tools.FileCopy;
 
 /**
  * @author dupadmin

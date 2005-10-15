@@ -19,6 +19,10 @@ import java.awt.event.MouseListener;
  */
 public class ButtonImageCanvas extends ImageCanvas implements MouseListener {
 
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 1L;
 	protected Image img;
 	protected Image pushedImg;
 	protected boolean state = true;

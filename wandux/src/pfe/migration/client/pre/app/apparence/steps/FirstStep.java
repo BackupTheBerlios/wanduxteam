@@ -20,6 +20,10 @@ import javax.swing.JTextField;
  */
 public class FirstStep extends JPanel
 {
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField text = null;
 	
 	public FirstStep()

@@ -35,6 +35,10 @@ import java.awt.MediaTracker;
  */
 public class Img extends Canvas
 {
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 1L;
 	private Image image;
 	
   public Img(Image img)

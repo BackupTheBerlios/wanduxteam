@@ -41,6 +41,11 @@ import pfe.migration.client.pre.system.FileSystemModel;
  */
 public class JTreeWithCheckbox extends JPanel implements ActionListener
 {
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Map pathList = null;
 	
 	private JSplitPane 	jSplitPaneLocalFs = null;

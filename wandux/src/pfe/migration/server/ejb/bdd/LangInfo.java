@@ -8,7 +8,12 @@ import pfe.migration.server.ejb.bdd.base.BaseLangInfo;
  */
 public class LangInfo extends BaseLangInfo {
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
+/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/*[CONSTRUCTOR MARKER BEGIN]*/
 	public LangInfo () {
 		super();
 	}

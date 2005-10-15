@@ -34,6 +34,10 @@ import javax.swing.JTextField;
  */
 public class EnterIpView extends JPanel implements KeyListener
 {
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 1L;
 	private ChangeFirstView listener = null;
 	private JTextField text = null;
 	private JButton jButton_ok;

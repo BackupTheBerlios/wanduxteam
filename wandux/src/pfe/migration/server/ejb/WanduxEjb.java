@@ -9,7 +9,7 @@ import javax.ejb.EJBObject;
 import net.sf.hibernate.HibernateException;
 
 import pfe.migration.client.network.ComputerInformation;
-import pfe.migration.server.monitor.CiList;
+// import pfe.migration.server.monitor.CiList;
 
 public interface WanduxEjb extends EJBObject
 {

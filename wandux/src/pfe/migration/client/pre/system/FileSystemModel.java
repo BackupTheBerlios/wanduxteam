@@ -86,7 +86,11 @@ public class FileSystemModel implements TreeModel {
         listeners.remove(listener);
     }
     private class TreeFile extends File {
-        public TreeFile(File parent, String child) {
+        /**
+		 * Comment for <code>serialVersionUID</code>
+		 */
+		private static final long serialVersionUID = 1L;
+		public TreeFile(File parent, String child) {
             super(parent, child);
             
         }
