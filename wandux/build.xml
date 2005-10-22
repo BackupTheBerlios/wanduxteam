@@ -61,6 +61,7 @@
 		<echo message="creation des repertoires et copies des fichiers xml de adll"/>
 		<mkdir dir="c:\wandux\adll\" />
 		<mkdir dir="c:\wandux\output\" />
+		<mkdir dir="${dir.build}"/>
 		<copy todir="c:\wandux\adll\">
 			<fileset dir="${dir.utils}\adll\" includes="adll.dtd"/>
 			<fileset dir="${dir.utils}\adll\" includes="mandrake_10_1_FR.xml"/>
@@ -112,6 +113,7 @@
 		<!-- les choses annexes -->
 		
 		<delete file="${jboss.dir}\server\default\deploy\${jar.serverEjb.name}" />
+		<delete file="${jboss.dir}\server\default\deploy\${jar.frontEnd.name}" />
 		<copy todir="${jboss.dir}\server\default\deploy\">
 			<fileset dir="${dir.build}" includes="${jar.serverEjb.name}"/>
 			<fileset dir="${dir.build}" includes="${jar.frontEnd.name}"/>
