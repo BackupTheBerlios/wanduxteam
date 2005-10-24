@@ -146,7 +146,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td valign="top" width="150" height="600" style="background-image: url(img/barre_grise.jpg);">
+		<td valign="top" width="150" height="400" style="background-image: url(img/barre_grise.jpg);">
 			<FORM name="myform" action="test.jsp" method="post">
 				<SELECT name="machine" onChange="selectMachine();">
 				<OPTION value="none">none</OPTION>				
