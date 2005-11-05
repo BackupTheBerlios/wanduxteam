@@ -26,21 +26,25 @@ public class IpConfig
 	
 	public static List outpout = new ArrayList();
 	
-   public IpConfig() throws IOException
+   public IpConfig()
    {
       String command = "ipconfig /all";
-      Process pid = Runtime.getRuntime().exec(command);
-      BufferedReader in =
-         new BufferedReader(
-         new InputStreamReader(pid.getInputStream()));
+      Process pid;
+	try {
+		pid = Runtime.getRuntime().exec(command);
+		
+	      BufferedReader in =
+	          new BufferedReader(
+	          new InputStreamReader(pid.getInputStream()));
 
-      while (true) {
-         String line = in.readLine();
-         outpout.add(line);
-         if (line == null)
-            break;
-      }
-      in.close();
+	       while (true) {
+	          String line = in.readLine();
+	          outpout.add(line);
+	          if (line == null)
+	             break;
+	       }
+	       in.close();
+	} catch (IOException e) { e.printStackTrace(); System.err.println("erreur I/O du construteur de la class ipconfig"); }
    }
 
    public String GetMac()
