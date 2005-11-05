@@ -88,7 +88,7 @@ public class FileSystemXml {
 				}
 			}
 		}
-		writeXMLfile("utils/FileSystemXml/FileSystem.xml");
+		writeXMLfile("FileSystemXml/FileSystem.xml");
 	}
 
 	static void writeXMLfile(String fichier) {
