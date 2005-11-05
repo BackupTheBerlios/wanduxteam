@@ -22,6 +22,8 @@ import java.util.regex.Pattern;
  */
 public class IpConfig
 {
+	// TODO si on doit continue dans cette voie la, il faut choper tte les interfaces, (possible avec une map, mais surtout savoir si quel interface est valide)
+	
 	public static List outpout = new ArrayList();
 	
    public IpConfig() throws IOException
@@ -108,6 +110,7 @@ public class IpConfig
 	   }
 	   return res;
    }
+   
    public String GetGate()
    {
 	   String res = "";
@@ -115,6 +118,74 @@ public class IpConfig
 	   for (int i = 0; i < outpout.size(); i++)
 	   {
 		   Pattern p = Pattern.compile(".*Passerelle par défaut.*: (.*)");
+		   Matcher m = p.matcher(((String)outpout.get(i)));
+		   if (m.matches())
+		   {
+			   res = m.group(1);
+			   break;
+		   }
+	   }
+	   return res;
+   }
+   
+   public String GetHostname()
+   {
+	   String res = "";
+
+	   for (int i = 0; i < outpout.size(); i++)
+	   {
+		   Pattern p = Pattern.compile(".*Nom de l'hôte.*: (.*)");
+		   Matcher m = p.matcher(((String)outpout.get(i)));
+		   if (m.matches())
+		   {
+			   res = m.group(1);
+			   break;
+		   }
+	   }
+	   return res;
+   }
+   
+   public String GetDNSSuffixe()
+   {
+	   String res = "";
+
+	   for (int i = 0; i < outpout.size(); i++)
+	   {
+		   Pattern p = Pattern.compile(".*Suffixe DNS principal.*: (.*)");
+		   Matcher m = p.matcher(((String)outpout.get(i)));
+		   if (m.matches())
+		   {
+			   res = m.group(1);
+			   break;
+		   }
+	   }
+	   return res;
+   }
+	
+   public String GetSeekingDNSSuffixe()
+   {
+	   String res = "";
+
+	   for (int i = 0; i < outpout.size(); i++)
+	   {
+		   Pattern p = Pattern.compile(".*Liste de recherche du suffixe DNS.*: (.*)");
+		   Matcher m = p.matcher(((String)outpout.get(i)));
+		   if (m.matches())
+		   {
+			   res = m.group(1);
+			   break;
+		   }
+	   }
+	   return res;
+   }
+
+   public String GetDescription()
+   {
+	   String res = "";
+
+	   for (int i = 0; i < outpout.size(); i++)
+	   {
+		   Pattern p = Pattern.compile(".*Description.*: (.*)");
 		   Matcher m = p.matcher(((String)outpout.get(i)));
 		   if (m.matches())
 		   {
