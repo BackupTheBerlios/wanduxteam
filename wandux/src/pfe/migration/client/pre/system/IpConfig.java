@@ -81,7 +81,7 @@ public class IpConfig
 	   return res;
    }
 
-   public boolean GetDHCPEnable()
+   public java.lang.Byte GetDHCPEnable()
    {
 	   String res = "";
 
@@ -95,7 +95,7 @@ public class IpConfig
 			   break;
 		   }
 	   }
-	   return res=="oui"?true:false;
+	   return (res=="oui"?new Byte("1"):new Byte("0"));
    }
 
    public String GetNetmask()
