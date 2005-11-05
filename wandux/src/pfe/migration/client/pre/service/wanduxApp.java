@@ -1,6 +1,7 @@
 package pfe.migration.client.pre.service;
 
-import pfe.migration.server.ejb.tool.FileSystemXml;
+//import pfe.migration.server.ejb.tool.FileSystemXml;
+import pfe.migration.server.ejb.tool.FsXmlst;
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.server.ejb.tool.XmlRetrieve;
@@ -25,8 +26,10 @@ public class wanduxApp
 		getIp();
 		if (makeConnection() == true)
 			System.out.println("connection etablie ...");
-		new FileSystemXml();
+		// new FileSystemXml();
+		new FsXmlst();
 		// send xml file to server or use ci ?
+		System.out.println("FileSystemXml Finish");
 	}
 
 	/**
