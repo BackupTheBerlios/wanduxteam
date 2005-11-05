@@ -1,9 +1,13 @@
 package pfe.migration.client.pre.service;
 
 //import pfe.migration.server.ejb.tool.FileSystemXml;
-import pfe.migration.server.ejb.tool.FsXmlst;
+import java.io.IOException;
+
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
+import pfe.migration.client.pre.system.IpConfig;
+import pfe.migration.server.ejb.bdd.NetworkConfig;
+import pfe.migration.server.ejb.tool.FsXmlst;
 import pfe.migration.server.ejb.tool.XmlRetrieve;
 
 public class wanduxApp
@@ -26,12 +30,30 @@ public class wanduxApp
 		getIp();
 		if (makeConnection() == true)
 			System.out.println("connection etablie ...");
+		if (this.ce.IsConnected() == false)
+			return ;
+		
+		// TODO ne pas mettre du code a l arrache (CYRILL vire cette merde)
 		// new FileSystemXml();
 		new FsXmlst();
 		// send xml file to server or use ci ?
 		System.out.println("FileSystemXml Finish");
+		
+		fillNetworkInCI();
 	}
 
+	private void fillNetworkInCI()
+	{
+		IpConfig ipconf = new IpConfig();
+		NetworkConfig nc = new NetworkConfig();
+		nc.setNetworkDhcpEnabled(ipconf.GetDHCPEnable());
+		nc.setNetworkGateway(ipconf.GetGate());
+		nc.setNetworkIpAddress(ipconf.GetIp());
+		nc.setNetworkMacAdress(ipconf.GetMac());
+		nc.setNetworkSubnetmask(ipconf.GetNetmask());
+		this.ci.setInfoNetwork(nc);
+	}
+		
 	/**
 	 * TODO on utilise le fichier wanduxServerIp.xml contenu dans utils\wanduxServerIp\
 	 * pour recuperer l'ip du server sur lequel le client doit se connecter. 
