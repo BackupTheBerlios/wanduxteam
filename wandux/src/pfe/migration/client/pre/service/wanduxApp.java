@@ -16,7 +16,7 @@ public class wanduxApp
 
 	private String applicationServerIp = "";
 	
-	private ComputerInformation ci = null;
+	private ComputerInformation ci = new ComputerInformation();
 	private ClientEjb ce = null;
 	//private WorkQueue wq = null;
 
@@ -44,6 +44,7 @@ public class wanduxApp
 		try {
 			this.ce.getBean().putCi(this.ci);
 		} catch (RemoteException e) { e.printStackTrace(); }
+		System.out.println("information recupere et envoyer");
 	}
 
 	private void fillNetworkInCI()
@@ -65,7 +66,8 @@ public class wanduxApp
 	private void getIp()
 	{
 		XmlRetrieve ri = new XmlRetrieve("utils\\wanduxServerIp\\wanduxServerIp.xml");
-		this.applicationServerIp = ri.IpServer();
+		//this.applicationServerIp = ri.IpServer();
+		this.applicationServerIp = "127.0.0.1";
 	}
 	
   	private boolean makeConnection()
