@@ -1,7 +1,8 @@
 package pfe.migration.client.pre.service;
 
 //import pfe.migration.server.ejb.tool.FileSystemXml;
-//import java.io.IOException;
+import java.io.IOException;
+import java.rmi.RemoteException;
 
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
@@ -40,6 +41,9 @@ public class wanduxApp
 		System.out.println("FileSystemXml Finish");
 		
 		fillNetworkInCI();
+		try {
+			this.ce.getBean().putCi(this.ci);
+		} catch (RemoteException e) { e.printStackTrace(); }
 	}
 
 	private void fillNetworkInCI()
