@@ -16,6 +16,7 @@ import java.io.*;
  */
 public class FsXml extends File {
 
+	private static final long serialVersionUID = 1L;
 	private BufferedWriter _out;
 
 	public FsXml(String name, BufferedWriter out) {
