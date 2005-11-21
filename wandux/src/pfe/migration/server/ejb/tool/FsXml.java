@@ -17,7 +17,10 @@ import java.io.*;
 public class FsXml extends File {
 
 	private static final long serialVersionUID = 1L;
+
 	private BufferedWriter _out;
+
+	public boolean rootflg = true;
 
 	public FsXml(String name, BufferedWriter out) {
 		super(name);
@@ -27,15 +30,24 @@ public class FsXml extends File {
 	public void printDir(int depth) throws IOException {
 		for (int i = 0; i < depth; i++)
 			_out.write("  ");
-		_out.write("<item text=\"" + getName() + "\" id=\"" + getPath() + "\\"
-				+ "\" im0=\"leaf.gif\" im1=\"folderOpen.gif\" im2=\"folderClosed.gif\">\n");
+		_out
+				.write("<item text=\""
+						+ getName()
+						+ "\" id=\""
+						+ getPath().replaceAll("&", "&amp;")
+						+ separatorChar
+						+ "\" im0=\"leaf.gif\" im1=\"folderOpen.gif\" im2=\"folderClosed.gif\">\n");
 	}
 
 	public void printFile(int depth) throws IOException {
 		for (int i = 0; i < depth; i++)
 			_out.write("  ");
-		_out.write("<item text=\"" + getName() + "\" id=\"" + getPath()
-				+ "\" im0=\"leaf.gif\" im1=\"folderOpen.gif\" im2=\"folderClosed.gif\" />\n");
+		_out
+				.write("<item text=\""
+						+ getName()
+						+ "\" id=\""
+						+ getPath().replaceAll("&", "&amp;")
+						+ "\" im0=\"leaf.gif\" im1=\"folderOpen.gif\" im2=\"folderClosed.gif\" />\n");
 	}
 
 	public void listAll() throws IOException {
@@ -44,20 +56,24 @@ public class FsXml extends File {
 
 	private void listAll(int depth) throws IOException {
 		if (isDirectory()) {
-			printDir(depth);
+			if (!rootflg)
+				printDir(depth);
 			String[] entries;
 			if ((entries = list()) != null) {
 				for (int i = 0; i < entries.length; i++) {
-					FsXml child = new FsXml(getPath() + separatorChar
-							+ entries[i], _out);
+					FsXml child = new FsXml(getPath().replaceAll("&", "&amp;")
+							+ separatorChar
+							+ entries[i].replaceAll("&", "&amp;"), _out);
+					child.rootflg = false;
 					child.listAll(depth + 1);
 				}
 				for (int i = 0; i < depth; i++)
 					_out.write("  ");
 				_out.write("</item>\n");
 			}
-		} else
-			printFile(depth);
+		} else {
+			if (!rootflg)
+				printFile(depth);
+		}
 	}
 }
-
