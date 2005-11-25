@@ -56,7 +56,7 @@ public class FsXml extends File {
 
 	private void listAll(int depth) throws IOException {
 		if (isDirectory()) {
-			if (!rootflg)
+			if (!this.rootflg)
 				printDir(depth);
 			String[] entries;
 			if ((entries = list()) != null) {
@@ -67,6 +67,8 @@ public class FsXml extends File {
 					child.rootflg = false;
 					child.listAll(depth + 1);
 				}
+			}
+			if (!this.rootflg) {
 				for (int i = 0; i < depth; i++)
 					_out.write("  ");
 				_out.write("</item>\n");

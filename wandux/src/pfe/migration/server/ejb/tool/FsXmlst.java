@@ -17,27 +17,29 @@ import java.io.*;
 public class FsXmlst {
 
 	public FsXmlst() {
-
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(
-					"filesystem.xml"));
-			out.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\""
-					+ " standalone=\"yes\"?>" + "\n<tree id=\"0\">\n");
+					"utils/FileSystem/filesystem.xml"));
+			out
+					.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>"
+							+ "\n<tree id=\"0\">\n");
 
 			File[] roots = File.listRoots();
-
 			for (int i = 1; i < roots.length; i++) {
-				out.write(" " + " <item text=\"" + roots[i] + "\" id=\""
-						+ roots[i]
-						+ "\" im0=\"leaf.gif\" im1=\"folderOpen.gif\""
-						+ " im2=\"folderClosed.gif\">\n");
+				out
+						.write("  "
+								+ "<item text=\""
+								+ roots[i].toString().replaceAll("&", "&amp;")
+								+ "\" id=\""
+								+ roots[i].toString().replaceAll("&", "&amp;")
+								+ "\" im0=\"leaf.gif\" im1=\"folderOpen.gif\" im2=\"folderClosed.gif\">\n");
 				FsXml child = new FsXml(roots[i].toString(), out);
 				child.listAll();
 				out.write("  </item>\n");
 			}
 			out.write("</tree>");
 			out.close();
-			System.out.println("terminer");
+			System.out.println("filesystem to xml terminer");
 		} catch (IOException e) {
 		}
 	}
