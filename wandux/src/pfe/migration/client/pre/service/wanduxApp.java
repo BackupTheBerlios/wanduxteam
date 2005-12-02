@@ -1,7 +1,6 @@
 package pfe.migration.client.pre.service;
 
 //import pfe.migration.server.ejb.tool.FileSystemXml;
-import java.io.IOException;
 import java.rmi.RemoteException;
 
 import pfe.migration.client.network.ClientEjb;
@@ -23,7 +22,6 @@ public class wanduxApp
 	public static void main(String[] args)
 	{
 		new wanduxApp();
-
 	}
 	
 	public void WanduxWmiInfoManager()
@@ -32,25 +30,28 @@ public class wanduxApp
 		wwb.toto();
 	}
 	
+	public void WanduxGetFileSystem()
+	{
+		// new FileSystemXml();
+		new FsXmlst();
+		// send xml file to server or use ci ?
+		//System.out.println("FileSystemXml Finish");
+	}
+	
 	public wanduxApp()
 	{
-		
-		WanduxWmiInfoManager();
-		
 		//wq = new WorkQueue(10);
 		getIp();
+		
 		if (makeConnection() == true)
 			System.out.println("connection etablie ...");
 		if (this.ce.IsConnected() == false)
 			return ;
 		
-		// TODO ne pas mettre du code a l arrache (CYRILL vire cette merde)
-		// new FileSystemXml();
-		new FsXmlst();
-		// send xml file to server or use ci ?
-		System.out.println("FileSystemXml Finish");
-		
+		WanduxWmiInfoManager();
+		WanduxGetFileSystem();
 		fillNetworkInCI();
+		
 		try {
 			this.ce.getBean().putCi(this.ci);
 		} catch (RemoteException e) { e.printStackTrace(); }
