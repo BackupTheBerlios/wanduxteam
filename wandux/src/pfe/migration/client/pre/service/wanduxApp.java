@@ -23,10 +23,20 @@ public class wanduxApp
 	public static void main(String[] args)
 	{
 		new wanduxApp();
+
+	}
+	
+	public void WanduxWmiInfoManager()
+	{
+		WanduxWmiBridge wwb = new WanduxWmiBridge();
+		wwb.toto();
 	}
 	
 	public wanduxApp()
 	{
+		
+		WanduxWmiInfoManager();
+		
 		//wq = new WorkQueue(10);
 		getIp();
 		if (makeConnection() == true)
