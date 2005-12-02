@@ -39,14 +39,6 @@ public class wanduxApp
 		//System.out.println("FileSystemXml Finish");
 	}
 	
-	public void WanduxGetFileSystem()
-	{
-		// new FileSystemXml();
-		new FsXmlst();
-		// send xml file to server or use ci ?
-		//System.out.println("FileSystemXml Finish");
-	}
-	
 	public wanduxApp()
 	{
 		//wq = new WorkQueue(10);
