@@ -16,12 +16,13 @@
 	<property name="jar.client.pre.name" value="clientPre.jar"/>
 	<property name="jar.serverEjb.name" value="WanduxEjb.jar"/>
 	<property name="jar.monitor.name" value="webMonitor.war"/>
-
+	<property name="dir.wwi.lib" value="utils/wwi/release/"/>
 
 	<property name="dir.frontEnd" value="webFrontEnd/"/>
 	<property name="jar.frontEnd.name" value="webFrontEnd.war"/>
 	<property environment="env"/>
 	<property name="jboss.dir" location="${env.JBOSS_HOME}" />
+	<property name="dir.system32" location="${env.windir}\system32\" />
 	
 	<target name="all" depends="verification des versions, copie de fichiers, deploy">
 		<echo message=":)"/>
@@ -75,9 +76,12 @@
 			<fileset dir="${dir.lib}" includes="jdom.jar"/>
 		</copy>
 
-		<echo message="copie la dll"/>
-		<copy todir="C:\WINDOWS\system32">
-			<fileset dir="${dir.lib}" includes="ICE_JNIRegistry.dll"/>
+		<echo message="copie des dll"/>
+		<echo message="${dir.wwi.lib}"/>
+		<echo message="${dir.system32}"/>
+		<copy todir="${dir.system32}">
+			<!-- fileset dir="${dir.lib}" includes="ICE_JNIRegistry.dll"/ -->
+			<fileset dir="${dir.wwi.lib}" includes="wwi.dll"/>
 		</copy>
 		
 		<echo message="copie mysql-ds"/>
