@@ -120,7 +120,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
-				WarningLevel="3"
+				WarningLevel="0"
 				DebugInformationFormat="3"
 			/>
 			<Tool

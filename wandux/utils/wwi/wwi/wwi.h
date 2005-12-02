@@ -2,7 +2,6 @@
 
 #pragma once
 
-using namespace System;
 
 namespace wwi {
 
@@ -24,14 +23,15 @@ extern "C" {
 #endif
 /*
  * Class:     pfe_migration_client_pre_service_WanduxWmiBridge
- * Method:    toto
- * Signature: ()V
+ * Method:    exec_rq
+ * Signature: (Ljava/lang/String;)[Ljava/lang/String;
  */
-JNIEXPORT void JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_toto
-  (JNIEnv *, jobject);
+JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_exec_1rq
+  (JNIEnv *, jobject, jstring);
 
 #ifdef __cplusplus
 }
 #endif
 #endif
+
 

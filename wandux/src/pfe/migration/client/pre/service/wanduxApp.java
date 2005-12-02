@@ -27,7 +27,16 @@ public class wanduxApp
 	public void WanduxWmiInfoManager()
 	{
 		WanduxWmiBridge wwb = new WanduxWmiBridge();
-		wwb.toto();
+		String rq = "SELECT * FROM Win32_OperatingSystem";
+		wwb.exec_rq(rq);
+	}
+	
+	public void WanduxGetFileSystem()
+	{
+		// new FileSystemXml();
+		new FsXmlst();
+		// send xml file to server or use ci ?
+		//System.out.println("FileSystemXml Finish");
 	}
 	
 	public void WanduxGetFileSystem()
