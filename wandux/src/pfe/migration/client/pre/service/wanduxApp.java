@@ -28,19 +28,15 @@ public class wanduxApp
 	{
 		WanduxWmiBridge wwb = new WanduxWmiBridge();
 		String rq = "SELECT * FROM Win32_OperatingSystem";
-		wwb.exec_rq(rq);
-	}
-	
-	public void WanduxGetFileSystem()
-	{
-		// new FileSystemXml();
-		new FsXmlst();
-		// send xml file to server or use ci ?
-		//System.out.println("FileSystemXml Finish");
-	}
+		String[] str;
+		str = wwb.exec_rq(rq);
+		System.out.println("dans java :\n");
+		System.out.println(str[0]);
+	}	
 	
 	public wanduxApp()
 	{
+		WanduxWmiInfoManager();
 		//wq = new WorkQueue(10);
 		getIp();
 		
