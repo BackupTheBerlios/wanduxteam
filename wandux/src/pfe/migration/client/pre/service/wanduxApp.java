@@ -27,32 +27,38 @@ public class wanduxApp
 	public void WanduxWmiInfoManager()
 	{
 		WanduxWmiBridge wwb = new WanduxWmiBridge();
-		String rq = "SELECT * FROM Win32_OperatingSystem";
+		// String rq = "SELECT * FROM Win32_OperatingSystem";
+		String rq = "SELECT * FROM Win32_NetworkAdapterConfiguration";
+		String wzName = "DHCPEnabled"; // element a recuperer depuis la requette
 		String[] str;
-		str = wwb.exec_rq(rq);
+		str = wwb.exec_rq(rq, wzName);
 		System.out.println("dans java :\n");
-		System.out.println(str[0]);
-	}	
+		int i= 0;
+		while(str[i] != null)
+		{
+				System.out.println(str[i]);
+				i++;
+		}
+	}
 	
 	public wanduxApp()
 	{
 		WanduxWmiInfoManager();
 		//wq = new WorkQueue(10);
-		getIp();
-		
-		if (makeConnection() == true)
-			System.out.println("connection etablie ...");
-		if (this.ce.IsConnected() == false)
-			return ;
-		
-		WanduxWmiInfoManager();
-		WanduxGetFileSystem();
-		fillNetworkInCI();
-		
-		try {
-			this.ce.getBean().putCi(this.ci);
-		} catch (RemoteException e) { e.printStackTrace(); }
-		System.out.println("information recupere et envoyer");
+//		getIp();
+//		
+//		if (makeConnection() == true)
+//			System.out.println("connection etablie ...");
+//		if (this.ce.IsConnected() == false)
+//			return ;
+//		
+//		WanduxWmiInfoManager();
+//		fillNetworkInCI();
+//		
+//		try {
+//			this.ce.getBean().putCi(this.ci);
+//		} catch (RemoteException e) { e.printStackTrace(); }
+//		System.out.println("information recupere et envoyer");
 	}
 
 	private void fillNetworkInCI()

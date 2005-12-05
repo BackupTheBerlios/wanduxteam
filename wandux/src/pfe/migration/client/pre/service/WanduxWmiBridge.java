@@ -13,11 +13,10 @@ package pfe.migration.client.pre.service;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class WanduxWmiBridge {
-
 	
 //	public native void toto();
-	public native String[] exec_rq(String rq);
-		static {
+	public native String[] exec_rq(String rq, String wszName);
+	static {
   	try { 
       	System.loadLibrary("wwi");
       } catch (UnsatisfiedLinkError e) { 
