@@ -16,18 +16,115 @@ using namespace std;
 #pragma comment(lib, "wbemuuid.lib") 
 
 
+
+char * bstrVal_to_string(BSTR bstrVal)
+{
+	int wideLen = 255; 
+				char* asciStr = new char[wideLen+2];
+				WideCharToMultiByte(
+					CP_ACP,
+					WC_COMPOSITECHECK,
+					(LPCWSTR)bstrVal,
+					-1,
+					asciStr,
+					wideLen+1,
+					NULL,
+					NULL
+					);
+	return asciStr;
+}
+char* f_test_type_of_variant(VARIANT vtProp)
+{
+
+	//http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.swt.snippets/src/org/eclipse/swt/snippets/Snippet81.java?rev=HEAD
+
+	char * result = NULL;
+
+
+	//cout << V_VT(&vtProp) << endl;
+	switch(V_VT(&vtProp))
+	{
+		case VT_BSTR: 
+			{
+				
+				//_bstr_t bstrPath = &vtProp; //Just to convert BSTR to ANSI
+				// char* result=(char*)bstrPath;   
+				result = bstrVal_to_string(vtProp.bstrVal);
+				break;
+			}
+		case VT_SAFEARRAY:
+		{
+			
+			break;
+		}
+		case VT_ARRAY:
+		{
+			cout << "VT_ARRAY " << endl;
+			break;
+		}
+
+		case VT_CARRAY:
+		{
+			cout << "VT_CARRAY " << endl;
+			break;
+		}
+		case VT_BOOL:
+		{
+			(vtProp.boolVal == 0 ) ? result = "false" : result = "true";
+			break;
+		}
+		case VT_INT:
+		{
+			break;
+		}
+		case VT_DATE:
+		{
+			break;
+		}
+		case VT_UINT:	
+		{
+			break;
+		}
+		
+		case VT_UI8:
+		{
+			break;
+		}
+		case VT_BLOB:
+		{
+			cout << "VT_BLOB " << endl;
+			break;
+		}
+		case 8200:	
+		//case (VT_BYREF|*) :
+		{
+			cout << "8200 " << endl;
+			result =  bstrVal_to_string(vtProp.bstrVal);
+			break;
+		}
+	}
+	return result;
+}
+
+
 JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_exec_1rq
-(JNIEnv *env, jobject obj, jstring requete)
+(JNIEnv *env, jobject obj, jstring requete, jstring wzName)
 {
 	HRESULT hres; 
 
 	const char* msg=env->GetStringUTFChars(requete,0);
+	const char* wZName=env->GetStringUTFChars(wzName,0);
 	//jclass cl = (*env)->GetObjectClass(env,obj);
 	//jfieldID fid = (*env)->GetFieldID(env,cl,"Ljava/lang/String;" );
+
 	//(*env)->SetStringField(env,obj,fid,requete) ;
 	cout << msg << endl;
 
 	bstr_t rq = bstr_t(msg);
+	bstr_t WZ_Name = bstr_t(wZName);
+	    // Libération de la chaîne C++  
+	env->ReleaseStringUTFChars(requete,msg);
+
 	jobjectArray jobjectArray;
 	jobject	jobject;
 	// Step 1: -------------------------------------------------- 
@@ -165,7 +262,7 @@ JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBr
 		pLoc->Release(); 
 		CoUninitialize(); 
 		//   return 1;               // Program has failed. 
-	} 
+	}
 
 
 
@@ -177,67 +274,26 @@ JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBr
 
 	int size = 255;
 
-//	IEnumWbemClassObject* pEnum = NULL;
-//	pEnumerator->Clone(&pEnum);
-//
-//	while (pEnum) 
-//	{ 
-//		HRESULT hr = pEnum->Next(WBEM_INFINITE, 1, 
-//			&pclsObj, &uReturn); 
-//
-//		
-//cout << "pEnum 1" << endl;
-//		if(0 == uReturn) 
-//		{ 
-//			
-//cout << "pEnum 3" << endl;
-//			break; 
-//		} 
-//
-//cout << "pEnum 2" << endl;
-//		size++;
-//	}
-
-	// pEnumerator->Reset();
 	_jobjectArray* tab = env->NewObjectArray(size, env->FindClass("java/lang/String"), NULL);
 	
-
-
 	int i = 0;
 	while(pEnumerator)
 	{
 		HRESULT hr = pEnumerator->Next(WBEM_INFINITE, 1, 
 			&pclsObj, &uReturn); 
-
 		if(0 == uReturn) 
 		{ 
 			break; 
 		} 
-
 		VARIANT vtProp; 
 		VariantInit(&vtProp); 
-
 		// Get the value of the Name property 
-		hr = pclsObj->Get(L"Name", 0, &vtProp, 0, 0);
-
-		//wcout << " OS Name : " << vtProp.bstrVal << endl; 
-		
-		int wideLen = 255; 
-		char* asciStr = new char[wideLen+2];
-
-		WideCharToMultiByte(
-			CP_ACP,
-			WC_COMPOSITECHECK,
-			(LPCWSTR)vtProp.bstrVal,
-			-1,
-			asciStr,
-			wideLen+1,
-			NULL,
-			NULL
-			);
-	
-	//	cout << env->NewStringUTF(asciStr) << endl;
-		env->SetObjectArrayElement(tab, i++, env->NewStringUTF(asciStr));
+		hr = pclsObj->Get(WZ_Name, 0, &vtProp, 0, 0);
+		if (SUCCEEDED(hr))
+		{
+			char * asciStr = f_test_type_of_variant(vtProp);
+			env->SetObjectArrayElement(tab, i++, env->NewStringUTF(asciStr));
+		}
 		VariantClear(&vtProp); 
 	}
 
@@ -250,9 +306,7 @@ JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBr
 	//pEnum->Release(); 
 	pclsObj->Release(); 
 	CoUninitialize(); 
-
 	// return 0;   // Program successfully completed. 
-
 	return tab;
 }
 
