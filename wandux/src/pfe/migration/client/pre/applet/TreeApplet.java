@@ -3,14 +3,12 @@ package pfe.migration.client.pre.applet;
 import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Scrollbar;
 import java.io.File;
 
 import javax.swing.JTree;
 
+import pfe.migration.client.pre.applet.system.FileSystemModel;
 import pfe.migration.client.pre.applet.tree.CheckTreeManager;
-
-import embeded.system.FileSystemModel;
 
 public class TreeApplet extends Applet {
 
