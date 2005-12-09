@@ -6,10 +6,20 @@
  */
 package pfe.migration.client.pre.app;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
+
 import com.ice.jni.registry.NoSuchKeyException;
 import com.ice.jni.registry.RegistryException;
 import com.ice.jni.registry.RegistryKey;
 import pfe.migration.client.pre.system.KeyVal;
+import pfe.migration.client.pre.app.tools.HashOperation;
 
 /**
  * @author cb6
@@ -18,13 +28,20 @@ import pfe.migration.client.pre.system.KeyVal;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class ProgramsLister {
-	public static void ParseExtensions()
+	public void ParseExtensions()
 	{
 		KeyVal kvpl = new KeyVal();
 		RegistryKey aKey = null;
 		String currentkey = ".init";
 		String program = null;
+		Hashtable pghash = new Hashtable();	
+		
+		ArrayList[] extensionlist = new ArrayList[300];
 
+		ArrayList getlist = new ArrayList();
+		int nbprograms = 0;
+		boolean pgexists = false;
+		
 		System.out.println("\n__programs conf");
 		try {
 			aKey = com.ice.jni.registry.Registry.HKEY_CLASSES_ROOT.openSubKey("");
@@ -36,9 +53,41 @@ public class ProgramsLister {
 					break;
 				}
 					currentkey = kvpl.getNextKey(aKey, i);
-					System.out.print(currentkey + ", ");
+					
 					program = kvpl.getCommandFromExtension(currentkey);
-					System.out.println(program);
+					if (program != null)
+					{
+						Vector v = new Vector(pghash.keySet());
+						Iterator it = v.iterator();
+
+						while (it.hasNext())
+						{
+							String element = (String)it.next();
+							if (element.equals(program))
+							{
+								getlist = (ArrayList)pghash.get(element);
+								getlist.add(currentkey);
+								pgexists = true;
+								break;
+							}
+							else
+								pgexists = false;
+						}
+						if (pgexists == false)
+						{
+							extensionlist[nbprograms] = new ArrayList();
+							extensionlist[nbprograms].add(currentkey);
+							pghash.put(program, extensionlist[nbprograms]);
+							nbprograms++;
+						}
+						else
+						{
+							Vector v2 = new Vector(pghash.keySet());
+							Iterator it2 = v2.iterator();
+							int c2 = v.indexOf(program);
+							extensionlist[c2].add(currentkey);
+						}
+					}
 					// TODO CB6 store results under a hashtable without redundancy
 					// propose to user to add a list of extension/program association into the database
 					// if they are not already referenced > add this to log file and try to get it on
@@ -46,7 +95,25 @@ public class ProgramsLister {
 					// Other example : ask user if he would like to
 					// "save all files associated with program "RegSnap.exe""
 			}
-			//System.out.println(aKey.getNumberSubkeys());
+
+			Vector v = new Vector(pghash.keySet());
+			Collections.sort(v);
+			Iterator it = v.iterator();
+			while (it.hasNext())
+			{
+				String element = (String)it.next();
+				getlist = (ArrayList)pghash.get(element);
+				System.out.println(">>> "+element+" <<<\n");
+				for (int i = 0; i < getlist.size(); i++)
+				{
+					if (i == (getlist.size()-1))
+						System.out.print(getlist.get(i));
+					else
+						System.out.print(getlist.get(i) + ", ");
+				}
+				System.out.println("");
+				System.out.println("");
+			}
 		} catch (NoSuchKeyException e) {
 			e.printStackTrace();
 		} catch (RegistryException e) {
