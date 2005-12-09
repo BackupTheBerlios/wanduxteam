@@ -8,6 +8,7 @@ package pfe.migration.client.network;
 
 import java.io.Serializable;
 
+import pfe.migration.client.pre.system.FileSystemModel;
 import pfe.migration.server.ejb.bdd.GlobalConf;
 import pfe.migration.server.ejb.bdd.NetworkConfig;
 import pfe.migration.server.ejb.bdd.ParamIe;
@@ -33,11 +34,12 @@ public class ComputerInformation implements Serializable
 	 * Comment for <code>serialVersionUID</code>
 	 */
 	private static final long serialVersionUID = 1L;
-	public GlobalConf gconf = null;
-	public UsersData udata = null;
-	public NetworkConfig netconf = null;
-	public ParamIe ieconf = null;
-	public String local_ip = null;
+	private GlobalConf gconf = null;
+	private UsersData udata = null;
+	private NetworkConfig netconf [] = null;
+	private ParamIe ieconf = null;
+	private String local_ip = null;
+	private FileSystemModel fsm [] = null;
 	
 	public ComputerInformation ()
 	{
@@ -46,7 +48,7 @@ public class ComputerInformation implements Serializable
 
 	public String getMac()
 	{
-		return this.netconf.getNetworkMacAdress();
+		return ""; // this.netconf.getNetworkMacAdress();
 	}
 
 	public String getIp()
@@ -64,14 +66,24 @@ public class ComputerInformation implements Serializable
 //		return this.infou;
 //	}
 	
-	public void setInfoNetwork (NetworkConfig infon)
+	public void setInfoNetwork (NetworkConfig infon [])
 	{
 		this.netconf = infon;
 	}
 
-	public NetworkConfig getInfoNetwork()
+	public NetworkConfig [] getInfoNetwork()
 	{
 		return this.netconf;
+	}
+	
+	public void setFileSystemModel(FileSystemModel [] mfsm)
+	{
+		this.fsm = mfsm; // verifier si 
+	}
+	
+	public FileSystemModel [] getFileSystemModel()
+	{
+		return this.fsm;
 	}
 	
 //	public void setInfoPrograms (InformationPrograms infop)
