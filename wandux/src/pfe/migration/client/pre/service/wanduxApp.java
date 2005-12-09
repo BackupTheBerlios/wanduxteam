@@ -1,13 +1,17 @@
 package pfe.migration.client.pre.service;
 
 //import pfe.migration.server.ejb.tool.FileSystemXml;
+import java.io.File;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
+import pfe.migration.client.pre.system.FileSystemModel;
 import pfe.migration.client.pre.system.IpConfig;
 import pfe.migration.server.ejb.bdd.NetworkConfig;
-import pfe.migration.server.ejb.tool.FsXmlst;
 import pfe.migration.server.ejb.tool.XmlRetrieve;
 
 public class wanduxApp
@@ -15,10 +19,10 @@ public class wanduxApp
 
 	private String applicationServerIp = "";
 	
-	private ComputerInformation ci = new ComputerInformation();
+	private ComputerInformation ci= null;
 	private ClientEjb ce = null;
 	//private WorkQueue wq = null;
-
+	
 	public static void main(String[] args)
 	{
 		new wanduxApp();
@@ -28,23 +32,10 @@ public class wanduxApp
 	{
 		WanduxWmiBridge wwb = new WanduxWmiBridge();
 		// String rq = "SELECT * FROM Win32_OperatingSystem";
-		//String rq = "SELECT * FROM Win32_NetworkAdapterConfiguration";
-		// String wzName = "DHCPEnabled"; // element a recuperer depuis la requette
-		
-		//String rq = "SELECT * FROM Win32_UserAccount";
-		//String wzName = "Name"; // element a recuperer depuis la requette
-		
-		//String rq = "SELECT * FROM Win32_LogicalDisk";
-		//String wzName = "Caption";
-		
-		//String rq = "SELECT * FROM Win32_TimeZone";
-		//String wzName = "DaylightName";
-		
-		String rootPath = "\\root\\CIMV2\\Applications\\MicrosoftIE";
-		String rq = "SELECT * FROM MicrosoftIE_LanSettings";
-		String wzName = "ProxyServer";
+		String rq = "SELECT * FROM Win32_NetworkAdapterConfiguration";
+		String wzName = "DHCPEnabled"; // element a recuperer depuis la requette
 		String[] str;
-		str = wwb.exec_rq(rootPath, rq, wzName);
+		str = wwb.exec_rq(rq, wzName);
 		System.out.println("dans java :\n");
 		int i= 0;
 		while(str[i] != null)
@@ -54,24 +45,38 @@ public class wanduxApp
 		}
 	}
 	
+	public void GetFileTreeModel()
+	{
+		File [] disks = File.listRoots();
+		FileSystemModel models [] = new FileSystemModel [disks.length-1]; // = new FileSystemModel()[allDisk.length];
+
+		for (int i = 1; i < disks.length; i++)
+			models[i-1] = new FileSystemModel(disks[i]);
+		this.ci.setFileSystemModel(models);
+	}
+	
 	public wanduxApp()
 	{
-		WanduxWmiInfoManager();
+		this.ci = new ComputerInformation();
+		//this.ci.
 		//wq = new WorkQueue(10);
+		
+//		WanduxWmiInfoManager();
 //		getIp();
-//		
-//		if (makeConnection() == true)
-//			System.out.println("connection etablie ...");
-//		if (this.ce.IsConnected() == false)
-//			return ;
-//		
+
 //		WanduxWmiInfoManager();
 //		fillNetworkInCI();
-//		
-//		try {
-//			this.ce.getBean().putCi(this.ci);
-//		} catch (RemoteException e) { e.printStackTrace(); }
-//		System.out.println("information recupere et envoyer");
+
+		GetFileTreeModel();
+
+		if (makeConnection() == true)
+			System.out.println("connection etablie ...");
+		if (this.ce.IsConnected() == false)
+			return ;
+		try {
+			this.ce.getBean().putCi(this.ci);
+		} catch (RemoteException e) { e.printStackTrace(); }
+		System.out.println("information recupere et envoyer");
 	}
 
 	private void fillNetworkInCI()
@@ -83,7 +88,7 @@ public class wanduxApp
 		nc.setNetworkIpAddress(ipconf.GetIp());
 		nc.setNetworkMacAdress(ipconf.GetMac());
 		nc.setNetworkSubnetmask(ipconf.GetNetmask());
-		this.ci.setInfoNetwork(nc);
+		//this.ci.setInfoNetwork(nc);
 	}
 		
 	/**
