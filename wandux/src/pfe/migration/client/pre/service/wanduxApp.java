@@ -34,13 +34,17 @@ public class wanduxApp
 		//String rq = "SELECT * FROM Win32_UserAccount";
 		//String wzName = "Name"; // element a recuperer depuis la requette
 		
-		String rq = "SELECT * FROM Win32_LogicalDisk";
-		String wzName = "Caption";
+		//String rq = "SELECT * FROM Win32_LogicalDisk";
+		//String wzName = "Caption";
 		
+		//String rq = "SELECT * FROM Win32_TimeZone";
+		//String wzName = "DaylightName";
 		
-		
+		String rootPath = "\\root\\CIMV2\\Applications\\MicrosoftIE";
+		String rq = "SELECT * FROM MicrosoftIE_LanSettings";
+		String wzName = "ProxyServer";
 		String[] str;
-		str = wwb.exec_rq(rq, wzName);
+		str = wwb.exec_rq(rootPath, rq, wzName);
 		System.out.println("dans java :\n");
 		int i= 0;
 		while(str[i] != null)
