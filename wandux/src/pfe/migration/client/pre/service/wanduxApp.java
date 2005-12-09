@@ -28,8 +28,17 @@ public class wanduxApp
 	{
 		WanduxWmiBridge wwb = new WanduxWmiBridge();
 		// String rq = "SELECT * FROM Win32_OperatingSystem";
-		String rq = "SELECT * FROM Win32_NetworkAdapterConfiguration";
-		String wzName = "DHCPEnabled"; // element a recuperer depuis la requette
+		//String rq = "SELECT * FROM Win32_NetworkAdapterConfiguration";
+		// String wzName = "DHCPEnabled"; // element a recuperer depuis la requette
+		
+		//String rq = "SELECT * FROM Win32_UserAccount";
+		//String wzName = "Name"; // element a recuperer depuis la requette
+		
+		String rq = "SELECT * FROM Win32_LogicalDisk";
+		String wzName = "Caption";
+		
+		
+		
 		String[] str;
 		str = wwb.exec_rq(rq, wzName);
 		System.out.println("dans java :\n");
