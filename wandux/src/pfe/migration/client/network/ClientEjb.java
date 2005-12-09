@@ -87,34 +87,38 @@ public class ClientEjb
 	}
 	
 // -- client pre installation --
-	public void Transfert (ComputerInformation ci)
-	{
-		System.out.println("transfer commence");
-		try {
-			bean.putComputerInformation(ci);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-		System.out.println("transfer termine");
-	}
+
+//	 useless    //
+//	public void Transfert (ComputerInformation ci) 
+//	{
+//		System.out.println("transfer commence");
+//		try {
+//			bean.putComputerInformation(ci);
+//		} catch (RemoteException e) {
+//			e.printStackTrace();
+//		}
+//		System.out.println("transfer termine");
+//	}
+
+//	 useless    //
+//	public ComputerInformation getComputerInformation(String macaddr) throws RemoteException, HibernateException
+//	{
+//		try {
+//			ComputerInformation cinfo = bean.getComputerInformation(macaddr);
+//
+//			return cinfo;
+//		} catch (RemoteException e) {
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
+
 
 	public WanduxEjb getBean()
 	{
 		return this.bean;
 	}
 	
-	public ComputerInformation getComputerInformation(String macaddr) throws RemoteException, HibernateException
-	{
-		try {
-			ComputerInformation cinfo = bean.getComputerInformation(macaddr);
-
-			return cinfo;
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 	public List getLangInformation ()
 	{
 		try {
