@@ -69,10 +69,10 @@
     function init_trees()
 	{
 <%
-				for (i=0; i < cl.size(); i++)
-				{
-					out.print("this['tree'+'" + cl.get(i) +"'] = 0;\n");
-				}
+				//for (i=0; i < cl.size(); i++)
+				//{
+				//	out.print("this['tree'+'" + cl.get(i) +"'] = 0;\n");
+				//}
 %>
     }
     
@@ -104,16 +104,8 @@
 			}
 			else if (steps[document.myform.machine.value] == 2)
 			{
-				temp = document.getElementById('treeBox'+document.myform.machine.value);
-				if (this['tree'+document.myform.machine.value] == 0)
-				{
-					this['tree'+document.myform.machine.value] = new dhtmlXTreeObject(document.getElementById('treeBox'+document.myform.machine.value),"100%","100%",0);
-					this['tree'+document.myform.machine.value].setImagePath("img/tree/");
-					this['tree'+document.myform.machine.value].enableCheckBoxes(true);
-					this['tree'+document.myform.machine.value].enableThreeStateCheckboxes(true);
-					this['tree'+document.myform.machine.value].loadXML("xml/" + document.myform.machine.value + ".xml");
-				}
-				last_div = 'treeBox'+document.myform.machine.value;
+				temp = document.getElementById('treeApplet'+document.myform.machine.value);
+				last_div = 'treeApplet'+document.myform.machine.value;
 			}
 			if (steps[document.myform.machine.value] == 3)
 			{
@@ -175,6 +167,13 @@
 				for (i=0; i < cl.size(); i++)
 				{
 					out.print("<div id=\"treeBox" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;\"><b>This tree represent the whole Windows file system of " + cl.get(i) + ".<br><br> Please, select the files and folders that you want to migrate on the new Linux system using this tree :</b><br><br></div>\n");
+				}
+				
+				for (i=0; i < cl.size(); i++)
+				{
+					out.print("<div id=\"treeApplet" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;\"><b>This tree represent the whole Windows file system of " + cl.get(i) + ".<br><br> Please, select the files and folders that you want to migrate on the new Linux system using this tree :</b><br><br>");
+					out.print("<br><br> YOPLA DUP <br><br> ICI TU PEUT CASER L'APPLET ^^</b><br><br>");
+					out.print("</div>\n");
 				}
 				
 				for (i=0; i < cl.size(); i++)
