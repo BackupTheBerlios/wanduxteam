@@ -172,7 +172,18 @@
 				for (i=0; i < cl.size(); i++)
 				{
 					out.print("<div id=\"treeApplet" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;\"><b>This tree represent the whole Windows file system of " + cl.get(i) + ".<br><br> Please, select the files and folders that you want to migrate on the new Linux system using this tree :</b><br><br>");
-					out.print("<br><br> YOPLA DUP <br><br> ICI TU PEUT CASER L'APPLET ^^</b><br><br>");
+					//out.print("<br><br> YOPLA DUP <br><br> ICI TU PEUT CASER L'APPLET ^^</b><br><br>");
+%>
+ <applet
+   code="pfe.migration.client.pre.applet.TreeApplet"
+   width=400
+   height=300
+   hspace=0
+   vspace=0
+   align=top>
+  <param name="background-color" value="#ffffff" />
+ </applet>
+<%
 					out.print("</div>\n");
 				}
 				
