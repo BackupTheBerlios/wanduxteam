@@ -19,9 +19,9 @@ public interface WanduxEjb extends EJBObject
 	public void putCi(ComputerInformation ci) throws RemoteException;
 	public ComputerInformation getCi(String ip) throws RemoteException;
 	
-	public void putComputerInformation(ComputerInformation ci) throws RemoteException;
+/*	public void putComputerInformation(ComputerInformation ci) throws RemoteException;
 	public ComputerInformation getComputerInformation(String macaddr) throws RemoteException, HibernateException;
-
+*/
 	public List getLangInformation() throws RemoteException;
 //	public void getClientMonitor(ClientMonitorListener cml) throws RemoteException;
 //	public void changeCmlStep (String ip, int step, int percent) throws RemoteException;
