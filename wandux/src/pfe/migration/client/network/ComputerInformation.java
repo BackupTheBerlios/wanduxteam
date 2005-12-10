@@ -34,7 +34,7 @@ public class ComputerInformation implements Serializable
 	 * Comment for <code>serialVersionUID</code>
 	 */
 	private static final long serialVersionUID = 1L;
-	private GlobalConf gconf = null;
+	public GlobalConf gconf = null;
 //	private UsersData udata = null;
 //	private ParamIe ieconf = null;
 	
