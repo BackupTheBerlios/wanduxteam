@@ -84,11 +84,15 @@ public class wanduxApp
 	
 	public wanduxApp()
 	{
+		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu ....
+		this.applicationServerIp = "127.0.0.1";
 		ci = new ComputerInformation();
-		WanduxWmiInfoManager();
+		//WanduxWmiInfoManager();
 		//fillNetworkInCI();
-		fillHostname();
+		//fillHostname();
+		ci.gconf.setGlobalHostname("127.0.0.1"); // 
 		System.out.println(ci.gconf.getGlobalHostname());
+
 //		NetworkConfig ntconfig[] = ci.getInfoNetwork();
 //		int i = 0;
 //		while(i < ntconfig.length)
@@ -101,16 +105,16 @@ public class wanduxApp
 //		WanduxWmiInfoManager();
 //		fillNetworkInCI();
 
-	//	GetFileTreeModel();
-//
-//		if (makeConnection() == true)
-//			System.out.println("connection etablie ...");
-//		if (this.ce.IsConnected() == false)
-//			return ;
-//		try {
-//			this.ce.getBean().putCi(this.ci);
-//		} catch (RemoteException e) { e.printStackTrace(); }
-//		System.out.println("information recupere et envoyer");
+		//GetFileTreeModel();
+
+		if (makeConnection() == true)
+			System.out.println("connection etablie ...");
+		if (this.ce.IsConnected() == false)
+			return ;
+		try {
+			this.ce.getBean().putCi(this.ci);
+		} catch (RemoteException e) { e.printStackTrace(); }
+		System.out.println("information recupere et envoyer");
 	}
 
 	private void fillNetworkInCI()
@@ -161,7 +165,6 @@ public class wanduxApp
 	
 	void fillHostname()
 	{
-		
 		String res = "";
 		String[] rqRSLT = null;
 		String rq  = "SELECT * FROM Win32_ComputerSystem";
