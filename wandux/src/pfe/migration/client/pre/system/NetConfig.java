@@ -80,7 +80,13 @@ public class NetConfig
 		String wzName = "DHCPEnabled"; // element a recuperer depuis la requette
 		try
 		{
-			rqRSLT = wwb.exec_rq(rootCIMV2, rq, wzName);			
+			rqRSLT = wwb.exec_rq(rootCIMV2, rq, wzName);	
+			if(rqRSLT[0].equals("1")) // erreur detected
+			{
+				System.err.println(rqRSLT[1]);
+				return null;
+			}
+			System.out.println("valeur recue : " + rqRSLT[0]);
 			return (rqRSLT[0]=="true"?new Byte("1"):new Byte("0"));
 		}
 		catch(Exception e)
