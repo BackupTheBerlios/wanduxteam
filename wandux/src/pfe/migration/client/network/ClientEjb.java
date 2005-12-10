@@ -31,7 +31,6 @@ import pfe.migration.server.ejb.WanduxEjbHome;
  */
 public class ClientEjb
 {
-	//private ClientMonitor cm = null;
 	private static String SERVER_EJB_NAME = "";
 	protected WanduxEjb bean = null;
 	
@@ -84,6 +83,11 @@ public class ClientEjb
 		} catch (RemoveException e) { e.printStackTrace();
 		}
 		System.out.println("connection ferme");
+	}
+	
+	public String getApplicationServer()
+	{
+		return this.SERVER_EJB_NAME;
 	}
 	
 // -- client pre installation --
