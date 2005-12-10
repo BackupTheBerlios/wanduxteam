@@ -1,6 +1,7 @@
 package pfe.migration.client.pre.system;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,8 +16,9 @@ import javax.swing.tree.TreePath;
  *
  * Created on 26 févr. 2005
  */
-public class FileSystemModel implements TreeModel {
-    protected File root;
+public class FileSystemModel implements TreeModel, Serializable {
+	private static final long serialVersionUID = 1L;
+	protected File root;
     private List listeners = new ArrayList();
     /** Creates a new instance of FileSystemModel */
     public FileSystemModel(File root) {
