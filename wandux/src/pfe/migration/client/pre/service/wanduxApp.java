@@ -9,6 +9,10 @@ import java.util.Map;
 
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
+import pfe.migration.client.pre.system.NetConfig;
+import pfe.migration.client.pre.system.NetConfig;
+import pfe.migration.client.pre.system.FileSystemModel;
+import pfe.migration.client.pre.system.FileSystemModel;
 import pfe.migration.client.pre.system.FileSystemModel;
 import pfe.migration.client.pre.system.IpConfig;
 import pfe.migration.server.ejb.bdd.NetworkConfig;
@@ -21,6 +25,18 @@ public class wanduxApp
 	
 	private ComputerInformation ci= null;
 	private ClientEjb ce = null;
+//	 wandux wmi bridge, permet de gerer l'execution des requettes wmi
+	WanduxWmiBridge wwb = null; 
+
+	String rootCIMV2 = "root\\CIMV2 ";
+	String rootCIMV2ApplicationsMicrosoftIE = "root\\CIMV2\\Applications\\MicrosoftIE";
+	 // prevu pour contenir la requette wmi
+	String rq = null;
+	// prevu pour contenir l'element a recuperer dans la quette wmi
+	String wzName = null;
+	//	 resultat de la requette renvoye par la dll
+	String [] rqRSLT = null; 
+	
 	//private WorkQueue wq = null;
 	
 	public static void main(String[] args)
@@ -30,19 +46,32 @@ public class wanduxApp
 	
 	public void WanduxWmiInfoManager()
 	{
-		WanduxWmiBridge wwb = new WanduxWmiBridge();
+		wwb = new WanduxWmiBridge();
 		// String rq = "SELECT * FROM Win32_OperatingSystem";
-		String rq = "SELECT * FROM Win32_NetworkAdapterConfiguration";
-		String wzName = "DHCPEnabled"; // element a recuperer depuis la requette
-		String[] str;
-		str = wwb.exec_rq(rq, wzName);
-		System.out.println("dans java :\n");
-		int i= 0;
-		while(str[i] != null)
-		{
-				System.out.println(str[i]);
-				i++;
-		}
+
+		
+		//String rq = "SELECT * FROM Win32_UserAccount";
+		//String wzName = "Name"; // element a recuperer depuis la requette
+		
+		//String rq = "SELECT * FROM Win32_LogicalDisk";
+		//String wzName = "Caption";
+		
+		//String rq = "SELECT * FROM Win32_TimeZone";
+		//String wzName = "DaylightName";
+		
+//		String rootPath = "root\\CIMV2\\Applications\\MicrosoftIE";
+//		String rq = "SELECT * FROM MicrosoftIE_LanSettings";
+//		
+//		String wzName = "ProxyServer";
+//		String[] str;
+//		str = wwb.exec_rq(rootPath, rq, wzName);
+//		System.out.println("dans java :\n");
+//		int i= 0;
+//		while(str[i] != null)
+//		{
+//				System.out.println(str[i]);
+//				i++;
+//		}
 	}
 	
 	public void GetFileTreeModel()
@@ -57,8 +86,12 @@ public class wanduxApp
 	
 	public wanduxApp()
 	{
-		this.ci = new ComputerInformation();
-		//this.ci.
+		WanduxWmiInfoManager();
+		fillNetworkInCI();
+//		NetworkConfig ntconfig[] = ci.getInfoNetwork();
+//		int i = 0;
+//		while(i < ntconfig.length)
+//			System.out.println(ntconfig[i++]);
 		//wq = new WorkQueue(10);
 		
 //		WanduxWmiInfoManager();
@@ -81,14 +114,37 @@ public class wanduxApp
 
 	private void fillNetworkInCI()
 	{
-		IpConfig ipconf = new IpConfig();
-		NetworkConfig nc = new NetworkConfig();
-		nc.setNetworkDhcpEnabled(ipconf.GetDHCPEnable());
-		nc.setNetworkGateway(ipconf.GetGate());
-		nc.setNetworkIpAddress(ipconf.GetIp());
-		nc.setNetworkMacAdress(ipconf.GetMac());
-		nc.setNetworkSubnetmask(ipconf.GetNetmask());
-		//this.ci.setInfoNetwork(nc);
+		NetConfig netconfig = new NetConfig(wwb);
+		
+		String[] listNetworkInterfacesCaption = netconfig.listNetworkInterfaces();
+		int i = 0;
+		while(i<listNetworkInterfacesCaption.length && listNetworkInterfacesCaption[i] != null)
+		{
+			System.out.println(listNetworkInterfacesCaption[i]);
+			i++;
+		}
+		NetworkConfig[] nc = new NetworkConfig[listNetworkInterfacesCaption.length];
+		 i = 0;
+	try{
+		 while(i < listNetworkInterfacesCaption.length)
+		{
+			System.out.println("tour " + i);
+			NetworkConfig ncs = new NetworkConfig();
+			if(netconfig.GetDHCPEnable(listNetworkInterfacesCaption[i]) != null)
+				ncs.setNetworkDhcpEnabled(netconfig.GetDHCPEnable(listNetworkInterfacesCaption[i]));
+//			ncs.setNetworkGateway(netconfig.GetGate());
+//			ncs.setNetworkIpAddress(netconfig.GetIp());
+//			ncs.setNetworkMacAdress(netconfig.GetMac());
+//			ncs.setNetworkSubnetmask(netconfig.GetNetmask());
+			nc[i] = ncs;
+			i++;
+		}
+	}
+	catch (Exception e)
+	{
+		System.err.println(e.getStackTrace());
+	}
+		this.ci.setInfoNetwork(nc);	
 	}
 		
 	/**
