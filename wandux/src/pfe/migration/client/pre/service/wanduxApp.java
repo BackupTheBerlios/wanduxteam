@@ -14,7 +14,6 @@ import pfe.migration.client.pre.system.NetConfig;
 import pfe.migration.client.pre.system.FileSystemModel;
 import pfe.migration.client.pre.system.FileSystemModel;
 import pfe.migration.client.pre.system.FileSystemModel;
-import pfe.migration.client.pre.system.IpConfig;
 import pfe.migration.server.ejb.bdd.NetworkConfig;
 import pfe.migration.server.ejb.tool.XmlRetrieve;
 
@@ -78,7 +77,6 @@ public class wanduxApp
 	{
 		File [] disks = File.listRoots();
 		FileSystemModel models [] = new FileSystemModel [disks.length-1]; // = new FileSystemModel()[allDisk.length];
-
 		for (int i = 1; i < disks.length; i++)
 			models[i-1] = new FileSystemModel(disks[i]);
 		this.ci.setFileSystemModel(models);
@@ -100,7 +98,7 @@ public class wanduxApp
 //		WanduxWmiInfoManager();
 //		fillNetworkInCI();
 
-		GetFileTreeModel();
+	//	GetFileTreeModel();
 
 		if (makeConnection() == true)
 			System.out.println("connection etablie ...");
@@ -118,32 +116,42 @@ public class wanduxApp
 		
 		String[] listNetworkInterfacesCaption = netconfig.listNetworkInterfaces();
 		int i = 0;
-		while(i<listNetworkInterfacesCaption.length && listNetworkInterfacesCaption[i] != null)
-		{
-			System.out.println(listNetworkInterfacesCaption[i]);
-			i++;
+//		while(i<listNetworkInterfacesCaption.length && listNetworkInterfacesCaption[i] != null)
+//		{
+//			System.out.println(listNetworkInterfacesCaption[i]);
+//			i++;
+//		}
+		NetworkConfig[] nc = new NetworkConfig[10];
+		i = 0;
+		try{
+			 while(i < listNetworkInterfacesCaption.length && listNetworkInterfacesCaption[i] != null)
+			{
+				System.out.println("tour " + i);
+				NetworkConfig ncs = new NetworkConfig();
+				Byte  value = netconfig.GetDHCPEnable(listNetworkInterfacesCaption[i]);
+				if(value != null)
+					{
+					System.out.println("pass dedans");
+					ncs.setNetworkDhcpEnabled(value);
+					}
+				else // case d'erreur
+					{
+						i++;
+						continue;
+					}
+	//			ncs.setNetworkGateway(netconfig.GetGate());
+	//			ncs.setNetworkIpAddress(netconfig.GetIp());
+	//			ncs.setNetworkMacAdress(netconfig.GetMac());
+	//			ncs.setNetworkSubnetmask(netconfig.GetNetmask());
+				nc[i] = ncs;
+				ncs = null;
+				i++;
+			}
 		}
-		NetworkConfig[] nc = new NetworkConfig[listNetworkInterfacesCaption.length];
-		 i = 0;
-	try{
-		 while(i < listNetworkInterfacesCaption.length)
+		catch (Exception e)
 		{
-			System.out.println("tour " + i);
-			NetworkConfig ncs = new NetworkConfig();
-			if(netconfig.GetDHCPEnable(listNetworkInterfacesCaption[i]) != null)
-				ncs.setNetworkDhcpEnabled(netconfig.GetDHCPEnable(listNetworkInterfacesCaption[i]));
-//			ncs.setNetworkGateway(netconfig.GetGate());
-//			ncs.setNetworkIpAddress(netconfig.GetIp());
-//			ncs.setNetworkMacAdress(netconfig.GetMac());
-//			ncs.setNetworkSubnetmask(netconfig.GetNetmask());
-			nc[i] = ncs;
-			i++;
+			System.err.println(e.getStackTrace());
 		}
-	}
-	catch (Exception e)
-	{
-		System.err.println(e.getStackTrace());
-	}
 		this.ci.setInfoNetwork(nc);	
 	}
 		

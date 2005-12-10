@@ -108,34 +108,45 @@ char* f_test_type_of_variant(VARIANT vtProp)
 
 
 JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_exec_1rq
-(JNIEnv *env, jobject obj, jstring requete, jstring wzName)
+(JNIEnv *env, jobject obj, jstring rootPath, jstring requete, jstring wzName)
 {
 	HRESULT hres; 
 
+	// recuperation et preparation des parametres
 	const char* msg=env->GetStringUTFChars(requete,0);
 	const char* wZName=env->GetStringUTFChars(wzName,0);
-	//jclass cl = (*env)->GetObjectClass(env,obj);
-	//jfieldID fid = (*env)->GetFieldID(env,cl,"Ljava/lang/String;" );
-
-	//(*env)->SetStringField(env,obj,fid,requete) ;
+	const char* rootPATH=env->GetStringUTFChars(rootPath,0);
+	// print out requette
 	cout << msg << endl;
 
 	bstr_t rq = bstr_t(msg);
 	bstr_t WZ_Name = bstr_t(wZName);
-	    // Libération de la chaîne C++  
-	env->ReleaseStringUTFChars(requete,msg);
+	bstr_t ROOT_PATH = bstr_t(rootPATH);
 
-	jobjectArray jobjectArray;
-	jobject	jobject;
+	// Libération de la chaîne C++  
+	env->ReleaseStringUTFChars(requete,msg);
+	env->ReleaseStringUTFChars(rootPath, rootPATH);
+
+
+
+	// initilisation du tableau de retour
+	int size = 255;
+	_jobjectArray* tab = env->NewObjectArray(size, env->FindClass("java/lang/String"), NULL);
+	// initiatlisation du code d'erreur
+	char * errStr = "1";
+
 	// Step 1: -------------------------------------------------- 
 	// Initialize COM. ------------------------------------------ 
 
 	hres =  CoInitializeEx(0, COINIT_MULTITHREADED); 
 	if (FAILED(hres)) 
 	{ 
-		cout << "Failed to initialize COM library. Error code = 0x" 
-			<< hex << hres << endl; 
-		//  return 1;                  // Program has failed. 
+		//cout << "Failed to initialize COM library. Error code = 0x" 
+		//	<< hex << hres << endl; 
+		char *errMsg = "Failed to initialize COM library. Error code = 0x" ;
+		env->SetObjectArrayElement(tab, 0, env->NewStringUTF(errStr));
+		env->SetObjectArrayElement(tab, 1, env->NewStringUTF(errMsg));
+		return tab;
 	} 
 
 	// Step 2: -------------------------------------------------- 
@@ -159,10 +170,14 @@ JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBr
 
 	if (FAILED(hres)) 
 	{ 
-		cout << "Failed to initialize security. Error code = 0x" 
-			<< hex << hres << endl; 
+		//cout << "Failed to initialize security. Error code = 0x" 
+		//	<< hex << hres << endl; 
+		char *errMsg =  "Failed to initialize security. Error code = 0x" ;
 		CoUninitialize(); 
-		//      return 1;                    // Program has failed. 
+		
+		env->SetObjectArrayElement(tab, 0, env->NewStringUTF(errStr));
+		env->SetObjectArrayElement(tab, 1, env->NewStringUTF(errMsg));
+		return tab;
 	} 
 
 	// Step 3: --------------------------------------------------- 
@@ -178,11 +193,15 @@ JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBr
 
 	if (FAILED(hres)) 
 	{ 
-		cout << "Failed to create IWbemLocator object." 
-			<< " Err code = 0x" 
-			<< hex << hres << endl; 
+		//cout << "Failed to create IWbemLocator object." 
+		//	<< " Err code = 0x" 
+		//	<< hex << hres << endl; 
+		char *errMsg =   "Failed to create IWbemLocator object."; 
 		CoUninitialize(); 
-		//   return 1;                 // Program has failed. 
+
+		env->SetObjectArrayElement(tab, 0, env->NewStringUTF(errStr));
+		env->SetObjectArrayElement(tab, 1, env->NewStringUTF(errMsg));
+		return tab;
 	} 
 
 
@@ -195,7 +214,7 @@ JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBr
 	// the current user and obtain pointer pSvc 
 	// to make IWbemServices calls. 
 	hres = pLoc->ConnectServer( 
-		_bstr_t(L"ROOT\\CIMV2"), // Object path of WMI namespace 
+		ROOT_PATH, // Object path of WMI namespace 
 		NULL,                    // User name. NULL = current user 
 		NULL,                    // User password. NULL = current 
 		0,                       // Locale. NULL indicates current 
@@ -207,14 +226,17 @@ JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBr
 
 	if (FAILED(hres)) 
 	{ 
-		cout << "Could not connect. Error code = 0x" 
-			<< hex << hres << endl; 
+		//cout << "Could not connect. Error code = 0x" 
+		//	<< hex << hres << endl; 
+		char *errMsg =   "Could not connect. Error code = 0x"; 
 		pLoc->Release(); 
-		CoUninitialize(); 
-		//   return 1;                // Program has failed. 
+		CoUninitialize();
+		env->SetObjectArrayElement(tab, 0, env->NewStringUTF(errStr));
+		env->SetObjectArrayElement(tab, 1, env->NewStringUTF(errMsg));
+		return tab;
 	} 
 
-	cout << "Connected to ROOT\\CIMV2 WMI namespace" << endl; 
+		cout << "Connected to " << rootPATH << endl; 
 
 	// Step 5: -------------------------------------------------- 
 	// Set security levels on the proxy ------------------------- 
@@ -233,12 +255,14 @@ JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBr
 
 	if (FAILED(hres)) 
 	{ 
-		cout << "Could not set proxy blanket. Error code = 0x" 
-			<< hex << hres << endl; 
+		char *errMsg =   "Could not set proxy blanket. Error code = AFAIRE"; 
 		pSvc->Release(); 
 		pLoc->Release(); 
 		CoUninitialize(); 
-		//  return 1;               // Program has failed. 
+		
+		env->SetObjectArrayElement(tab, 0, env->NewStringUTF(errStr));
+		env->SetObjectArrayElement(tab, 1, env->NewStringUTF(errMsg));
+		return tab;
 	} 
 
 	// Step 6: -------------------------------------------------- 
@@ -255,16 +279,17 @@ JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBr
 
 	if (FAILED(hres)) 
 	{ 
-		cout << "Query for operating system name failed." 
-			<< " Error code = 0x" 
-			<< hex << hres << endl; 
+		//cout << "Query for operating system name failed." 
+		//	<< " Error code = 0x" 
+		//	<< hex << hres << endl;
+		char *errMsg =   "Query for operating system name failed."; 
 		pSvc->Release(); 
 		pLoc->Release(); 
 		CoUninitialize(); 
-		//   return 1;               // Program has failed. 
+		env->SetObjectArrayElement(tab, 0, env->NewStringUTF(errStr));
+		env->SetObjectArrayElement(tab, 1, env->NewStringUTF(errMsg));
+		return tab;
 	}
-
-
 
 	// Step 7: ------------------------------------------------- 
 	// Get the data from the query in step 6 ------------------- 
@@ -272,9 +297,7 @@ JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBr
 	IWbemClassObject *pclsObj; 
 	ULONG uReturn = 0; 
 
-	int size = 255;
 
-	_jobjectArray* tab = env->NewObjectArray(size, env->FindClass("java/lang/String"), NULL);
 	
 	int i = 0;
 	while(pEnumerator)
