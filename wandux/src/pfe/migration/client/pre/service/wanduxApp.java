@@ -27,7 +27,7 @@ public class wanduxApp
 //	 wandux wmi bridge, permet de gerer l'execution des requettes wmi
 	WanduxWmiBridge wwb = null; 
 
-	String rootCIMV2 = "root\\CIMV2 ";
+	String rootCIMV2 = "root\\CIMV2";
 	String rootCIMV2ApplicationsMicrosoftIE = "root\\CIMV2\\Applications\\MicrosoftIE";
 	 // prevu pour contenir la requette wmi
 	String rq = null;
@@ -86,7 +86,9 @@ public class wanduxApp
 	{
 		ci = new ComputerInformation();
 		WanduxWmiInfoManager();
-		fillNetworkInCI();
+		//fillNetworkInCI();
+		fillHostname();
+		System.out.println(ci.gconf.getGlobalHostname());
 //		NetworkConfig ntconfig[] = ci.getInfoNetwork();
 //		int i = 0;
 //		while(i < ntconfig.length)
@@ -100,15 +102,15 @@ public class wanduxApp
 //		fillNetworkInCI();
 
 	//	GetFileTreeModel();
-
-		if (makeConnection() == true)
-			System.out.println("connection etablie ...");
-		if (this.ce.IsConnected() == false)
-			return ;
-		try {
-			this.ce.getBean().putCi(this.ci);
-		} catch (RemoteException e) { e.printStackTrace(); }
-		System.out.println("information recupere et envoyer");
+//
+//		if (makeConnection() == true)
+//			System.out.println("connection etablie ...");
+//		if (this.ce.IsConnected() == false)
+//			return ;
+//		try {
+//			this.ce.getBean().putCi(this.ci);
+//		} catch (RemoteException e) { e.printStackTrace(); }
+//		System.out.println("information recupere et envoyer");
 	}
 
 	private void fillNetworkInCI()
@@ -162,7 +164,7 @@ public class wanduxApp
 		
 		String res = "";
 		String[] rqRSLT = null;
-		String rq  = "SELECT * FROM Win32_ComputerSystem ";
+		String rq  = "SELECT * FROM Win32_ComputerSystem";
 		String wzName = "Caption"; // element a recuperer depuis la requette
 			try
 			{
