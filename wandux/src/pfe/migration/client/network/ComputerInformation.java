@@ -41,8 +41,6 @@ public class ComputerInformation implements Serializable
 	private NetworkConfig netconf [] = null;
 	private FileSystemModel fsm [] = null;
 	
-	private String hostname = ""; 
-	
 	public ComputerInformation ()
 	{
 		super();
@@ -51,7 +49,7 @@ public class ComputerInformation implements Serializable
 
 	public String getHostname()
 	{
-		return hostname; //this.local_ip;
+		return this.gconf.getGlobalHostname(); //this.local_ip;
 	}
 	
 	public void setInfoNetwork (NetworkConfig infon [])
@@ -66,7 +64,7 @@ public class ComputerInformation implements Serializable
 	
 	public void setFileSystemModel(FileSystemModel [] mfsm)
 	{
-		this.fsm = mfsm; // verifier si 
+		this.fsm = mfsm;
 	}
 	
 	public FileSystemModel [] getFileSystemModel()
