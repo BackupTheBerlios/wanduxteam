@@ -34,16 +34,19 @@ public class ComputerInformation implements Serializable
 	 * Comment for <code>serialVersionUID</code>
 	 */
 	private static final long serialVersionUID = 1L;
-	private GlobalConf gconf = null;
-	private UsersData udata = null;
-	private NetworkConfig netconf [] = null;
-	private ParamIe ieconf = null;
+	public GlobalConf gconf = null;
+	public UsersData udata = null;
+	public ParamIe ieconf = null;
+	
 	private String local_ip = null;
+
+	private NetworkConfig netconf [] = null;
 	private FileSystemModel fsm [] = null;
 	
 	public ComputerInformation ()
 	{
 		super();
+		this.gconf = new GlobalConf();
 	}
 
 	public String getMac()
@@ -74,6 +77,11 @@ public class ComputerInformation implements Serializable
 	public NetworkConfig [] getInfoNetwork()
 	{
 		return this.netconf;
+	}
+
+	public NetworkConfig getInfoNetwork(int index)
+	{
+		return this.netconf[index];
 	}
 	
 	public void setFileSystemModel(FileSystemModel [] mfsm)

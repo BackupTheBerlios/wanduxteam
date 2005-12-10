@@ -84,6 +84,7 @@ public class wanduxApp
 	
 	public wanduxApp()
 	{
+		ci = new ComputerInformation();
 		WanduxWmiInfoManager();
 		fillNetworkInCI();
 //		NetworkConfig ntconfig[] = ci.getInfoNetwork();
@@ -152,7 +153,32 @@ public class wanduxApp
 		{
 			System.err.println(e.getStackTrace());
 		}
+		if(nc != null)
 		this.ci.setInfoNetwork(nc);	
+	}
+	
+	void fillHostname()
+	{
+		
+		String res = "";
+		String[] rqRSLT = null;
+		String rq  = "SELECT * FROM Win32_ComputerSystem ";
+		String wzName = "Caption"; // element a recuperer depuis la requette
+			try
+			{
+				rqRSLT = wwb.exec_rq(rootCIMV2, rq, wzName);	
+				if(rqRSLT[0].equals("1")) // erreur detected
+				{
+					System.err.println(rqRSLT[1]);
+					return;
+				}
+				ci.gconf.setGlobalHostname(rqRSLT[0]);
+			}
+			catch(Exception e)
+			{
+				System.err.println(e.getStackTrace());
+			}
+			return;
 	}
 		
 	/**
