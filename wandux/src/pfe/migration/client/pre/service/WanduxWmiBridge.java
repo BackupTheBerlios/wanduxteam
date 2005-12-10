@@ -15,7 +15,10 @@ package pfe.migration.client.pre.service;
 public class WanduxWmiBridge {
 	
 //	public native void toto();
+	
 	public native String[] exec_rq(String rootPAth, String rq, String wszName);
+	
+
 	static {
   	try { 
       	System.loadLibrary("wwi");
