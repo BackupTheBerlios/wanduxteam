@@ -14,10 +14,10 @@ import pfe.migration.client.network.ComputerInformation;
 public interface WanduxEjb extends EJBObject
 {
 
-	public void putIp(String ip) throws RemoteException;
+	public void putHostname(String ip) throws RemoteException;
 	public List getIps() throws RemoteException;
 	public void putCi(ComputerInformation ci) throws RemoteException;
-	public ComputerInformation getCi(String ip) throws RemoteException;
+	public ComputerInformation getCi(String Hostname) throws RemoteException;
 	
 /*	public void putComputerInformation(ComputerInformation ci) throws RemoteException;
 	public ComputerInformation getComputerInformation(String macaddr) throws RemoteException, HibernateException;

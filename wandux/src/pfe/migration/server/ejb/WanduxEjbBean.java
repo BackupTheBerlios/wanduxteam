@@ -38,11 +38,9 @@ public class WanduxEjbBean implements SessionBean
 	 * Comment for <code>serialVersionUID</code>
 	 */
 	private static final long serialVersionUID = 1L;
-	//public static CiList cil;
 
 	public static CiList cil = new CiList();
 
-	
 //	String AdllXmlFileName = "";
 	
 	// -- ejb ------------------------------------------------------------------------------------ //
@@ -78,21 +76,22 @@ public class WanduxEjbBean implements SessionBean
 	// -- taches internes ------------------------------------------------------- //
 	public void createAdllXmlFile(ComputerInformation ci)
 	{
-		XmlAdllParse xml = new XmlAdllParse(ci.getMac(), ci);
-		ExecAdll ea = new ExecAdll(ci.getMac());
+//		XmlAdllParse xml = new XmlAdllParse(ci.getMac(), ci);
+//		ExecAdll ea = new ExecAdll(ci.getMac());
 	}
 	
 	public void createXmlBookmark(ComputerInformation ci)
 	{
-		CopyBookmark cb = new CopyBookmark(ci);
+		//CopyBookmark cb = 
+		new CopyBookmark(ci);
 	}
 	
 	// -- client admin ------------------------------------------------------- //
 	
 	// -- client normal ------------------------------------------------------- //
-	public void putIp(String ip)
-	{
-		cil.add(ip);
+	public void putHostname(String hostname)
+	{ // TODO savoir si c est utile ou si ce st juste pour les tests ... voir si c est a enlever ...
+		cil.add(hostname);
 	}
 	
 	public List getIps()
@@ -102,7 +101,7 @@ public class WanduxEjbBean implements SessionBean
 		cil.add("192.168.0.3");
 		cil.add("192.168.0.4");
 		System.out.println(cil);
-		return cil.getListIp();	
+		return cil.getListHostname();
 	}
 	
 	public void putCi(ComputerInformation ci)
@@ -110,9 +109,9 @@ public class WanduxEjbBean implements SessionBean
 		cil.fill(ci);
 	}
 
-	public ComputerInformation getCi(String ip)
+	public ComputerInformation getCi(String Hostname)
 	{
-		return (ComputerInformation)cil.get(ip);
+		return (ComputerInformation)cil.get(Hostname);
 	}
 	
 //	public void putComputerInformation(ComputerInformation ci)
