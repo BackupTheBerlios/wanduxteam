@@ -34,14 +34,14 @@ public class ComputerInformation implements Serializable
 	 * Comment for <code>serialVersionUID</code>
 	 */
 	private static final long serialVersionUID = 1L;
-	public GlobalConf gconf = null;
-	public UsersData udata = null;
-	public ParamIe ieconf = null;
+	private GlobalConf gconf = null;
+//	private UsersData udata = null;
+//	private ParamIe ieconf = null;
 	
-	private String local_ip = null;
-
 	private NetworkConfig netconf [] = null;
 	private FileSystemModel fsm [] = null;
+	
+	private String hostname = ""; 
 	
 	public ComputerInformation ()
 	{
@@ -49,25 +49,10 @@ public class ComputerInformation implements Serializable
 		this.gconf = new GlobalConf();
 	}
 
-	public String getMac()
+	public String getHostname()
 	{
-		return ""; // this.netconf.getNetworkMacAdress();
+		return hostname; //this.local_ip;
 	}
-
-	public String getIp()
-	{
-		return this.local_ip;
-	}
-	
-//	public void setInfoUser (InformationUser infou)
-//	{
-//		this.infou = infou;
-//	}
-//
-//	public InformationUser getInfoUser()
-//	{
-//		return this.infou;
-//	}
 	
 	public void setInfoNetwork (NetworkConfig infon [])
 	{
@@ -77,11 +62,6 @@ public class ComputerInformation implements Serializable
 	public NetworkConfig [] getInfoNetwork()
 	{
 		return this.netconf;
-	}
-
-	public NetworkConfig getInfoNetwork(int index)
-	{
-		return this.netconf[index];
 	}
 	
 	public void setFileSystemModel(FileSystemModel [] mfsm)
@@ -93,7 +73,17 @@ public class ComputerInformation implements Serializable
 	{
 		return this.fsm;
 	}
+
 	
+//	public void setInfoUser (InformationUser infou)
+//	{
+//		this.infou = infou;
+//	}
+//
+//	public InformationUser getInfoUser()
+//	{
+//		return this.infou;
+//	}
 //	public void setInfoPrograms (InformationPrograms infop)
 //	{
 //		this.infop = infop;
