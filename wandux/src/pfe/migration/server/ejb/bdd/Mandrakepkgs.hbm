@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+
+<hibernate-mapping package="pfe.migration.server.ejb.bdd">
+	<class name="Mandrakepkgs" table="MANDRAKEPKGS">
+		<id
+			column="ID"
+			name="Id"
+			type="java.lang.Long"
+		>
+			<generator class="vm" />
+		</id>
+		<property
+			column="NAME"
+			length="128"
+			name="Name"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="DESCRIPTION"
+			name="Description"
+			not-null="true"
+			type="string"
+		 />
+	</class>
+</hibernate-mapping>

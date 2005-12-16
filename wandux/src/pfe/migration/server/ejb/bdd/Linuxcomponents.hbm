@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd" >
+
+<hibernate-mapping package="pfe.migration.server.ejb.bdd">
+	<class name="Linuxcomponents" table="LINUXCOMPONENTS">
+		<id
+			column="ID"
+			name="Id"
+			type="java.lang.Long"
+		>
+			<generator class="vm" />
+		</id>
+		<property
+			column="TYPE"
+			length="6"
+			name="Type"
+			not-null="true"
+			type="java.lang.Short"
+		 />
+		<property
+			column="MULTIPLATFORM"
+			length="1"
+			name="Multiplatform"
+			not-null="true"
+			type="java.lang.Byte"
+		 />
+		<property
+			column="PROPRIETARY"
+			length="1"
+			name="Proprietary"
+			not-null="true"
+			type="java.lang.Byte"
+		 />
+		<property
+			column="RATING"
+			length="128"
+			name="Rating"
+			not-null="true"
+			type="java.lang.Byte"
+		 />
+		<property
+			column="URL"
+			length="128"
+			name="Url"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="SUBCATEGORY"
+			length="4"
+			name="Subcategory"
+			not-null="true"
+			type="java.lang.Byte"
+		 />
+		<property
+			column="NAME"
+			length="128"
+			name="Name"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="CATEGORY"
+			length="4"
+			name="Category"
+			not-null="true"
+			type="java.lang.Byte"
+		 />
+		<property
+			column="STDPROTOCOL"
+			length="2"
+			name="Stdprotocol"
+			not-null="true"
+			type="java.lang.Byte"
+		 />
+		<property
+			column="WINEXISTS"
+			length="1"
+			name="Winexists"
+			not-null="true"
+			type="java.lang.Byte"
+		 />
+	</class>
+</hibernate-mapping>

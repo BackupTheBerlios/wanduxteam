@@ -1,252 +1,252 @@
-/*
- * Created on 23 juin 2005
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
-package pfe.migration.client.pre.app.apparence.steps;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-//import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.StringTokenizer;
-import java.util.Vector;
-
-import javax.swing.JList;
-import javax.swing.JPanel;
-
-//import net.sf.hibernate.HibernateException;
-
-import pfe.migration.client.network.ClientEjb;
-import pfe.migration.client.network.ComputerInformation;
-import pfe.migration.client.pre.app.LanguageSettings;
-import pfe.migration.client.pre.app.NetSettings;
-import pfe.migration.client.pre.app.UserConfig;
-import pfe.migration.client.pre.system.IeParam;
-import pfe.migration.client.pre.system.KeyVal;
-import pfe.migration.server.ejb.bdd.GlobalConf;
-import pfe.migration.server.ejb.bdd.NetworkConfig;
-import pfe.migration.server.ejb.bdd.ParamIe;
-import pfe.migration.server.ejb.bdd.UsersData;
-
-/**
- * @author dupadmin
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
-public class UserNetStep extends JPanel
-{
-	/**
-	 * Comment for <code>serialVersionUID</code>
-	 */
-	private static final long serialVersionUID = 1L;
-	private ComputerInformation ci = null;
-	
-	public UserNetStep(ClientEjb ce)
-	{
-//		JScrollPane scrollPane= new JScrollPane();
-//		scrollPane.setPreferredSize(new Dimension(400,400));
-//		scrollPane.setViewportView(printSystemInfos(systemInformation(ce)));
-//		this.add(scrollPane);
-		
-		systemInformation(ce);
-		this.add(printSystemInfos());
-	}
-
-	public void systemInformation(ClientEjb ce)
-	{
-		KeyVal kvusers = new KeyVal();
-		this.ci = new ComputerInformation();
-		String macaddr = NetSettings.FindMacAddr();
-		this.ci.gconf = new GlobalConf();
-		this.ci.gconf.setGlobalKey(new Integer(macaddr.hashCode()));
-		this.ci.netconf = new NetworkConfig();
-		this.ci.netconf.setNetworkKey(this.ci.gconf.getGlobalKey());
-		this.ci.udata = new UsersData();
-		this.ci.udata.setUserKey(this.ci.gconf.getGlobalKey());
-		this.ci.ieconf = new ParamIe(new Integer("METTRE LE LOGIN ICI".hashCode()));
-		
-		//Hostname
-		this.ci.gconf.setGlobalHostname(kvusers.getKeyValLocalMachine(
-							"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", "HostName"));
-
-		//Dhcp Enabled
-		String curinterface = kvusers
-		.FindCurrentInterFace("SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces");
-
-		KeyVal.FindLinkage();
-		
-		// Proxy
-		IeParam ieparam = new IeParam();
-		this.ci.ieconf.setIeProxyServer(ieparam.getProxyServer());
-		this.ci.ieconf.setIeProxyOverride(ieparam.getProxyOverride());
-		//this.ci.ieconf.setIeProxyAutoConfigUrl(ieparam.getAutoConfigURL());
-		
-		if (!curinterface.equals("dhcpdisabled"))
-		{
-			this.ci.netconf.setNetworkDhcpEnabled(new Byte("1"));
-			//DhcpServer
-			System.out.println("dhcp enabled");
-			String enabledhcp = new String(kvusers.getKeyValLocalMachine(
-					"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-							+ curinterface, "enabledhcp"));
-			
-			//DEPRECATED
-//			ci.netconf.setDhcpServer(kvusers.getKeyValLocalMachine(
-//								"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-//								+ curinterface, "DhcpServer"));
-			
-//			DEPRECATED
-			//DHcp Ip Adress
-			this.ci.netconf.setNetworkIpAddress(kvusers.getKeyValLocalMachine(
-								"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-								+ curinterface, "dhcpIpaddress"));
-			
-//			DEPRECATED
-			//DhcpSubNetMask
-//			ci.netconf.setDhcpSubnetmask(kvusers.getKeyValLocalMachine(
-//								"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-//								+ curinterface, "DhcpSubnetMask"));
-		}
-		else
-		{
-			this.ci.netconf.setNetworkDhcpEnabled(new Byte("0"));
-			System.out.println("dhcp disabled");
-			curinterface = KeyVal.FindLinkage();
-
-			System.out.println(kvusers.getKeyValLocalMachine(
-								"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-								+ curinterface, "DefaultGateway"));
-			System.out.println(kvusers.getKeyValLocalMachine(
-					"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-					+ curinterface, "Ipaddress"));
-			System.out.println(kvusers.getKeyValLocalMachine(
-					"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-					+ curinterface, "SubnetMask"));
-			
-//			System.out.println(kvusers.getKeyValLocalMachine(
-//					"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-//					+ curinterface, "NameServer"));
-			String nsreg = kvusers.getKeyValLocalMachine(
-					"SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces\\"
-					+ curinterface, "NameServer");
-
-			Hashtable ht = new Hashtable();
-			StringTokenizer st = new StringTokenizer(nsreg, ",");
-			Vector nstable = new Vector();
-			String ns = null;
-			int i;
-
-			for (i = 0; i <= st.countTokens(); i++)
-			{
-				nstable.add(st.nextToken());
-			}
-
-			for (int j = 0; j < i; j++)
-			{
-				ns = (String)nstable.elementAt(j);
-				System.out.println(ns);
-			}
-		}
-		this.ci.udata.setUserKbLayout(LanguageSettings.GetDefaultKBLayout(ce));
-		LanguageSettings lns = new LanguageSettings();
-//		ProgramsLister proglist = new ProgramsLister();
-//		ProgramsLister.ParseExtensions();
-
-		//GROS ABUS : Login pas encore recupere
-		this.ci.udata.setUserLogin(System.getProperty("user.name"));
-		
-		this.ci.udata.setUserHome(System.getProperty("user.home"));
-		this.ci.udata.setUserTimezone(System.getProperty("user.timezone"));
-		UserConfig uc = new UserConfig();
-		this.ci.udata.setUserProxyServ(UserConfig.ProxyServer());
-		this.ci.udata.setUserProxyOverride(UserConfig.ProxyOverride());
-		
-		
-		String s = null;
-		try {
-			Process p = Runtime.getRuntime().exec(
-					"CMD /c \"echo %systemroot%\"");
-			BufferedReader stdInput = new BufferedReader(new InputStreamReader(
-					p.getInputStream()));
-			s = stdInput.readLine();
-//			if ((s = stdInput.readLine()) != null) {
-//				System.out.println(s);
-//			}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		
-		
-		this.ci.udata.setUserBgimg(UserConfig.BGImage());
-		//La MacAddr est desormais gettee dans les premieres lignes de cette fonction
-		this.ci.netconf.setNetworkMacAdress(macaddr);
-		
-//		EXEMPLE DE CODE POUR GETTER ComputerInformation
-//		(a surrounder avec un try/catch)
+///*
+// * CREATED ON 23 JUIN 2005
+// *
+// * TODO TO CHANGE THE TEMPLATE FOR THIS GENERATED FILE GO TO
+// * WINDOW - PREFERENCES - JAVA - CODE STYLE - CODE TEMPLATES
+// */
+//PACKAGE PFE.MIGRATION.CLIENT.PRE.APP.APPARENCE.STEPS;
+//
+//IMPORT JAVA.IO.BUFFEREDREADER;
+//IMPORT JAVA.IO.INPUTSTREAMREADER;
+////IMPORT JAVA.RMI.REMOTEEXCEPTION;
+//IMPORT JAVA.UTIL.ARRAYLIST;
+//IMPORT JAVA.UTIL.HASHTABLE;
+//IMPORT JAVA.UTIL.LIST;
+//IMPORT JAVA.UTIL.STRINGTOKENIZER;
+//IMPORT JAVA.UTIL.VECTOR;
+//
+//IMPORT JAVAX.SWING.JLIST;
+//IMPORT JAVAX.SWING.JPANEL;
+//
+////IMPORT NET.SF.HIBERNATE.HIBERNATEEXCEPTION;
+//
+//IMPORT PFE.MIGRATION.CLIENT.NETWORK.CLIENTEJB;
+//IMPORT PFE.MIGRATION.CLIENT.NETWORK.COMPUTERINFORMATION;
+//IMPORT PFE.MIGRATION.CLIENT.PRE.APP.LANGUAGESETTINGS;
+//IMPORT PFE.MIGRATION.CLIENT.PRE.APP.NETSETTINGS;
+//IMPORT PFE.MIGRATION.CLIENT.PRE.APP.USERCONFIG;
+//IMPORT PFE.MIGRATION.CLIENT.PRE.SYSTEM.IEPARAM;
+//IMPORT PFE.MIGRATION.CLIENT.PRE.SYSTEM.KEYVAL;
+//IMPORT PFE.MIGRATION.SERVER.EJB.BDD.GLOBALCONF;
+//IMPORT PFE.MIGRATION.SERVER.EJB.BDD.NETWORKCONFIG;
+//IMPORT PFE.MIGRATION.SERVER.EJB.BDD.PARAMIE;
+//IMPORT PFE.MIGRATION.SERVER.EJB.BDD.USERSDATA;
+//
+///**
+// * @AUTHOR DUPADMIN
+// *
+// * TODO TO CHANGE THE TEMPLATE FOR THIS GENERATED TYPE COMMENT GO TO
+// * WINDOW - PREFERENCES - JAVA - CODE STYLE - CODE TEMPLATES
+// */
+//PUBLIC CLASS USERNETSTEP EXTENDS JPANEL
+//{
+//	/**
+//	 * COMMENT FOR <CODE>SERIALVERSIONUID</CODE>
+//	 */
+//	PRIVATE STATIC FINAL LONG SERIALVERSIONUID = 1L;
+//	PRIVATE COMPUTERINFORMATION CI = NULL;
+//	
+//	PUBLIC USERNETSTEP(CLIENTEJB CE)
+//	{
+////		JSCROLLPANE SCROLLPANE= NEW JSCROLLPANE();
+////		SCROLLPANE.SETPREFERREDSIZE(NEW DIMENSION(400,400));
+////		SCROLLPANE.SETVIEWPORTVIEW(PRINTSYSTEMINFOS(SYSTEMINFORMATION(CE)));
+////		THIS.ADD(SCROLLPANE);
 //		
-//		ComputerInformation toto =  ce.getComputerInformation(macaddr);
-//		toto.gconf.getGlobalHostname();
-//		toto.netconf.getNetworkIpAddress();
-//		toto.udata.getUserLogin();
-	
-		ce.Transfert(this.ci);
-	}
-	
-	public static String replace(String orig, String from, String to)
-	{
-		int start = orig.indexOf(from);
-		if (start == -1)
-			return orig;
-		int lf = from.length();
-		char [] origChars = orig.toCharArray();
-		StringBuffer buffer = new StringBuffer();
-		int copyFrom = 0;
-
-		while (start != -1)
-		{
-			buffer.append(origChars, copyFrom, start - copyFrom);
-			buffer.append(to);
-			copyFrom = start + lf;
-			start = orig.indexOf(from, copyFrom);
-		}
-		buffer.append(origChars, copyFrom, origChars.length - copyFrom);
-		return buffer.toString();
-	}
-	
-	/**
-	 * Graphical component : System informations
-	 */
-	public JList printSystemInfos()
-	{
-		List components  = new ArrayList();
-		
-		components.add("----------   Global configuration   -------------");
-		components.add("");
-		components.add("HostName: " + this.ci.gconf.getGlobalHostname());
-		components.add("");
-		components.add("----------   Network configuration   ------------");
-		components.add("");
-		if (this.ci.netconf.getNetworkDhcpEnabled().byteValue() == 1)
-			components.add("Dhcpenabled: yes");
-		else
-			components.add("Dhcpenabled: no");
-		components.add("");
-//		components.add("DhcpServer: " + ci.netconf.getDhcpServer());
-//		components.add("DhcpIpaddress: " + ci.netconf.getDhcpAdress());
-//		components.add("DhcpSubnetMask: " + ci.netconf.getDhcpSubnetmask());
-		components.add("");
-		components.add("-----------   Users configuration   -------------");
-		components.add("");
-		return new JList (components.toArray());
-	}
-
-	public ComputerInformation getCurrentComputerInformation()
-	{
-		return this.ci;
-	}
-}
+//		SYSTEMINFORMATION(CE);
+//		THIS.ADD(PRINTSYSTEMINFOS());
+//	}
+//
+//	PUBLIC VOID SYSTEMINFORMATION(CLIENTEJB CE)
+//	{
+//		KEYVAL KVUSERS = NEW KEYVAL();
+//		THIS.CI = NEW COMPUTERINFORMATION();
+//		STRING MACADDR = NETSETTINGS.FINDMACADDR();
+//		THIS.CI.GCONF = NEW GLOBALCONF();
+//		THIS.CI.GCONF.SETGLOBALKEY(NEW INTEGER(MACADDR.HASHCODE()));
+//		THIS.CI.NETCONF = NEW NETWORKCONFIG();
+//		THIS.CI.NETCONF.SETNETWORKKEY(THIS.CI.GCONF.GETGLOBALKEY());
+//		THIS.CI.UDATA = NEW USERSDATA();
+//		THIS.CI.UDATA.SETUSERKEY(THIS.CI.GCONF.GETGLOBALKEY());
+//		THIS.CI.IECONF = NEW PARAMIE(NEW INTEGER("METTRE LE LOGIN ICI".HASHCODE()));
+//		
+//		//HOSTNAME
+//		THIS.CI.GCONF.SETGLOBALHOSTNAME(KVUSERS.GETKEYVALLOCALMACHINE(
+//							"SYSTEM\\CURRENTCONTROLSET\\SERVICES\\TCPIP\\PARAMETERS", "HOSTNAME"));
+//
+//		//DHCP ENABLED
+//		STRING CURINTERFACE = KVUSERS
+//		.FINDCURRENTINTERFACE("SYSTEM\\CURRENTCONTROLSET\\SERVICES\\TCPIP\\PARAMETERS\\INTERFACES");
+//
+//		KEYVAL.FINDLINKAGE();
+//		
+//		// PROXY
+//		IEPARAM IEPARAM = NEW IEPARAM();
+//		THIS.CI.IECONF.SETIEPROXYSERVER(IEPARAM.GETPROXYSERVER());
+//		THIS.CI.IECONF.SETIEPROXYOVERRIDE(IEPARAM.GETPROXYOVERRIDE());
+//		//THIS.CI.IECONF.SETIEPROXYAUTOCONFIGURL(IEPARAM.GETAUTOCONFIGURL());
+//		
+//		IF (!CURINTERFACE.EQUALS("DHCPDISABLED"))
+//		{
+//			THIS.CI.NETCONF.SETNETWORKDHCPENABLED(NEW BYTE("1"));
+//			//DHCPSERVER
+//			SYSTEM.OUT.PRINTLN("DHCP ENABLED");
+//			STRING ENABLEDHCP = NEW STRING(KVUSERS.GETKEYVALLOCALMACHINE(
+//					"SYSTEM\\CURRENTCONTROLSET\\SERVICES\\TCPIP\\PARAMETERS\\INTERFACES\\"
+//							+ CURINTERFACE, "ENABLEDHCP"));
+//			
+//			//DEPRECATED
+////			CI.NETCONF.SETDHCPSERVER(KVUSERS.GETKEYVALLOCALMACHINE(
+////								"SYSTEM\\CURRENTCONTROLSET\\SERVICES\\TCPIP\\PARAMETERS\\INTERFACES\\"
+////								+ CURINTERFACE, "DHCPSERVER"));
+//			
+////			DEPRECATED
+//			//DHCP IP ADRESS
+//			THIS.CI.NETCONF.SETNETWORKIPADDRESS(KVUSERS.GETKEYVALLOCALMACHINE(
+//								"SYSTEM\\CURRENTCONTROLSET\\SERVICES\\TCPIP\\PARAMETERS\\INTERFACES\\"
+//								+ CURINTERFACE, "DHCPIPADDRESS"));
+//			
+////			DEPRECATED
+//			//DHCPSUBNETMASK
+////			CI.NETCONF.SETDHCPSUBNETMASK(KVUSERS.GETKEYVALLOCALMACHINE(
+////								"SYSTEM\\CURRENTCONTROLSET\\SERVICES\\TCPIP\\PARAMETERS\\INTERFACES\\"
+////								+ CURINTERFACE, "DHCPSUBNETMASK"));
+//		}
+//		ELSE
+//		{
+//			THIS.CI.NETCONF.SETNETWORKDHCPENABLED(NEW BYTE("0"));
+//			SYSTEM.OUT.PRINTLN("DHCP DISABLED");
+//			CURINTERFACE = KEYVAL.FINDLINKAGE();
+//
+//			SYSTEM.OUT.PRINTLN(KVUSERS.GETKEYVALLOCALMACHINE(
+//								"SYSTEM\\CURRENTCONTROLSET\\SERVICES\\TCPIP\\PARAMETERS\\INTERFACES\\"
+//								+ CURINTERFACE, "DEFAULTGATEWAY"));
+//			SYSTEM.OUT.PRINTLN(KVUSERS.GETKEYVALLOCALMACHINE(
+//					"SYSTEM\\CURRENTCONTROLSET\\SERVICES\\TCPIP\\PARAMETERS\\INTERFACES\\"
+//					+ CURINTERFACE, "IPADDRESS"));
+//			SYSTEM.OUT.PRINTLN(KVUSERS.GETKEYVALLOCALMACHINE(
+//					"SYSTEM\\CURRENTCONTROLSET\\SERVICES\\TCPIP\\PARAMETERS\\INTERFACES\\"
+//					+ CURINTERFACE, "SUBNETMASK"));
+//			
+////			SYSTEM.OUT.PRINTLN(KVUSERS.GETKEYVALLOCALMACHINE(
+////					"SYSTEM\\CURRENTCONTROLSET\\SERVICES\\TCPIP\\PARAMETERS\\INTERFACES\\"
+////					+ CURINTERFACE, "NAMESERVER"));
+//			STRING NSREG = KVUSERS.GETKEYVALLOCALMACHINE(
+//					"SYSTEM\\CURRENTCONTROLSET\\SERVICES\\TCPIP\\PARAMETERS\\INTERFACES\\"
+//					+ CURINTERFACE, "NAMESERVER");
+//
+//			HASHTABLE HT = NEW HASHTABLE();
+//			STRINGTOKENIZER ST = NEW STRINGTOKENIZER(NSREG, ",");
+//			VECTOR NSTABLE = NEW VECTOR();
+//			STRING NS = NULL;
+//			INT I;
+//
+//			FOR (I = 0; I <= ST.COUNTTOKENS(); I++)
+//			{
+//				NSTABLE.ADD(ST.NEXTTOKEN());
+//			}
+//
+//			FOR (INT J = 0; J < I; J++)
+//			{
+//				NS = (STRING)NSTABLE.ELEMENTAT(J);
+//				SYSTEM.OUT.PRINTLN(NS);
+//			}
+//		}
+//		THIS.CI.UDATA.SETUSERKBLAYOUT(LANGUAGESETTINGS.GETDEFAULTKBLAYOUT(CE));
+//		LANGUAGESETTINGS LNS = NEW LANGUAGESETTINGS();
+////		PROGRAMSLISTER PROGLIST = NEW PROGRAMSLISTER();
+////		PROGRAMSLISTER.PARSEEXTENSIONS();
+//
+//		//GROS ABUS : LOGIN PAS ENCORE RECUPERE
+//		THIS.CI.UDATA.SETUSERLOGIN(SYSTEM.GETPROPERTY("USER.NAME"));
+//		
+//		THIS.CI.UDATA.SETUSERHOME(SYSTEM.GETPROPERTY("USER.HOME"));
+//		THIS.CI.UDATA.SETUSERTIMEZONE(SYSTEM.GETPROPERTY("USER.TIMEZONE"));
+//		USERCONFIG UC = NEW USERCONFIG();
+//		THIS.CI.UDATA.SETUSERPROXYSERV(USERCONFIG.PROXYSERVER());
+//		THIS.CI.UDATA.SETUSERPROXYOVERRIDE(USERCONFIG.PROXYOVERRIDE());
+//		
+//		
+//		STRING S = NULL;
+//		TRY {
+//			PROCESS P = RUNTIME.GETRUNTIME().EXEC(
+//					"CMD /C \"ECHO %SYSTEMROOT%\"");
+//			BUFFEREDREADER STDINPUT = NEW BUFFEREDREADER(NEW INPUTSTREAMREADER(
+//					P.GETINPUTSTREAM()));
+//			S = STDINPUT.READLINE();
+////			IF ((S = STDINPUT.READLINE()) != NULL) {
+////				SYSTEM.OUT.PRINTLN(S);
+////			}
+//		} CATCH (EXCEPTION E) {
+//			SYSTEM.OUT.PRINTLN(E);
+//		}
+//		
+//		
+//		THIS.CI.UDATA.SETUSERBGIMG(USERCONFIG.BGIMAGE());
+//		//LA MACADDR EST DESORMAIS GETTEE DANS LES PREMIERES LIGNES DE CETTE FONCTION
+//		THIS.CI.NETCONF.SETNETWORKMACADRESS(MACADDR);
+//		
+////		EXEMPLE DE CODE POUR GETTER COMPUTERINFORMATION
+////		(A SURROUNDER AVEC UN TRY/CATCH)
+////		
+////		COMPUTERINFORMATION TOTO =  CE.GETCOMPUTERINFORMATION(MACADDR);
+////		TOTO.GCONF.GETGLOBALHOSTNAME();
+////		TOTO.NETCONF.GETNETWORKIPADDRESS();
+////		TOTO.UDATA.GETUSERLOGIN();
+//	
+//		CE.TRANSFERT(THIS.CI);
+//	}
+//	
+//	PUBLIC STATIC STRING REPLACE(STRING ORIG, STRING FROM, STRING TO)
+//	{
+//		INT START = ORIG.INDEXOF(FROM);
+//		IF (START == -1)
+//			RETURN ORIG;
+//		INT LF = FROM.LENGTH();
+//		CHAR [] ORIGCHARS = ORIG.TOCHARARRAY();
+//		STRINGBUFFER BUFFER = NEW STRINGBUFFER();
+//		INT COPYFROM = 0;
+//
+//		WHILE (START != -1)
+//		{
+//			BUFFER.APPEND(ORIGCHARS, COPYFROM, START - COPYFROM);
+//			BUFFER.APPEND(TO);
+//			COPYFROM = START + LF;
+//			START = ORIG.INDEXOF(FROM, COPYFROM);
+//		}
+//		BUFFER.APPEND(ORIGCHARS, COPYFROM, ORIGCHARS.LENGTH - COPYFROM);
+//		RETURN BUFFER.TOSTRING();
+//	}
+//	
+//	/**
+//	 * GRAPHICAL COMPONENT : SYSTEM INFORMATIONS
+//	 */
+//	PUBLIC JLIST PRINTSYSTEMINFOS()
+//	{
+//		LIST COMPONENTS  = NEW ARRAYLIST();
+//		
+//		COMPONENTS.ADD("----------   GLOBAL CONFIGURATION   -------------");
+//		COMPONENTS.ADD("");
+//		COMPONENTS.ADD("HOSTNAME: " + THIS.CI.GCONF.GETGLOBALHOSTNAME());
+//		COMPONENTS.ADD("");
+//		COMPONENTS.ADD("----------   NETWORK CONFIGURATION   ------------");
+//		COMPONENTS.ADD("");
+//		IF (THIS.CI.NETCONF.GETNETWORKDHCPENABLED().BYTEVALUE() == 1)
+//			COMPONENTS.ADD("DHCPENABLED: YES");
+//		ELSE
+//			COMPONENTS.ADD("DHCPENABLED: NO");
+//		COMPONENTS.ADD("");
+////		COMPONENTS.ADD("DHCPSERVER: " + CI.NETCONF.GETDHCPSERVER());
+////		COMPONENTS.ADD("DHCPIPADDRESS: " + CI.NETCONF.GETDHCPADRESS());
+////		COMPONENTS.ADD("DHCPSUBNETMASK: " + CI.NETCONF.GETDHCPSUBNETMASK());
+//		COMPONENTS.ADD("");
+//		COMPONENTS.ADD("-----------   USERS CONFIGURATION   -------------");
+//		COMPONENTS.ADD("");
+//		RETURN NEW JLIST (COMPONENTS.TOARRAY());
+//	}
+//
+//	PUBLIC COMPUTERINFORMATION GETCURRENTCOMPUTERINFORMATION()
+//	{
+//		RETURN THIS.CI;
+//	}
+//}
