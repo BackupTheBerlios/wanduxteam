@@ -12,6 +12,7 @@ import javax.swing.tree.DefaultTreeModel;
 
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
+import pfe.migration.client.pre.app.ProgramsLister;
 import pfe.migration.client.pre.system.NetConfig;
 import pfe.migration.client.pre.system.NetConfig;
 import pfe.migration.client.pre.system.FileSystemModel;
@@ -135,16 +136,45 @@ public class wanduxApp
 
 		GetFileTreeModel();
 
+
 		if (makeConnection() == true)
 			System.out.println("connection etablie ...");
 		if (this.ce.IsConnected() == false)
 			return ;
+		
+		
+		ProgramMatcher();
+
 		try {
+			// Send Machine CI to server
 			this.ce.getBean().putCi(this.ci);
 		} catch (RemoteException e) { e.printStackTrace(); }
 		System.out.println("information recupere et envoyer");
+
 	}
 
+	/**
+	 * Matches existence of pre-defined programs
+	 *
+	 */
+	private void ProgramMatcher()
+	{
+		//* Program matching procedure *//
+		ProgramsLister pl = new ProgramsLister();
+		String progs[] = new String[10];				
+		progs[0] = "iexplore";// ie
+		progs[1] = "msimn";// outlook
+		progs[2] = "winword";// winword
+
+		progs = pl.Programexists(pl.ParseExtensions(), progs, 3);
+		ArrayList proglist = new ArrayList();
+		for (int k = 0; k < 3; k++)
+		{
+			proglist.add(progs[k]);
+		}
+		ci.windowsProgram = proglist;
+	}
+	
 	private void fillNetworkInCI()
 	{
 		NetConfig netconfig = new NetConfig(wwb);
