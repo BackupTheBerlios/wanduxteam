@@ -7,12 +7,12 @@
 package pfe.migration.client.network;
 
 import java.io.Serializable;
+import java.util.List;
 
-import pfe.migration.client.pre.system.FileSystemModel;
+import javax.swing.tree.DefaultTreeModel;
+
 import pfe.migration.server.ejb.bdd.GlobalConf;
 import pfe.migration.server.ejb.bdd.NetworkConfig;
-import pfe.migration.server.ejb.bdd.ParamIe;
-import pfe.migration.server.ejb.bdd.UsersData;
 
 
 
@@ -29,6 +29,9 @@ public class ComputerInformation implements Serializable
 //	 private InformationPrograms infop = null;
 //	 private InformationProgram = null; // en attendant
 //	 private int infnbprog = 0;
+	
+	public List windowsProgram = null;
+	public List linuxProgram = null;
 
 	/**
 	 * Comment for <code>serialVersionUID</code>
@@ -39,7 +42,7 @@ public class ComputerInformation implements Serializable
 //	private ParamIe ieconf = null;
 	
 	private NetworkConfig netconf [] = null;
-	private FileSystemModel fsm [] = null;
+	private DefaultTreeModel fsm = null;
 	
 	public ComputerInformation ()
 	{
@@ -62,12 +65,12 @@ public class ComputerInformation implements Serializable
 		return this.netconf;
 	}
 	
-	public void setFileSystemModel(FileSystemModel [] mfsm)
+	public void setFileSystemModel(DefaultTreeModel mfsm)
 	{
 		this.fsm = mfsm;
 	}
 	
-	public FileSystemModel [] getFileSystemModel()
+	public DefaultTreeModel getFileSystemModel()
 	{
 		return this.fsm;
 	}
