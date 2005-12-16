@@ -28,7 +28,7 @@ import pfe.migration.client.pre.app.tools.HashOperation;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class ProgramsLister {
-	public void ParseExtensions()
+	public Hashtable ParseExtensions()
 	{
 		KeyVal kvpl = new KeyVal();
 		RegistryKey aKey = null;
@@ -42,7 +42,7 @@ public class ProgramsLister {
 		int nbprograms = 0;
 		boolean pgexists = false;
 		
-		System.out.println("\n__programs conf");
+		System.out.println("__programs configuration");
 		try {
 			aKey = com.ice.jni.registry.Registry.HKEY_CLASSES_ROOT.openSubKey("");
 			for (int i = 1; i < aKey.getNumberSubkeys(); i++)
@@ -95,29 +95,58 @@ public class ProgramsLister {
 					// Other example : ask user if he would like to
 					// "save all files associated with program "RegSnap.exe""
 			}
-
-			Vector v = new Vector(pghash.keySet());
-			Collections.sort(v);
-			Iterator it = v.iterator();
-			while (it.hasNext())
-			{
-				String element = (String)it.next();
-				getlist = (ArrayList)pghash.get(element);
-				System.out.println(">>> "+element+" <<<\n");
-				for (int i = 0; i < getlist.size(); i++)
-				{
-					if (i == (getlist.size()-1))
-						System.out.print(getlist.get(i));
-					else
-						System.out.print(getlist.get(i) + ", ");
-				}
-				System.out.println("");
-				System.out.println("");
-			}
 		} catch (NoSuchKeyException e) {
 			e.printStackTrace();
 		} catch (RegistryException e) {
 			e.printStackTrace();
 		}
+		return pghash;
+	}
+	public void ShowProgramExtensions(Hashtable pghash)
+	{
+		Vector v = new Vector(pghash.keySet());
+		Collections.sort(v);
+		Iterator it = v.iterator();
+		ArrayList getlist = new ArrayList();
+
+		while (it.hasNext())
+		{
+			String element = (String)it.next();
+			getlist = (ArrayList)pghash.get(element);
+			System.out.println(">>> "+element+" <<<\n");
+			for (int i = 0; i < getlist.size(); i++)
+			{
+				if (i == (getlist.size()-1))
+					System.out.print(getlist.get(i));
+				else
+					System.out.print(getlist.get(i) + ", ");
+			}
+			System.out.println("");
+			System.out.println("");
+		}
+	}
+	public String[] Programexists(Hashtable pghash, String[] programs, int nb)
+	{
+		Vector v = new Vector(pghash.keySet());
+		Collections.sort(v);
+		Iterator it = v.iterator();
+		String pathes[] = new String[programs.length];
+		boolean b = false;
+		int j = 0;
+
+		while (it.hasNext())
+		{
+			String element = (String)it.next();
+			for (int i = 0; i < nb; i++)
+			{
+				b = element.matches("(?i).*" + programs[i] + ".*");
+				if (b == true)
+				{
+					pathes[i] = element;
+					break;
+				}
+			}
+		}
+		return pathes;
 	}
 }
