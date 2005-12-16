@@ -31,20 +31,20 @@ public class CiList
 
 	public void fill(ComputerInformation ci)
 	{
-		m.put(ci.getIp(), ci);
+		m.put(ci.getHostname(), ci);
 	}
 
-	public ComputerInformation get(String ip)
+	public ComputerInformation get(String Hostname)
 	{
-		return (ComputerInformation) m.get(ip);
+		return (ComputerInformation) m.get(Hostname);
 	}
 
-	public void remove(String ip)
+	public void remove(String Hostname)
 	{
-		m.remove(ip);
+		m.remove(Hostname);
 	}
 	
-	public List getListIp()
+	public List getListHostname()
 	{
 		List l = new ArrayList();
 		
