@@ -159,18 +159,25 @@ public class wanduxApp
 	 */
 	private void ProgramMatcher()
 	{
-		//* Program matching procedure *//
 		ProgramsLister pl = new ProgramsLister();
 		String progs[] = new String[10];				
-		progs[0] = "iexplore";// ie
-		progs[1] = "msimn";// outlook
-		progs[2] = "winword";// winword
+		String CommonName[] = new String[10];				
+
+		progs[0] = "iexplore";	/* ie	   */
+		progs[1] = "msimn";		/* outlook */
+		progs[2] = "windword";	/* winword */
+		CommonName[0] = "Internet Explorer";
+		CommonName[1] = "Outlook Express";
+		CommonName[2] = "MS Office";
 
 		progs = pl.Programexists(pl.ParseExtensions(), progs, 3);
 		ArrayList proglist = new ArrayList();
 		for (int k = 0; k < 3; k++)
 		{
-			proglist.add(progs[k]);
+			if (progs[k] != null)
+				proglist.add(CommonName[k]);
+			else
+				proglist.add(null);	
 		}
 		ci.windowsProgram = proglist;
 	}
