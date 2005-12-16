@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.client.pre.system.NetConfig;
@@ -75,11 +78,37 @@ public class wanduxApp
 	
 	public void GetFileTreeModel()
 	{
-		File [] disks = File.listRoots();
-		FileSystemModel models [] = new FileSystemModel [disks.length-1]; // = new FileSystemModel()[allDisk.length];
-		for (int i = 1; i < disks.length; i++)
-			models[i-1] = new FileSystemModel(disks[i]);
-		this.ci.setFileSystemModel(models);
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode(ci.gconf.getGlobalHostname());
+		
+	    File roots[] = File.listRoots();
+	    for (int i = 0; i < roots.length; i++)
+	    {
+	        DefaultMutableTreeNode node = getSubDirs(roots[i]); // new DefaultMutableTreeNode(roots[i].getAbsoluteFile().toString());
+	        root.add(node);
+	    }
+	    this.ci.setFileSystemModel(new DefaultTreeModel(root)); 
+	}
+	
+	public DefaultMutableTreeNode getSubDirs(File root) {
+		
+		// On créé un noeud
+		DefaultMutableTreeNode racine = new DefaultMutableTreeNode(root, true);
+		
+		// On recupère la liste des fichiers et sous rep
+		File[] list = root.listFiles();
+		
+		if (list != null) {	
+			// Pour chaque sous rep on appelle cette methode => recursivité
+			// Attention l'index du tableau list commence a 0
+			for (int j = 0; j < list.length; j++) {
+				DefaultMutableTreeNode file = null;
+				if (list[j].isDirectory()) {
+					file = getSubDirs(list[j]);
+					racine.add(file);
+				}
+			}
+		}
+		return racine;
 	}
 	
 	public wanduxApp()
@@ -89,8 +118,7 @@ public class wanduxApp
 		ci = new ComputerInformation();
 		//WanduxWmiInfoManager();
 		//fillNetworkInCI();
-		//fillHostname();
-		ci.gconf.setGlobalHostname("127.0.0.1"); // 
+		fillHostname();
 		System.out.println(ci.gconf.getGlobalHostname());
 
 //		NetworkConfig ntconfig[] = ci.getInfoNetwork();
@@ -105,7 +133,7 @@ public class wanduxApp
 //		WanduxWmiInfoManager();
 //		fillNetworkInCI();
 
-		//GetFileTreeModel();
+		GetFileTreeModel();
 
 		if (makeConnection() == true)
 			System.out.println("connection etablie ...");
@@ -163,27 +191,26 @@ public class wanduxApp
 		this.ci.setInfoNetwork(nc);	
 	}
 	
-	void fillHostname()
+	private void fillHostname()
 	{
 		String res = "";
 		String[] rqRSLT = null;
 		String rq  = "SELECT * FROM Win32_ComputerSystem";
 		String wzName = "Caption"; // element a recuperer depuis la requette
-			try
+		try
+		{
+			rqRSLT = wwb.exec_rq(rootCIMV2, rq, wzName);	
+			if(rqRSLT[0].equals("1")) // erreur detected
 			{
-				rqRSLT = wwb.exec_rq(rootCIMV2, rq, wzName);	
-				if(rqRSLT[0].equals("1")) // erreur detected
-				{
-					System.err.println(rqRSLT[1]);
-					return;
-				}
-				ci.gconf.setGlobalHostname(rqRSLT[0]);
+				System.err.println(rqRSLT[1]);
+				return;
 			}
-			catch(Exception e)
-			{
-				System.err.println(e.getStackTrace());
-			}
-			return;
+			ci.gconf.setGlobalHostname(rqRSLT[0]);
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getStackTrace());
+		}
 	}
 		
 	/**
