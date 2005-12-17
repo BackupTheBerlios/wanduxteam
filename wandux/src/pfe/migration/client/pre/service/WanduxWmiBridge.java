@@ -18,6 +18,7 @@ public class WanduxWmiBridge {
 	
 
 	public native boolean connexion(String rootPAth);
+	public native boolean deconnexion();
 	public native String[] exec_rq(String rq, String wszName);
 //	public native String[] exec_rq(String rootPAth, String rq, String wszName);
 	
@@ -46,5 +47,6 @@ public class WanduxWmiBridge {
 	 */
 	protected void finalize() {
 		 // TODO: penser a faire le close dans le destructeur de la classe
+		deconnexion();
 		}
 }
