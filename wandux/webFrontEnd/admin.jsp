@@ -1,6 +1,7 @@
 <%@ page language="java" %>
 <%@ page import='java.util.*' %>
 <%@ page import='pfe.migration.client.network.ClientEjb' %>
+<%@ page import='pfe.migration.client.network.ComputerInformation' %>
 <%@ page import='pfe.migration.server.ejb.WanduxEjb' %>
 
 	<HTML>
@@ -34,7 +35,7 @@
     
     function prev_step()
     {
-	   	if (document.myform.machine.value == 'none')
+	   	if (document.myform.machine.value == ' - Choose a Computer - ')
     	{
     		alert("Please, Choose a machine in the list");
     	}
@@ -51,7 +52,7 @@
     
     function next_step()
     {
-	   	if (document.myform.machine.value == 'none')
+	   	if (document.myform.machine.value == ' - Choose a Computer - ')
     	{
     		alert("Please, Choose a machine in the list");
     	}
@@ -83,16 +84,16 @@
 	
 	function selectMachine()
 	{
-		if (document.myform.machine.value != 'none')
-		{
-			if (last_div != "no")
+		if (last_div != "no")
 			{
 				temp = document.getElementById(last_div);
 				temp.style.visibility = 'hidden';
 				temp.style.width = 0;
 				temp.style.height = 0;
 			}
-			temp = document.getElementById('none');
+		if (document.myform.machine.value != ' - Choose a Computer - ')
+		{
+			temp = document.getElementById(' - Choose a Computer - ');
 			temp.style.visibility = 'hidden';
 			temp.style.width = 0;
 			temp.style.height = 0;
@@ -122,15 +123,18 @@
 		}
 		else
 		{
-			temp = document.getElementById('none');
+			temp = document.getElementById(' - Choose a Computer - ');
 			temp.style.visibility = 'visible';
 			temp.style.width = 650;
 			temp.style.height = 400;
+			last_div = ' - Choose a Computer - ';
 		}
 	}
 		
 	</script>
-    <BODY onLoad="init_trees();">
+<%    //<BODY onLoad="init_trees();"> %>
+	<BODY background="img/sidebar.bmp">
+	<br>
 	<TABLE border=0>
 	<tr>
 		<td align="left" valign="down" colspan="2" width="800" height="82">
@@ -138,10 +142,10 @@
 		</td>
 	</tr>
 	<tr>
-		<td valign="top" width="150" height="400" style="background-image: url(img/barre_grise.jpg);">
+		<td valign="top" width="150" height="400">
 			<FORM name="myform" action="test.jsp" method="post">
 				<SELECT name="machine" onChange="selectMachine();">
-				<OPTION value="none">none</OPTION>				
+				<OPTION value=" - Choose a Computer - "> - Choose a Computer - </OPTION>				
 <%				for (i=0; i < cl.size(); i++)
 				{
 					out.print("<OPTION value=\"" + cl.get(i) +"\">" + cl.get(i) + "</OPTION>\n");
@@ -154,28 +158,29 @@
 		
 	
 
-		<div id="none" style=\"width:650;height:400;visibility:visible;position:absolute;top:120;left:160;\">
-		<br><br><center><b>Please, choose a computer to migrate in the list on the left of your screen.</b><center>
+		<div id=" - Choose a Computer - " style=\"width:650;height:400;visibility:visible;position:absolute;top:120;left:160;\">
+		<br><br><center><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please, choose a computer to migrate in the list on the left of your screen.</b></center>
 		</div>
-<%				for (i=0; i < cl.size(); i++)
-				{
-					out.print("<div id=\"CI_" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;\"><b>Informations extracted from " + cl.get(i) + ".<br><br> Please, check these settings and go on next Step</b><br><br>");
-					out.print("ICI ON PRINT LES INFOS<br><br>EXTRAITES DE COMPUTER INFORMATION<br>");
-					out.print("</div>\n");
-				}
+<%
+for (i=0; i < cl.size(); i++)
+{
+	// SECTION RECAPITULATIVE DU COMPUTERINFORMATION
+	ComputerInformation ci = bean.getCi((String)cl.get(i));
+	out.print("<div id=\"CI_" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;\"><b><br><br><center>Informations extracted from " + cl.get(i) + ".</center><br><br></b>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >> Please, check these settings and go on next Step</font><br><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("</div>\n");
+	////////////////////////////////////////////////
+	
+	
+	//deprecated
+	//out.print("<div id=\"treeBox" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;\"><b><br><br><center>This tree represent the whole Windows file system of " + cl.get(i) + ".</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Please, select the files and folders that you want to migrate on the new Linux system using this tree :</font><br><br></div>\n");
 
-				for (i=0; i < cl.size(); i++)
-				{
-					out.print("<div id=\"treeBox" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;\"><b>This tree represent the whole Windows file system of " + cl.get(i) + ".<br><br> Please, select the files and folders that you want to migrate on the new Linux system using this tree :</b><br><br></div>\n");
-				}
-				
-				for (i=0; i < cl.size(); i++)
-				{
-					out.print("<div id=\"treeApplet" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;\"><b>This tree represent the whole Windows file system of " + cl.get(i) + ".<br><br> Please, select the files and folders that you want to migrate on the new Linux system using this tree :</b><br><br>");
-					//out.print("<br><br> YOPLA DUP <br><br> ICI TU PEUT CASER L'APPLET ^^</b><br><br>");
+	// SECTION TREE - AFFICHAGTE DU FILESYSTEM
+	out.print("<div id=\"treeApplet" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;\"><b><br><br><center>This tree represent the whole Windows file system of " + cl.get(i) + ".</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Please, select the files and folders that you want to migrate on the new Linux system<br>&nbsp;&nbsp;&nbsp;&nbsp;using this tree :</font><br><br>\n");
+	//out.print("<br><br> YOPLA DUP <br><br> ICI TU PEUT CASER L'APPLET ^^</b><br><br>");
 %>
  <applet
-   code="pfe.migration.client.pre.applet.TreeApplet"
+   code="Horloge.class"
    width=400
    height=300
    hspace=0
@@ -184,13 +189,20 @@
   <param name="background-color" value="#ffffff" />
  </applet>
 <%
-					out.print("</div>\n");
-				}
-				
-				for (i=0; i < cl.size(); i++)
-				{
-					out.print("<div id=\"ChoosePrograms" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;\"><b> There is a list of Linux programs that are equivalent to the Windows Softwares installed on " + cl.get(i) + "<br><br>Select the programs that will be installed on the new Linux System</b><br><br> ICI : SECTION D'EQUIVQLENCE LOGICIELS WINDOWS / LINUX ET CHOIX DES SOFTS  A MIGRER.<br></div>\n");
-				}
+	out.print("</div>\n");
+	///////////////////////////////////////////////
+	
+	
+	//SECTION EQUIVALENCE DES PROGRAMMES
+	out.print("<div id=\"ChoosePrograms" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;\"><br><br><b><center> There is a list of Linux programs that are equivalent to the Windows Softwares installed on " + cl.get(i) + "</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Select the programs that will be installed on the new Linux System</font><br><br>");
+
+	List winprogs = ci.windowsProgram;
+	for (i=0; i < winprogs.size(); i++)
+	{
+		out.print(winprogs.get(i) + "<br>");
+	}
+	//////////////////////////////////////
+}
 %>
 
 
@@ -203,6 +215,7 @@
 		<td align=center colspan=2 width="800" height="40">
 	
 			<br><a href="javascript:prev_step();"><img src="img/fleche_precedent.gif" border=0></a>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

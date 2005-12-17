@@ -4,7 +4,7 @@
         <TITLE>Wandux</TITLE>
         <link type="text/css" rel="stylesheet" href="style.css">
     </HEAD>
-    <BODY>
+    <BODY background="img/sidebar.bmp">
         <TABLE>
 	<tr>
 		<td align=left colspan=2>

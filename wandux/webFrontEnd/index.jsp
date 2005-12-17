@@ -4,7 +4,7 @@
         <TITLE>Welcome to Wandux Aministration page</TITLE>
         <link type="text/css" rel="stylesheet" href="style.css">
     </HEAD>
-    <BODY>
+    <BODY background="img/sidebar.bmp">
     
     <TABLE>
 	<tr>
