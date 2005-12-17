@@ -10,7 +10,7 @@
 		<property name="dialect">
 			net.sf.hibernate.dialect.MySQLDialect
 		</property>
-		<property name="hibernate.show_sql">false</property>
+		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.use_outer_join">true</property>
 		<property name="hibernate.transaction.factory_class">
 			net.sf.hibernate.transaction.JTATransactionFactory
@@ -34,6 +34,12 @@
 		<mapping resource="pfe/migration/server/ejb/bdd/UsersData.hbm" />
 		<mapping resource="pfe/migration/server/ejb/bdd/ParamIe.hbm" />
 		<mapping resource="pfe/migration/server/ejb/bdd/LangInfo.hbm" />
+		<mapping resource="pfe/migration/server/ejb/bdd/LinuxComponents.hbm" />
+		<mapping resource="pfe/migration/server/ejb/bdd/Mandrakepkgs.hbm" />
+		<mapping resource="pfe/migration/server/ejb/bdd/Softcategory.hbm" />
+		<mapping resource="pfe/migration/server/ejb/bdd/Softsubcategory.hbm" />
+		<mapping resource="pfe/migration/server/ejb/bdd/Softtypes.hbm" />
+		<mapping resource="pfe/migration/server/ejb/bdd/WindowsComponents.hbm" />
 
 	</session-factory>
 </hibernate-configuration>
