@@ -72,15 +72,17 @@ public class NetConfig
 	   return res;
    }
 
-   public java.lang.Byte GetDHCPEnable(String NetworkInterfaceCaption)
+   public java.lang.Byte GetDHCPEnable(String NetworkInterfaceIndex)
    {
 	   String res = "";
 	   String[] rqRSLT = null;
-		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Caption = "  + "\'" + NetworkInterfaceCaption + "\'";
+//		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Caption = "  + "\'" + NetworkInterfaceCaption + "\'";
+		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
+	 System.out.println(rq);
 		String wzName = "DHCPEnabled"; // element a recuperer depuis la requette
 		try
 		{
-			rqRSLT = wwb.exec_rq(rootCIMV2, rq, wzName);	
+			rqRSLT = wwb.exec_rq(rq, wzName);	
 			if(rqRSLT[0].equals("1")) // erreur detected
 			{
 				System.err.println(rqRSLT[1]);
@@ -200,14 +202,9 @@ public class NetConfig
    public String[] listNetworkInterfaces()
    {
 		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration";
-		String wzName = "Caption"; // element a recuperer depuis la requette
-		 String[] rqRSLT =  wwb.exec_rq(rootCIMV2, rq, wzName);
-//		int i=0;
-//		 while(i<rqRSLT.length && rqRSLT[i] != null)
-//		{
-//			System.out.println(rqRSLT[i++]);
-//		}
-		 return rqRSLT;
+		String wzName = "Index"; // element a recuperer depuis la requette
+		String[] rqRSLT =  wwb.exec_rq(rq, wzName);
+		return rqRSLT;
    }
 
 //   public static void main(String[] args) throws IOException
