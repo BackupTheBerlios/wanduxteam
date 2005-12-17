@@ -96,11 +96,11 @@ public class WanduxEjbBean implements SessionBean
 	
 	public List getIps()
 	{
-		cil.add("192.168.0.1");
-		cil.add("192.168.0.2");
-		cil.add("192.168.0.3");
-		cil.add("192.168.0.4");
-		System.out.println(cil);
+		//cil.add("192.168.0.1");
+		//cil.add("192.168.0.2");
+		//cil.add("192.168.0.3");
+		//cil.add("192.168.0.4");
+		//System.out.println(cil);
 		return cil.getListHostname();
 	}
 	
