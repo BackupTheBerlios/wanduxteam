@@ -34,12 +34,12 @@
 		<mapping resource="pfe/migration/server/ejb/bdd/UsersData.hbm" />
 		<mapping resource="pfe/migration/server/ejb/bdd/ParamIe.hbm" />
 		<mapping resource="pfe/migration/server/ejb/bdd/LangInfo.hbm" />
-		<mapping resource="pfe/migration/server/ejb/bdd/LinuxComponents.hbm" />
+		<mapping resource="pfe/migration/server/ejb/bdd/Linuxcomponents.hbm" />
 		<mapping resource="pfe/migration/server/ejb/bdd/Mandrakepkgs.hbm" />
 		<mapping resource="pfe/migration/server/ejb/bdd/Softcategory.hbm" />
 		<mapping resource="pfe/migration/server/ejb/bdd/Softsubcategory.hbm" />
 		<mapping resource="pfe/migration/server/ejb/bdd/Softtypes.hbm" />
-		<mapping resource="pfe/migration/server/ejb/bdd/WindowsComponents.hbm" />
+		<mapping resource="pfe/migration/server/ejb/bdd/Windowscomponents.hbm" />
 
 	</session-factory>
 </hibernate-configuration>
