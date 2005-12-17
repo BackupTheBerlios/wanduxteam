@@ -80,8 +80,16 @@ char* f_test_type_of_variant(VARIANT vtProp)
 			(vtProp.boolVal == 0 ) ? result = "false" : result = "true";
 			break;
 		}
-		case VT_INT:
+		case VT_I4:
 		{
+			//convert int to char *
+		
+			char rslt[256];
+			//sprintf(rslt, "%d", vtProp.intVal);
+			result = itoa(vtProp.intVal, rslt, 256);
+			//cout << "dans vtint " <<  result<< endl ;
+			//wcout << "vtint val : " << vtProp.intVal << endl;
+			//result = rslt;
 			break;
 		}
 		case VT_DATE:
@@ -302,7 +310,7 @@ JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBr
 	const char* wZName=env->GetStringUTFChars(wzName,0);
 
 	// print out requette
-	cout << "dans wwi.dll : " << msg << endl;
+cout << "dans wwi.dll : " << msg << endl;
 
 	bstr_t rq = bstr_t(msg);
 	bstr_t WZ_Name = bstr_t(wZName);
