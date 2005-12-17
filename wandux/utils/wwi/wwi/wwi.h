@@ -33,6 +33,14 @@ JNIEXPORT jboolean JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge
 
 /*
  * Class:     pfe_migration_client_pre_service_WanduxWmiBridge
+ * Method:    deconnexion
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_deconnexion
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     pfe_migration_client_pre_service_WanduxWmiBridge
  * Method:    exec_rq
  * Signature: (Ljava/lang/String;Ljava/lang/String;)[Ljava/lang/String;
  */

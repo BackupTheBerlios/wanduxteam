@@ -116,6 +116,22 @@ char* f_test_type_of_variant(VARIANT vtProp)
 
 
 
+/*
+* deconnexion
+*/
+
+JNIEXPORT jboolean JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_deconnexion
+  (JNIEnv *, jobject)
+{
+	if(pSvc && pLoc)
+	{
+	pSvc->Release(); 
+	pLoc->Release(); 
+		return (jboolean) true;
+	}
+	return (jboolean) false;
+}
+
 
 
 /*
@@ -359,8 +375,7 @@ JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBr
 	// Cleanup 
 	// ======== 
 
-	//pSvc->Release(); 
-	//pLoc->Release(); 
+
 	pEnumerator->Release(); 
 	pclsObj->Release(); 
 	CoUninitialize(); 
