@@ -239,25 +239,17 @@ public class wanduxApp
 		try{
 			 while(i < listNetworkInterfacesCaption.length && listNetworkInterfacesCaption[i] != null)
 			{
-				//System.out.println("tour " + i);
+				System.out.println("\n ==================== interface numero : " +  i + " ====================\n");
 				NetworkConfig ncs = new NetworkConfig();
-				Byte  value = netconfig.GetDHCPEnable(listNetworkInterfacesCaption[i].getString());
-				if(value != null)
-					{
-					//System.out.println("pass dedans");
-					ncs.setNetworkDhcpEnabled(value);
-					}
-				else // case d'erreur
-					{
-						i++;
-						continue;
-					}
-	//			ncs.setNetworkGateway(netconfig.GetGate());
-	//			ncs.setNetworkMacAdress(netconfig.GetMac());
-	//			ncs.setNetworkSubnetmask(netconfig.GetNetmask());
+
+				ncs.setNetworkDhcpEnabled(netconfig.GetDHCPEnable(listNetworkInterfacesCaption[i].getString()));
+				ncs.setNetworkGateway(netconfig.GetGate(listNetworkInterfacesCaption[i].getString()));
+				ncs.setNetworkMacAdress(netconfig.GetMac(listNetworkInterfacesCaption[i].getString()));
+				ncs.setNetworkSubnetmask(netconfig.GetNetmask(listNetworkInterfacesCaption[i].getString()));
 				nc[i] = ncs;
 				ncs = null;
 				i++;
+
 			}
 		}
 		catch (Exception e)
