@@ -13,7 +13,6 @@ using namespace std;
 #include <Wbemidl.h>
 
 #include "Variant.h"
-#include "util.h"
 
 #pragma comment(lib, "wbemuuid.lib") 
 
@@ -319,8 +318,8 @@ VARIANT *extractVariant(JNIEnv *env, jobject arg)
 
 //JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_exec_1rq
 //(JNIEnv *env, jobject obj, jstring requete, jstring wzName)
-JNIEXPORT jobject JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_exec_1rq
-  (JNIEnv *env, jobject obj, jstring requete, jstring wzName)
+JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_exec_1rq
+  (JNIEnv *env, jobject, jstring requete, jstring wzName)
 {
 	HRESULT hres; 
 	// recuperation et preparation des parametres
@@ -328,7 +327,7 @@ JNIEXPORT jobject JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_
 	const char* wZName=env->GetStringUTFChars(wzName,0);
 
 	// print out requette
-	cout << "dans wwi.dll : " << msg << endl;
+//	cout << "dans wwi.dll : " << msg << endl;
 
 	bstr_t rq = bstr_t(msg);
 	bstr_t WZ_Name = bstr_t(wZName);
@@ -340,7 +339,8 @@ JNIEXPORT jobject JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_
 	// initilisation du tableau de retour
 	int size = 255;
 	//_jobjectArray* tab = env->NewObjectArray(size,  env->FindClass("java/lang/String"), NULL);
-	_jobjectArray* tab = env->NewObjectArray(size, env->FindClass("com.jacob.com.Variant"), NULL);
+
+	_jobjectArray* tab = env->NewObjectArray(size, env->FindClass("com/jacob/com/Variant"), NULL);
 	// initiatlisation du code d'erreur
 	char * errStr = "1";
 
@@ -398,7 +398,7 @@ JNIEXPORT jobject JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_
 			 VARIANT* v = extractVariant(env, newVariant);
 			 VariantCopy(v, &vtProp);
 //			char * asciStr = f_test_type_of_variant(vtProp);
-			cout << " dans cpp : "<< endl;
+			//cout << " dans cpp : "<< endl;
 			//env->SetObjectArrayElement(tab, i++, env->NewIntArray(asciStr));
 			 env->SetObjectArrayElement(tab, i++,  newVariant);
 			 env->DeleteLocalRef(newVariant);
