@@ -195,12 +195,24 @@ for (i=0; i < cl.size(); i++)
 	
 	//SECTION EQUIVALENCE DES PROGRAMMES
 	out.print("<div id=\"ChoosePrograms" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;\"><br><br><b><center> There is a list of Linux programs that are equivalent to the Windows Softwares installed on " + cl.get(i) + "</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Select the programs that will be installed on the new Linux System</font><br><br>");
-
+	out.print("<TABLE width=500 border=1>");
+	out.print("<TR><TD><b><center>Windows programs</b></center></TD><TD><b><center>Linux Equivalents</b></center></TD></TR>");
 	List winprogs = ci.windowsProgram;
 	for (i=0; i < winprogs.size(); i++)
 	{
+		out.print("<TR>");
+		out.print("<TD>");
 		out.print(winprogs.get(i) + "<br>");
+		out.print("</TD>");
+		out.print("<TD>");
+		
+		out.print("<INPUT type=radio name=prog" + i + " value=\"equivalent 1\">equivalent 1<br>");
+		out.print("<INPUT type=radio name=prog" + i + " value=\"equivalent 2\">equivalent 2<br>");
+		out.print("<INPUT type=radio name=prog" + i + " value=\"equivalent 3\">equivalent 3");
+		out.print("</TD>");
+		out.print("</TR>");
 	}
+	out.print("</TABLE>");
 	//////////////////////////////////////
 }
 %>
