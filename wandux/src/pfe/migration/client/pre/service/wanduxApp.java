@@ -10,6 +10,12 @@ import java.util.Map;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import com.jacob.com.Variant;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
+
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.client.pre.app.ProgramsLister;
@@ -49,12 +55,12 @@ public class wanduxApp
 	
 	public void WanduxWmiInfoManager()
 	{
-		wwb = new WanduxWmiBridge();
+		wwb = new WanduxWmiBridge(rootCIMV2);
 		// String rq = "SELECT * FROM Win32_OperatingSystem";
 
 		
-		//String rq = "SELECT * FROM Win32_UserAccount";
-		//String wzName = "Name"; // element a recuperer depuis la requette
+//		String rq = "SELECT * FROM Win32_UserAccount";
+//		String wzName = "Name"; // element a recuperer depuis la requette
 		
 		//String rq = "SELECT * FROM Win32_LogicalDisk";
 		//String wzName = "Caption";
@@ -67,7 +73,7 @@ public class wanduxApp
 //		
 //		String wzName = "ProxyServer";
 //		String[] str;
-//		str = wwb.exec_rq(rootPath, rq, wzName);
+//		str = wwb.exec_rq(rq, wzName);
 //		System.out.println("dans java :\n");
 //		int i= 0;
 //		while(str[i] != null)
@@ -114,11 +120,21 @@ public class wanduxApp
 	
 	public wanduxApp()
 	{
+
+		WanduxWmiInfoManager();
+		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu ....
+		// this.applicationServerIp = "127.0.0.1";
+
 		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu ....
 		this.applicationServerIp = "127.0.0.1";
+
 		ci = new ComputerInformation();
+
+		fillNetworkInCI();
+
 		//WanduxWmiInfoManager();
 		//fillNetworkInCI();
+
 		fillHostname();
 		System.out.println(ci.gconf.getGlobalHostname());
 
@@ -128,11 +144,30 @@ public class wanduxApp
 //			System.out.println(ntconfig[i++]);
 		//wq = new WorkQueue(10);
 		
-//		WanduxWmiInfoManager();
+
 //		getIp();
 
 //		WanduxWmiInfoManager();
 //		fillNetworkInCI();
+
+
+//		GetFileTreeModel();
+//
+//
+//		if (makeConnection() == true)
+//			System.out.println("connection etablie ...");
+//		if (this.ce.IsConnected() == false)
+//			return ;
+//		
+//		
+//		ProgramMatcher();
+//
+//		try {
+//			// Send Machine CI to server
+//			this.ce.getBean().putCi(this.ci);
+//		} catch (RemoteException e) { e.printStackTrace(); }
+//		System.out.println("information recupere et envoyer");
+
 
 		GetFileTreeModel();
 
@@ -151,7 +186,12 @@ public class wanduxApp
 		} catch (RemoteException e) { e.printStackTrace(); }
 		System.out.println("information recupere et envoyer");
 
+
 	}
+
+
+
+	
 
 	/**
 	 * Matches existence of pre-defined programs
@@ -182,28 +222,29 @@ public class wanduxApp
 		ci.windowsProgram = proglist;
 	}
 	
+
 	private void fillNetworkInCI()
 	{
 		NetConfig netconfig = new NetConfig(wwb);
 		
-		String[] listNetworkInterfacesCaption = netconfig.listNetworkInterfaces();
+		Variant[] listNetworkInterfacesCaption = netconfig.listNetworkInterfaces();
 		int i = 0;
-//		while(i<listNetworkInterfacesCaption.length && listNetworkInterfacesCaption[i] != null)
-//		{
-//			System.out.println(listNetworkInterfacesCaption[i]);
-//			i++;
-//		}
+		while(i<listNetworkInterfacesCaption.length && listNetworkInterfacesCaption[i] != null)
+		{
+			System.out.println(listNetworkInterfacesCaption[i]);
+			i++;
+		}
 		NetworkConfig[] nc = new NetworkConfig[10];
 		i = 0;
 		try{
 			 while(i < listNetworkInterfacesCaption.length && listNetworkInterfacesCaption[i] != null)
 			{
-				System.out.println("tour " + i);
+				//System.out.println("tour " + i);
 				NetworkConfig ncs = new NetworkConfig();
-				Byte  value = netconfig.GetDHCPEnable(listNetworkInterfacesCaption[i]);
+				Byte  value = netconfig.GetDHCPEnable(listNetworkInterfacesCaption[i].getString());
 				if(value != null)
 					{
-					System.out.println("pass dedans");
+					//System.out.println("pass dedans");
 					ncs.setNetworkDhcpEnabled(value);
 					}
 				else // case d'erreur
@@ -212,7 +253,6 @@ public class wanduxApp
 						continue;
 					}
 	//			ncs.setNetworkGateway(netconfig.GetGate());
-	//			ncs.setNetworkIpAddress(netconfig.GetIp());
 	//			ncs.setNetworkMacAdress(netconfig.GetMac());
 	//			ncs.setNetworkSubnetmask(netconfig.GetNetmask());
 				nc[i] = ncs;
@@ -231,23 +271,39 @@ public class wanduxApp
 	private void fillHostname()
 	{
 		String res = "";
-		String[] rqRSLT = null;
+		Variant[] rqRSLT = null;
 		String rq  = "SELECT * FROM Win32_ComputerSystem";
 		String wzName = "Caption"; // element a recuperer depuis la requette
+
 		try
 		{
-			rqRSLT = wwb.exec_rq(rootCIMV2, rq, wzName);	
+			 rqRSLT = wwb.exec_rq(rq, wzName);	
 			if(rqRSLT[0].equals("1")) // erreur detected
+
+		try
+		{
+			rqRSLT = wwb.exec_rq( rq, wzName);	
+			if(rqRSLT[0].equals("1")) // erreur detected
+
 			{
 				System.err.println(rqRSLT[1]);
 				return;
 			}
-			ci.gconf.setGlobalHostname(rqRSLT[0]);
+
+			ci.gconf.setGlobalHostname(rqRSLT[0].getString());
 		}
 		catch(Exception e)
 		{
 			System.err.println(e.getStackTrace());
 		}
+			Variant var = rqRSLT[0];
+			ci.gconf.setGlobalHostname(var.getString());
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getStackTrace());
+		}
+
 	}
 		
 	/**

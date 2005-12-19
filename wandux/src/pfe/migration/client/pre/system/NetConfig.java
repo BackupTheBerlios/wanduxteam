@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.jacob.com.Variant;
+
 import pfe.migration.client.pre.service.WanduxWmiBridge;
 import pfe.migration.server.ejb.bdd.NetworkConfig;
 
@@ -75,10 +77,11 @@ public class NetConfig
    public java.lang.Byte GetDHCPEnable(String NetworkInterfaceIndex)
    {
 	   String res = "";
-	   String[] rqRSLT = null;
+	   Variant[] rqRSLT = null;
 //		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Caption = "  + "\'" + NetworkInterfaceCaption + "\'";
 		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
-	 System.out.println(rq);
+	   //String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration";
+	   System.out.println(rq);
 		String wzName = "DHCPEnabled"; // element a recuperer depuis la requette
 		try
 		{
@@ -89,7 +92,8 @@ public class NetConfig
 				return null;
 			}
 			System.out.println("valeur recue : " + rqRSLT[0]);
-			return (rqRSLT[0]=="true"?new Byte("1"):new Byte("0"));
+			Variant var = rqRSLT[0];
+			return (new Byte(var.getString()));
 		}
 		catch(Exception e)
 		{
@@ -199,12 +203,18 @@ public class NetConfig
 //	   }
 	   return res;
    }
-   public String[] listNetworkInterfaces()
+   public Variant[] listNetworkInterfaces()
    {
 		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration";
 		String wzName = "Index"; // element a recuperer depuis la requette
-		String[] rqRSLT =  wwb.exec_rq(rq, wzName);
-		return rqRSLT;
+		Variant obj[] =  wwb.exec_rq(rq, wzName);
+//		Variant ob = obj[0];
+//		System.out.println(ob.getClass());
+//		System.out.println(ob);
+		//Integer entier = new Integer(obj);
+		//int [] valueOBJ = (int[])obj;
+		//System.out.println(valueOBJ.toString());
+		return obj;
    }
 
 //   public static void main(String[] args) throws IOException

@@ -24,12 +24,12 @@ public class CopyBookmark {
 	 * 
 	 */
 	public CopyBookmark(ComputerInformation ci) {
-		try {
-			Process ls_proc = Runtime.getRuntime().exec("/wandux/utils/iefav2xml \\10.247.0.248/wandux/wanduxStorage/" + ci.getMac() + "/diskc/" + ci.udata.getUserLogin() + "/Favoris");
-			System.out.println("/wandux/utils/iefav2xml /wandux/wanduxStorage/" + ci.getMac() + "/diskc/" + ci.udata.getUserLogin() + "/Favoris");
-		} catch (IOException e1) {
-			System.err.println("Echec de la traduction des bookmarks IE.");
-		}
+//		try {
+//			//Process ls_proc = Runtime.getRuntime().exec("/wandux/utils/iefav2xml \\10.247.0.248/wandux/wanduxStorage/" + ci.getMac() + "/diskc/" + ci.udata.getUserLogin() + "/Favoris");
+//			//System.out.println("/wandux/utils/iefav2xml /wandux/wanduxStorage/" + /* ci.getMac() */ + "/diskc/" + /* ci.udata.getUserLogin() */ + "/Favoris");
+//		} catch (IOException e1) {
+//			System.err.println("Echec de la traduction des bookmarks IE.");
+//		}
 //		try {
 //			Process ls_proc2 = Runtime.getRuntime().exec("mv /wandux/wanduxStorage/jboss/bin/IEbookmarks.xml /wandux/wanduxStorage/" + ci.netconf.getNetworkMacAdress() + "/diskc/" + ci.udata.getUserLogin() + "/IEbookmarks.xml");
 //		} catch (IOException e) {

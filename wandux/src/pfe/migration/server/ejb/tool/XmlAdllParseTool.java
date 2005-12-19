@@ -69,34 +69,34 @@ public class XmlAdllParseTool {
 
 		// AUTOLOGIN
 
-		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.udata
-				.getUserLogin(), "Login automatique au demarrage");
+//		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.udata
+//				.getUserLogin(), "Login automatique au demarrage");
 
 		// PROXY HTTP
 
-		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.udata
-				.getUserProxyServ(), "Paramètrage du proxy http");
-
-		// PROXY FTP
-
-		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.udata
-				.getUserProxyServ(), "Paramètrage du proxy ftp");
-
-		// TYPE DE CLAVIER
-
-		ps.option_change_select(XmlAdllParse.racine, "French", "no",
-				"Type de clavier");
-
-		ps.option_change_select(XmlAdllParse.racine,
-				ci.udata.getUserKbLayout(), "yes", "Type de clavier");
-
-		// CHOIX DU FUSEAUX
-
-		ps.option_change_select(XmlAdllParse.racine, "Europe/Paris", "no",
-				"Choix du fuseau horaire");
-
-		ps.option_change_select(XmlAdllParse.racine,
-				ci.udata.getUserTimezone(), "yes", "Choix du fuseau horaire");
+//		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.udata
+//				.getUserProxyServ(), "Paramètrage du proxy http");
+//
+//		// PROXY FTP
+//
+//		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.udata
+//				.getUserProxyServ(), "Paramètrage du proxy ftp");
+//
+//		// TYPE DE CLAVIER
+//
+//		ps.option_change_select(XmlAdllParse.racine, "French", "no",
+//				"Type de clavier");
+//
+//		ps.option_change_select(XmlAdllParse.racine,
+//				ci.udata.getUserKbLayout(), "yes", "Type de clavier");
+//
+//		// CHOIX DU FUSEAUX
+//
+//		ps.option_change_select(XmlAdllParse.racine, "Europe/Paris", "no",
+//				"Choix du fuseau horaire");
+//
+//		ps.option_change_select(XmlAdllParse.racine,
+//				ci.udata.getUserTimezone(), "yes", "Choix du fuseau horaire");
 
 		// SUPER UTILISATEUR
 
@@ -126,8 +126,8 @@ public class XmlAdllParseTool {
 				"Icone du super utilisateur");
 
 		// UTILISATEUR
-
-		pu.ChangeUser(ci);
+//TODO: voir ce que ce truc fait la
+//		pu.ChangeUser(ci);
 
 		// pu.AddUser(XmlAdllParse.racine, ci.udata);
 

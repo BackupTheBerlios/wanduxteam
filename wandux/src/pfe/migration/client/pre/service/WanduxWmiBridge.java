@@ -37,7 +37,7 @@ public class WanduxWmiBridge {
 	public native boolean deconnexion();
 	//public native String[] exec_rq(String rq, String wszName);
 //	public native Object exec_rq(String rq, String wszName);
-	public native Variant exec_rq(String rq, String wszName);
+	public native Variant[] exec_rq(String rq, String wszName);
 //	public native int exec_rq_int(String rq, String wszName);
 //	public native String exec_rq_string(String rq, String wszName);
 //	public native String[] exec_rq(String rootPAth, String rq, String wszName);
