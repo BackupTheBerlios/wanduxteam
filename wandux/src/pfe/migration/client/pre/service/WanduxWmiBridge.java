@@ -5,7 +5,7 @@
  * Window - Preferences - Java - Code Style - Code Templates
  */
 package pfe.migration.client.pre.service;
-
+import com.jacob.com.*;
 /**
  * @author lahous
  *
@@ -17,9 +17,29 @@ public class WanduxWmiBridge {
 //	public native void toto();
 	
 
+//	
+//	   System.runFinalizersOnExit(true);
+//	   Variant v = new Variant();
+//	   v.putInt(10);
+//	   System.out.println("got="+v.toInt());
+//	   v.putInt(10);
+//	   System.out.println("got="+v.toDouble());
+//	   v.putString("1234.567");
+//	   System.out.println("got="+v.toString());
+//	   v.putBoolean(true);
+//	   System.out.println("got="+v.toBoolean());
+//	   v.putBoolean(false);
+//	   System.out.println("got="+v.toBoolean());
+//	   v.putCurrency(123456789123456789L);
+//	   System.out.println("got="+v.toCurrency());
+
 	public native boolean connexion(String rootPAth);
 	public native boolean deconnexion();
-	public native String[] exec_rq(String rq, String wszName);
+	//public native String[] exec_rq(String rq, String wszName);
+//	public native Object exec_rq(String rq, String wszName);
+	public native Variant exec_rq(String rq, String wszName);
+//	public native int exec_rq_int(String rq, String wszName);
+//	public native String exec_rq_string(String rq, String wszName);
 //	public native String[] exec_rq(String rootPAth, String rq, String wszName);
 	
 	static {

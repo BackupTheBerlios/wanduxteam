@@ -12,9 +12,12 @@ using namespace std;
 #include <comdef.h>
 #include <Wbemidl.h>
 
+#include "Variant.h"
+#include "util.h"
 
 #pragma comment(lib, "wbemuuid.lib") 
 
+#define VARIANT_FLD "m_pVariant"
 
 
 /*
@@ -40,23 +43,23 @@ char * bstrVal_to_string(BSTR bstrVal)
 					);
 	return asciStr;
 }
-char* f_test_type_of_variant(VARIANT vtProp)
+
+jobject f_test_type_of_variant(VARIANT vtProp)
+//char* f_test_type_of_variant(VARIANT vtProp)
 {
 
 	//http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.swt.snippets/src/org/eclipse/swt/snippets/Snippet81.java?rev=HEAD
-
-	char * result = NULL;
-
-
+	//char * result = NULL;
+	jobject result = NULL;
 	//cout << V_VT(&vtProp) << endl;
 	switch(V_VT(&vtProp))
 	{
 		case VT_BSTR: 
 			{
-				
 				//_bstr_t bstrPath = &vtProp; //Just to convert BSTR to ANSI
 				// char* result=(char*)bstrPath;   
-				result = bstrVal_to_string(vtProp.bstrVal);
+				//result = bstrVal_to_string(vtProp.bstrVal);
+				result = (jobject)vtProp.bstrVal;
 				break;
 			}
 		case VT_SAFEARRAY:
@@ -77,19 +80,22 @@ char* f_test_type_of_variant(VARIANT vtProp)
 		}
 		case VT_BOOL:
 		{
-			(vtProp.boolVal == 0 ) ? result = "false" : result = "true";
+			//(vtProp.boolVal == 0 ) ? result = "false" : result = "true";
+			result = (jobject)vtProp.boolVal;
 			break;
 		}
 		case VT_I4:
 		{
 			//convert int to char *
 		
-			char rslt[256];
+			//char rslt[5];
 			//sprintf(rslt, "%d", vtProp.intVal);
-			result = itoa(vtProp.intVal, rslt, 256);
+			//result = itoa(vtProp.intVal, rslt, 65);
+			//cout << "dans vtint " <<  rslt<< endl ;
 			//cout << "dans vtint " <<  result<< endl ;
 			//wcout << "vtint val : " << vtProp.intVal << endl;
 			//result = rslt;
+			result = (jobject)vtProp.intVal;
 			break;
 		}
 		case VT_DATE:
@@ -114,14 +120,13 @@ char* f_test_type_of_variant(VARIANT vtProp)
 		//case (VT_BYREF|*) :
 		{
 			cout << "8200 " << endl;
-			result =  bstrVal_to_string(vtProp.bstrVal);
+			//result =  bstrVal_to_string(vtProp.bstrVal);
+			result = (jobject)vtProp.bstrVal;
 			break;
 		}
 	}
 	return result;
 }
-
-
 
 
 /*
@@ -133,13 +138,12 @@ JNIEXPORT jboolean JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge
 {
 	if(pSvc && pLoc)
 	{
-	pSvc->Release(); 
-	pLoc->Release(); 
+		pSvc->Release(); 
+		pLoc->Release(); 
 		return (jboolean) true;
 	}
 	return (jboolean) false;
 }
-
 
 
 /*
@@ -149,8 +153,8 @@ JNIEXPORT jboolean JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge
   (JNIEnv *env, jobject, jstring rootPath)
 {
 		HRESULT hres; 
-	const char* rootPATH=env->GetStringUTFChars(rootPath,0);
-	bstr_t ROOT_PATH = bstr_t(rootPATH);
+		const char* rootPATH=env->GetStringUTFChars(rootPath,0);
+		bstr_t ROOT_PATH = bstr_t(rootPATH);
 		env->ReleaseStringUTFChars(rootPath, rootPATH);
 
 // Step 1: -------------------------------------------------- 
@@ -166,7 +170,7 @@ JNIEXPORT jboolean JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge
 		//env->SetObjectArrayElement(tab, 1, env->NewStringUTF(errMsg));
 		//return tab;
 		return (jboolean) false;
-	} 
+	}
 
 	// Step 2: -------------------------------------------------- 
 	// Set general COM security levels -------------------------- 
@@ -214,10 +218,10 @@ JNIEXPORT jboolean JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge
 	if (FAILED(hres)) 
 	{ 
 		//cout << "Failed to create IWbemLocator object." 
-		//	<< " Err code = 0x" 
-		//	<< hex << hres << endl; 
-		//char *errMsg =   "Failed to create IWbemLocator object."; 
-		//CoUninitialize(); 
+		// << " Err code = 0x" 
+		// << hex << hres << endl; 
+		// char *errMsg =   "Failed to create IWbemLocator object."; 
+		// CoUninitialize(); 
 
 		//env->SetObjectArrayElement(tab, 0, env->NewStringUTF(errStr));
 		//env->SetObjectArrayElement(tab, 1, env->NewStringUTF(errMsg));
@@ -301,8 +305,22 @@ JNIEXPORT jboolean JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge
 * methode exec_rq: permet d'executer une requette WMI sur la connexion deja ouverte.
 */
 
-JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_exec_1rq
-(JNIEnv *env, jobject obj, jstring requete, jstring wzName)
+
+VARIANT *extractVariant(JNIEnv *env, jobject arg)
+{
+  jclass argClass = env->GetObjectClass(arg);
+  jfieldID ajf = env->GetFieldID( argClass, VARIANT_FLD, "I");
+  jint anum = env->GetIntField(arg, ajf);
+  VARIANT *v = (VARIANT *)anum;
+  return v;
+}
+
+
+
+//JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_exec_1rq
+//(JNIEnv *env, jobject obj, jstring requete, jstring wzName)
+JNIEXPORT jobject JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_exec_1rq
+  (JNIEnv *env, jobject obj, jstring requete, jstring wzName)
 {
 	HRESULT hres; 
 	// recuperation et preparation des parametres
@@ -310,7 +328,7 @@ JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBr
 	const char* wZName=env->GetStringUTFChars(wzName,0);
 
 	// print out requette
-cout << "dans wwi.dll : " << msg << endl;
+	cout << "dans wwi.dll : " << msg << endl;
 
 	bstr_t rq = bstr_t(msg);
 	bstr_t WZ_Name = bstr_t(wZName);
@@ -321,10 +339,10 @@ cout << "dans wwi.dll : " << msg << endl;
 
 	// initilisation du tableau de retour
 	int size = 255;
-	_jobjectArray* tab = env->NewObjectArray(size, env->FindClass("java/lang/String"), NULL);
+	//_jobjectArray* tab = env->NewObjectArray(size,  env->FindClass("java/lang/String"), NULL);
+	_jobjectArray* tab = env->NewObjectArray(size, env->FindClass("com.jacob.com.Variant"), NULL);
 	// initiatlisation du code d'erreur
 	char * errStr = "1";
-
 
 	
 // Step 6: -------------------------------------------------- 
@@ -374,23 +392,139 @@ cout << "dans wwi.dll : " << msg << endl;
 		hr = pclsObj->Get(WZ_Name, 0, &vtProp, 0, 0);
 		if (SUCCEEDED(hr))
 		{
-			char * asciStr = f_test_type_of_variant(vtProp);
-			env->SetObjectArrayElement(tab, i++, env->NewStringUTF(asciStr));
+			 jclass    clazz = env->FindClass("com/jacob/com/Variant");
+			 //_jmethodID *ctor  = env->GetMethodID(clazz, "<init>", "()V");
+			 jobject newVariant = env->NewObject(clazz, env->GetMethodID(clazz, "<init>", "()V"));
+			 VARIANT* v = extractVariant(env, newVariant);
+			 VariantCopy(v, &vtProp);
+//			char * asciStr = f_test_type_of_variant(vtProp);
+			cout << " dans cpp : "<< endl;
+			//env->SetObjectArrayElement(tab, i++, env->NewIntArray(asciStr));
+			 env->SetObjectArrayElement(tab, i++,  newVariant);
+			 env->DeleteLocalRef(newVariant);
 		}
 		VariantClear(&vtProp); 
 	}
-
+	//int j = 0;
+	//while (j != i)
+	//{
+	//	jstring jstr = (jstring) env->GetObjectArrayElement(tab, j++);
+	//	cout << jstr << endl;
+	//}
 	// Cleanup 
 	// ======== 
-
-
 	pEnumerator->Release(); 
 	pclsObj->Release(); 
-	CoUninitialize(); 
-// Program successfully completed. 
+
+	// Program successfully completed. 
 	return tab;
 }
 
+
+
+
+
+
+///*
+// * Class:     pfe_migration_client_pre_service_WanduxWmiBridge
+// * Method:    exec_rq_int
+// * Signature: (Ljava/lang/String;Ljava/lang/String;)I
+// */
+//JNIEXPORT jint JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_exec_1rq_1int
+//  (JNIEnv *env, jobject, jstring requete, jstring wzName)
+//{
+//HRESULT hres; 
+//	// recuperation et preparation des parametres
+//	const char* msg=env->GetStringUTFChars(requete,0);
+//	const char* wZName=env->GetStringUTFChars(wzName,0);
+//
+//	// print out requette
+////	cout << "dans wwi.dll : " << msg << endl;
+//
+//	bstr_t rq = bstr_t(msg);
+//	bstr_t WZ_Name = bstr_t(wZName);
+//
+//	// Libération de la chaîne C++  
+//	env->ReleaseStringUTFChars(requete,msg);
+//	env->ReleaseStringUTFChars(wzName, wZName);
+//
+//	// initilisation du tableau de retour
+//	int size = 255;
+//	//_jobjectArray* tab = env->NewObjectArray(size,  env->FindClass("java/lang/String"), NULL);
+//	_jobjectArray* tab = env->NewObjectArray(size, env->FindClass("java/lang/int"), NULL);
+//	// initiatlisation du code d'erreur
+//	char * errStr = "1";
+//
+//	
+//// Step 6: -------------------------------------------------- 
+//// Use the IWbemServices pointer to make requests of WMI ---- 
+//	// For example, get the name of the operating system 
+//	IEnumWbemClassObject* pEnumerator = NULL; 
+//	hres = pSvc->ExecQuery( 
+//		bstr_t("WQL"), 
+//		bstr_t(rq), 
+//		WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY, 
+//		NULL, 
+//		&pEnumerator); 
+//
+//	if (FAILED(hres)) 
+//	{ 
+//		//cout << "Query for operating system name failed." 
+//		//	<< " Error code = 0x" 
+//		//	<< hex << hres << endl;
+//		char *errMsg =   "Query for operating system name failed."; 
+//		pSvc->Release(); 
+//		pLoc->Release(); 
+//		CoUninitialize(); 
+//		env->SetObjectArrayElement(tab, 0, env->NewStringUTF(errStr));
+//		env->SetObjectArrayElement(tab, 1, env->NewStringUTF(errMsg));
+//		return tab;
+//	}
+//
+//
+//	// Step 7: ------------------------------------------------- 
+//	// Get the data from the query in step 6 ------------------- 
+//
+//	IWbemClassObject *pclsObj; 
+//	ULONG uReturn = 0; 
+//	
+//	int i = 0;
+//	while(pEnumerator)
+//	{
+//		HRESULT hr = pEnumerator->Next(WBEM_INFINITE, 1, 
+//			&pclsObj, &uReturn); 
+//		if(0 == uReturn) 
+//		{ 
+//			break; 
+//		} 
+//		VARIANT vtProp; 
+//		VariantInit(&vtProp); 
+//		// Get the value of the Name property 
+//		hr = pclsObj->Get(WZ_Name, 0, &vtProp, 0, 0);
+//		if (SUCCEEDED(hr))
+//		{
+//			//char * asciStr = f_test_type_of_variant(vtProp);
+//			//cout << " dans cpp : "<< asciStr << endl;
+//			//env->SetObjectArrayElement(tab, i++, env->NewIntArray(asciStr));
+//			env->SetObjectArrayElement(tab, i++, vtProp.intVal);
+//		}
+//		VariantClear(&vtProp); 
+//	}
+//	//int j = 0;
+//	//while (j != i)
+//	//{
+//	//	jstring jstr = (jstring) env->GetObjectArrayElement(tab, j++);
+//	//	cout << jstr << endl;
+//	//}
+//	// Cleanup 
+//	// ======== 
+//	pEnumerator->Release(); 
+//	pclsObj->Release(); 
+//
+//	// Program successfully completed. 
+//	return tab;
+//}
+//
 
 
 //JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_exec_1rq
