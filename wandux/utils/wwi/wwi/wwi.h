@@ -41,9 +41,9 @@ JNIEXPORT jboolean JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge
 /*
  * Class:     pfe_migration_client_pre_service_WanduxWmiBridge
  * Method:    exec_rq
- * Signature: (Ljava/lang/String;Ljava/lang/String;)Lcom/jacob/com/Variant;
+ * Signature: (Ljava/lang/String;Ljava/lang/String;)[Lcom/jacob/com/Variant;
  */
-JNIEXPORT jobject JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_exec_1rq
+JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBridge_exec_1rq
   (JNIEnv *, jobject, jstring, jstring);
 
 #ifdef __cplusplus

@@ -400,6 +400,7 @@ JNIEXPORT jobjectArray JNICALL Java_pfe_migration_client_pre_service_WanduxWmiBr
 //			char * asciStr = f_test_type_of_variant(vtProp);
 			//cout << " dans cpp : "<< endl;
 			//env->SetObjectArrayElement(tab, i++, env->NewIntArray(asciStr));
+			// wcout << vtProp.parray<< endl;
 			 env->SetObjectArrayElement(tab, i++,  newVariant);
 			 env->DeleteLocalRef(newVariant);
 		}
