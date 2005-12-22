@@ -12,6 +12,14 @@ import javax.swing.tree.DefaultTreeModel;
 
 import com.jacob.com.Variant;
 
+import com.jacob.com.Variant;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
+
+import com.jacob.com.Variant;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -32,12 +40,12 @@ public class wanduxApp
 
 	private String applicationServerIp = "";
 	
-	private ComputerInformation ci= null;
+	private ComputerInformation ci = null;
 	private ClientEjb ce = null;
 //	 wandux wmi bridge, permet de gerer l'execution des requettes wmi
 	WanduxWmiBridge wwb = null; 
 
-	String rootCIMV2 = "root\\CIMV2";
+	private static String rootCIMV2 = "root\\CIMV2";
 	String rootCIMV2ApplicationsMicrosoftIE = "root\\CIMV2\\Applications\\MicrosoftIE";
 	 // prevu pour contenir la requette wmi
 	String rq = null;
@@ -53,114 +61,57 @@ public class wanduxApp
 		new wanduxApp();
 	}
 	
-	public void WanduxWmiInfoManager()
-	{
-		wwb = new WanduxWmiBridge(rootCIMV2);
-	}
-	
-	public void GetFileTreeModel()
-	{
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode(ci.gconf.getGlobalHostname());
-		
-	    File roots[] = File.listRoots();
-	    for (int i = 0; i < roots.length; i++)
-	    {
-	        DefaultMutableTreeNode node = getSubDirs(roots[i]); // new DefaultMutableTreeNode(roots[i].getAbsoluteFile().toString());
-	        root.add(node);
-	    }
-	    this.ci.setFileSystemModel(new DefaultTreeModel(root)); 
-	}
-	
-	public DefaultMutableTreeNode getSubDirs(File root) {
-		
-		// On créé un noeud
-		DefaultMutableTreeNode racine = new DefaultMutableTreeNode(root, true);
-		
-		// On recupère la liste des fichiers et sous rep
-		File[] list = root.listFiles();
-		
-		if (list != null) {	
-			// Pour chaque sous rep on appelle cette methode => recursivité
-			// Attention l'index du tableau list commence a 0
-			for (int j = 0; j < list.length; j++) {
-				DefaultMutableTreeNode file = null;
-				if (list[j].isDirectory()) {
-					file = getSubDirs(list[j]);
-					racine.add(file);
-				}
-			}
-		}
-		return racine;
-	}
-	
 	public wanduxApp()
 	{
 		// iniatalise la connexiion wmi
 		WanduxWmiInfoManager();
 		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu ....
 		// this.applicationServerIp = "127.0.0.1";
+
 		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu ....
 		this.applicationServerIp = "127.0.0.1";
-		ci = new ComputerInformation();
-		fillNetworkInCI();
-		fillHostname();
-		System.out.println(ci.gconf.getGlobalHostname());
-
-
+		this.ci = new ComputerInformation();
+		WanduxWmiInfoManager();
 		
+		fillNetworkInCI();
+		
+		//WanduxWmiInfoManager();
+		//fillNetworkInCI();
 
+		fillHostname();
+		
+//		System.out.println(this.ci.gconf.getGlobalHostname());
+
+//		NetworkConfig ntconfig[] = ci.getInfoNetwork();
+//		int i = 0;
+//		while(i < ntconfig.length)
+//			System.out.println(ntconfig[i++]);
+		//wq = new WorkQueue(10);
+		
+//		WanduxWmiInfoManager();
 //		getIp();
 
+//		WanduxWmiInfoManager();
+//		fillNetworkInCI();
 
-
-////		GetFileTreeModel();
-////
-////
-////		if (makeConnection() == true)
-////			System.out.println("connection etablie ...");
-////		if (this.ce.IsConnected() == false)
-////			return ;
-////		
-////		
-//		ProgramMatcher();
-//
-//		try {
-//			// Send Machine CI to server
-//			this.ce.getBean().putCi(this.ci);
-//		} catch (RemoteException e) { e.printStackTrace(); }
-//		System.out.println("information recupere et envoyer");
-
-
-//		GetFileTreeModel();
-
+		// get the file system model from the machine
+		GetFileTreeModel();
 
 		if (makeConnection() == true)
 			System.out.println("connection etablie ...");
 		if (this.ce.IsConnected() == false)
 			return ;
-		
-		
+
 		ProgramMatcher();
 
 		try {
 			// Send Machine CI to server
 			this.ce.getBean().putCi(this.ci);
-			
-			/*
-			 * Call to method that returns Linux equivalent list
-			 */
-			//ce.getBean().getLinuxEquivalents("MS Office");
-
 		} catch (RemoteException e) { e.printStackTrace(); }
 		System.out.println("information recupere et envoyer");
 
-
 	}
-
-
-
 	
-
 	/**
 	 * Matches existence of pre-defined programs
 	 *
@@ -189,8 +140,66 @@ public class wanduxApp
 		}
 		ci.windowsProgram = proglist;
 	}
-	
 
+
+	public void WanduxWmiInfoManager()
+	{
+		wwb = new WanduxWmiBridge(rootCIMV2);
+	}
+	
+	public void GetFileTreeModel()
+	{
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode(ci.gconf.getGlobalHostname());
+		
+		Variant [] disk =  GetPartitionName();
+		
+//		File roots[] = File.listRoots();
+
+		File roots[] = new File [disk.length];
+
+	    for (int i = 0; i < disk.length; i++)
+	    {
+	    	if (disk[i] == null)
+	    		break ;
+	    	roots[i] = new File(disk[i].getString());
+	    }
+	    
+//	    for (int i = 0; i < roots.length; i++)
+//	    {
+//	        DefaultMutableTreeNode node = getSubDirs(roots[i]); // new DefaultMutableTreeNode(roots[i].getAbsoluteFile().toString());
+//	        root.add(node);
+//	    }
+
+////////// tmppour lestests //
+	    DefaultMutableTreeNode node = getSubDirs(roots[0]); // new DefaultMutableTreeNode(roots[i].getAbsoluteFile().toString());
+        root.add(node);
+////////// ---------------- //
+        
+	    this.ci.setFileSystemModel(new DefaultTreeModel(root)); 
+	}
+	
+	public DefaultMutableTreeNode getSubDirs(File root) {
+		
+		// On créé un noeud
+		DefaultMutableTreeNode racine = new DefaultMutableTreeNode(root, true);
+		
+		// On recupère la liste des fichiers et sous rep
+		File[] list = root.listFiles();
+		
+		if (list != null) {	
+			// Pour chaque sous rep on appelle cette methode => recursivité
+			// Attention l'index du tableau list commence a 0
+			for (int j = 0; j < list.length; j++) {
+				DefaultMutableTreeNode file = null;
+				if (list[j].isDirectory()) {
+					file = getSubDirs(list[j]);
+					racine.add(file);
+				}
+			}
+		}
+		return racine;
+	}
+	
 	private void fillNetworkInCI()
 	{
 		NetConfig netconfig = new NetConfig(wwb);
@@ -203,16 +212,18 @@ public class wanduxApp
 ///			listNetworkInterfacesCaption[i];
 			i++;
 		}
-		NetworkConfig[] nc = new NetworkConfig[i+1];
+		NetworkConfig[] nc = new NetworkConfig[10];
 		i = 0;
 		try{
 			 while(i < listNetworkInterfacesCaption.length && listNetworkInterfacesCaption[i] != null)
 			{
 				System.out.println("\n ==================== interface numero : " +  i + " ====================\n");
+				//System.out.println("tour " + i);
 				NetworkConfig ncs = new NetworkConfig();
 				// DHCPEnable
 				ncs.setNetworkDhcpEnabled(netconfig.GetDHCPEnable(listNetworkInterfacesCaption[i].getString()));
-
+				// Gate
+				ncs.setNetworkGateway(netconfig.GetGate(listNetworkInterfacesCaption[i].getString()));
 				// Mac
 				ncs.setNetworkMacAdress(netconfig.GetMac(listNetworkInterfacesCaption[i].getString()));
 				// Subnetmask
@@ -227,8 +238,7 @@ public class wanduxApp
 				ncs.setNetworkInterface(netconfig.GetCaption(listNetworkInterfacesCaption[i].getString()));
 				// status
 				ncs.setNetworkStatus(netconfig.GetStatus(listNetworkInterfacesCaption[i].getString()));
-				// Gate
-				ncs.setNetworkGateway(netconfig.GetGate(listNetworkInterfacesCaption[i].getString()));
+				//
 				nc[i] = ncs;
 				ncs = null;
 				i++;
@@ -240,6 +250,27 @@ public class wanduxApp
 		}
 		if(nc != null)
 		this.ci.setInfoNetwork(nc);	
+	}
+	
+	private Variant [] GetPartitionName()
+	{
+		Variant[] rqRSLT = null;
+		String rq  = "SELECT * FROM Win32_LogicalDisk WHERE DriveType = 3";
+		String wzName = "Caption"; // element a recuperer depuis la requette
+		try
+		{
+			rqRSLT = wwb.exec_rq(rq, wzName);	
+			if(rqRSLT[0].equals("1")) // erreur detected
+			{
+				System.err.println(rqRSLT[1]);
+				return null;
+			}
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getStackTrace());
+		}
+		return rqRSLT;
 	}
 	
 	private void fillHostname()
