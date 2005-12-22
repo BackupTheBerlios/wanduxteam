@@ -61,21 +61,27 @@ public class NetConfig
 		return null;
    }
 
-   public String GetIp()
+   public String GetIp(String NetworkInterfaceIndex)
    {
-	   String res = "";
 
-//	   for (int i = 0; i < outpout.size(); i++)
-//	   {
-//		   Pattern p = Pattern.compile(".*Adresse IP.*: (.*)");
-//		   Matcher m = p.matcher(((String)outpout.get(i)));
-//		   if (m.matches())
-//		   {
-//			   res = m.group(1);
-//			   break;
-//		   }
-//	   }
-	   return res;
+	   String res = "";
+	   Variant[] rqRSLT = null;
+		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
+		//System.out.println(rq);
+		String wzName = "IPAddress"; // element a recuperer depuis la requette
+		try
+		{
+			rqRSLT = wwb.exec_rq(rq, wzName);	
+			Variant var =  rqRSLT[0];
+			SafeArray str = var.toSafeArray();
+			System.out.println(str.getString(0));
+			return  str.getString(0);
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getStackTrace());
+		}
+		return null;
    }
 
    public java.lang.Byte GetDHCPEnable(String NetworkInterfaceIndex)
@@ -88,7 +94,7 @@ public class NetConfig
 		try
 		{
 			rqRSLT = wwb.exec_rq(rq, wzName);	
-			//System.out.println(rqRSLT[0].getBoolean());
+			System.out.println(rqRSLT[0].getBoolean());
 			return  new Byte(rqRSLT[0].getBoolean() == true ? "1" : "0");
 		}
 		catch(Exception e)
@@ -121,19 +127,41 @@ public class NetConfig
 		return null;
    }
    
-   public String GetGate(String NetworkInterfaceIndex)
+   public String GetDnsServer (String NetworkInterfaceIndex)
    {
     String res = "";
 	   Variant[] rqRSLT = null;
 		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
-		//System.out.println(rq);
+		System.out.println(rq);
 		String wzName = "DefaultIPGateway"; // element a recuperer depuis la requette
 		try
 		{
 			rqRSLT = wwb.exec_rq(rq, wzName);	
 			Variant var =  rqRSLT[0];
 			SafeArray str = var.toSafeArray();
-			System.out.println(str.getString(0));
+			//System.out.println(str.getString(0));
+			return  str.getString(0);
+
+		}
+		catch(Exception e)
+		{
+			System.err.println("err in : String GetGate  " + e.getStackTrace());
+		}
+		return "";
+   }
+   public String GetGate(String NetworkInterfaceIndex)
+   {
+    String res = "";
+	   Variant[] rqRSLT = null;
+		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
+		System.out.println(rq);
+		String wzName = "DefaultIPGateway"; // element a recuperer depuis la requette
+		try
+		{
+			rqRSLT = wwb.exec_rq(rq, wzName);	
+			Variant var =  rqRSLT[0];
+			SafeArray str = var.toSafeArray();
+			//System.out.println(str.getString(0));
 			return  str.getString(0);
 
 		}
