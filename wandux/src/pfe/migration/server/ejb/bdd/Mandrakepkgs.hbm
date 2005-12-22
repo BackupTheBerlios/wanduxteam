@@ -13,6 +13,13 @@
 			<generator class="vm" />
 		</id>
 		<property
+			column="SUBCATEGORY"
+			length="4"
+			name="Subcategory"
+			not-null="true"
+			type="java.lang.Byte"
+		 />
+		<property
 			column="NAME"
 			length="128"
 			name="Name"
@@ -24,6 +31,13 @@
 			name="Description"
 			not-null="true"
 			type="string"
+		 />
+		<property
+			column="CATEGORY"
+			length="4"
+			name="Category"
+			not-null="true"
+			type="java.lang.Byte"
 		 />
 	</class>
 </hibernate-mapping>

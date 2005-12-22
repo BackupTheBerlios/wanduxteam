@@ -16,7 +16,7 @@
 <%				ClientEjb ce = (ClientEjb)application.getAttribute("ClientEjb");
 				WanduxEjb bean = ce.getBean();
 				List cl = bean.getIps();
-				int i;
+				int i, x;
 %>
 
     var tree;
@@ -166,39 +166,50 @@ for (i=0; i < cl.size(); i++)
 {
 	// SECTION RECAPITULATIVE DU COMPUTERINFORMATION
 	ComputerInformation ci = bean.getCi((String)cl.get(i));
-	out.print("<div id=\"CI_" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;overflow:auto;\"><b><br><br><center>Informations extracted from " + cl.get(i) + ".</center><br><br></b>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >> Please, check these settings and go on next Step</font><br><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("<div id=\"CI_" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:170;overflow:auto;\"><b><br><br><center>Informations extracted from " + cl.get(i) + ".<br></b>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >> Please, check these settings and go on next Step</font></center><br><br><br>");
+	out.print("Hostname : <b>" + cl.get(i) + "</b><br><br>");
+	out.print("<TABLE width=300 border=0 cellspacing=2><TR><TD colspan=2><b>Network Interfaces :</b></TD></TR>");
+	out.print("<TR><TD colspan=2><br><br></TD></TR>");
+	for (x=0; x < (ci.netconf.length - 1); x++)
+	{
+		out.print("<TR><TD>Interface :</TD><TD><b>" + ci.netconf[x].getNetworkInterface() + "</b></TD></TR>");
+		out.print("<TR><TD>Ip Adress :</TD><TD><b>" + ci.netconf[x].getNetworkIpAddress() + "</b></TD></TR>");
+		out.print("<TR><TD>SubNetMask :</TD><TD><b>" + ci.netconf[x].getNetworkSubnetmask() + "</b></TD></TR>");
+		out.print("<TR><TD>Mac Adress :</TD><TD><b>" + ci.netconf[x].getNetworkMacAdress() + "</b></TD></TR>");
+		out.print("<TR><TD>Primary DNS :</TD><TD><b>" + ci.netconf[x].getNetworkDnsServer() + "</b></TD></TR>");	
+		out.print("<TR><TD>Secondary DNS :</TD><TD><b>" + ci.netconf[x].getNetworkDnsServer2() + "</b></TD></TR>");
+		out.print("<TR><TD>Gateway : </TD><TD><b>" + ci.netconf[x].getNetworkGateway() + "</b></TD></TR>");
+		out.print("<TR><TD>DHCP Enabled :</TD><TD><b>");
+		 if (ci.netconf[x].getNetworkDhcpEnabled().intValue() == 1)
+		{
+			out.print("yes</b></TD></TR>");
+		}
+		else
+		{
+			out.print("no</b></TD></TR>");
+		}
+		 
+		out.print("<TR><TD>Status : </TD><TD><b>");
+		if (ci.netconf[x].getNetworkStatus().intValue() == 1)
+		{
+			out.print("activated</b></TD></TR>");
+		}
+		else
+		{
+			out.print("disabled</b></TD></TR>");
+		}
+		out.print("<TR><TD colspan=2><br><br></TD></TR>");
+	}
+	out.print("</TABLE>\n");
 	out.print("</div>\n");
 	////////////////////////////////////////////////
 	
 	
 	//deprecated
-	//out.print("<div id=\"treeBox" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;\"><b><br><br><center>This tree represent the whole Windows file system of " + cl.get(i) + ".</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Please, select the files and folders that you want to migrate on the new Linux system using this tree :</font><br><br></div>\n");
+	//out.print("<div id=\"treeBox" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;overflow:auto;\"><b><br><br><center>This tree represent the whole Windows file system of " + cl.get(i) + ".</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Please, select the files and folders that you want to migrate on the new Linux system using this tree :</font><br><br></div>\n");
 
 	// SECTION TREE - AFFICHAGTE DU FILESYSTEM
-	out.print("<div id=\"treeApplet" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;\"><b><br><br><center>This tree represent the whole Windows file system of " + cl.get(i) + ".</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Please, select the files and folders that you want to migrate on the new Linux system<br>&nbsp;&nbsp;&nbsp;&nbsp;using this tree :</font><br><br>\n");
-	//out.print("<br><br> YOPLA DUP <br><br> ICI TU PEUT CASER L'APPLET ^^</b><br><br>");
+	out.print("<div id=\"treeApplet" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;overflow:auto;\"><b><br><br><center>This tree represent the whole Windows file system of " + cl.get(i) + ".</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Please, select the files and folders that you want to migrate on the new Linux system<br>&nbsp;&nbsp;&nbsp;&nbsp;using this tree :</font><br><br>\n");
 %>
  <applet
    code="Horloge.class"
@@ -215,7 +226,7 @@ for (i=0; i < cl.size(); i++)
 	
 	
 	//SECTION EQUIVALENCE DES PROGRAMMES
-	out.print("<div id=\"ChoosePrograms" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;\"><br><br><b><center> There is a list of Linux programs that are equivalent to the Windows Softwares installed on " + cl.get(i) + "</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Select the programs that will be installed on the new Linux System</font><br><br>");
+	out.print("<div id=\"ChoosePrograms" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;overflow:auto;\"><br><br><b><center> There is a list of Linux programs that are equivalent to the Windows Softwares installed on " + cl.get(i) + "</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Select the programs that will be installed on the new Linux System</font><br><br>");
 	out.print("<TABLE width=500 border=1>");
 	out.print("<TR><TD><b><center>Windows programs</b></center></TD><TD><b><center>Linux Equivalents</b></center></TD></TR>");
 	List winprogs = ci.windowsProgram;

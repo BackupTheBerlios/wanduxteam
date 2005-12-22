@@ -18,6 +18,8 @@ import java.io.Serializable;
 public abstract class BaseMandrakepkgs  implements Serializable {
 
 	public static String PROP_DESCRIPTION = "Description";
+	public static String PROP_CATEGORY = "Category";
+	public static String PROP_SUBCATEGORY = "Subcategory";
 	public static String PROP_NAME = "Name";
 	public static String PROP_ID = "Id";
 
@@ -28,8 +30,10 @@ public abstract class BaseMandrakepkgs  implements Serializable {
 	private java.lang.Long _id;
 
 	// fields
+	private java.lang.Byte _subcategory;
 	private java.lang.String _name;
 	private java.lang.String _description;
+	private java.lang.Byte _category;
 
 
 	// constructors
@@ -50,12 +54,16 @@ public abstract class BaseMandrakepkgs  implements Serializable {
 	 */
 	public BaseMandrakepkgs (
 		java.lang.Long _id,
+		java.lang.Byte _subcategory,
 		java.lang.String _name,
-		java.lang.String _description) {
+		java.lang.String _description,
+		java.lang.Byte _category) {
 
 		this.setId(_id);
+		this.setSubcategory(_subcategory);
 		this.setName(_name);
 		this.setDescription(_description);
+		this.setCategory(_category);
 		initialize();
 	}
 
@@ -80,6 +88,22 @@ public abstract class BaseMandrakepkgs  implements Serializable {
 	public void setId (java.lang.Long _id) {
 		this._id = _id;
 		this.hashCode = Integer.MIN_VALUE;
+	}
+
+
+	/**
+	 * Return the value associated with the column: SUBCATEGORY
+	 */
+	public java.lang.Byte getSubcategory () {
+		return _subcategory;
+	}
+
+	/**
+	 * Set the value related to the column: SUBCATEGORY
+	 * @param _subcategory the SUBCATEGORY value
+	 */
+	public void setSubcategory (java.lang.Byte _subcategory) {
+		this._subcategory = _subcategory;
 	}
 
 
@@ -112,6 +136,22 @@ public abstract class BaseMandrakepkgs  implements Serializable {
 	 */
 	public void setDescription (java.lang.String _description) {
 		this._description = _description;
+	}
+
+
+	/**
+	 * Return the value associated with the column: CATEGORY
+	 */
+	public java.lang.Byte getCategory () {
+		return _category;
+	}
+
+	/**
+	 * Set the value related to the column: CATEGORY
+	 * @param _category the CATEGORY value
+	 */
+	public void setCategory (java.lang.Byte _category) {
+		this._category = _category;
 	}
 
 
