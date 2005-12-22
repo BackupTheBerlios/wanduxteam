@@ -224,8 +224,9 @@ public class wanduxApp
 				// ip
 			    ncs.setNetworkIpAddress(netconfig.GetIpadress(listNetworkInterfacesCaption[i].getString()));
 				// dns
-				String dnsServerListe = netconfig.GetDnsServer(listNetworkInterfacesCaption[i].getString());
-				System.out.println("dnsserverliste : " + dnsServerListe);
+				String[] dnsServerListe = netconfig.GetDnsServer(listNetworkInterfacesCaption[i].getString());
+				 ncs.setNetworkDnsServer(dnsServerListe[0]);
+				 ncs.setNetworkDnsServer2(dnsServerListe[1]);
 				
 				// Caption
 				ncs.setNetworkInterface(netconfig.GetCaption(listNetworkInterfacesCaption[i].getString()));
