@@ -33,13 +33,12 @@ public class NetConfig
 	
 //	public static List outpout = new ArrayList();
 	WanduxWmiBridge wwb = null; 
-	String rootCIMV2 = "root\\CIMV2";
-	String rootCIMV2ApplicationsMicrosoftIE = "root\\CIMV2\\Applications\\MicrosoftIE";
+	//String rootCIMV2 = "root\\CIMV2";
+	//String rootCIMV2ApplicationsMicrosoftIE = "root\\CIMV2\\Applications\\MicrosoftIE";
 	
   public NetConfig(WanduxWmiBridge WWB)
   {
-  	// todo : controler si WWB est null, si oui, le creer
-  	wwb = WWB;
+  	this.wwb = WWB;
   }
 
    public String GetMac(String NetworkInterfaceIndex)
@@ -58,12 +57,10 @@ public class NetConfig
 		{
 			return "";
 		}
-		
    }
 
    public String GetIpadress(String NetworkInterfaceIndex)
    {
-
 	   String res = "";
 	   Variant[] rqRSLT = null;
 		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
@@ -80,7 +77,6 @@ public class NetConfig
 		{
 			return "";
 		}
-	
    }
 
    public java.lang.Byte GetDHCPEnable(String NetworkInterfaceIndex)
@@ -275,12 +271,6 @@ public class NetConfig
 		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE  MACAddress != NULL";
 		String wzName = "Index"; // element a recuperer depuis la requette
 		Variant obj[] =  wwb.exec_rq(rq, wzName);
-//		Variant ob = obj[0];
-//		System.out.println(ob.getClass());
-//		System.out.println(ob);
-		//Integer entier = new Integer(obj);
-		//int [] valueOBJ = (int[])obj;
-		//System.out.println(valueOBJ.toString());
 		return obj;
    }
 

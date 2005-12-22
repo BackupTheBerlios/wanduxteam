@@ -4,37 +4,22 @@ package pfe.migration.client.pre.service;
 import java.io.File;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-
-import com.jacob.com.JacobException;
-import com.jacob.com.Variant;
-
-import com.jacob.com.Variant;
-
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-
-
-import com.jacob.com.Variant;
-
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-
 
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.client.pre.app.ProgramsLister;
 import pfe.migration.client.pre.system.NetConfig;
-import pfe.migration.client.pre.system.NetConfig;
-import pfe.migration.client.pre.system.FileSystemModel;
-import pfe.migration.client.pre.system.FileSystemModel;
-import pfe.migration.client.pre.system.FileSystemModel;
+import pfe.migration.client.pre.system.UserConfig;
 import pfe.migration.server.ejb.bdd.NetworkConfig;
+import pfe.migration.server.ejb.bdd.UsersData;
 import pfe.migration.server.ejb.tool.XmlRetrieve;
+
+import com.jacob.com.JacobException;
+import com.jacob.com.Variant;
+import com.sun.rsasign.u;
 
 public class wanduxApp
 {
@@ -75,6 +60,7 @@ public class wanduxApp
 		WanduxWmiInfoManager();
 		
 		fillNetworkInCI();
+		fillusersData();
 		
 		//WanduxWmiInfoManager();
 		//fillNetworkInCI();
@@ -250,6 +236,60 @@ public class wanduxApp
 		}
 		if(nc != null)
 		this.ci.setInfoNetwork(nc);	
+	}
+	
+	
+
+	/**
+	 * recuperation des informations convernant les utilisateurs
+	 */
+	private void fillusersData() {
+		UserConfig usersConfig = new UserConfig(wwb);
+	
+		Variant[] listNetworkInterfacesCaption = usersConfig.listNetworkInterfaces();
+		int i = 0;
+		System.out.println("\n================ users data =================");
+		//System.out.println(listNetworkInterfacesCaption.length);
+		try{
+			while(i<listNetworkInterfacesCaption.length)
+			{
+				System.out.println(listNetworkInterfacesCaption[i].getString());
+				i++;
+			}
+		}
+		catch (Exception e) {
+			//	e.printStackTrace();
+		}
+
+		UsersData[] udTab = new UsersData[i+1];
+		i = 0;
+		try{
+			 while(i < listNetworkInterfacesCaption.length && listNetworkInterfacesCaption[i] != null)
+			{
+				UsersData ud = new UsersData();
+//			 	System.out.println("\n ==================== index de l'interface: " + listNetworkInterfacesCaption[i].getString() + " ====================\n");
+			 	String user = listNetworkInterfacesCaption[i].getString();
+			 	ud.setUserLogin(user);
+			 	// UserType = groupe
+//			 	ud.setUserType(usersConfig.getUserType(user));
+//			 	ud.setUserHome(usersConfig.getUserHome(user));
+//			 	ud.setUserPass(usersConfig.getUserPass(user));
+//			 	ud.setUserProxyOverride(usersConfig.getUserProxyOverride(user));
+//			 	ud.setUserProxyServ(usersConfig.getUserProxyServ(user));
+//			 	ud.setUserTimezone(usersConfig.getUserTimezone(user));
+
+//				ud.setUserKbLayout(usersConfig.getUserKbLayout(user));
+				udTab[i] = ud;
+				ud = null;
+				i++;
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		if( udTab != null)
+			this.ci.setUsersData(udTab);	
 	}
 	
 	private Variant [] GetPartitionName()
