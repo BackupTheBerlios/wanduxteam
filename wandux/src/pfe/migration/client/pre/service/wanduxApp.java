@@ -222,13 +222,15 @@ public class wanduxApp
 				// Subnetmask
 				ncs.setNetworkSubnetmask(netconfig.GetNetmask(listNetworkInterfacesCaption[i].getString()));
 				// ip
-			    ncs.setNetworkIpAddress(netconfig.GetIp(listNetworkInterfacesCaption[i].getString()));
+			    ncs.setNetworkIpAddress(netconfig.GetIpadress(listNetworkInterfacesCaption[i].getString()));
 				// dns
-				ncs.setNetworkDnsServer(netconfig.GetDnsServer(listNetworkInterfacesCaption[i].getString()));
+				String dnsServerListe = netconfig.GetDnsServer(listNetworkInterfacesCaption[i].getString());
+				System.out.println("dnsserverliste : " + dnsServerListe);
+				
 				// Caption
-//				ncs.setNetworkInterface();
+				ncs.setNetworkInterface(netconfig.GetCaption(listNetworkInterfacesCaption[i].getString()));
 				// status
-//				ncs.setNetworkStatus();
+				ncs.setNetworkStatus(netconfig.GetStatus(listNetworkInterfacesCaption[i].getString()));
 				//
 				nc[i] = ncs;
 				ncs = null;
@@ -261,8 +263,6 @@ public class wanduxApp
 		}
 			Variant var = rqRSLT[0];
 			ci.gconf.setGlobalHostname(var.getString());
-		
-
 	}
 		
 	/**
