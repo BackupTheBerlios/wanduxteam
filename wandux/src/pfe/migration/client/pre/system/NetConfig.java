@@ -54,11 +54,11 @@ public class NetConfig
 			System.out.println(rqRSLT[0].getString());
 			return  rqRSLT[0].getString();
 		}
-		catch(Exception e)
+		catch(JacobException je)
 		{
-			System.err.println(e.getStackTrace());
+			return "";
 		}
-		return null;
+		
    }
 
    public String GetIpadress(String NetworkInterfaceIndex)
@@ -76,18 +76,18 @@ public class NetConfig
 			System.out.println("Ipadress : " + str.getString(0));
 			return  str.getString(0);
 		}
-		catch(Exception e)
+		catch(JacobException  je)
 		{
-			System.err.println(e.getStackTrace());
+			return "";
 		}
-		return "";
+	
    }
 
    public java.lang.Byte GetDHCPEnable(String NetworkInterfaceIndex)
    {
 	   String res = "";
 	   Variant[] rqRSLT = null;
-		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
+		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\' ";
 		//System.out.println(rq);
 		String wzName = "DHCPEnabled"; // element a recuperer depuis la requette
 		try
@@ -96,11 +96,11 @@ public class NetConfig
 			System.out.println(rqRSLT[0].getBoolean());
 			return  new Byte(rqRSLT[0].getBoolean() == true ? "1" : "0");
 		}
-		catch(Exception e)
+		catch(JacobException je)
 		{
-			System.err.println(e.getStackTrace());
+			return new Byte("0");
 		}
-		return null;
+		
    }
 
    public String GetNetmask(String NetworkInterfaceIndex)
@@ -119,11 +119,11 @@ public class NetConfig
 			return  str.getString(0);
 
 		}
-		catch(Exception e)
+		catch(JacobException je)
 		{
-			System.err.println("err in : String GetGate  " + e.getStackTrace());
+			return "";
 		}
-		return null;
+		
    }
    
    public String[] GetDnsServer (String NetworkInterfaceIndex)
@@ -135,7 +135,7 @@ public class NetConfig
 	
 	   Variant[] rqRSLT = null;
 		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
-		System.out.println(rq);
+		//System.out.println(rq);
 		String wzName = "DNSServerSearchOrder"; // element a recuperer depuis la requette
 		try
 		{
@@ -144,40 +144,35 @@ public class NetConfig
 			SafeArray str = var.toSafeArray();
 
 			DnsServerListe[0] = str.getString(0);
-			DnsServerListe[2] = str.getString(2);
+			if(str.getString(1) != null)
+				DnsServerListe[1] = str.getString(1);
 			System.out.println("DnsServer1 :" + DnsServerListe[0]);
-			System.out.println("DnsServer2 :" + DnsServerListe[2]);
+			System.out.println("DnsServer2 :" + DnsServerListe[1]);
 		}
-		catch(Exception e)
+		catch(JacobException je)
 		{
-			System.err.println("err in : String GetGate  " + e.getStackTrace());
+			return DnsServerListe;
 		}
 		return DnsServerListe;
    }
    public String GetGate(String NetworkInterfaceIndex)
    {
-    String res = "";
-	   Variant[] rqRSLT = null;
+   		String res = "";
+	    Variant[] rqRSLT = null;
 		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
 		String wzName = "DefaultIPGateway"; // element a recuperer depuis la requette
 		try
 		{
 			rqRSLT = wwb.exec_rq(rq, wzName);	
-			if(rqRSLT != null &&  rqRSLT[0] != null)
-			{
 				Variant var =  rqRSLT[0];
 				SafeArray str = var.toSafeArray();
-				System.out.println("Gate : " + str.getString(0));
+		//		System.out.println("Gate : " + str.getString(0));
 				return str.getString(0);
-			}
-			return "" ;
 		}
-		catch(JacobException jE)
+		catch(JacobException je)
 		{
-			System.err.println("err in : String GetGate  ");
-			jE.printStackTrace();
+			return "";
 		}
-		return "";
    }
    
    public String GetHostname()
@@ -246,11 +241,10 @@ public class NetConfig
 			System.out.println("Caption : " + str.getString(0));
 			return  str.getString(0);
 		}
-		catch(Exception e)
+		catch(JacobException je)
 		{
-			System.err.println("err in : String GetGate  " + e.getStackTrace());
+			return "";
 		}
-		return "";
    }
    
    
@@ -259,7 +253,7 @@ public class NetConfig
     String res = "";
 	   Variant[] rqRSLT = null;
 		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
-		System.out.println(rq);
+	//	System.out.println(rq);
 		String wzName = "IPEnabled"; // element a recuperer depuis la requette
 		try
 		{
@@ -270,16 +264,16 @@ public class NetConfig
 			return  new Byte(rqRSLT[0].getBoolean() == true ? "1" : "0");
 
 		}
-		catch(Exception e)
+		catch(JacobException  je)
 		{
-			System.err.println("err in : String GetGate  " + e.getStackTrace());
+			return new Byte("0");
 		}
-		return new Byte("0");
+
    }
    
    public Variant[] listNetworkInterfaces()
    {
-		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration";
+		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE  MACAddress != NULL";
 		String wzName = "Index"; // element a recuperer depuis la requette
 		Variant obj[] =  wwb.exec_rq(rq, wzName);
 //		Variant ob = obj[0];
