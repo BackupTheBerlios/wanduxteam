@@ -206,10 +206,10 @@ for (i=0; i < cl.size(); i++)
 	
 	
 	//deprecated
-	//out.print("<div id=\"treeBox" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;overflow:auto;\"><b><br><br><center>This tree represent the whole Windows file system of " + cl.get(i) + ".</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Please, select the files and folders that you want to migrate on the new Linux system using this tree :</font><br><br></div>\n");
+	//out.print("<div id=\"treeBox" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:170;overflow:auto;\"><b><br><br><center>This tree represent the whole Windows file system of " + cl.get(i) + ".</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Please, select the files and folders that you want to migrate on the new Linux system using this tree :</font><br><br></div>\n");
 
 	// SECTION TREE - AFFICHAGTE DU FILESYSTEM
-	out.print("<div id=\"treeApplet" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;overflow:auto;\"><b><br><br><center>This tree represent the whole Windows file system of " + cl.get(i) + ".</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Please, select the files and folders that you want to migrate on the new Linux system<br>&nbsp;&nbsp;&nbsp;&nbsp;using this tree :</font><br><br>\n");
+	out.print("<div id=\"treeApplet" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:170;overflow:auto;\"><b><br><br><center>This tree represent the whole Windows file system of " + cl.get(i) + ".</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Please, select the files and folders that you want to migrate on the new Linux system<br>&nbsp;&nbsp;&nbsp;&nbsp;using this tree :</font><br><br>\n");
 %>
  <applet
    code="Horloge.class"
@@ -226,23 +226,33 @@ for (i=0; i < cl.size(); i++)
 	
 	
 	//SECTION EQUIVALENCE DES PROGRAMMES
-	out.print("<div id=\"ChoosePrograms" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;overflow:auto;\"><br><br><b><center> There is a list of Linux programs that are equivalent to the Windows Softwares installed on " + cl.get(i) + "</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Select the programs that will be installed on the new Linux System</font><br><br>");
-	out.print("<TABLE width=500 border=1>");
+	out.print("<div id=\"ChoosePrograms" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:170;overflow:auto;\"><br><br><b><center> There is a list of Linux programs that are equivalent to the Windows Softwares installed on " + cl.get(i) + "</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Select the programs that will be installed on the new Linux System</font><br><br>");
+	out.print("<TABLE width=630 border=1 bordercolor=\"#000000\">");
 	out.print("<TR><TD><b><center>Windows programs</b></center></TD><TD><b><center>Linux Equivalents</b></center></TD></TR>");
 	List winprogs = ci.windowsProgram;
 	for (i=0; i < winprogs.size(); i++)
 	{
-		out.print("<TR>");
-		out.print("<TD>");
-		out.print(winprogs.get(i) + "<br>");
-		out.print("</TD>");
-		out.print("<TD>");
-		
-		out.print("<INPUT type=radio name=prog" + i + " value=\"equivalent 1\">equivalent 1<br>");
-		out.print("<INPUT type=radio name=prog" + i + " value=\"equivalent 2\">equivalent 2<br>");
-		out.print("<INPUT type=radio name=prog" + i + " value=\"equivalent 3\">equivalent 3");
-		out.print("</TD>");
-		out.print("</TR>");
+		if (winprogs.get(i) != null)
+		{
+			out.print("<TR>");
+			out.print("<TD>");
+			out.print(winprogs.get(i) + "<br>");
+			out.print("</TD>");
+			out.print("<TD>");
+			
+			List equiv = bean.getLinuxEquivalents((String)winprogs.get(i));
+			for (x=0; x < equiv.size(); x++)
+			{
+				out.print("<INPUT type=radio name=prog" + i + " value=\"" + equiv.get(x) + "\">" + equiv.get(x) + "<br>");
+				x++;
+				if (equiv.get(x) != null)
+					out.print("&nbsp;&nbsp;&nbsp;<A href=\"" + equiv.get(x) + "\">" + equiv.get(x) + "</A><br>");
+				else
+					out.print("<br>");
+			}
+			out.print("</TD>");
+			out.print("</TR>");
+		}
 	}
 	out.print("</TABLE>");
 	//////////////////////////////////////
