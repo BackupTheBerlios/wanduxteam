@@ -41,7 +41,7 @@ public class ComputerInformation implements Serializable
 //	private UsersData udata = null;
 //	private ParamIe ieconf = null;
 	
-	private NetworkConfig netconf [] = null;
+	public NetworkConfig netconf [] = null;
 	private DefaultTreeModel fsm = null;
 	
 	public ComputerInformation ()
