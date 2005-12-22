@@ -16,13 +16,13 @@
 <%				ClientEjb ce = (ClientEjb)application.getAttribute("ClientEjb");
 				WanduxEjb bean = ce.getBean();
 				List cl = bean.getIps();
-				int i, x;
+				int i, x, ind;
 %>
 
     var tree;
     var last_div = "no";
     var temp;
-    var MAX_STEP = 3;
+    var MAX_STEP = 4;
     
     var steps = new Array();
 <%
@@ -112,6 +112,11 @@
 			{
 				temp = document.getElementById('ChoosePrograms'+document.myform.machine.value);
 				last_div = 'ChoosePrograms'+document.myform.machine.value;
+			}
+			if (steps[document.myform.machine.value] == 4)
+			{
+				temp = document.getElementById('FinalStep'+document.myform.machine.value);
+				last_div = 'FinalStep'+document.myform.machine.value;
 			}
 			
 			
@@ -230,23 +235,23 @@ for (i=0; i < cl.size(); i++)
 	out.print("<TABLE width=630 border=1 bordercolor=\"#000000\">");
 	out.print("<TR><TD><b><center>Windows programs</b></center></TD><TD><b><center>Linux Equivalents</b></center></TD></TR>");
 	List winprogs = ci.windowsProgram;
-	for (i=0; i < winprogs.size(); i++)
+	for (ind=0; ind < winprogs.size(); ind++)
 	{
-		if (winprogs.get(i) != null)
+		if (winprogs.get(ind) != null)
 		{
 			out.print("<TR>");
 			out.print("<TD>");
-			out.print(winprogs.get(i) + "<br>");
+			out.print(winprogs.get(ind) + "<br>");
 			out.print("</TD>");
 			out.print("<TD>");
 			
-			List equiv = bean.getLinuxEquivalents((String)winprogs.get(i));
+			List equiv = bean.getLinuxEquivalents((String)winprogs.get(ind));
 			for (x=0; x < equiv.size(); x++)
 			{
-				out.print("<INPUT type=radio name=prog" + i + " value=\"" + equiv.get(x) + "\">" + equiv.get(x) + "<br>");
+				out.print("<INPUT type=radio name=prog" + ind + " value=\"" + equiv.get(x) + "\">" + equiv.get(x) + "<br>");
 				x++;
 				if (equiv.get(x) != null)
-					out.print("&nbsp;&nbsp;&nbsp;<A href=\"" + equiv.get(x) + "\">" + equiv.get(x) + "</A><br>");
+					out.print("&nbsp;&nbsp;&nbsp;<A href=\"" + equiv.get(x) + "\" target=\"_blank\">" + equiv.get(x) + "</A><br>");
 				else
 					out.print("<br>");
 			}
@@ -255,7 +260,16 @@ for (i=0; i < cl.size(); i++)
 		}
 	}
 	out.print("</TABLE>");
+	out.print("</div>\n");
 	//////////////////////////////////////
+	
+	
+	//ETAPE FINALE => Lancement de la migration
+	out.print("<div id=\"FinalStep" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:170;overflow:auto;\"><br><br><br><br><br><b><center>If you have completed all the Steps you can now launch the migration of " + cl.get(i) + "</b></center><br><br><br><br>");
+	out.print("<a href=\"#\"><b>click here to Launch the Migration of this computer</b></a>\n");
+	out.print("</div>\n");
+	
+	//////////////////////////////////////////
 }
 %>
 
