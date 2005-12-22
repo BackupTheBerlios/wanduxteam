@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.jacob.com.SafeArray;
 import com.jacob.com.Variant;
 
 import pfe.migration.client.pre.service.WanduxWmiBridge;
@@ -40,21 +41,24 @@ public class NetConfig
   	wwb = WWB;
   }
 
-   public String GetMac()
+   public String GetMac(String NetworkInterfaceIndex)
    {
-	   String res = "";
-
-//	   for (int i = 0; i < outpout.size(); i++)
-//	   {
-//		   Pattern p = Pattern.compile(".*Adresse physique.*: (.*)");
-//		   Matcher m = p.matcher(((String)outpout.get(i)));
-//		   if (m.matches())
-//		   {
-//			   res = m.group(1);
-//			   break;
-//		   }
-//	   }
-	   return res;
+    String res = "";
+	   Variant[] rqRSLT = null;
+		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
+		//System.out.println(rq);
+		String wzName = "MACAddress"; // element a recuperer depuis la requette
+		try
+		{
+			rqRSLT = wwb.exec_rq(rq, wzName);	
+			System.out.println(rqRSLT[0].getString());
+			return  rqRSLT[0].getString();
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getStackTrace());
+		}
+		return null;
    }
 
    public String GetIp()
@@ -78,22 +82,14 @@ public class NetConfig
    {
 	   String res = "";
 	   Variant[] rqRSLT = null;
-//		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Caption = "  + "\'" + NetworkInterfaceCaption + "\'";
 		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
-	   //String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration";
-	   System.out.println(rq);
+		//System.out.println(rq);
 		String wzName = "DHCPEnabled"; // element a recuperer depuis la requette
 		try
 		{
 			rqRSLT = wwb.exec_rq(rq, wzName);	
-			if(rqRSLT[0].equals("1")) // erreur detected
-			{
-				System.err.println(rqRSLT[1]);
-				return null;
-			}
-			System.out.println("valeur recue : " + rqRSLT[0]);
-			Variant var = rqRSLT[0];
-			return (new Byte(var.getString()));
+			//System.out.println(rqRSLT[0].getBoolean());
+			return  new Byte(rqRSLT[0].getBoolean() == true ? "1" : "0");
 		}
 		catch(Exception e)
 		{
@@ -102,38 +98,50 @@ public class NetConfig
 		return null;
    }
 
-   public String GetNetmask()
+   public String GetNetmask(String NetworkInterfaceIndex)
    {
-	   String res = "";
+    String res = "";
+	   Variant[] rqRSLT = null;
+		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
+		//System.out.println(rq);
+		String wzName = "IPSubnet"; // element a recuperer depuis la requette
+		try
+		{
+			rqRSLT = wwb.exec_rq(rq, wzName);	
+			Variant var =  rqRSLT[0];
+			SafeArray str = var.toSafeArray();
+			System.out.println(str.getString(0));
+			return  str.getString(0);
 
-//	   for (int i = 0; i < outpout.size(); i++)
-//	   {
-//		   Pattern p = Pattern.compile(".*Masque de sous-réseau.*: (.*)");
-//		   Matcher m = p.matcher(((String)outpout.get(i)));
-//		   if (m.matches())
-//		   {
-//			   res = m.group(1);
-//			   break;
-//		   }
-//	   }
-	   return res;
+		}
+		catch(Exception e)
+		{
+			System.err.println("err in : String GetGate  " + e.getStackTrace());
+		}
+		return null;
    }
    
-   public String GetGate()
+   public String GetGate(String NetworkInterfaceIndex)
    {
-	   String res = "";
+    String res = "";
+	   Variant[] rqRSLT = null;
+		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
+		//System.out.println(rq);
+		String wzName = "DefaultIPGateway"; // element a recuperer depuis la requette
+		try
+		{
+			rqRSLT = wwb.exec_rq(rq, wzName);	
+			Variant var =  rqRSLT[0];
+			SafeArray str = var.toSafeArray();
+			System.out.println(str.getString(0));
+			return  str.getString(0);
 
-//	   for (int i = 0; i < outpout.size(); i++)
-//	   {
-//		   Pattern p = Pattern.compile(".*Passerelle par défaut.*: (.*)");
-//		   Matcher m = p.matcher(((String)outpout.get(i)));
-//		   if (m.matches())
-//		   {
-//			   res = m.group(1);
-//			   break;
-//		   }
-//	   }
-	   return res;
+		}
+		catch(Exception e)
+		{
+			System.err.println("err in : String GetGate  " + e.getStackTrace());
+		}
+		return null;
    }
    
    public String GetHostname()
