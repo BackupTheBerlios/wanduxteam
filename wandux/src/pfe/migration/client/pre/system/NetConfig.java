@@ -237,12 +237,12 @@ public class NetConfig
 		{
 			rqRSLT = wwb.exec_rq(rq, wzName);	
 			Variant var =  rqRSLT[0];
-			SafeArray str = var.toSafeArray();
-			System.out.println("Caption : " + str.getString(0));
-			return  str.getString(0);
+			System.out.println("Caption : " + var.getString());
+			return  var.getString();
 		}
 		catch(JacobException je)
 		{
+			je.printStackTrace();
 			return "";
 		}
    }
@@ -259,7 +259,6 @@ public class NetConfig
 		{
 			rqRSLT = wwb.exec_rq(rq, wzName);	
 			Variant var =  rqRSLT[0];
-			SafeArray str = var.toSafeArray();
 			System.out.println("Status : " + rqRSLT[0].getBoolean());
 			return  new Byte(rqRSLT[0].getBoolean() == true ? "1" : "0");
 
