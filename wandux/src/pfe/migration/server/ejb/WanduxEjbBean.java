@@ -18,11 +18,14 @@ import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.server.ejb.adll.ExecAdll;
 import pfe.migration.server.ejb.bdd.GlobalConf;
 import pfe.migration.server.ejb.bdd.HibernateUtil;
+import pfe.migration.server.ejb.bdd.Linuxcomponents;
 import pfe.migration.server.ejb.bdd.NetworkConfig;
 import pfe.migration.server.ejb.bdd.ParamIe;
 import pfe.migration.server.ejb.bdd.UsersData;
+import pfe.migration.server.ejb.bdd.Windowscomponents;
 import pfe.migration.server.ejb.tool.CopyBookmark;
 import pfe.migration.server.ejb.tool.XmlAdllParse;
+import java.util.ArrayList;
 
 /**
  * @ejb.bean name="ServerEjb"
@@ -72,6 +75,53 @@ public class WanduxEjbBean implements SessionBean
 //	{
 //		System.out.println(ok);
 //	}
+
+	public ArrayList getLinuxEquivalents(String WinSoft)
+	{
+		Session session;
+		Byte subcategory=null;
+		ArrayList lequivs = new ArrayList();
+		
+		try {
+			session = HibernateUtil.currentSession();
+
+	        List l = session.createSQLQuery(
+	        	    "SELECT {wc.*} FROM WINDOWSCOMPONENTS {wc} where name=\""+WinSoft+"\"",
+	        	    "wc",
+	        	    Windowscomponents.class
+	        	).list();	        
+	        Iterator i = l.iterator();
+			while (i.hasNext())
+			{
+				Windowscomponents item = (Windowscomponents)i.next();
+				subcategory=item.getSubcategory();
+			}
+
+			//System.out.println(subcategory);
+
+	        List equivs = session.createSQLQuery(
+	        	    "SELECT {lc.*} FROM LINUXCOMPONENTS {lc} where subcategory="+subcategory, 
+	        	    "lc",
+	        	    Linuxcomponents.class
+	        	).list();
+	        i = equivs.iterator();
+			while (i.hasNext())
+			{
+				Linuxcomponents lxc = (Linuxcomponents)i.next();
+				//System.out.println(lxc.getId());
+//				System.out.println(lxc.getName());
+//				System.out.println(lxc.getUrl());
+				lequivs.add(lxc.getName());
+				lequivs.add(lxc.getUrl());
+			}
+	        HibernateUtil.closeSession();
+	        return lequivs;
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return lequivs;
+	}
 	
 	// -- taches internes ------------------------------------------------------- //
 	public void createAdllXmlFile(ComputerInformation ci)

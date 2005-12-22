@@ -145,6 +145,12 @@ public class wanduxApp
 		try {
 			// Send Machine CI to server
 			this.ce.getBean().putCi(this.ci);
+			
+			/*
+			 * Call to method that returns Linux equivalent list
+			 */
+			//ce.getBean().getLinuxEquivalents("MS Office");
+
 		} catch (RemoteException e) { e.printStackTrace(); }
 		System.out.println("information recupere et envoyer");
 

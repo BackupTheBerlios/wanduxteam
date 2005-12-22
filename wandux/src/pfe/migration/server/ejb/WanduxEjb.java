@@ -3,6 +3,7 @@ package pfe.migration.server.ejb;
 
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.ArrayList;
 
 import javax.ejb.EJBObject;
 
@@ -31,5 +32,7 @@ public interface WanduxEjb extends EJBObject
 
 	public void createAdllXmlFile(ComputerInformation ci) throws RemoteException;
 	
-//	public CiList getCiList () throws RemoteException; 
+//	public CiList getCiList () throws RemoteException;
+
+	public ArrayList getLinuxEquivalents(String Winsoft) throws RemoteException;
 }
