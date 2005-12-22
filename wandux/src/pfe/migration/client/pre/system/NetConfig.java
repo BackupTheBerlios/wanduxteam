@@ -231,7 +231,7 @@ public class NetConfig
     String res = "";
 	   Variant[] rqRSLT = null;
 		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
-		System.out.println(rq);
+		//System.out.println(rq);
 		String wzName = "Caption"; // element a recuperer depuis la requette
 		try
 		{
