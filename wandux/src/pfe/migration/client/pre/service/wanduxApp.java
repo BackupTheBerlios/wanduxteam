@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import com.jacob.com.JacobException;
 import com.jacob.com.Variant;
 
 import com.jacob.com.Variant;
@@ -220,14 +221,12 @@ public class wanduxApp
 			{
 				System.out.println("\n ==================== index de l'interface: " + listNetworkInterfacesCaption[i].getString() + " ====================\n");
 				NetworkConfig ncs = new NetworkConfig();
-				
 //				 Caption
 				ncs.setNetworkInterface(netconfig.GetCaption(listNetworkInterfacesCaption[i].getString()));
 				// status
 				ncs.setNetworkStatus(netconfig.GetStatus(listNetworkInterfacesCaption[i].getString()));
 //				 Mac
 				ncs.setNetworkMacAdress(netconfig.GetMac(listNetworkInterfacesCaption[i].getString()));
-
 				// ip
 			    ncs.setNetworkIpAddress(netconfig.GetIpadress(listNetworkInterfacesCaption[i].getString()));
 				// Subnetmask
@@ -267,9 +266,9 @@ public class wanduxApp
 				return null;
 			}
 		}
-		catch(Exception e)
+		catch(JacobException je)
 		{
-			System.err.println(e.getStackTrace());
+			je.printStackTrace();
 		}
 		return rqRSLT;
 	}
