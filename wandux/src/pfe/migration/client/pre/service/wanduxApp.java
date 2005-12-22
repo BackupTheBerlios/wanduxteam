@@ -99,17 +99,10 @@ public class wanduxApp
 		WanduxWmiInfoManager();
 		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu ....
 		// this.applicationServerIp = "127.0.0.1";
-
 		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu ....
 		this.applicationServerIp = "127.0.0.1";
-
 		ci = new ComputerInformation();
-
 		fillNetworkInCI();
-
-		//WanduxWmiInfoManager();
-		//fillNetworkInCI();
-
 		fillHostname();
 		System.out.println(ci.gconf.getGlobalHostname());
 
@@ -118,8 +111,6 @@ public class wanduxApp
 
 //		getIp();
 
-//		WanduxWmiInfoManager();
-//		fillNetworkInCI();
 
 
 ////		GetFileTreeModel();

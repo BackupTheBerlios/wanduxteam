@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.jacob.com.JacobException;
 import com.jacob.com.SafeArray;
 import com.jacob.com.Variant;
 
@@ -46,7 +47,6 @@ public class NetConfig
     String res = "";
 	   Variant[] rqRSLT = null;
 		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
-		//System.out.println(rq);
 		String wzName = "MACAddress"; // element a recuperer depuis la requette
 		try
 		{
@@ -67,7 +67,6 @@ public class NetConfig
 	   String res = "";
 	   Variant[] rqRSLT = null;
 		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
-		//System.out.println(rq);
 		String wzName = "IPAddress"; // element a recuperer depuis la requette
 		try
 		{
@@ -160,12 +159,11 @@ public class NetConfig
     String res = "";
 	   Variant[] rqRSLT = null;
 		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
-		System.out.println(rq);
 		String wzName = "DefaultIPGateway"; // element a recuperer depuis la requette
 		try
 		{
 			rqRSLT = wwb.exec_rq(rq, wzName);	
-			if(rqRSLT != null)
+			if(rqRSLT != null &&  rqRSLT[0] != null)
 			{
 				Variant var =  rqRSLT[0];
 				SafeArray str = var.toSafeArray();
@@ -173,11 +171,11 @@ public class NetConfig
 				return str.getString(0);
 			}
 			return "" ;
-
 		}
-		catch(Exception e)
+		catch(JacobException jE)
 		{
-			System.err.println("err in : String GetGate  " + e.getStackTrace());
+			System.err.println("err in : String GetGate  ");
+			jE.printStackTrace();
 		}
 		return "";
    }
