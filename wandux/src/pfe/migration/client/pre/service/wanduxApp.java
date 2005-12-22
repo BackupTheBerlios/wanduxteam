@@ -206,7 +206,7 @@ public class wanduxApp
 ///			listNetworkInterfacesCaption[i];
 			i++;
 		}
-		NetworkConfig[] nc = new NetworkConfig[10];
+		NetworkConfig[] nc = new NetworkConfig[i+1];
 		i = 0;
 		try{
 			 while(i < listNetworkInterfacesCaption.length && listNetworkInterfacesCaption[i] != null)
@@ -227,7 +227,6 @@ public class wanduxApp
 				String[] dnsServerListe = netconfig.GetDnsServer(listNetworkInterfacesCaption[i].getString());
 				 ncs.setNetworkDnsServer(dnsServerListe[0]);
 				 ncs.setNetworkDnsServer2(dnsServerListe[1]);
-				
 				// Caption
 				ncs.setNetworkInterface(netconfig.GetCaption(listNetworkInterfacesCaption[i].getString()));
 				// status
