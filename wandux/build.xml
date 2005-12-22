@@ -17,9 +17,11 @@
 	<property name="jar.serverEjb.name" value="WanduxEjb.jar"/>
 	<property name="jar.monitor.name" value="webMonitor.war"/>
 	<property name="dir.wwi.lib" value="utils/wwi/release/"/>
+	<property name="dir.jacob.lib" value="utils/jacob/"/>
 
 	<property name="dir.frontEnd" value="webFrontEnd/"/>
 	<property name="jar.frontEnd.name" value="webFrontEnd.war"/>
+
 	<property environment="env"/>
 	<property name="jboss.dir" location="${env.JBOSS_HOME}" />
 	<property name="dir.system32" location="${env.windir}\system32\" />
@@ -78,9 +80,11 @@
 
 		<echo message="copie des dll"/>
 		<echo message="${dir.wwi.lib}"/>
+		<echo message="${dir.jacob.lib}"/>
 		<echo message="${dir.system32}"/>
 		<copy todir="${dir.system32}">
 			<!-- fileset dir="${dir.lib}" includes="ICE_JNIRegistry.dll"/ -->
+			<fileset dir="${dir.jacob.lib}" includes="jacob.dll"/>
 			<fileset dir="${dir.wwi.lib}" includes="wwi.dll"/>
 		</copy>
 		
@@ -141,7 +145,7 @@
 	    </copy>
 	</target>
 
-	<target name="make client pre jar">
+	<target name="make client pre jar"> <!-- depends="make applet client pre jar" --> 
 		<jar jarfile="${dir.build}/${jar.client.pre.name}"
 			manifest="${dir.pre}/META-INF/MANIFEST.MF">
 			<fileset dir="${dir.classes}">
@@ -166,6 +170,16 @@
 	    	</fileset>
 	    </copy>
 	</target>
+	
+	<!-- target name="make applet client pre jar">
+		<jar jarfile="${dir.build}/${jar.applet.name}"
+			manifest="${dir.pre}/META-INF/MANIFEST.MF">
+			<fileset dir="${dir.classes}">
+				<include name="**/client/pre/**/*.*"/>
+				<include name="**/client/network/**/*.*"/>
+			</fileset>
+		</jar>
+	</target -->
 
 	<target name="make serverEjb jar">
 	      <jar jarfile="${dir.build}/${jar.serverEjb.name}">         
@@ -173,6 +187,7 @@
 				<!-- include name="**/*.hbm"/ -->
 		   		<include name="**/server/**/*.*"/>
 	        	<include name="**/client/network/**/*.*"/>
+	        	<include name="**/client/pre/system/FileSystemModel.*"/>
 	        </fileset>
 	        <fileset dir="${dir.ejb}">
 	           <include name="META-INF/**/*.*"/>
@@ -180,7 +195,7 @@
 	      </jar>
 	</target>
 
-	<target name="make monitor war">
+	<!-- target name="make monitor war">
 	      <jar jarfile="${dir.build}/${jar.monitor.name}">
 	        <fileset dir="${dir.classes}">
 		   		<include name="**/server/monitor/**/*.class"/>
@@ -190,13 +205,14 @@
 		   		<include name="**/*.*"/>
 	        </fileset>
 	      </jar>
-	</target>
+	</target -->
 	
 	<target name="make frontEnd war">
 	      <jar jarfile="${dir.build}/${jar.frontEnd.name}">
 	        <fileset dir="${dir.classes}">
+				<include name="TreeApplet.class"/>
 	        	<include name="**/client/network/**/*.class"/>
-	        	<include name="**/client/pre/app/web/**/*.class"/>
+				<include name="**/client/pre/applet/**/*.*"/>
 	        </fileset>
 	        <fileset dir="${dir.frontEnd}">
 		   		<include name="**/*.*"/>
