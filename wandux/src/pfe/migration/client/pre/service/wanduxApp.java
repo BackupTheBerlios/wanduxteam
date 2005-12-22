@@ -97,6 +97,7 @@ public class wanduxApp
 		// get the file system model from the machine
 		GetFileTreeModel();
 
+
 		if (makeConnection() == true)
 			System.out.println("connection etablie ...");
 		if (this.ce.IsConnected() == false)
@@ -212,33 +213,33 @@ public class wanduxApp
 ///			listNetworkInterfacesCaption[i];
 			i++;
 		}
-		NetworkConfig[] nc = new NetworkConfig[10];
+		NetworkConfig[] nc = new NetworkConfig[i+1];
 		i = 0;
 		try{
 			 while(i < listNetworkInterfacesCaption.length && listNetworkInterfacesCaption[i] != null)
 			{
-				System.out.println("\n ==================== interface numero : " +  i + " ====================\n");
-				//System.out.println("tour " + i);
+				System.out.println("\n ==================== index de l'interface: " + listNetworkInterfacesCaption[i].getString() + " ====================\n");
 				NetworkConfig ncs = new NetworkConfig();
-				// DHCPEnable
-				ncs.setNetworkDhcpEnabled(netconfig.GetDHCPEnable(listNetworkInterfacesCaption[i].getString()));
-				// Gate
-				ncs.setNetworkGateway(netconfig.GetGate(listNetworkInterfacesCaption[i].getString()));
-				// Mac
+				
+//				 Caption
+				ncs.setNetworkInterface(netconfig.GetCaption(listNetworkInterfacesCaption[i].getString()));
+				// status
+				ncs.setNetworkStatus(netconfig.GetStatus(listNetworkInterfacesCaption[i].getString()));
+//				 Mac
 				ncs.setNetworkMacAdress(netconfig.GetMac(listNetworkInterfacesCaption[i].getString()));
-				// Subnetmask
-				ncs.setNetworkSubnetmask(netconfig.GetNetmask(listNetworkInterfacesCaption[i].getString()));
+
 				// ip
 			    ncs.setNetworkIpAddress(netconfig.GetIpadress(listNetworkInterfacesCaption[i].getString()));
+				// Subnetmask
+				ncs.setNetworkSubnetmask(netconfig.GetNetmask(listNetworkInterfacesCaption[i].getString()));
+				// Gate
+				ncs.setNetworkGateway(netconfig.GetGate(listNetworkInterfacesCaption[i].getString()));
 				// dns
 				String[] dnsServerListe = netconfig.GetDnsServer(listNetworkInterfacesCaption[i].getString());
 				 ncs.setNetworkDnsServer(dnsServerListe[0]);
 				 ncs.setNetworkDnsServer2(dnsServerListe[1]);
-				// Caption
-				ncs.setNetworkInterface(netconfig.GetCaption(listNetworkInterfacesCaption[i].getString()));
-				// status
-				ncs.setNetworkStatus(netconfig.GetStatus(listNetworkInterfacesCaption[i].getString()));
-				//
+//				 DHCPEnable
+				ncs.setNetworkDhcpEnabled(netconfig.GetDHCPEnable(listNetworkInterfacesCaption[i].getString()));				
 				nc[i] = ncs;
 				ncs = null;
 				i++;
@@ -246,7 +247,7 @@ public class wanduxApp
 		}
 		catch (Exception e)
 		{
-			System.err.println(e.getStackTrace());
+			e.printStackTrace();
 		}
 		if(nc != null)
 		this.ci.setInfoNetwork(nc);	
