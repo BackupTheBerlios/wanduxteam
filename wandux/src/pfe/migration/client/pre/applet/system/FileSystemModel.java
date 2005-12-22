@@ -15,12 +15,15 @@ import javax.swing.tree.TreePath;
  *
  * Created on 26 févr. 2005
  */
-public class FileSystemModel implements TreeModel {
+public class FileSystemModel implements TreeModel { // extends DefaultTreeModel { 
     protected File root;
     private List listeners = new ArrayList();
     /** Creates a new instance of FileSystemModel */
+//    public FileSystemModel(DefaultTreeModel treeModel) {
+//    	this = treeModel;
+//    }
     public FileSystemModel(File root) {
-        this.root = root;
+    	this.root = root;
     }
     public Object getRoot() {
         return root;
