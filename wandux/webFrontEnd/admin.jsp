@@ -166,7 +166,28 @@ for (i=0; i < cl.size(); i++)
 {
 	// SECTION RECAPITULATIVE DU COMPUTERINFORMATION
 	ComputerInformation ci = bean.getCi((String)cl.get(i));
-	out.print("<div id=\"CI_" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;\"><b><br><br><center>Informations extracted from " + cl.get(i) + ".</center><br><br></b>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >> Please, check these settings and go on next Step</font><br><br>");
+	out.print("<div id=\"CI_" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:160;overflow:auto;\"><b><br><br><center>Informations extracted from " + cl.get(i) + ".</center><br><br></b>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >> Please, check these settings and go on next Step</font><br><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
 	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hostname : <b>" + cl.get(i) + "</b><br>");
 	out.print("</div>\n");
 	////////////////////////////////////////////////
