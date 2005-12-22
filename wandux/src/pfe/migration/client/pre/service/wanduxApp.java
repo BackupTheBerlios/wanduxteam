@@ -206,8 +206,7 @@ public class wanduxApp
 				NetworkConfig ncs = new NetworkConfig();
 				// DHCPEnable
 				ncs.setNetworkDhcpEnabled(netconfig.GetDHCPEnable(listNetworkInterfacesCaption[i].getString()));
-				// Gate
-				ncs.setNetworkGateway(netconfig.GetGate(listNetworkInterfacesCaption[i].getString()));
+
 				// Mac
 				ncs.setNetworkMacAdress(netconfig.GetMac(listNetworkInterfacesCaption[i].getString()));
 				// Subnetmask
@@ -222,7 +221,8 @@ public class wanduxApp
 				ncs.setNetworkInterface(netconfig.GetCaption(listNetworkInterfacesCaption[i].getString()));
 				// status
 				ncs.setNetworkStatus(netconfig.GetStatus(listNetworkInterfacesCaption[i].getString()));
-				//
+				// Gate
+				ncs.setNetworkGateway(netconfig.GetGate(listNetworkInterfacesCaption[i].getString()));
 				nc[i] = ncs;
 				ncs = null;
 				i++;
