@@ -46,6 +46,7 @@ public class CiList
 	
 	public List getListHostname()
 	{
+		ComputerInformation ci;
 		List l = new ArrayList();
 		
 		Set ensemble = m.entrySet();
@@ -53,7 +54,9 @@ public class CiList
 		while (i.hasNext())
 		{
 			Map.Entry e = (Map.Entry) i.next(); 
-			l.add(e.getKey());
+			ci = (ComputerInformation)e.getValue();
+			if (ci.migrable == 0)
+				l.add(e.getKey());
 		}
 		return l;
 	}

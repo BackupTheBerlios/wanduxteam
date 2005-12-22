@@ -33,6 +33,7 @@ public class ComputerInformation implements Serializable
 	
 	public List windowsProgram = null;
 	public List linuxProgram = null;
+	public int migrable;
 
 	/**
 	 * Comment for <code>serialVersionUID</code>
@@ -50,6 +51,7 @@ public class ComputerInformation implements Serializable
 	{
 		super();
 		this.gconf = new GlobalConf();
+		this.migrable = 0;
 	}
 
 	public String getHostname()
