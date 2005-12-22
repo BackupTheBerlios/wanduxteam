@@ -56,31 +56,6 @@ public class wanduxApp
 	public void WanduxWmiInfoManager()
 	{
 		wwb = new WanduxWmiBridge(rootCIMV2);
-		// String rq = "SELECT * FROM Win32_OperatingSystem";
-
-		
-//		String rq = "SELECT * FROM Win32_UserAccount";
-//		String wzName = "Name"; // element a recuperer depuis la requette
-		
-		//String rq = "SELECT * FROM Win32_LogicalDisk";
-		//String wzName = "Caption";
-		
-		//String rq = "SELECT * FROM Win32_TimeZone";
-		//String wzName = "DaylightName";
-		
-//		String rootPath = "root\\CIMV2\\Applications\\MicrosoftIE";
-//		String rq = "SELECT * FROM MicrosoftIE_LanSettings";
-//		
-//		String wzName = "ProxyServer";
-//		String[] str;
-//		str = wwb.exec_rq(rq, wzName);
-//		System.out.println("dans java :\n");
-//		int i= 0;
-//		while(str[i] != null)
-//		{
-//				System.out.println(str[i]);
-//				i++;
-//		}
 	}
 	
 	public void GetFileTreeModel()
@@ -120,7 +95,7 @@ public class wanduxApp
 	
 	public wanduxApp()
 	{
-
+		// iniatalise la connexiion wmi
 		WanduxWmiInfoManager();
 		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu ....
 		// this.applicationServerIp = "127.0.0.1";
@@ -138,11 +113,7 @@ public class wanduxApp
 		fillHostname();
 		System.out.println(ci.gconf.getGlobalHostname());
 
-//		NetworkConfig ntconfig[] = ci.getInfoNetwork();
-//		int i = 0;
-//		while(i < ntconfig.length)
-//			System.out.println(ntconfig[i++]);
-		//wq = new WorkQueue(10);
+
 		
 
 //		getIp();
@@ -151,15 +122,15 @@ public class wanduxApp
 //		fillNetworkInCI();
 
 
-//		GetFileTreeModel();
-//
-//
-//		if (makeConnection() == true)
-//			System.out.println("connection etablie ...");
-//		if (this.ce.IsConnected() == false)
-//			return ;
-//		
-//		
+////		GetFileTreeModel();
+////
+////
+////		if (makeConnection() == true)
+////			System.out.println("connection etablie ...");
+////		if (this.ce.IsConnected() == false)
+////			return ;
+////		
+////		
 //		ProgramMatcher();
 //
 //		try {
@@ -169,7 +140,7 @@ public class wanduxApp
 //		System.out.println("information recupere et envoyer");
 
 
-		GetFileTreeModel();
+//		GetFileTreeModel();
 
 
 		if (makeConnection() == true)
@@ -232,6 +203,7 @@ public class wanduxApp
 		while(i<listNetworkInterfacesCaption.length && listNetworkInterfacesCaption[i] != null)
 		{
 			System.out.println(listNetworkInterfacesCaption[i]);
+///			listNetworkInterfacesCaption[i];
 			i++;
 		}
 		NetworkConfig[] nc = new NetworkConfig[10];
@@ -241,15 +213,26 @@ public class wanduxApp
 			{
 				System.out.println("\n ==================== interface numero : " +  i + " ====================\n");
 				NetworkConfig ncs = new NetworkConfig();
-
+				// DHCPEnable
 				ncs.setNetworkDhcpEnabled(netconfig.GetDHCPEnable(listNetworkInterfacesCaption[i].getString()));
+				// Gate
 				ncs.setNetworkGateway(netconfig.GetGate(listNetworkInterfacesCaption[i].getString()));
+				// Mac
 				ncs.setNetworkMacAdress(netconfig.GetMac(listNetworkInterfacesCaption[i].getString()));
+				// Subnetmask
 				ncs.setNetworkSubnetmask(netconfig.GetNetmask(listNetworkInterfacesCaption[i].getString()));
+				// ip
+			    ncs.setNetworkIpAddress(netconfig.GetIp(listNetworkInterfacesCaption[i].getString()));
+				// dns
+				ncs.setNetworkDnsServer(netconfig.GetDnsServer(listNetworkInterfacesCaption[i].getString()));
+				// Caption
+//				ncs.setNetworkInterface();
+				// status
+//				ncs.setNetworkStatus();
+				//
 				nc[i] = ncs;
 				ncs = null;
 				i++;
-
 			}
 		}
 		catch (Exception e)
@@ -269,19 +252,7 @@ public class wanduxApp
 
 		try
 		{
-			 rqRSLT = wwb.exec_rq(rq, wzName);	
-			if(rqRSLT[0].equals("1")) // erreur detected
-
-		try
-		{
 			rqRSLT = wwb.exec_rq( rq, wzName);	
-			if(rqRSLT[0].equals("1")) // erreur detected
-
-			{
-				System.err.println(rqRSLT[1]);
-				return;
-			}
-
 			ci.gconf.setGlobalHostname(rqRSLT[0].getString());
 		}
 		catch(Exception e)
@@ -290,11 +261,7 @@ public class wanduxApp
 		}
 			Variant var = rqRSLT[0];
 			ci.gconf.setGlobalHostname(var.getString());
-		}
-		catch(Exception e)
-		{
-			System.err.println(e.getStackTrace());
-		}
+		
 
 	}
 		
