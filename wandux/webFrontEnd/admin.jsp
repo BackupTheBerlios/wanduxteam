@@ -168,18 +168,18 @@ for (i=0; i < cl.size(); i++)
 	ComputerInformation ci = bean.getCi((String)cl.get(i));
 	out.print("<div id=\"CI_" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:170;overflow:auto;\"><b><br><br><center>Informations extracted from " + cl.get(i) + ".<br></b>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >> Please, check these settings and go on next Step</font></center><br><br><br>");
 	out.print("Hostname : <b>" + cl.get(i) + "</b><br><br>");
-	out.print("<TABLE width=300 border=0 cellspacing=2><TR><TD colspan=2><b>Network Interfaces :</b></TD></TR>");
+	out.print("<TABLE width=630 border=0 cellspacing=2><TR><TD colspan=2><b>Network Interfaces :</b></TD></TR>");
 	out.print("<TR><TD colspan=2><br><br></TD></TR>");
 	for (x=0; x < (ci.netconf.length - 1); x++)
 	{
-		out.print("<TR><TD>Interface :</TD><TD><b>" + ci.netconf[x].getNetworkInterface() + "</b></TD></TR>");
-		out.print("<TR><TD>Ip Adress :</TD><TD><b>" + ci.netconf[x].getNetworkIpAddress() + "</b></TD></TR>");
-		out.print("<TR><TD>SubNetMask :</TD><TD><b>" + ci.netconf[x].getNetworkSubnetmask() + "</b></TD></TR>");
-		out.print("<TR><TD>Mac Adress :</TD><TD><b>" + ci.netconf[x].getNetworkMacAdress() + "</b></TD></TR>");
-		out.print("<TR><TD>Primary DNS :</TD><TD><b>" + ci.netconf[x].getNetworkDnsServer() + "</b></TD></TR>");	
-		out.print("<TR><TD>Secondary DNS :</TD><TD><b>" + ci.netconf[x].getNetworkDnsServer2() + "</b></TD></TR>");
-		out.print("<TR><TD>Gateway : </TD><TD><b>" + ci.netconf[x].getNetworkGateway() + "</b></TD></TR>");
-		out.print("<TR><TD>DHCP Enabled :</TD><TD><b>");
+		out.print("<TR><TD width=150>Interface :</TD><TD width=480><b>" + ci.netconf[x].getNetworkInterface() + "</b></TD></TR>");
+		out.print("<TR><TD width=150>Ip Adress :</TD><TD width=480><b>" + ci.netconf[x].getNetworkIpAddress() + "</b></TD></TR>");
+		out.print("<TR><TD width=150>SubNetMask :</TD><TD width=480><b>" + ci.netconf[x].getNetworkSubnetmask() + "</b></TD></TR>");
+		out.print("<TR><TD width=150>Mac Adress :</TD><TD width=480><b>" + ci.netconf[x].getNetworkMacAdress() + "</b></TD></TR>");
+		out.print("<TR><TD width=150>Primary DNS :</TD><TD width=480><b>" + ci.netconf[x].getNetworkDnsServer() + "</b></TD></TR>");	
+		out.print("<TR><TD width=150>Secondary DNS :</TD><TD width=480><b>" + ci.netconf[x].getNetworkDnsServer2() + "</b></TD></TR>");
+		out.print("<TR><TD width=150>Gateway : </TD><TD width=480><b>" + ci.netconf[x].getNetworkGateway() + "</b></TD></TR>");
+		out.print("<TR><TD width=150>DHCP Enabled :</TD><TD width=480><b>");
 		 if (ci.netconf[x].getNetworkDhcpEnabled().intValue() == 1)
 		{
 			out.print("yes</b></TD></TR>");
@@ -189,7 +189,7 @@ for (i=0; i < cl.size(); i++)
 			out.print("no</b></TD></TR>");
 		}
 		 
-		out.print("<TR><TD>Status : </TD><TD><b>");
+		out.print("<TR><TD width=150>Status : </TD><TD width=480><b>");
 		if (ci.netconf[x].getNetworkStatus().intValue() == 1)
 		{
 			out.print("activated</b></TD></TR>");

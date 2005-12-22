@@ -13,6 +13,7 @@ import javax.swing.tree.DefaultTreeModel;
 
 import pfe.migration.server.ejb.bdd.GlobalConf;
 import pfe.migration.server.ejb.bdd.NetworkConfig;
+import pfe.migration.server.ejb.bdd.UsersData;
 
 
 
@@ -41,6 +42,7 @@ public class ComputerInformation implements Serializable
 //	private UsersData udata = null;
 //	private ParamIe ieconf = null;
 	
+	public UsersData udata [] = null;
 	public NetworkConfig netconf [] = null;
 	private DefaultTreeModel fsm = null;
 	

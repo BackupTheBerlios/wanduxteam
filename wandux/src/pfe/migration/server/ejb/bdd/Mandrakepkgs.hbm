@@ -13,6 +13,13 @@
 			<generator class="vm" />
 		</id>
 		<property
+			column="LINUXSOFT"
+			length="4"
+			name="Linuxsoft"
+			not-null="true"
+			type="java.lang.Byte"
+		 />
+		<property
 			column="SUBCATEGORY"
 			length="4"
 			name="Subcategory"

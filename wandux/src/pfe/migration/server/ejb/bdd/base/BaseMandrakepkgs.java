@@ -22,6 +22,7 @@ public abstract class BaseMandrakepkgs  implements Serializable {
 	public static String PROP_SUBCATEGORY = "Subcategory";
 	public static String PROP_NAME = "Name";
 	public static String PROP_ID = "Id";
+	public static String PROP_LINUXSOFT = "Linuxsoft";
 
 
 	private int hashCode = Integer.MIN_VALUE;
@@ -30,6 +31,7 @@ public abstract class BaseMandrakepkgs  implements Serializable {
 	private java.lang.Long _id;
 
 	// fields
+	private java.lang.Byte _linuxsoft;
 	private java.lang.Byte _subcategory;
 	private java.lang.String _name;
 	private java.lang.String _description;
@@ -54,12 +56,14 @@ public abstract class BaseMandrakepkgs  implements Serializable {
 	 */
 	public BaseMandrakepkgs (
 		java.lang.Long _id,
+		java.lang.Byte _linuxsoft,
 		java.lang.Byte _subcategory,
 		java.lang.String _name,
 		java.lang.String _description,
 		java.lang.Byte _category) {
 
 		this.setId(_id);
+		this.setLinuxsoft(_linuxsoft);
 		this.setSubcategory(_subcategory);
 		this.setName(_name);
 		this.setDescription(_description);
@@ -88,6 +92,22 @@ public abstract class BaseMandrakepkgs  implements Serializable {
 	public void setId (java.lang.Long _id) {
 		this._id = _id;
 		this.hashCode = Integer.MIN_VALUE;
+	}
+
+
+	/**
+	 * Return the value associated with the column: LINUXSOFT
+	 */
+	public java.lang.Byte getLinuxsoft () {
+		return _linuxsoft;
+	}
+
+	/**
+	 * Set the value related to the column: LINUXSOFT
+	 * @param _linuxsoft the LINUXSOFT value
+	 */
+	public void setLinuxsoft (java.lang.Byte _linuxsoft) {
+		this._linuxsoft = _linuxsoft;
 	}
 
 

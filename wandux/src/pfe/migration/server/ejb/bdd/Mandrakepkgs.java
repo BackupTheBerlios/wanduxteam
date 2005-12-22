@@ -25,6 +25,7 @@ public class Mandrakepkgs extends BaseMandrakepkgs {
 	 */
 	public Mandrakepkgs (
 		java.lang.Long _id,
+		java.lang.Byte _linuxsoft,
 		java.lang.Byte _subcategory,
 		java.lang.String _name,
 		java.lang.String _description,
@@ -32,6 +33,7 @@ public class Mandrakepkgs extends BaseMandrakepkgs {
 
 		super (
 			_id,
+			_linuxsoft,
 			_subcategory,
 			_name,
 			_description,
