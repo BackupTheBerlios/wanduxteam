@@ -234,6 +234,8 @@ public class NetConfig
 			rqRSLT = wwb.exec_rq(rq, wzName);	
 			Variant var =  rqRSLT[0];
 			System.out.println("Caption : " + var.getString());
+			if(var.getString() == null)
+				return "";
 			return  var.getString();
 		}
 		catch(JacobException je)
@@ -241,6 +243,7 @@ public class NetConfig
 			je.printStackTrace();
 			return "";
 		}
+		
    }
    
    
