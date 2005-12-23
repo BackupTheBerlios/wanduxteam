@@ -21,7 +21,8 @@
 
 	<property name="dir.frontEnd" value="webFrontEnd/"/>
 	<property name="jar.frontEnd.name" value="webFrontEnd.war"/>
-
+	<property name="jar.applet.name" value="wanduxApplet.jar"/>
+	
 	<property environment="env"/>
 	<property name="jboss.dir" location="${env.JBOSS_HOME}" />
 	<property name="dir.system32" location="${env.windir}\system32\" />
@@ -83,7 +84,7 @@
 		<echo message="${dir.jacob.lib}"/>
 		<echo message="${dir.system32}"/>
 		<copy todir="${dir.system32}">
-			<!-- fileset dir="${dir.lib}" includes="ICE_JNIRegistry.dll"/ -->
+			<fileset dir="${dir.lib}" includes="ICE_JNIRegistry.dll"/>
 			<fileset dir="${dir.jacob.lib}" includes="jacob.dll"/>
 			<fileset dir="${dir.wwi.lib}" includes="wwi.dll"/>
 		</copy>
@@ -114,7 +115,7 @@
 		
 	</target>
 
-	<target name="deploy" depends="make serverEjb jar, make frontEnd war, make client pre jar"> <!-- make client post jar ,make client pre jar " make client pre jar, make monitor war  -->
+	<target name="deploy" depends="make serverEjb jar, make frontEnd war, make client pre jar, make applet client pre jar"> <!-- make client post jar ,make client pre jar " make client pre jar, make monitor war  -->
 		
 		<!-- copy todir="${dir.build}/" file="${dir.sources}/launchEJBClient.bat"/ -->
 		<!-- copy todir="${dir.build}/" file="${dir.sources}/makeEjbJar.bat"/ -->
@@ -126,7 +127,15 @@
 			<fileset dir="${dir.build}" includes="${jar.serverEjb.name}"/>
 			<fileset dir="${dir.build}" includes="${jar.frontEnd.name}"/>
 		</copy>
-		
+		<copy todir="${jboss.dir}\server\default\deploy">
+			<!-- fileset dir="${dir.build}">
+			   		<include name="${jar.applet.name}"/>
+			    </fileset -->
+			  	<fileset dir="${dir.lib}">
+			   		<include name="jbossall-client.jar"/>
+			    </fileset>
+		</copy>
+
 	</target>
 
 	<target name="make client post jar">
@@ -171,15 +180,16 @@
 	    </copy>
 	</target>
 	
-	<!-- target name="make applet client pre jar">
+	<target name="make applet client pre jar">
 		<jar jarfile="${dir.build}/${jar.applet.name}"
 			manifest="${dir.pre}/META-INF/MANIFEST.MF">
 			<fileset dir="${dir.classes}">
-				<include name="**/client/pre/**/*.*"/>
-				<include name="**/client/network/**/*.*"/>
+				<include name="**/client/pre/**/*.class"/>
+				<include name="**/client/network/**/*.class"/>
+				<include name="**/server/ejb/WanduxEjb.class"/>
 			</fileset>
 		</jar>
-	</target -->
+	</target>
 
 	<target name="make serverEjb jar">
 	      <jar jarfile="${dir.build}/${jar.serverEjb.name}">         
@@ -193,6 +203,8 @@
 	           <include name="META-INF/**/*.*"/>
 	        </fileset>
 	      </jar>
+		<!-- signjar jar="${dir.build}/${jar.frontEnd.name}" keystore="\java\j2sdk1.4.2_10\jre\LIb\security\cacerts" alias="wanduxdata" storepass="changeit" keypass="wanduxkey" / -->
+		<!-- signjar jar="${dir.lib}/jbossall-client.jar" keystore="\java\j2sdk1.4.2_10\jre\LIb\security\cacerts" alias="wanduxdata" storepass="changeit" keypass="wanduxkey" / -->		
 	</target>
 
 	<!-- target name="make monitor war">
@@ -213,11 +225,13 @@
 				<include name="TreeApplet.class"/>
 	        	<include name="**/client/network/**/*.class"/>
 				<include name="**/client/pre/applet/**/*.*"/>
+	        	<include name="**/server/ejb/WanduxEjb.class"/>
 	        </fileset>
 	        <fileset dir="${dir.frontEnd}">
 		   		<include name="**/*.*"/>
 	        </fileset>
 	      </jar>
+		<!-- signjar jar="${dir.build}/${jar.frontEnd.name}" keystore="\java\j2sdk1.4.2_10\jre\LIb\security\cacerts" alias="wanduxdata" storepass="changeit" keypass="wanduxkey" / -->
 	</target>
 
 </project>
