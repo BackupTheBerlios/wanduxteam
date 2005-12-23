@@ -63,6 +63,11 @@ public class ComputerInformation implements Serializable
 	{
 		this.netconf = infon;
 	}
+	
+	public void setUsersData(UsersData infon [])
+	{
+		this.udata = infon;
+	}
 
 	public NetworkConfig [] getInfoNetwork()
 	{
