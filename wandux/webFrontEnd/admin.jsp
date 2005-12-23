@@ -97,6 +97,7 @@
 			temp.style.visibility = 'hidden';
 			temp.style.width = 0;
 			temp.style.height = 0;
+			document.myform.computer.value = document.myform.machine.value;
 			
 			if (steps[document.myform.machine.value] == 1)
 			{
@@ -148,7 +149,7 @@
 	</tr>
 	<tr>
 		<td valign="top" width="150" height="400">
-			<FORM name="myform" action="test.jsp" method="post">
+			<FORM name="myform" action="finalstep.jsp" method="post">
 				<SELECT name="machine" onChange="selectMachine();">
 				<OPTION value=" - Choose a Computer - "> - Choose a Computer - </OPTION>				
 <%				for (i=0; i < cl.size(); i++)
@@ -216,7 +217,7 @@ for (i=0; i < cl.size(); i++)
 	// SECTION TREE - AFFICHAGTE DU FILESYSTEM
 	out.print("<div id=\"treeApplet" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:170;overflow:auto;\"><b><br><br><center>This tree represent the whole Windows file system of " + cl.get(i) + ".</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Please, select the files and folders that you want to migrate on the new Linux system<br>&nbsp;&nbsp;&nbsp;&nbsp;using this tree :</font><br><br>\n");
 %>
-<!-- applet
+<applet
    code="Horloge.class"
    width=400
    height=300
@@ -224,9 +225,9 @@ for (i=0; i < cl.size(); i++)
    vspace=0
    align=top>
   <param name="background-color" value="#ffffff" />
- </applet -->
+ </applet>
 
-<applet
+<!-- applet
    code="pfe/migration/client/pre/applet/TreeApplet.class"
    width=400
    height=300
@@ -236,7 +237,7 @@ for (i=0; i < cl.size(); i++)
   <param name="background-color" value="#ffffff" />
   <param name="currentHostname" value="epidup" />
   <param name="applicationServer" value="<% out.println(ce.getApplicationServer()); %>" />
- </applet>
+ </applet -->
 
 <%
 	out.print("</div>\n");
@@ -279,7 +280,7 @@ for (i=0; i < cl.size(); i++)
 	
 	//ETAPE FINALE => Lancement de la migration
 	out.print("<div id=\"FinalStep" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:170;overflow:auto;\"><br><br><br><br><br><b><center>If you have completed all the Steps you can now launch the migration of " + cl.get(i) + "</b></center><br><br><br><br>");
-	out.print("<a href=\"#\"><b>click here to Launch the Migration of this computer</b></a>\n");
+	out.print("<a href=\"javascript:myform.submit();\"><center><b>click here to Launch the Migration of this computer</b></center></a>\n");
 	out.print("</div>\n");
 	
 	//////////////////////////////////////////
@@ -307,6 +308,7 @@ for (i=0; i < cl.size(); i++)
 
 	</tr>
 	<INPUT name="paths" type="hidden">
+	<INPUT type="hidden" name="computer">
 	</FORM>
 	</TABLE>
     </BODY>
