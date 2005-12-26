@@ -19,7 +19,6 @@ import pfe.migration.server.ejb.tool.XmlRetrieve;
 
 import com.jacob.com.JacobException;
 import com.jacob.com.Variant;
-import com.sun.rsasign.u;
 
 public class wanduxApp
 {
@@ -97,7 +96,7 @@ public class wanduxApp
 			this.ce.getBean().putCi(this.ci);
 		} catch (RemoteException e) { e.printStackTrace(); }
 		System.out.println("information recupere et envoyer");
-
+		
 	}
 	
 	/**
@@ -152,6 +151,7 @@ public class wanduxApp
 	    	roots[i] = new File(disk[i].getString());
 	    }
 	    
+	    // TODO liste tout les disque lorsque cette partie sera fini de teste
 //	    for (int i = 0; i < roots.length; i++)
 //	    {
 //	        DefaultMutableTreeNode node = getSubDirs(roots[i]); // new DefaultMutableTreeNode(roots[i].getAbsoluteFile().toString());
@@ -194,23 +194,32 @@ public class wanduxApp
 		
 		Variant[] listNetworkInterfacesCaption = netconfig.listNetworkInterfaces();
 		int i = 0;
+		int allocationSize = 0;
 		while(i<listNetworkInterfacesCaption.length && listNetworkInterfacesCaption[i] != null)
 		{
-			System.out.println(listNetworkInterfacesCaption[i]);
+			System.out.println("listNetworkInterfacesCaption:"+listNetworkInterfacesCaption[i]);
+			if (netconfig.GetStatus(listNetworkInterfacesCaption[i].getString()).equals(new Byte("1")))
+				allocationSize++;
 ///			listNetworkInterfacesCaption[i];
 			i++;
 		}
-		NetworkConfig[] nc = new NetworkConfig[i+1];
+		NetworkConfig[] nc = new NetworkConfig[allocationSize];
+		allocationSize = 0;
 		i = 0;
 		try{
 			 while(i < listNetworkInterfacesCaption.length && listNetworkInterfacesCaption[i] != null)
 			{
+				if (netconfig.GetStatus(listNetworkInterfacesCaption[i].getString()).equals(new Byte("0")))
+				{
+					i++;
+					continue ;
+				}
 				System.out.println("\n ==================== index de l'interface: " + listNetworkInterfacesCaption[i].getString() + " ====================\n");
 				NetworkConfig ncs = new NetworkConfig();
 //				 Caption
 				ncs.setNetworkInterface(netconfig.GetCaption(listNetworkInterfacesCaption[i].getString()));
 				// status
-				ncs.setNetworkStatus(netconfig.GetStatus(listNetworkInterfacesCaption[i].getString()));
+				ncs.setNetworkStatus(netconfig.GetStatus(listNetworkInterfacesCaption[i].getString()));				
 //				 Mac
 				ncs.setNetworkMacAdress(netconfig.GetMac(listNetworkInterfacesCaption[i].getString()));
 				// ip
@@ -225,9 +234,11 @@ public class wanduxApp
 				 ncs.setNetworkDnsServer2(dnsServerListe[1]);
 //				 DHCPEnable
 				ncs.setNetworkDhcpEnabled(netconfig.GetDHCPEnable(listNetworkInterfacesCaption[i].getString()));				
-				nc[i] = ncs;
+				nc[allocationSize] = ncs;
 				ncs = null;
 				i++;
+				allocationSize++;
+
 			}
 		}
 		catch (Exception e)
@@ -235,7 +246,7 @@ public class wanduxApp
 			e.printStackTrace();
 		}
 		if(nc != null)
-		this.ci.setInfoNetwork(nc);	
+			this.ci.setInfoNetwork(nc);	
 	}
 	
 	
