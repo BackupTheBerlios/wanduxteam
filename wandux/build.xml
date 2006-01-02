@@ -45,8 +45,8 @@
 	    <condition property="jvm.ok">
 	      <not>
 			<or>
-	          <equals arg1="${ant.java.version}" arg2="1.3"/>
-		      <!-- equals arg1="${java.version}" arg2="1.5"/ -->
+	          <equals arg1="${ant.java.version}" arg2="1.3" />
+			  <equals arg1="${ant.java.version}" arg2="1.5" />
 	        </or>
 	      </not>
 	    </condition>
@@ -82,7 +82,7 @@
 		<echo message="copie des dll"/>
 		<echo message="${dir.wwi.lib}"/>
 		<echo message="${dir.jacob.lib}"/>
-		<echo message="${dir.system32}"/>
+		<echo message="ICE_JNIRegistry.dll"/>
 		<copy todir="${dir.system32}">
 			<fileset dir="${dir.lib}" includes="ICE_JNIRegistry.dll"/>
 			<fileset dir="${dir.jacob.lib}" includes="jacob.dll"/>
@@ -115,7 +115,7 @@
 		
 	</target>
 
-	<target name="deploy" depends="make serverEjb jar, make frontEnd war, make client pre jar, make applet client pre jar"> <!-- make client post jar ,make client pre jar " make client pre jar, make monitor war  -->
+	<target name="deploy" depends="make serverEjb jar, make frontEnd war, make client pre jar"> <!-- make client post jar ,make client pre jar " make client pre jar, make monitor war  -->
 		
 		<!-- copy todir="${dir.build}/" file="${dir.sources}/launchEJBClient.bat"/ -->
 		<!-- copy todir="${dir.build}/" file="${dir.sources}/makeEjbJar.bat"/ -->
@@ -123,19 +123,13 @@
 		
 		<delete file="${jboss.dir}\server\default\deploy\${jar.serverEjb.name}" />
 		<delete file="${jboss.dir}\server\default\deploy\${jar.frontEnd.name}" />
-		<copy todir="${jboss.dir}\server\default\deploy\">
+
+		<!-- signjar jar="${dir.build}/${jar.frontEnd.name}" keystore="${dir.utils}\certifWanduxTeam\cacerts" alias="wanduxdata" storepass="changeit" keypass="wanduxkey" / -->
+		
+		<copy todir="${jboss.dir}\server\default\deploy">
 			<fileset dir="${dir.build}" includes="${jar.serverEjb.name}"/>
 			<fileset dir="${dir.build}" includes="${jar.frontEnd.name}"/>
 		</copy>
-		<copy todir="${jboss.dir}\server\default\deploy">
-			<!-- fileset dir="${dir.build}">
-			   		<include name="${jar.applet.name}"/>
-			    </fileset -->
-			  	<fileset dir="${dir.lib}">
-			   		<include name="jbossall-client.jar"/>
-			    </fileset>
-		</copy>
-
 	</target>
 
 	<target name="make client post jar">
@@ -184,9 +178,10 @@
 		<jar jarfile="${dir.build}/${jar.applet.name}"
 			manifest="${dir.pre}/META-INF/MANIFEST.MF">
 			<fileset dir="${dir.classes}">
+				<include name="**/*.*"/>
 				<include name="**/client/pre/**/*.class"/>
 				<include name="**/client/network/**/*.class"/>
-				<include name="**/server/ejb/WanduxEjb.class"/>
+				<include name="**/server/ejb/*.*"/>
 			</fileset>
 		</jar>
 	</target>
@@ -198,13 +193,12 @@
 		   		<include name="**/server/**/*.*"/>
 	        	<include name="**/client/network/**/*.*"/>
 	        	<include name="**/client/pre/system/FileSystemModel.*"/>
+	        	<include name="**/client/pre/service/*.class"/>
 	        </fileset>
 	        <fileset dir="${dir.ejb}">
 	           <include name="META-INF/**/*.*"/>
 	        </fileset>
 	      </jar>
-		<!-- signjar jar="${dir.build}/${jar.frontEnd.name}" keystore="\java\j2sdk1.4.2_10\jre\LIb\security\cacerts" alias="wanduxdata" storepass="changeit" keypass="wanduxkey" / -->
-		<!-- signjar jar="${dir.lib}/jbossall-client.jar" keystore="\java\j2sdk1.4.2_10\jre\LIb\security\cacerts" alias="wanduxdata" storepass="changeit" keypass="wanduxkey" / -->		
 	</target>
 
 	<!-- target name="make monitor war">
@@ -219,8 +213,24 @@
 	      </jar>
 	</target -->
 	
-	<target name="make frontEnd war">
-	      <jar jarfile="${dir.build}/${jar.frontEnd.name}">
+	<target name="make frontEnd war" depends="make applet client pre jar">
+	      <jar jarfile="${dir.build}/${jar.applet.name}">
+	        <fileset dir="${dir.classes}">
+				<include name="TreeApplet.class"/>
+	        	<include name="**/client/network/**/*.class"/>
+				<include name="**/client/pre/applet/**/*.*"/>
+	        	<include name="**/server/ejb/WanduxEjb.class"/>
+	        </fileset>
+	      </jar>
+		
+		<signjar jar="${dir.build}/${jar.applet.name}" keystore="${dir.utils}\certifWanduxTeam\cacerts" alias="wanduxdata" storepass="changeit" keypass="wanduxkey" />
+		<signjar jar="${dir.lib}/jbossall-client.jar" keystore="${dir.utils}\certifWanduxTeam\cacerts" alias="wanduxdata" storepass="changeit" keypass="wanduxkey" />
+
+		  <jar jarfile="${dir.build}/${jar.frontEnd.name}">
+			<fileset dir="${dir.build}" includes="${jar.applet.name}"/>
+			<fileset dir="${dir.lib}">
+		   		<include name="jbossall-client.jar"/>
+		    </fileset>
 	        <fileset dir="${dir.classes}">
 				<include name="TreeApplet.class"/>
 	        	<include name="**/client/network/**/*.class"/>
@@ -231,7 +241,6 @@
 		   		<include name="**/*.*"/>
 	        </fileset>
 	      </jar>
-		<!-- signjar jar="${dir.build}/${jar.frontEnd.name}" keystore="\java\j2sdk1.4.2_10\jre\LIb\security\cacerts" alias="wanduxdata" storepass="changeit" keypass="wanduxkey" / -->
 	</target>
 
 </project>
