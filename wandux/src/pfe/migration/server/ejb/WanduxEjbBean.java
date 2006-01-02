@@ -4,8 +4,10 @@
 package pfe.migration.server.ejb;
 
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
@@ -15,6 +17,7 @@ import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import pfe.migration.client.network.ComputerInformation;
+import pfe.migration.client.pre.service.WanduxAppSvr;
 import pfe.migration.server.ejb.adll.ExecAdll;
 import pfe.migration.server.ejb.bdd.GlobalConf;
 import pfe.migration.server.ejb.bdd.HibernateUtil;
@@ -46,6 +49,8 @@ public class WanduxEjbBean implements SessionBean
 
 //	String AdllXmlFileName = "";
 	
+	private Map servers = new HashMap();
+	
 	// -- ejb ------------------------------------------------------------------------------------ //
 	public WanduxEjbBean()
 	{
@@ -71,11 +76,6 @@ public class WanduxEjbBean implements SessionBean
 		return "koukouk";
 	}
 	
-//	public void putListName(String [] ok)
-//	{
-//		System.out.println(ok);
-//	}
-
 	public ArrayList getLinuxEquivalents(String WinSoft)
 	{
 		Session session;
@@ -136,8 +136,6 @@ public class WanduxEjbBean implements SessionBean
 		new CopyBookmark(ci);
 	}
 	
-	// -- client admin ------------------------------------------------------- //
-	
 	// -- client normal ------------------------------------------------------- //
 	public void putHostname(String hostname)
 	{ // TODO savoir si c est utile ou si ce st juste pour les tests ... voir si c est a enlever ...
@@ -146,11 +144,6 @@ public class WanduxEjbBean implements SessionBean
 	
 	public List getIps()
 	{
-		//cil.add("192.168.0.1");
-		//cil.add("192.168.0.2");
-		//cil.add("192.168.0.3");
-		//cil.add("192.168.0.4");
-		//System.out.println(cil);
 		return cil.getListHostname();
 	}
 	
@@ -163,7 +156,19 @@ public class WanduxEjbBean implements SessionBean
 	{
 		return (ComputerInformation)cil.get(Hostname);
 	}
+
+	public void putReference(String hostname, WanduxAppSvr was)
+	{
+		this.servers.put(hostname, was);	
+	}
 	
+	public void putCiDataList(ComputerInformation ci)
+	{
+		cil.fill(ci);
+		//((WanduxAppSvr)this.servers.get(ci.getHostname())).setSelectedFileList(ci.getFileSystemModel());
+//		"//" + this.ci.getHostname() + ":1099/WanduxAgent"
+	}
+
 //	public void putComputerInformation(ComputerInformation ci)
 //	{ // TODO vire cette merde
 //		String ip = ci.getIp();
@@ -206,7 +211,9 @@ public class WanduxEjbBean implements SessionBean
 		} catch (HibernateException e) { e.printStackTrace(); }
 		return l;
 	}
-
+	
+	
+// TODO vire cette merde ... y en a qui se crac quand meme
 //	public ComputerInformation getComputerInformation(String macaddr) throws RemoteException, HibernateException
 //	{
 //		List l = null;

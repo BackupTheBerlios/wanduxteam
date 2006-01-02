@@ -10,11 +10,14 @@ import javax.ejb.EJBObject;
 import net.sf.hibernate.HibernateException;
 
 import pfe.migration.client.network.ComputerInformation;
+import pfe.migration.client.pre.service.WanduxAppSvr;
 // import pfe.migration.server.monitor.CiList;
 
 public interface WanduxEjb extends EJBObject
 {
-
+	public void putReference(String hostname, WanduxAppSvr was) throws RemoteException;
+	public void putCiDataList(ComputerInformation ci) throws RemoteException;
+	
 	public void putHostname(String ip) throws RemoteException;
 	public List getIps() throws RemoteException;
 	public void putCi(ComputerInformation ci) throws RemoteException;
