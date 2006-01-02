@@ -2,8 +2,11 @@ package pfe.migration.client.pre.applet;
 
 import java.applet.Applet;
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.rmi.RemoteException;
@@ -14,7 +17,7 @@ import javax.swing.JTree;
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
 
-public class TreeApplet extends Applet {
+public class TreeApplet extends Applet implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -23,7 +26,7 @@ public class TreeApplet extends Applet {
 	private ClientEjb ce = null;
 	private ComputerInformation currentCI = null;
 	
-	// private int step = 0; //
+	private int step = 0;
 	// private FileSystemModel fileSystemModel = null; //
 
 	public void init()
@@ -41,28 +44,29 @@ public class TreeApplet extends Applet {
 		setBackground(getColor(getParameter("background-color")));
 
 		System.out.println("-"+getParameter("currentHostname"));
-		System.out.println("-"+getParameter("applicationServer"));
+		System.out.println("applicationServer-"+getParameter("applicationServer"));
 		System.out.println("-"+getParameter("background-color"));
 		
 		if (makeConnection() == true)
 		{
 			System.out.println("connection etablie ...");
 			try {
+				System.out.println(currentHostname);
+				System.out.println(ce);
+				System.out.println("bean:"+ce.getBean());
+				
 				currentCI = ce.getBean().getCi(currentHostname);
 			} catch (RemoteException e) { e.printStackTrace(); }
 		}
 		if (this.ce.IsConnected() == false)
 			return ;
 		
-		// TODO recupere les models depuis l ejb
-		// TODO mettre une feneter a choix multiple ...
-		// TODO faire correspondre le menu au disque ...
-		// TODO y aura surement d autre chose
 		// TODO voir pour mettre une plusieurs etapes -> loading data , le tree , connection echoue , information envoye recommencer??
 	    
 //		FileSystemModel fileSystemModel = new FileSystemModel(new File("c:/"));
 
-		etapeTreeBrowser();
+		etapeBienvenue();
+//		etapeTreeBrowser();
         
 //		add(new Label("bienvenue - telechargement de donnees"), BorderLayout.CENTER);
 
@@ -80,6 +84,23 @@ public class TreeApplet extends Applet {
 //		this.fileSystemModel = fsm;
 //	}
 	
+	public void fillFileListOfCIToServer()
+	{
+		try {
+			this.ce.getBean().putCi(this.currentCI);
+		} catch (RemoteException e) { e.printStackTrace(); }
+	}
+	
+	public void etapeBienvenue()
+	{
+		Button bgo = new Button("go");
+		bgo.addActionListener(this);
+		add(new Label("bienvenue"), BorderLayout.CENTER);
+		add(bgo, BorderLayout.SOUTH);
+		invalidate();
+		validate();
+	}
+
 	public void etapeTreeBrowser()
 	{
 		
@@ -113,12 +134,36 @@ public class TreeApplet extends Applet {
 	
   	private boolean makeConnection()
 	{
+//        try
+//        {
+//           Properties jndiProps = new Properties() ;
+//           String myServer = this.getCodeBase().getHost ();
+//           jndiProps.setProperty("java.naming.factory.initial", "org.jnp.interfaces.NamingContextFactory" ) ;
+//           //jndiProps.setProperty("java.naming.provider.url", myServer + ":1099" ) ;
+//           jndiProps.setProperty("java.naming.provider.url", "127.0.0.1" + ":1099" ) ;
+//           jndiProps.setProperty("java.naming.factory.url.pkgs", "org.jboss.naming:org.jnp.interfaces" ) ;
+//           WanduxEjbHome home = (WanduxEjbHome)PortableRemoteObject.narrow( new InitialContext(jndiProps).lookup( "WanduxEjb" ),
+//        		   WanduxEjbHome.class) ;
+//           WanduxEjb remote = home.create() ;
+//           add(new Label( remote.sayMe() ), BorderLayout.CENTER) ;
+//        }
+//        catch ( SecurityException se )
+//        {
+//           se.printStackTrace ();
+//        }
+//        catch( Exception ex )
+//        {
+//           System.err.println( "APPLET" );
+//           ex.printStackTrace();
+//        }
+  		
   		if (this.ce == null)
   		{
+  			System.out.println(applicationServerIp);
   			this.ce = new ClientEjb(applicationServerIp);
 			this.ce.EjbConnect();
   		}
-
+//
 //  	// gestion de la mauvaise url (ca marche)
 //		else if (ce.IsConnected())
 //		{
@@ -132,7 +177,8 @@ public class TreeApplet extends Applet {
 //			this.ce.EjbConnect();
 //		}
   		
-  		return ce.IsConnected();
+  		//return ce.IsConnected();
+        return true;
 	}
 
     public static Color getColor(String str) {
@@ -144,4 +190,17 @@ public class TreeApplet extends Applet {
   	  int i = intval.intValue();
   	  return new Color((i >> 16) & 0xFF, (i >> 8) & 0xFF, i & 0xFF);
     }
+
+	public void actionPerformed(ActionEvent arg0) {
+		switch (step)
+		{
+		case 0:
+			removeAll();
+			etapeTreeBrowser();
+			step++;
+			break ;
+		default:
+				
+		}
+	}
 }
