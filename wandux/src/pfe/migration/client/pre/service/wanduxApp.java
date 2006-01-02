@@ -2,8 +2,14 @@ package pfe.migration.client.pre.service;
 
 //import pfe.migration.server.ejb.tool.FileSystemXml;
 import java.io.File;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -24,6 +30,7 @@ public class wanduxApp
 {
 
 	private String applicationServerIp = "";
+	private String storageServerIp = "";
 	
 	private ComputerInformation ci = null;
 	private ClientEjb ce = null;
@@ -43,6 +50,9 @@ public class wanduxApp
 	
 	public static void main(String[] args)
 	{
+//		 try {
+//			LocateRegistry.createRegistry(1099); // TODO choisir un port correct
+//		} catch (RemoteException e) { e.printStackTrace(); }
 		new wanduxApp();
 	}
 	
@@ -50,9 +60,6 @@ public class wanduxApp
 	{
 		// iniatalise la connexiion wmi
 		WanduxWmiInfoManager();
-		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu ....
-		// this.applicationServerIp = "127.0.0.1";
-
 		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu ....
 		this.applicationServerIp = "127.0.0.1";
 		this.ci = new ComputerInformation();
@@ -96,7 +103,24 @@ public class wanduxApp
 			this.ce.getBean().putCi(this.ci);
 		} catch (RemoteException e) { e.printStackTrace(); }
 		System.out.println("information recupere et envoyer");
-		
+
+		WanduxAppSvrImpl cur = new WanduxAppSvrImpl();
+		try {
+			this.ce.getBean().putReference(this.ci.getHostname(), cur);
+		} catch (RemoteException e) { e.printStackTrace(); }
+		// waitSignal(cur);
+
+//		closeConnection(); // TODO une fois les fichier selectionne, faire la copie ...
+		//TODO trouve quand ferme cette conncetion au bon moment
+	}
+
+	public void waitSignal(WanduxAppSvrImpl cur)
+	{
+		// ??
+		try {
+			Naming.rebind("//" + this.ci.getHostname() + ":1099/WanduxAgent", (Remote) cur);
+		} catch (RemoteException e1) { e1.printStackTrace();
+		} catch (MalformedURLException e1) { e1.printStackTrace(); }
 	}
 	
 	/**
@@ -154,11 +178,13 @@ public class wanduxApp
 	    // TODO liste tout les disque lorsque cette partie sera fini de teste
 //	    for (int i = 0; i < roots.length; i++)
 //	    {
+//			System.out.println("\n ==================== scan data disk: " + roots[i].toString() + " ====================\n");
 //	        DefaultMutableTreeNode node = getSubDirs(roots[i]); // new DefaultMutableTreeNode(roots[i].getAbsoluteFile().toString());
 //	        root.add(node);
 //	    }
 
 ////////// tmppour lestests //
+		System.out.println("\n ==================== scan data disk: " + roots[0].toString() + " ====================\n");
 	    DefaultMutableTreeNode node = getSubDirs(roots[0]); // new DefaultMutableTreeNode(roots[i].getAbsoluteFile().toString());
         root.add(node);
 ////////// ---------------- //
@@ -355,7 +381,12 @@ public class wanduxApp
 		this.applicationServerIp = "127.0.0.1";
 	}
 	
-  	private boolean makeConnection()
+  	private void closeConnection()
+  	{
+  		this.ce.EjbClose();
+  	}
+
+	private boolean makeConnection()
 	{
   		if (this.ce == null)
   		{
