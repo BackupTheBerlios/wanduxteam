@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.5.3 
+Created-By: Dup
+Main-Class: pfe.migration.client.pre.applet.TreeApplet
