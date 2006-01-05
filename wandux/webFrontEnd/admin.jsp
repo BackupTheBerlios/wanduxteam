@@ -155,8 +155,7 @@
 <%				for (i=0; i < cl.size(); i++)
 				{
 					out.print("<OPTION value=\"" + cl.get(i) +"\">" + cl.get(i) + "</OPTION>\n");
-				}
-%>
+				}%>
 				</SELECT>
 		</td>
 		<td width="650" height="400">
@@ -187,7 +186,7 @@ for (i=0; i < cl.size(); i++)
 		out.print("<TR><TD width=150>Secondary DNS :</TD><TD width=480><b>" + ci.netconf[x].getNetworkDnsServer2() + "</b></TD></TR>");
 		out.print("<TR><TD width=150>Gateway : </TD><TD width=480><b>" + ci.netconf[x].getNetworkGateway() + "</b></TD></TR>");
 		out.print("<TR><TD width=150>DHCP Enabled :</TD><TD width=480><b>");
-		if (ci.netconf[x].getNetworkDhcpEnabled().intValue() == 1)
+		 if (ci.netconf[x].getNetworkDhcpEnabled().intValue() == 1)
 		{
 			out.print("yes</b></TD></TR>");
 		}
@@ -216,23 +215,13 @@ for (i=0; i < cl.size(); i++)
 	//out.print("<div id=\"treeBox" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:170;overflow:auto;\"><b><br><br><center>This tree represent the whole Windows file system of " + cl.get(i) + ".</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Please, select the files and folders that you want to migrate on the new Linux system using this tree :</font><br><br></div>\n");
 
 	// SECTION TREE - AFFICHAGTE DU FILESYSTEM
-	out.print("<div id=\"treeApplet" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:170;overflow:auto;\"><b><br><br><center>This tree represent the whole Windows file system of " + cl.get(i) + ".</b></center><br><br>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Please, select the files and folders that you want to migrate on the new Linux system<br>&nbsp;&nbsp;&nbsp;&nbsp;using this tree :</font><br><br>\n");
+	out.print("<div id=\"treeApplet" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:170;overflow:auto;\"><b><br><br><center>This tree represent the whole Windows file system of " + cl.get(i) + ".</b></center>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >>  Please, select the files and folders that you want to migrate on the new Linux system<br>&nbsp;&nbsp;&nbsp;&nbsp;using this tree :</font><br><br>\n");
 %>
-<!-- applet
-   code="Horloge.class"
-   width=400
-   height=300
-   hspace=0
-   vspace=0
-   align=top>
-  <param name="background-color" value="#ffffff" />
- </applet -->
-
 <applet
    code="pfe.migration.client.pre.applet.TreeApplet"
    archive="wanduxApplet.jar,jbossall-client.jar"
-   width=400
-   height=300
+   width=600
+   height=280
    hspace=0
    vspace=0
    align=top>
