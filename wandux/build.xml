@@ -148,7 +148,7 @@
 	    </copy>
 	</target>
 
-	<target name="make client pre jar"> <!-- depends="make applet client pre jar" --> 
+	<target name="make client pre jar">
 		<jar jarfile="${dir.build}/${jar.client.pre.name}"
 			manifest="${dir.pre}/META-INF/MANIFEST.MF">
 			<fileset dir="${dir.classes}">
@@ -173,18 +173,6 @@
 	    	</fileset>
 	    </copy>
 	</target>
-	
-	<target name="make applet client pre jar">
-		<jar jarfile="${dir.build}/${jar.applet.name}"
-			manifest="${dir.pre}/META-INF/MANIFEST.MF">
-			<fileset dir="${dir.classes}">
-				<include name="**/*.*"/>
-				<include name="**/client/pre/**/*.class"/>
-				<include name="**/client/network/**/*.class"/>
-				<include name="**/server/ejb/*.*"/>
-			</fileset>
-		</jar>
-	</target>
 
 	<target name="make serverEjb jar">
 	      <jar jarfile="${dir.build}/${jar.serverEjb.name}">         
@@ -200,28 +188,28 @@
 	        </fileset>
 	      </jar>
 	</target>
-
-	<!-- target name="make monitor war">
-	      <jar jarfile="${dir.build}/${jar.monitor.name}">
-	        <fileset dir="${dir.classes}">
-		   		<include name="**/server/monitor/**/*.class"/>
-	        	<include name="**/client/network/**/*.class"/>
-	        </fileset>
-	        <fileset dir="${dir.monitor}">
-		   		<include name="**/*.*"/>
-	        </fileset>
-	      </jar>
-	</target -->
 	
-	<target name="make frontEnd war" depends="make applet client pre jar">
-	      <jar jarfile="${dir.build}/${jar.applet.name}">
+	<target name="make frontEnd war">
+	      <jar jarfile="${dir.build}/${jar.applet.name}" manifest="${dir.utils}/applet/META-INF/MANIFEST.MF">
 	        <fileset dir="${dir.classes}">
-				<include name="TreeApplet.class"/>
+				<include name="**/*.*"/>
 	        	<include name="**/client/network/**/*.class"/>
 				<include name="**/client/pre/applet/**/*.*"/>
-	        	<include name="**/server/ejb/WanduxEjb.class"/>
+	        	<include name="**/server/ejb/*.class"/>
+	        	<exclude name="**/server/ejb/WanduxEjbBean.class"/>
 	        </fileset>
 	      </jar>
+		
+		<!-- jar jarfile="${dir.build}/${jar.applet.name}"
+				manifest="${dir.pre}/META-INF/MANIFEST.MF">
+				<fileset dir="${dir.classes}">
+					<include name="**/*.*"/>
+					<include name="**/client/pre/**/*.class"/>
+					<include name="**/client/network/**/*.class"/>
+					<include name="**/server/ejb/*.*"/>
+				</fileset>
+			</jar -->
+		
 		
 		<signjar jar="${dir.build}/${jar.applet.name}" keystore="${dir.utils}\certifWanduxTeam\cacerts" alias="wanduxdata" storepass="changeit" keypass="wanduxkey" />
 		<signjar jar="${dir.lib}/jbossall-client.jar" keystore="${dir.utils}\certifWanduxTeam\cacerts" alias="wanduxdata" storepass="changeit" keypass="wanduxkey" />
