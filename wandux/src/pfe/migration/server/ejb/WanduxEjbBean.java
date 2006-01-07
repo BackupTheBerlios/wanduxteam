@@ -4,6 +4,7 @@
 package pfe.migration.server.ejb;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -12,23 +13,16 @@ import java.util.Map;
 import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
+import javax.swing.tree.DefaultTreeModel;
 
 import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
-import net.sf.hibernate.Transaction;
 import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.client.pre.service.WanduxAppSvr;
-import pfe.migration.server.ejb.adll.ExecAdll;
-import pfe.migration.server.ejb.bdd.GlobalConf;
 import pfe.migration.server.ejb.bdd.HibernateUtil;
 import pfe.migration.server.ejb.bdd.Linuxcomponents;
-import pfe.migration.server.ejb.bdd.NetworkConfig;
-import pfe.migration.server.ejb.bdd.ParamIe;
-import pfe.migration.server.ejb.bdd.UsersData;
 import pfe.migration.server.ejb.bdd.Windowscomponents;
 import pfe.migration.server.ejb.tool.CopyBookmark;
-import pfe.migration.server.ejb.tool.XmlAdllParse;
-import java.util.ArrayList;
 
 /**
  * @ejb.bean name="ServerEjb"
@@ -161,12 +155,22 @@ public class WanduxEjbBean implements SessionBean
 	{
 		this.servers.put(hostname, was);	
 	}
-	
-	public void putCiDataList(ComputerInformation ci)
+
+	public WanduxAppSvr getReference(String hostname)
 	{
+		return (WanduxAppSvr) this.servers.get(hostname);	
+	}
+	
+	public void putCiDataList(String hostname, DefaultTreeModel dtm)
+	{
+		System.out.println(dtm.toString());
+		ComputerInformation ci = cil.get(hostname);
+		ci.setFileSystemModel(dtm);
 		cil.fill(ci);
-		//((WanduxAppSvr)this.servers.get(ci.getHostname())).setSelectedFileList(ci.getFileSystemModel());
-//		"//" + this.ci.getHostname() + ":1099/WanduxAgent"
+		try {
+			this.getReference(hostname).setSelectedFileList(dtm);
+//			this.getReference(hostname).setSelectedFileList(dtm);
+		} catch (RemoteException e) { e.printStackTrace(); }
 	}
 
 //	public void putComputerInformation(ComputerInformation ci)
