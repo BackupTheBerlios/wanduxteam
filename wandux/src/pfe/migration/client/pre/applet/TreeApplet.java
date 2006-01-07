@@ -5,6 +5,9 @@ import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Label;
+import java.awt.LayoutManager;
+import java.awt.Panel;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
@@ -16,6 +19,7 @@ import javax.swing.JTree;
 
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
+import pfe.migration.client.pre.applet.tree.CheckTreeManager;
 
 public class TreeApplet extends Applet implements ActionListener {
 
@@ -27,7 +31,8 @@ public class TreeApplet extends Applet implements ActionListener {
 	private ComputerInformation currentCI = null;
 	
 	private int step = 0;
-	// private FileSystemModel fileSystemModel = null; //
+	
+	// private DefaultTreeModel fileSystemModel = null; //
 
 	public void init()
 	{
@@ -61,28 +66,11 @@ public class TreeApplet extends Applet implements ActionListener {
 		if (this.ce.IsConnected() == false)
 			return ;
 		
-		// TODO voir pour mettre une plusieurs etapes -> loading data , le tree , connection echoue , information envoye recommencer??
-	    
-//		FileSystemModel fileSystemModel = new FileSystemModel(new File("c:/"));
-
 		etapeBienvenue();
-//		etapeTreeBrowser();
         
-//		add(new Label("bienvenue - telechargement de donnees"), BorderLayout.CENTER);
-
 		invalidate();
 		validate();
 	}
-	
-//	public void etapeGetFileSystem()
-//	{
-//        add(new Label("bienvenue - telechargement de donnees"), BorderLayout.CENTER);
-//		invalidate();
-//		validate();
-//		
-//		FileSystemModel fsm = new FileSystemModel(new File("c:/")); // 
-//		this.fileSystemModel = fsm;
-//	}
 	
 	public void fillFileListOfCIToServer()
 	{
@@ -93,25 +81,41 @@ public class TreeApplet extends Applet implements ActionListener {
 	
 	public void etapeBienvenue()
 	{
-		Button bgo = new Button("go");
+		Button bgo = new Button("next step");
 		bgo.addActionListener(this);
-		add(new Label("bienvenue"), BorderLayout.CENTER);
-		add(bgo, BorderLayout.SOUTH);
+		add(new Label("wait to get le file system of the machine", Label.CENTER), BorderLayout.CENTER);
+		add(bgo, BorderLayout.EAST);
 		invalidate();
 		validate();
 	}
 
 	public void etapeTreeBrowser()
 	{
-		
-	    // removeAll();
-
+		Button bgo = new Button("next step");
+		bgo.setBounds(0,0,20,20);
+		bgo.addActionListener(this);
 		final JTree fileTree = new JTree(this.currentCI.getFileSystemModel());
+		new CheckTreeManager(fileTree);
         JScrollPane jsp  = new JScrollPane(fileTree);
         addAdjustmentListener(jsp);
         
         add(jsp, BorderLayout.CENTER);
+        add(bgo, BorderLayout.EAST);
+        
+		invalidate();
+		validate();
+	}
+	public void etapeFin()
+	{
+		// TODO ptet mettre une liste des fichiers selectonner
+		// TODO appele le client pre installation de faire les copies
+		Button bgo = new Button("return to change the selection");
+		bgo.setBounds(new Rectangle(0,0,20,20));
+		bgo.addActionListener(this);
 
+        add(new Label("the selected files will be saved", Label.CENTER), BorderLayout.CENTER);
+        add(bgo, BorderLayout.EAST);
+       
 		invalidate();
 		validate();
 	}
@@ -134,28 +138,6 @@ public class TreeApplet extends Applet implements ActionListener {
 	
   	private boolean makeConnection()
 	{
-//        try
-//        {
-//           Properties jndiProps = new Properties() ;
-//           String myServer = this.getCodeBase().getHost ();
-//           jndiProps.setProperty("java.naming.factory.initial", "org.jnp.interfaces.NamingContextFactory" ) ;
-//           //jndiProps.setProperty("java.naming.provider.url", myServer + ":1099" ) ;
-//           jndiProps.setProperty("java.naming.provider.url", "127.0.0.1" + ":1099" ) ;
-//           jndiProps.setProperty("java.naming.factory.url.pkgs", "org.jboss.naming:org.jnp.interfaces" ) ;
-//           WanduxEjbHome home = (WanduxEjbHome)PortableRemoteObject.narrow( new InitialContext(jndiProps).lookup( "WanduxEjb" ),
-//        		   WanduxEjbHome.class) ;
-//           WanduxEjb remote = home.create() ;
-//           add(new Label( remote.sayMe() ), BorderLayout.CENTER) ;
-//        }
-//        catch ( SecurityException se )
-//        {
-//           se.printStackTrace ();
-//        }
-//        catch( Exception ex )
-//        {
-//           System.err.println( "APPLET" );
-//           ex.printStackTrace();
-//        }
   		
   		if (this.ce == null)
   		{
@@ -177,8 +159,8 @@ public class TreeApplet extends Applet implements ActionListener {
 //			this.ce.EjbConnect();
 //		}
   		
-  		//return ce.IsConnected();
-        return true;
+  		return ce.IsConnected();
+        //return true;
 	}
 
     public static Color getColor(String str) {
@@ -199,8 +181,19 @@ public class TreeApplet extends Applet implements ActionListener {
 			etapeTreeBrowser();
 			step++;
 			break ;
+		case 1:
+			removeAll();
+			etapeFin();
+			try {
+				this.ce.getBean().putCiDataList(this.currentHostname, this.currentCI.getFileSystemModel());
+			} catch (RemoteException e) { e.printStackTrace(); }
+			step++;
+			break ;
 		default:
-				
+			removeAll();
+			etapeBienvenue();
+			step = 0;
+			break;
 		}
 	}
 }
