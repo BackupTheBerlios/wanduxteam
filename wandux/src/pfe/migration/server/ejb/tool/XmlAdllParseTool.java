@@ -61,48 +61,55 @@ public class XmlAdllParseTool {
 
 		// CONFIG PARAM RESEAU
 
-		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.gconf
-				.getGlobalHostname(), "Nom de la machine");
+		/*
+		 * TODO Rajouter dans la BDD getHostName et setHostName
+		 * pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
+		 * ci.udata[0].getHostName(), "Nom de la machine");
+		 */
 
-		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.gconf
-				.getGlobalDomainName(), "Domaine de la machine");
+		/*
+		 * TODO Rajouter dans la BDD getDomainName et setDomainName
+		 * pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
+		 * ci.udata[0].getDomainName(), "Domaine de la machine");
+		 */
 
 		// AUTOLOGIN
-
-//		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.udata
-//				.getUserLogin(), "Login automatique au demarrage");
+		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
+				ci.udata[0].getUserLogin(), "Login automatique au demarrage");
 
 		// PROXY HTTP
 
-//		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.udata
-//				.getUserProxyServ(), "Paramètrage du proxy http");
-//
-//		// PROXY FTP
-//
-//		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.udata
-//				.getUserProxyServ(), "Paramètrage du proxy ftp");
-//
-//		// TYPE DE CLAVIER
-//
-//		ps.option_change_select(XmlAdllParse.racine, "French", "no",
-//				"Type de clavier");
-//
-//		ps.option_change_select(XmlAdllParse.racine,
-//				ci.udata.getUserKbLayout(), "yes", "Type de clavier");
-//
-//		// CHOIX DU FUSEAUX
-//
-//		ps.option_change_select(XmlAdllParse.racine, "Europe/Paris", "no",
-//				"Choix du fuseau horaire");
-//
-//		ps.option_change_select(XmlAdllParse.racine,
-//				ci.udata.getUserTimezone(), "yes", "Choix du fuseau horaire");
+		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
+				ci.udata[0].getUserProxyServ(), "Paramètrage du proxy http");
+
+		// // PROXY FTP
+
+		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
+				ci.udata[0].getUserProxyServ(), "Paramètrage du proxy ftp");
+
+		// // TYPE DE CLAVIER
+
+		ps.option_change_select(XmlAdllParse.racine, "French", "no",
+				"Type de clavier");
+
+		ps.option_change_select(XmlAdllParse.racine, "French", "yes",
+				"Type de clavier");
+
+		// // CHOIX DU FUSEAUX
+
+		ps.option_change_select(XmlAdllParse.racine, "Europe/Paris", "no",
+				"Choix du fuseau horaire");
+
+		ps.option_change_select(XmlAdllParse.racine, "Europe/Paris", "yes",
+				"Choix du fuseau horaire");
 
 		// SUPER UTILISATEUR
 
-		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
-						"root@" + ci.gconf.getGlobalDomainName(),
-						"Adresse E-Mail de l'utilisateur a prevenir en cas d'alerte de securite");
+		/*
+		 * pst .option_change_select_txt(XmlAdllParse.racine, "", "yes", "root@" +
+		 * ci.udata[0].getDomainName() + ".org", "Adresse E-Mail de
+		 * l'utilisateur a prevenir en cas d'alerte de securite");
+		 */
 
 		ps.option_change_select(XmlAdllParse.racine, "", "yes",
 				"Identifiant du super utilisateur");
@@ -126,9 +133,8 @@ public class XmlAdllParseTool {
 				"Icone du super utilisateur");
 
 		// UTILISATEUR
-//TODO: voir ce que ce truc fait la
-//		pu.ChangeUser(ci);
 
+		// pu.ChangeUser(ci);
 		// pu.AddUser(XmlAdllParse.racine, ci.udata);
 
 	}
