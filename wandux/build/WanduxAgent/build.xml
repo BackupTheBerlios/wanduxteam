@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<project name="FatJar wanduxAgent.jar (experimental)" default="main" basedir=".">
+    <!-- this file was created by Fat-Jar Eclipse Plug-in -->
+    <!-- the ANT-Export is in a very early stage, so this -->
+    <!-- is only experimental, ANT 1.6 or above is        -->
+    <!-- required, feedback is always welcome:            -->
+    <!--       http://sourceforge.net/projects/fjep       -->
+    <!-- uncomment the following lines if using ANT outside Eclipse -->
+    <!--
+        <property name="fjepPath" value="c:/Program Files/eclipse/plugins/net.sf.fjep.fatjar_0.0.23/fatjar.jar"/>
+        <taskdef name="fatjar.build" classname="net.sf.fjep.anttask.FJBuildTask" classpath="${fjepPath}"/>
+        <typedef name="fatjar.manifest" classname="net.sf.fjep.anttask.FJManifestType" classpath="${fjepPath}"/>
+        <typedef name="fatjar.exclude" classname="net.sf.fjep.anttask.FJExcludeType" classpath="${fjepPath}"/>
+        <typedef name="fatjar.jarsource" classname="net.sf.fjep.anttask.FJJarSourceType" classpath="${fjepPath}"/>
+        <typedef name="fatjar.filesource" classname="net.sf.fjep.anttask.FJFileSourceType" classpath="${fjepPath}"/>
+    -->
+    <!-- uncomment the above lines to use ANT outside of Eclipse -->
+    <target name="main">
+        <fatjar.build output="wanduxAgent.jar">
+            <fatjar.manifest mainclass="pfe.migration.client.pre.service.wanduxApp"/>
+            <fatjar.filesource path="C:\Program Files\eclipse\workspace\wandux\bin" relpath="">
+                <fatjar.exclude relpath="CVS/"/>
+                <fatjar.exclude relpath="pfe/CVS/"/>
+                <fatjar.exclude relpath="pfe/migration/client/CVS/"/>
+                <fatjar.exclude relpath="pfe/migration/client/network/CVS/"/>
+                <fatjar.exclude relpath="pfe/migration/client/network/ComputerInformations.cdf"/>
+                <fatjar.exclude relpath="pfe/migration/client/network/fichiers_.txt"/>
+                <fatjar.exclude relpath="pfe/migration/client/network/_ClientEjb.java_"/>
+                <fatjar.exclude relpath="pfe/migration/client/network/_ok.java_"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/app/apparence/"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/app/CVS/"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/app/tools/CopyDataOnFileServer.class"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/app/tools/CopyFile.class"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/app/tools/CopyOfFileCopy.class"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/app/tools/DirCopy.class"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/app/tools/FileCopy.class"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/app/tools/FSNodeCopy.class"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/app/tools/HashOperation.class"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/app/tools/WorkQueue$PoolWorker.class"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/app/tools/WorkQueue.class"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/applet/"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/CVS/"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/service/.#wanduxApp.java.1.19"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/service/WanduxApp.cdf"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/service/WanduxWmiBridge.cdf"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/system/CVS/"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/system/netconfig.cdf"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/system/UserConfig.cdf"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/ClientMain.class"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/ClientPreinstall.class"/>
+                <fatjar.exclude relpath="pfe/migration/client/pre/client_classdiagram.cdf"/>
+                <fatjar.exclude relpath="pfe/migration/CVS/"/>
+                <fatjar.exclude relpath="pfe/migration/server/CVS/"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/adll/"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/CVS/"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/dao/"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/GlobalConf.hbm"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/HibernateUtil.class"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/LangInfo.hbm"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/Linuxcomponents.hbm"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/Mandrakepkgs.hbm"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/NetworkConfig.hbm"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/ParamIe.hbm"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/Softcategory.hbm"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/Softsubcategory.hbm"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/Softtypes.hbm"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/UsersData.hbm"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/Windowscomponents.hbm"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/CVS/"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/tool/"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/CiList.class"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/server_classdiagram.cdf"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/WanduxEjbBean.class"/>
+                <fatjar.exclude relpath="pfe/migration/server/ejb/WanduxEjbHome.class"/>
+                <fatjar.exclude relpath="pfe/migration/server/monitor/"/>
+                <fatjar.exclude relpath="hibernate.cfg.xml"/>
+                <fatjar.exclude relpath="launchClient.bat"/>
+            </fatjar.filesource>
+            <fatjar.jarsource file="C:\Program Files\eclipse\workspace\wandux\utils\lib\registry.jar" relpath=""/>
+            <fatjar.jarsource file="C:\Program Files\eclipse\workspace\wandux\utils\lib\jbossall-client.jar" relpath=""/>
+            <fatjar.jarsource file="C:\j2sdk1.4.2_09\lib\tools.jar" relpath=""/>
+            <fatjar.jarsource file="C:\Program Files\eclipse\workspace\wandux\utils\jacob\jacob.jar" relpath=""/>
+        </fatjar.build>
+    </target>
+</project>
