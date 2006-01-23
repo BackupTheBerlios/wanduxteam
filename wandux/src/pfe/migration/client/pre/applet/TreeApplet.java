@@ -5,23 +5,26 @@ import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Label;
-import java.awt.LayoutManager;
-import java.awt.Panel;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.RemoteException;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.tree.DefaultTreeModel;
 
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.client.pre.applet.tree.CheckTreeManager;
 
-public class TreeApplet extends Applet implements ActionListener {
+public class TreeApplet extends Applet implements ActionListener, MouseListener {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -80,11 +83,26 @@ public class TreeApplet extends Applet implements ActionListener {
 	}
 	
 	public void etapeBienvenue()
-	{
-		Button bgo = new Button("next step");
-		bgo.addActionListener(this);
+	{ // TODO faire marche les boutons
+//		Button bgo = new Button("next step");
+//		bgo.addActionListener(this);
+
+		System.out.println("http://127.0.0.1:8080/webFrontEnd/img/fleche_suivant.gif");
+		System.out.println(getCodeBase()+"/img/fleche_suivant.gif");
+
+		ButtonImageCanvas bic = null;
+		try {
+			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"/img/fleche_suivant.gif")));
+		} catch (MalformedURLException e) { e.printStackTrace(); }
+		bic.addMouseListener(this);
+		
 		add(new Label("wait to get le file system of the machine", Label.CENTER), BorderLayout.CENTER);
-		add(bgo, BorderLayout.EAST);
+		add(bic, BorderLayout.EAST);
+        try {
+			add(new ButtonImageCanvas(getImage(new URL(getCodeBase()+"/img/fleche_suivant.gif"))), BorderLayout.SOUTH);
+		} catch (MalformedURLException e) { e.printStackTrace(); }
+        
+		//add(bgo, BorderLayout.EAST);
 		invalidate();
 		validate();
 	}
@@ -92,15 +110,22 @@ public class TreeApplet extends Applet implements ActionListener {
 	public void etapeTreeBrowser()
 	{
 		Button bgo = new Button("next step");
-		bgo.setBounds(0,0,20,20);
-		bgo.addActionListener(this);
+//		bgo.setBounds(0,0,20,20);
+//		bgo.addActionListener(this);
+		ButtonImageCanvas bic = null;
+		try {
+			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"../img/fleche_suivant.gif")));
+		} catch (MalformedURLException e) { e.printStackTrace(); }
+		bic.addMouseListener(this);
+		
 		final JTree fileTree = new JTree(this.currentCI.getFileSystemModel());
 		new CheckTreeManager(fileTree);
         JScrollPane jsp  = new JScrollPane(fileTree);
         addAdjustmentListener(jsp);
         
         add(jsp, BorderLayout.CENTER);
-        add(bgo, BorderLayout.EAST);
+		add(bic, BorderLayout.EAST);
+        //add(bgo, BorderLayout.EAST);
         
 		invalidate();
 		validate();
@@ -109,13 +134,19 @@ public class TreeApplet extends Applet implements ActionListener {
 	{
 		// TODO ptet mettre une liste des fichiers selectonner
 		// TODO appele le client pre installation de faire les copies
-		Button bgo = new Button("return to change the selection");
-		bgo.setBounds(new Rectangle(0,0,20,20));
-		bgo.addActionListener(this);
+//		Button bgo = new Button("return to change the selection");
+//		bgo.setBounds(new Rectangle(0,0,20,20));
+//		bgo.addActionListener(this);
+
+		ButtonImageCanvas bic = null;
+		try {
+			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"../img/fleche_suivant.gif")));
+		} catch (MalformedURLException e) { e.printStackTrace(); }
+		bic.addMouseListener(this);
 
         add(new Label("the selected files will be saved", Label.CENTER), BorderLayout.CENTER);
-        add(bgo, BorderLayout.EAST);
-       
+        add(bic, BorderLayout.EAST);
+
 		invalidate();
 		validate();
 	}
@@ -145,6 +176,7 @@ public class TreeApplet extends Applet implements ActionListener {
   			this.ce = new ClientEjb(applicationServerIp);
 			this.ce.EjbConnect();
   		}
+  		
 //
 //  	// gestion de la mauvaise url (ca marche)
 //		else if (ce.IsConnected())
@@ -180,12 +212,13 @@ public class TreeApplet extends Applet implements ActionListener {
 			removeAll();
 			etapeTreeBrowser();
 			step++;
-			break ;
+			//break ;
 		case 1:
 			removeAll();
 			etapeFin();
 			try {
-				this.ce.getBean().putCiDataList(this.currentHostname, this.currentCI.getFileSystemModel());
+				//this.ce.getBean().putCiDataList(this.currentHostname, this.currentCI.getFileSystemModel());
+				this.ce.getBean().putFileList(this.currentHostname, this.currentCI.getFileSystemModel());
 			} catch (RemoteException e) { e.printStackTrace(); }
 			step++;
 			break ;
@@ -196,4 +229,15 @@ public class TreeApplet extends Applet implements ActionListener {
 			break;
 		}
 	}
+
+	// -- listener mouse --
+	public void mouseClicked(MouseEvent arg0) { }
+
+	public void mouseEntered(MouseEvent arg0) { }
+
+	public void mouseExited(MouseEvent arg0) { }
+
+	public void mousePressed(MouseEvent arg0) { }
+
+	public void mouseReleased(MouseEvent arg0) { }
 }
