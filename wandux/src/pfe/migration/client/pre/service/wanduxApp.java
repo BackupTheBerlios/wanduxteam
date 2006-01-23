@@ -121,9 +121,17 @@ public class wanduxApp
 		while (true) // mecanisme a change dans le futur
 		{
 			try {
-				if (this.ce.getBean().getFileList(this.ci.getHostname()) == null)
+				this.ci =  this.ce.getBean().getCi(this.ci.getHostname());
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			try {
+				if (this.ci.migrable == 0)
 				{
-					wait(15000);
+					System.out.println("Waiting for migrating informations");
+					Thread.sleep(15000);
 				}
 				else
 				{
@@ -131,7 +139,6 @@ public class wanduxApp
 					System.out.println("yaha c est ok");
 					break ;
 				}
-			} catch (RemoteException e) { e.printStackTrace();
 			} catch (InterruptedException e) { e.printStackTrace();
 			}
 		}
@@ -322,7 +329,7 @@ public class wanduxApp
 	private void fillusersData() {
 		UserConfig usersConfig = new UserConfig(wwb);
 	
-		Variant[] listNetworkInterfacesCaption = usersConfig.listNetworkInterfaces();
+		Variant[] listNetworkInterfacesCaption = usersConfig.listUsers();
 		int i = 0;
 		System.out.println("\n================ users data =================");
 		//System.out.println(listNetworkInterfacesCaption.length);
