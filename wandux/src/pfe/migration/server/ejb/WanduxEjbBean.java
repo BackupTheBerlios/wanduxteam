@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
+import javax.management.QueryExp;
 import javax.swing.tree.DefaultTreeModel;
 
 import net.sf.hibernate.HibernateException;
@@ -43,7 +44,9 @@ public class WanduxEjbBean implements SessionBean
 
 //	String AdllXmlFileName = "";
 	
-	private Map servers = new HashMap();
+	private Map servers = new HashMap();	// TODO AAAAAAAAAA!!!
+
+	private Map ListOfFiles = new HashMap();
 	
 	// -- ejb ------------------------------------------------------------------------------------ //
 	public WanduxEjbBean()
@@ -144,23 +147,38 @@ public class WanduxEjbBean implements SessionBean
 	public void putCi(ComputerInformation ci)
 	{
 		cil.fill(ci);
+		this.ListOfFiles.put(ci.getHostname(), null);
+	}
+	
+	public void putFileList(String hostname, DefaultTreeModel files)
+	{
+		this.ListOfFiles.put(hostname, files);
 	}
 
+	public List getFileList(String hostname)
+	{
+		// si c est null c est que la list n est aps encore remplit
+		return (List) this.ListOfFiles.get(hostname);
+	}
+	
 	public ComputerInformation getCi(String Hostname)
 	{
 		return (ComputerInformation)cil.get(Hostname);
 	}
 
+	// TODO AAAAAAAAAA!!!
 	public void putReference(String hostname, WanduxAppSvr was)
 	{
-		this.servers.put(hostname, was);	
+		this.servers.put(hostname, was);
 	}
 
+	// TODO AAAAAAAAAA!!!
 	public WanduxAppSvr getReference(String hostname)
 	{
 		return (WanduxAppSvr) this.servers.get(hostname);	
 	}
 	
+	// TODO AAAAAAAAAA!!!
 	public void putCiDataList(String hostname, DefaultTreeModel dtm)
 	{
 		System.out.println(dtm.toString());

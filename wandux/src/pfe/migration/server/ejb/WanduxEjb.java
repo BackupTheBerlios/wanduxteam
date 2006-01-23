@@ -24,6 +24,10 @@ public interface WanduxEjb extends EJBObject
 	public void putCi(ComputerInformation ci) throws RemoteException;
 	public ComputerInformation getCi(String Hostname) throws RemoteException;
 	
+	public void putFileList(String hostname, DefaultTreeModel files) throws RemoteException;
+	public List getFileList(String hostname) throws RemoteException;
+
+	
 /*	public void putComputerInformation(ComputerInformation ci) throws RemoteException;
 	public ComputerInformation getComputerInformation(String macaddr) throws RemoteException, HibernateException;
 */
