@@ -24,6 +24,7 @@ import pfe.migration.server.ejb.tool.XmlRetrieve;
 import com.jacob.com.JacobException;
 import com.jacob.com.Variant;
 
+
 public class wanduxApp
 {
 
@@ -42,24 +43,29 @@ public class wanduxApp
 	// prevu pour contenir l'element a recuperer dans la quette wmi
 	String wzName = null;
 	//	 resultat de la requette renvoye par la dll
-	String [] rqRSLT = null; 
+	String [] rqRSLT = null;
 	
 	//private WorkQueue wq = null;
 	
 	public static void main(String[] args)
 	{
-//		 try {
-//			LocateRegistry.createRegistry(4242); // TODO choisir un port correct
-//		} catch (RemoteException e) { e.printStackTrace(); }
-		new wanduxApp();
+		if(args.length!=1)
+		{
+			System.out.println("Usage: java -jar WanduxAgent.jar ServeurIp");
+			System.exit(0);
+		}
+		new wanduxApp(args[0]);
 	}
 	
-	public wanduxApp()
+	public wanduxApp(String ServeurIp)
 	{
 		// iniatalise la connexiion wmi
 		WanduxWmiInfoManager();
 		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu ....
-		this.applicationServerIp = "127.0.0.1";
+		// this.applicationServerIp = "127.0.0.1";
+
+		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu ....
+		this.applicationServerIp = ServeurIp;
 		this.ci = new ComputerInformation();
 		WanduxWmiInfoManager();
 		
@@ -436,9 +442,11 @@ public class wanduxApp
 	{
   		if (this.ce == null)
   		{
+  			System.out.println("tentative de connexion...");
   			this.ce = new ClientEjb(applicationServerIp);
 			this.ce.EjbConnect();
   		}
+  		System.out.println("is connected : " + this.ce.IsConnected());
 
 //  	// gestion de la mauvaise url (ca marche)
 //		else if (ce.IsConnected())
