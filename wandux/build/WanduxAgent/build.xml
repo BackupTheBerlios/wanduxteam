@@ -20,15 +20,11 @@
             <fatjar.manifest mainclass="pfe.migration.client.pre.service.wanduxApp"/>
             <fatjar.filesource path="C:\Program Files\eclipse\workspace\wandux\bin" relpath="">
                 <fatjar.exclude relpath="CVS/"/>
-                <fatjar.exclude relpath="pfe/CVS/"/>
-                <fatjar.exclude relpath="pfe/migration/client/CVS/"/>
-                <fatjar.exclude relpath="pfe/migration/client/network/CVS/"/>
                 <fatjar.exclude relpath="pfe/migration/client/network/ComputerInformations.cdf"/>
                 <fatjar.exclude relpath="pfe/migration/client/network/fichiers_.txt"/>
                 <fatjar.exclude relpath="pfe/migration/client/network/_ClientEjb.java_"/>
                 <fatjar.exclude relpath="pfe/migration/client/network/_ok.java_"/>
                 <fatjar.exclude relpath="pfe/migration/client/pre/app/apparence/"/>
-                <fatjar.exclude relpath="pfe/migration/client/pre/app/CVS/"/>
                 <fatjar.exclude relpath="pfe/migration/client/pre/app/tools/CopyDataOnFileServer.class"/>
                 <fatjar.exclude relpath="pfe/migration/client/pre/app/tools/CopyFile.class"/>
                 <fatjar.exclude relpath="pfe/migration/client/pre/app/tools/CopyOfFileCopy.class"/>
@@ -39,20 +35,15 @@
                 <fatjar.exclude relpath="pfe/migration/client/pre/app/tools/WorkQueue$PoolWorker.class"/>
                 <fatjar.exclude relpath="pfe/migration/client/pre/app/tools/WorkQueue.class"/>
                 <fatjar.exclude relpath="pfe/migration/client/pre/applet/"/>
-                <fatjar.exclude relpath="pfe/migration/client/pre/CVS/"/>
                 <fatjar.exclude relpath="pfe/migration/client/pre/service/.#wanduxApp.java.1.19"/>
                 <fatjar.exclude relpath="pfe/migration/client/pre/service/WanduxApp.cdf"/>
                 <fatjar.exclude relpath="pfe/migration/client/pre/service/WanduxWmiBridge.cdf"/>
-                <fatjar.exclude relpath="pfe/migration/client/pre/system/CVS/"/>
                 <fatjar.exclude relpath="pfe/migration/client/pre/system/netconfig.cdf"/>
                 <fatjar.exclude relpath="pfe/migration/client/pre/system/UserConfig.cdf"/>
                 <fatjar.exclude relpath="pfe/migration/client/pre/ClientMain.class"/>
                 <fatjar.exclude relpath="pfe/migration/client/pre/ClientPreinstall.class"/>
                 <fatjar.exclude relpath="pfe/migration/client/pre/client_classdiagram.cdf"/>
-                <fatjar.exclude relpath="pfe/migration/CVS/"/>
-                <fatjar.exclude relpath="pfe/migration/server/CVS/"/>
                 <fatjar.exclude relpath="pfe/migration/server/ejb/adll/"/>
-                <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/CVS/"/>
                 <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/dao/"/>
                 <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/GlobalConf.hbm"/>
                 <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/HibernateUtil.class"/>
@@ -66,7 +57,6 @@
                 <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/Softtypes.hbm"/>
                 <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/UsersData.hbm"/>
                 <fatjar.exclude relpath="pfe/migration/server/ejb/bdd/Windowscomponents.hbm"/>
-                <fatjar.exclude relpath="pfe/migration/server/ejb/CVS/"/>
                 <fatjar.exclude relpath="pfe/migration/server/ejb/tool/"/>
                 <fatjar.exclude relpath="pfe/migration/server/ejb/CiList.class"/>
                 <fatjar.exclude relpath="pfe/migration/server/ejb/server_classdiagram.cdf"/>
@@ -78,7 +68,6 @@
             </fatjar.filesource>
             <fatjar.jarsource file="C:\Program Files\eclipse\workspace\wandux\utils\lib\registry.jar" relpath=""/>
             <fatjar.jarsource file="C:\Program Files\eclipse\workspace\wandux\utils\lib\jbossall-client.jar" relpath=""/>
-            <fatjar.jarsource file="C:\j2sdk1.4.2_09\lib\tools.jar" relpath=""/>
             <fatjar.jarsource file="C:\Program Files\eclipse\workspace\wandux\utils\jacob\jacob.jar" relpath=""/>
         </fatjar.build>
     </target>
