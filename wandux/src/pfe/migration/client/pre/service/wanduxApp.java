@@ -142,7 +142,7 @@ public class wanduxApp
 				else
 				{
 					// TODO ici faire la copie vers samba ou en dessous
-					System.out.println("yaha c est ok");
+					System.out.println("Sending files and selected settings to WANDUX Server at " + ServeurIp);
 					break ;
 				}
 			} catch (InterruptedException e) { e.printStackTrace();
