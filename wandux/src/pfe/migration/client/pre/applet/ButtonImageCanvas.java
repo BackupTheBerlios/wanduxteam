@@ -26,12 +26,12 @@ import pfe.migration.client.pre.app.apparence.ImageCanvas;
  */
 public class ButtonImageCanvas extends ImageCanvas implements MouseListener { 
 
-	protected Image img;
 	protected boolean state = true;
 	
 	public ButtonImageCanvas(Image img)
 	{
 		super(img);
+		this.addMouseListener(this);
 	}
 
   public void paint(Graphics g)
