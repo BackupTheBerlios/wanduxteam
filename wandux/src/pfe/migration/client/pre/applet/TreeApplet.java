@@ -84,25 +84,25 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 	
 	public void etapeBienvenue()
 	{ // TODO faire marche les boutons
-//		Button bgo = new Button("next step");
-//		bgo.addActionListener(this);
+		Button bgo = new Button("next step");
+		bgo.addActionListener(this);
 
 		System.out.println("http://127.0.0.1:8080/webFrontEnd/img/fleche_suivant.gif");
 		System.out.println(getCodeBase()+"/img/fleche_suivant.gif");
 
-		ButtonImageCanvas bic = null;
-		try {
-			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"/img/fleche_suivant.gif")));
-		} catch (MalformedURLException e) { e.printStackTrace(); }
-		bic.addMouseListener(this);
+//		ButtonImageCanvas bic = null;
+//		try {
+//			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"/img/fleche_suivant.gif")));
+//		} catch (MalformedURLException e) { e.printStackTrace(); }
+//		bic.addMouseListener(this);
 		
 		add(new Label("wait to get le file system of the machine", Label.CENTER), BorderLayout.CENTER);
-		add(bic, BorderLayout.EAST);
-        try {
-			add(new ButtonImageCanvas(getImage(new URL(getCodeBase()+"/img/fleche_suivant.gif"))), BorderLayout.SOUTH);
-		} catch (MalformedURLException e) { e.printStackTrace(); }
+//		add(bic, BorderLayout.EAST);
+//        try {
+//			add(new ButtonImageCanvas(getImage(new URL(getCodeBase()+"/img/fleche_suivant.gif"))), BorderLayout.SOUTH);
+//		} catch (MalformedURLException e) { e.printStackTrace(); }
         
-		//add(bgo, BorderLayout.EAST);
+		add(bgo, BorderLayout.EAST);
 		invalidate();
 		validate();
 	}
@@ -110,13 +110,13 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 	public void etapeTreeBrowser()
 	{
 		Button bgo = new Button("next step");
-//		bgo.setBounds(0,0,20,20);
-//		bgo.addActionListener(this);
-		ButtonImageCanvas bic = null;
-		try {
-			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"../img/fleche_suivant.gif")));
-		} catch (MalformedURLException e) { e.printStackTrace(); }
-		bic.addMouseListener(this);
+		bgo.setBounds(0,0,20,20);
+		bgo.addActionListener(this);
+//		ButtonImageCanvas bic = null;
+//		try {
+//			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"../img/fleche_suivant.gif")));
+//		} catch (MalformedURLException e) { e.printStackTrace(); }
+//		bic.addMouseListener(this);
 		
 		final JTree fileTree = new JTree(this.currentCI.getFileSystemModel());
 		new CheckTreeManager(fileTree);
@@ -124,8 +124,8 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
         addAdjustmentListener(jsp);
         
         add(jsp, BorderLayout.CENTER);
-		add(bic, BorderLayout.EAST);
-        //add(bgo, BorderLayout.EAST);
+//		add(bic, BorderLayout.EAST);
+        add(bgo, BorderLayout.EAST);
         
 		invalidate();
 		validate();
@@ -134,18 +134,19 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 	{
 		// TODO ptet mettre une liste des fichiers selectonner
 		// TODO appele le client pre installation de faire les copies
-//		Button bgo = new Button("return to change the selection");
-//		bgo.setBounds(new Rectangle(0,0,20,20));
-//		bgo.addActionListener(this);
+		Button bgo = new Button("return to change the selection");
+		bgo.setBounds(new Rectangle(0,0,20,20));
+		bgo.addActionListener(this);
 
-		ButtonImageCanvas bic = null;
-		try {
-			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"../img/fleche_suivant.gif")));
-		} catch (MalformedURLException e) { e.printStackTrace(); }
-		bic.addMouseListener(this);
+//		ButtonImageCanvas bic = null;
+//		try {
+//			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"../img/fleche_suivant.gif")));
+//		} catch (MalformedURLException e) { e.printStackTrace(); }
+//		bic.addMouseListener(this);
 
         add(new Label("the selected files will be saved", Label.CENTER), BorderLayout.CENTER);
-        add(bic, BorderLayout.EAST);
+//        add(bic, BorderLayout.EAST);
+        add(bgo, BorderLayout.EAST);
 
 		invalidate();
 		validate();
@@ -212,7 +213,7 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 			removeAll();
 			etapeTreeBrowser();
 			step++;
-			//break ;
+			break ;
 		case 1:
 			removeAll();
 			etapeFin();

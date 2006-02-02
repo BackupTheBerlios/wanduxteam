@@ -145,8 +145,7 @@ public class wanduxApp
 					System.out.println("Sending files and selected settings to WANDUX Server at " + ServeurIp);
 					break ;
 				}
-			} catch (InterruptedException e) { e.printStackTrace();
-			}
+			} catch (InterruptedException e) { e.printStackTrace(); }
 		}
 		
 //		 TODO ici faire la copie vers samba ou en dessus
@@ -236,7 +235,7 @@ public class wanduxApp
 ////////// tmppour lestests //
 		System.out.println("\n ==================== scan data disk: " + roots[0].toString() + " ====================\n");
 //		DefaultMutableTreeNode node = getSubDirs(roots[0]); // new DefaultMutableTreeNode(roots[i].getAbsoluteFile().toString());
-		DefaultMutableTreeNode node = getSubDirs(new File("C:/Documents and Settings/dupadmin/Bureau/techno pfe"));
+		DefaultMutableTreeNode node = getSubDirs(new File("C:/Documents and Settings"));
         root.add(node);
 ////////// ---------------- //
 
