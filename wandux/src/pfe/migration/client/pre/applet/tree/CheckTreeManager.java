@@ -10,6 +10,8 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
 
+import pfe.migration.client.pre.applet.TreeApplet;
+
 
 
 public class CheckTreeManager extends MouseAdapter implements TreeSelectionListener{ 
@@ -27,21 +29,29 @@ public class CheckTreeManager extends MouseAdapter implements TreeSelectionListe
     } 
  
     public void mouseClicked(MouseEvent me){
-    	System.out.println("---------------");
         TreePath path = tree.getPathForLocation(me.getX(), me.getY()); 
         if(path==null) 
             return; 
         if(me.getX()>tree.getPathBounds(path).x+hotspot) 
             return; 
  
-        boolean selected = selectionModel.isPathSelected(path); //, true); 
+//    	System.out.println("---------------");
+//    	System.out.println(path.getLastPathComponent());
+
+    	boolean selected = selectionModel.isPathSelected(path); //, true); 
         selectionModel.removeTreeSelectionListener(this); 
- 
+
         try{ 
             if(selected) 
-                selectionModel.removeSelectionPath(path); 
+            {
+            	TreeApplet.finalList.remove(path.getLastPathComponent().toString());
+            	selectionModel.removeSelectionPath(path); 
+            }
             else 
-                selectionModel.addSelectionPath(path); 
+            {
+            	TreeApplet.finalList.add(path.getLastPathComponent().toString());
+                selectionModel.addSelectionPath(path);
+            }
         } finally{ 
             selectionModel.addTreeSelectionListener(this); 
             tree.treeDidChange(); 

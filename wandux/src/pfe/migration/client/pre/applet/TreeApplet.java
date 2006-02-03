@@ -2,10 +2,11 @@ package pfe.migration.client.pre.applet;
 
 import java.applet.Applet;
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Label;
-import java.awt.Rectangle;
+import java.awt.LayoutManager;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
@@ -15,10 +16,11 @@ import java.awt.event.MouseListener;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
-import javax.swing.tree.DefaultTreeModel;
 
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
@@ -35,7 +37,7 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 	
 	private int step = 0;
 	
-	// private DefaultTreeModel fileSystemModel = null; //
+	public static List finalList = new ArrayList(); 
 
 	public void init()
 	{
@@ -51,17 +53,17 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 		setLayout(new BorderLayout());
 		setBackground(getColor(getParameter("background-color")));
 
-		System.out.println("-"+getParameter("currentHostname"));
-		System.out.println("applicationServer-"+getParameter("applicationServer"));
-		System.out.println("-"+getParameter("background-color"));
+//		System.out.println("-"+getParameter("currentHostname"));
+//		System.out.println("applicationServer-"+getParameter("applicationServer"));
+//		System.out.println("-"+getParameter("background-color"));
 		
 		if (makeConnection() == true)
 		{
 			System.out.println("connection etablie ...");
 			try {
-				System.out.println(currentHostname);
-				System.out.println(ce);
-				System.out.println("bean:"+ce.getBean());
+//				System.out.println(currentHostname);
+//				System.out.println(ce);
+//				System.out.println("bean:"+ce.getBean());
 				
 				currentCI = ce.getBean().getCi(currentHostname);
 			} catch (RemoteException e) { e.printStackTrace(); }
@@ -83,14 +85,7 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 	}
 	
 	public void etapeBienvenue()
-	{ // TODO faire marche les boutons
-//		Button bgo = new Button("next step");
-//		bgo.addActionListener(this);
-
-		System.out.println("http://127.0.0.1:8080/webFrontEnd/img/fleche_suivant.gif");
-		System.out.println(getCodeBase()+"/img/fleche_suivant.gif");
-		//http://127.0.0.1:8080/webFrontEnd/img/fleche_precedent.gif
-
+	{ // TODO utilise les trheads ... ou sinon matter si on a cree la listOfFile avec l hostname
 		ButtonImageCanvas bic = null;
 		try {
 			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"/img/fleche_suivant.gif")));
@@ -99,17 +94,12 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 		
 		add(new Label("wait to get le file system of the machine", Label.CENTER), BorderLayout.CENTER);
 		add(bic, BorderLayout.EAST);
-//		add(bgo, BorderLayout.EAST);
 		invalidate();
 		validate();
 	}
 
 	public void etapeTreeBrowser()
 	{
-//		Button bgo = new Button("next step");
-//		bgo.setBounds(0,0,20,20);
-//		bgo.addActionListener(this);
-
 		ButtonImageCanvas bic = null;
 		try {
 			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"/img/fleche_suivant.gif")));
@@ -123,19 +113,12 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
         
         add(jsp, BorderLayout.CENTER);
 		add(bic, BorderLayout.EAST);
-//		add(bgo, BorderLayout.EAST);
         
 		invalidate();
 		validate();
 	}
 	public void etapeFin()
 	{
-		// TODO ptet mettre une liste des fichiers selectonner
-		// TODO appele le client pre installation de faire les copies
-//		Button bgo = new Button("return to change the selection");
-//		bgo.setBounds(new Rectangle(0,0,20,20));
-//		bgo.addActionListener(this);
-
 		ButtonImageCanvas bic = null;
 		try {
 			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"/img/fleche_precedent.gif")));
@@ -205,28 +188,7 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
     }
 
 	public void actionPerformed(ActionEvent arg0) {
-//		switch (step)
-//		{
-//		case 0:
-//			removeAll();
-//			etapeTreeBrowser();
-//			step++;
-//			break ;
-//		case 1:
-//			removeAll();
-//			etapeFin();
-//			try {
-//				//this.ce.getBean().putCiDataList(this.currentHostname, this.currentCI.getFileSystemModel());
-//				this.ce.getBean().putFileList(this.currentHostname, this.currentCI.getFileSystemModel());
-//			} catch (RemoteException e) { e.printStackTrace(); }
-//			step++;
-//			break ;
-//		default:
-//			removeAll();
-//			etapeBienvenue();
-//			step = 0;
-//			break;
-//		}
+
 	}
 
 	// -- listener mouse --
@@ -251,8 +213,7 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 			removeAll();
 			etapeFin();
 			try {
-				//this.ce.getBean().putCiDataList(this.currentHostname, this.currentCI.getFileSystemModel());
-				this.ce.getBean().putFileList(this.currentHostname, this.currentCI.getFileSystemModel());
+				this.ce.getBean().putFileList(this.currentHostname, this.finalList);
 			} catch (RemoteException e) { e.printStackTrace(); }
 			step++;
 			break ;

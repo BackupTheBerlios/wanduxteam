@@ -2,12 +2,10 @@ package pfe.migration.client.pre.service;
 
 //import pfe.migration.server.ejb.tool.FileSystemXml;
 import java.io.File;
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.RMISecurityManager;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -15,6 +13,8 @@ import javax.swing.tree.DefaultTreeModel;
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.client.pre.app.ProgramsLister;
+import pfe.migration.client.pre.app.tools.DirCopy;
+import pfe.migration.client.pre.system.FSNodeCopy;
 import pfe.migration.client.pre.system.NetConfig;
 import pfe.migration.client.pre.system.UserConfig;
 import pfe.migration.server.ejb.bdd.NetworkConfig;
@@ -29,7 +29,7 @@ public class wanduxApp
 {
 
 	private String applicationServerIp = "";
-	private String storageServerIp = "";
+	private String storageServerIp = "ipNonDefinie";
 	
 	private ComputerInformation ci = null;
 	private ClientEjb ce = null;
@@ -134,39 +134,48 @@ public class wanduxApp
 			}
 			
 			try {
-				if (this.ci.migrable == 0)
+				if (this.ce.getBean().getFileList(this.ci.getHostname()) == null ) // this.ci.migrable == 0 && 
 				{
 					System.out.println("Waiting for migrating informations");
 					Thread.sleep(15000);
 				}
 				else
 				{
-					// TODO ici faire la copie vers samba ou en dessous
 					System.out.println("Sending files and selected settings to WANDUX Server at " + ServeurIp);
+					parseAndCopieFiles (this.ce.getBean().getFileList(this.ci.getHostname()));
 					break ;
 				}
-			} catch (InterruptedException e) { e.printStackTrace(); }
+			} catch (InterruptedException e) { e.printStackTrace();
+			} catch (RemoteException e) { e.printStackTrace();
+			}
 		}
-		
-//		 TODO ici faire la copie vers samba ou en dessus
+				
 
 		this.closeConnection(); // TODO une fois les fichier selectionne, faire la copie ...
 		//TODO trouve quand ferme cette conncetion au bon moment
 	}
 
-	// AAAAAAAAAAAAAAAAA !!
-//	public void waitSignal(WanduxAppSvrImpl cur)
-//	{
-//		// ??
-//		System.out.println("waiting signal ... "+this.ci.getHostname());
-//	    if (System.getSecurityManager() == null)
-//		      System.setSecurityManager(new RMISecurityManager());
-//		try {
-//			//Naming.rebind("//" + this.ci.getHostname() + ":1099/WanduxAgent", (Remote) cur);
-//			Naming.rebind("//127.0.0.1:1099/WanduxAgent", (Remote) cur);
-//		} catch (RemoteException e1) { e1.printStackTrace();
-//		} catch (MalformedURLException e1) { e1.printStackTrace(); }
-//	}
+	private void parseAndCopieFiles(List l)
+	{
+		FSNodeCopy cp = new FSNodeCopy();
+		
+		System.out.println(l);
+
+		Iterator i = l.iterator();
+		
+		while (i.hasNext())
+		{
+			String s = (String) i.next();
+//			System.out.println(s);
+
+			String disk = "disk" + s.substring(0,1);
+			String path = s.substring(3,s.length());
+			
+//				DirCopy.CopyRec(listFiles[i] , "\\\\10.247.0.248\\wanduxStorage\\" + this.addrMac + "\\"+ disk + "\\" + path);
+//			System.out.println("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk + "\\" + path);
+			cp.CopyNode(s, "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk + "\\" + path, true);
+		}
+	}	
 	
 	/**
 	 * Matches existence of pre-defined programs
@@ -235,7 +244,7 @@ public class wanduxApp
 ////////// tmppour lestests //
 		System.out.println("\n ==================== scan data disk: " + roots[0].toString() + " ====================\n");
 //		DefaultMutableTreeNode node = getSubDirs(roots[0]); // new DefaultMutableTreeNode(roots[i].getAbsoluteFile().toString());
-		DefaultMutableTreeNode node = getSubDirs(new File("C:/Documents and Settings"));
+		DefaultMutableTreeNode node = getSubDirs(new File("C:/Documents and Settings/All Users"));
         root.add(node);
 ////////// ---------------- //
 
