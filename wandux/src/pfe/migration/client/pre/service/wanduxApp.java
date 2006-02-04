@@ -12,10 +12,9 @@ import javax.swing.tree.DefaultTreeModel;
 
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
-import pfe.migration.client.pre.app.ProgramsLister;
-import pfe.migration.client.pre.app.tools.DirCopy;
 import pfe.migration.client.pre.system.FSNodeCopy;
 import pfe.migration.client.pre.system.NetConfig;
+import pfe.migration.client.pre.system.ProgramsLister;
 import pfe.migration.client.pre.system.UserConfig;
 import pfe.migration.server.ejb.bdd.NetworkConfig;
 import pfe.migration.server.ejb.bdd.UsersData;
@@ -27,9 +26,8 @@ import com.jacob.com.Variant;
 
 public class wanduxApp
 {
-
 	private String applicationServerIp = "";
-	private String storageServerIp = "ipNonDefinie";
+	private String storageServerIp = "";
 	
 	private ComputerInformation ci = null;
 	private ClientEjb ce = null;
@@ -51,7 +49,7 @@ public class wanduxApp
 	{
 		if(args.length!=1)
 		{
-			System.out.println("Usage: java -jar WanduxAgent.jar ServeurIp");
+			System.out.println("Usage: java -jar WanduxAgent.jar ServeurIp ");
 			System.exit(0);
 		}
 		new wanduxApp(args[0]);
@@ -66,6 +64,7 @@ public class wanduxApp
 
 		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu ....
 		this.applicationServerIp = ServeurIp;
+		this.storageServerIp  = ServeurIp;
 		this.ci = new ComputerInformation();
 
 		WanduxWmiInfoManager();
@@ -118,6 +117,11 @@ public class wanduxApp
 		
 		System.out.println(l);
 
+		if (l == null)
+		{
+			System.err.println("error while saving files ...");
+			return ;
+		}
 		Iterator i = l.iterator();
 		
 		while (i.hasNext())
@@ -125,16 +129,14 @@ public class wanduxApp
 			String s = (String) i.next();
 
 			String disk = "disk" + s.substring(0,1);
-			String path = s.substring(3,s.length());
 			
-//			System.out.println("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk + "\\" + path);
-			cp.CopyNode(s, "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk + "\\" + path, true);
+			System.out.println("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk);
+			//cp.CopyNode(s, "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk + "\\", true);
 		}
-	}	
+	}
 	
 	/**
 	 * Matches existence of pre-defined programs
-	 *
 	 */
 	private void ProgramMatcher()
 	{
@@ -367,7 +369,6 @@ public class wanduxApp
 	
 	private void fillHostname()
 	{
-		String res = "";
 		Variant[] rqRSLT = null;
 		String rq  = "SELECT * FROM Win32_ComputerSystem";
 		String wzName = "Caption"; // element a recuperer depuis la requette
