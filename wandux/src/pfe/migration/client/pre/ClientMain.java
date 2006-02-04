@@ -6,6 +6,8 @@
  */
 package pfe.migration.client.pre;
 
+import java.rmi.RemoteException;
+
 import pfe.migration.client.network.ClientEjb;
 
 /**
@@ -27,6 +29,13 @@ public class ClientMain {
 		ce.EjbConnect();
 //		System.out.println("main : " + ce.giveMsg()[0]);
 //		System.out.println("main : " + ce.giveMsg()[1]);
+		
+		try {
+			System.out.println(ce.getBean().sayMe());
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
 		ce.EjbClose();
 	}
 
