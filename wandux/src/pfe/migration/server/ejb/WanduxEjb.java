@@ -2,16 +2,12 @@
 package pfe.migration.server.ejb;
 
 import java.rmi.RemoteException;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.EJBObject;
-import javax.swing.tree.DefaultTreeModel;
-
-import net.sf.hibernate.HibernateException;
 
 import pfe.migration.client.network.ComputerInformation;
-import pfe.migration.client.pre.service.WanduxAppSvr;
 // import pfe.migration.server.monitor.CiList;
 
 public interface WanduxEjb extends EJBObject

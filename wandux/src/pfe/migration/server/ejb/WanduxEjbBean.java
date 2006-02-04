@@ -13,13 +13,10 @@ import java.util.Map;
 import javax.ejb.EJBException;
 import javax.ejb.SessionBean;
 import javax.ejb.SessionContext;
-import javax.management.QueryExp;
-import javax.swing.tree.DefaultTreeModel;
 
 import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
 import pfe.migration.client.network.ComputerInformation;
-import pfe.migration.client.pre.service.WanduxAppSvr;
 import pfe.migration.server.ejb.bdd.HibernateUtil;
 import pfe.migration.server.ejb.bdd.Linuxcomponents;
 import pfe.migration.server.ejb.bdd.Windowscomponents;
