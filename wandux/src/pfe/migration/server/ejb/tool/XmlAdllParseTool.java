@@ -61,17 +61,12 @@ public class XmlAdllParseTool {
 
 		// CONFIG PARAM RESEAU
 
-		/*
-		 * TODO Rajouter dans la BDD getHostName et setHostName
-		 * pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
-		 * ci.udata[0].getHostName(), "Nom de la machine");
-		 */
+		 pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
+		 ci.getHostname(), "Nom de la machine");
+		 
 
-		/*
-		 * TODO Rajouter dans la BDD getDomainName et setDomainName
-		 * pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
-		 * ci.udata[0].getDomainName(), "Domaine de la machine");
-		 */
+		 pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
+		 ci.getDomainname(), "Domaine de la machine");
 
 		// AUTOLOGIN
 		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
@@ -81,7 +76,7 @@ public class XmlAdllParseTool {
 
 		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
 				ci.udata[0].getUserProxyServ(), "Paramètrage du proxy http");
-
+		
 		// // PROXY FTP
 
 		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
