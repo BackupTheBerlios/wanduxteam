@@ -24,14 +24,14 @@ public class UserConfig {
 	}
 
 	public Variant[] listUsers() {
-		String rq = "SELECT * FROM Win32_UserAccount";
+		String rq = "SELECT Name FROM Win32_UserAccount";
 		String wzName = "Name"; // element a recuperer depuis la requette
 		Variant obj[] = wwb.exec_rq(rq, wzName);
 		return obj;
 	}
 
 	public String getUserKbLayout() {
-		String rq = "SELECT * FROM Win32_Keyboard";
+		String rq = "SELECT Layout FROM Win32_Keyboard";
 		String wzName = "Layout"; // element a recuperer depuis la requette
 		System.out.println(rq);
 		Variant obj[] = wwb.exec_rq(rq, wzName);
@@ -40,7 +40,7 @@ public class UserConfig {
 	}
 
 	public String getUserProxyServ() {
-		String rq = "SELECT * FROM Win32_Proxy";
+		String rq = "SELECT ProxyServer FROM Win32_Proxy";
 		String wzName = "ProxyServer"; // element a recuperer depuis la
 										// requette
 		Variant obj[] = wwb.exec_rq(rq, wzName);
@@ -48,21 +48,21 @@ public class UserConfig {
 	}
 
 	public String getHostname(String username) {
-		String rq = "SELECT * FROM Win32_UserAccount WHERE Name = " + username;
+		String rq = "SELECT Domain FROM Win32_UserAccount WHERE Name = " + username;
 		String wzName = "Domain"; // element a recuperer depuis la requette
 		Variant obj[] = wwb.exec_rq(rq, wzName);
 		return obj.toString();
 	}
 
 	public String getDomainName(String username) {
-		String rq = "SELECT * FROM Win32_UserAccount WHERE Name = " + username;
+		String rq = "SELECT Domain FROM Win32_UserAccount WHERE Name = " + username;
 		String wzName = "Domain"; // element a recuperer depuis la requette
 		Variant obj[] = wwb.exec_rq(rq, wzName);
 		return obj.toString();
 	}
 
 	public String getUserTimezone() {
-		String rq = "SELECT * FROM Win32_TimeZone";
+		String rq = "SELECT StandardName FROM Win32_TimeZone";
 		String wzName = "StandardName"; // element a recuperer depuis la
 		// requette
 		Variant obj[] = wwb.exec_rq(rq, wzName);

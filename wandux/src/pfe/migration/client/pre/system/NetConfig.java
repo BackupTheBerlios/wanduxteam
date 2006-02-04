@@ -45,7 +45,7 @@ public class NetConfig
    {
     String res = "";
 	   Variant[] rqRSLT = null;
-		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
+		String rq  = "SELECT MACAddress FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
 		String wzName = "MACAddress"; // element a recuperer depuis la requette
 		try
 		{
@@ -63,7 +63,7 @@ public class NetConfig
    {
 	   String res = "";
 	   Variant[] rqRSLT = null;
-		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
+		String rq  = "SELECT IPAddress FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
 		String wzName = "IPAddress"; // element a recuperer depuis la requette
 		try
 		{
@@ -83,7 +83,7 @@ public class NetConfig
    {
 	   String res = "";
 	   Variant[] rqRSLT = null;
-		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\' ";
+		String rq  = "SELECT DHCPEnabled FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\' ";
 		//System.out.println(rq);
 		String wzName = "DHCPEnabled"; // element a recuperer depuis la requette
 		try
@@ -103,7 +103,7 @@ public class NetConfig
    {
     String res = "";
 	   Variant[] rqRSLT = null;
-		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
+		String rq  = "SELECT IPSubnet FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
 		//System.out.println(rq);
 		String wzName = "IPSubnet"; // element a recuperer depuis la requette
 		try
@@ -130,7 +130,7 @@ public class NetConfig
 	DnsServerListe[1] = "";
 	
 	   Variant[] rqRSLT = null;
-		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
+		String rq  = "SELECT DNSServerSearchOrder FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
 		//System.out.println(rq);
 		String wzName = "DNSServerSearchOrder"; // element a recuperer depuis la requette
 		try
@@ -155,7 +155,7 @@ public class NetConfig
    {
    		String res = "";
 	    Variant[] rqRSLT = null;
-		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
+		String rq  = "SELECT DefaultIPGateway FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
 		String wzName = "DefaultIPGateway"; // element a recuperer depuis la requette
 		try
 		{
@@ -226,7 +226,7 @@ public class NetConfig
    {
     String res = "";
 	   Variant[] rqRSLT = null;
-		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
+		String rq  = "SELECT Caption FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
 		//System.out.println(rq);
 		String wzName = "Caption"; // element a recuperer depuis la requette
 		try
@@ -251,19 +251,21 @@ public class NetConfig
    {
     String res = "";
 	   Variant[] rqRSLT = null;
-		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
-	//	System.out.println(rq);
+		String rq  = "SELECT IPEnabled FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
+		//System.out.println(rq);
 		String wzName = "IPEnabled"; // element a recuperer depuis la requette
 		try
 		{
 			rqRSLT = wwb.exec_rq(rq, wzName);	
+			//System.out.println(rqRSLT.length);
 			Variant var =  rqRSLT[0];
-			System.out.println("Status : " + rqRSLT[0].getBoolean());
+		//	System.out.println("Status : " + rqRSLT[0].getBoolean());
 			return  new Byte(rqRSLT[0].getBoolean() == true ? "1" : "0");
 
 		}
 		catch(JacobException  je)
 		{
+			je.printStackTrace();
 			return new Byte("0");
 		}
 
@@ -271,7 +273,7 @@ public class NetConfig
    
    public Variant[] listNetworkInterfaces()
    {
-		String rq  = "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE  MACAddress != NULL";
+		String rq  = "SELECT Index FROM Win32_NetworkAdapterConfiguration WHERE  MACAddress != NULL";
 		String wzName = "Index"; // element a recuperer depuis la requette
 		Variant obj[] =  wwb.exec_rq(rq, wzName);
 		return obj;
