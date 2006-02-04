@@ -35,6 +35,7 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 	private ClientEjb ce = null;
 	private ComputerInformation currentCI = null;
 	
+	private boolean ready = false;
 	private int step = 0;
 	
 	public static List finalList = new ArrayList(); 
@@ -58,16 +59,7 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 //		System.out.println("-"+getParameter("background-color"));
 		
 		if (makeConnection() == true)
-		{
 			System.out.println("connection etablie ...");
-			try {
-//				System.out.println(currentHostname);
-//				System.out.println(ce);
-//				System.out.println("bean:"+ce.getBean());
-				
-				currentCI = ce.getBean().getCi(currentHostname);
-			} catch (RemoteException e) { e.printStackTrace(); }
-		}
 		if (this.ce.IsConnected() == false)
 			return ;
 		
@@ -86,6 +78,18 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 	
 	public void etapeBienvenue()
 	{ // TODO utilise les trheads ... ou sinon matter si on a cree la listOfFile avec l hostname
+		
+		new Thread()
+		{
+		  public void run()
+		  {
+			try {
+				currentCI = ce.getBean().getCi(currentHostname);
+				ready = true;
+			} catch (RemoteException e) { e.printStackTrace(); }
+		  }
+		}.start();
+		
 		ButtonImageCanvas bic = null;
 		try {
 			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"/img/fleche_suivant.gif")));
@@ -202,6 +206,8 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 
 	public void mouseReleased(MouseEvent arg0)
 	{
+		if (!ready)
+			return ;
 		switch (step)
 		{
 		case 0:

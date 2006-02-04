@@ -67,31 +67,10 @@ public class wanduxApp
 		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu ....
 		this.applicationServerIp = ServeurIp;
 		this.ci = new ComputerInformation();
+
 		WanduxWmiInfoManager();
-		
 		fillNetworkInCI();
-		//fillusersData();
-		
-		//WanduxWmiInfoManager();
-		//fillNetworkInCI();
-
 		fillHostname();
-		
-//		System.out.println(this.ci.gconf.getGlobalHostname());
-
-//		NetworkConfig ntconfig[] = ci.getInfoNetwork();
-//		int i = 0;
-//		while(i < ntconfig.length)
-//			System.out.println(ntconfig[i++]);
-		//wq = new WorkQueue(10);
-		
-//		WanduxWmiInfoManager();
-//		getIp();
-
-//		WanduxWmiInfoManager();
-//		fillNetworkInCI();
-
-
 		GetFileTreeModel();
 
 		if (makeConnection() == true)
@@ -101,47 +80,27 @@ public class wanduxApp
 
 		ProgramMatcher();
 
-		try {
-			// Send Machine CI to server
+		try { // Send Machine CI to server
 			this.ce.getBean().putCi(this.ci);
 		} catch (RemoteException e) { e.printStackTrace(); }
+		
 		System.out.println("information recupere et envoyer");
-
-//		// TODO AAAAAAAAAA!!!
-//		// creation de wandux agent comme serveur //
-//		WanduxAppSvrImpl cur = new WanduxAppSvrImpl();
-//
-//		// TODO AAAAAAAAAA!!!
-//		try {
-//			this.ce.getBean().putReference(this.ci.getHostname(), cur);
-//			// this.ce.getBean().getSelectedFiles(this.ci.getHostname());
-//		} catch (RemoteException e) { e.printStackTrace(); }
-
-//		waitSignal(cur);
-
-		
-		// TODO faire la boucle qui demande la list au serveur
-		
 		System.out.println("list de fichiers envoyer");
 		
 		while (true) // mecanisme a change dans le futur
 		{
 			try {
 				this.ci =  this.ce.getBean().getCi(this.ci.getHostname());
-			} catch (RemoteException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			} catch (RemoteException e1) { e1.printStackTrace(); }
 			
 			try {
-				if (this.ce.getBean().getFileList(this.ci.getHostname()) == null ) // this.ci.migrable == 0 && 
+				if (this.ci.migrable == 0 && this.ce.getBean().getFileList(this.ci.getHostname()) == null)
 				{
 					System.out.println("Waiting for migrating informations");
 					Thread.sleep(15000);
 				}
 				else
 				{
-					System.out.println("Sending files and selected settings to WANDUX Server at " + ServeurIp);
 					parseAndCopieFiles (this.ce.getBean().getFileList(this.ci.getHostname()));
 					break ;
 				}
@@ -149,10 +108,8 @@ public class wanduxApp
 			} catch (RemoteException e) { e.printStackTrace();
 			}
 		}
-				
-
-		this.closeConnection(); // TODO une fois les fichier selectionne, faire la copie ...
-		//TODO trouve quand ferme cette conncetion au bon moment
+		
+		this.closeConnection();
 	}
 
 	private void parseAndCopieFiles(List l)
@@ -166,12 +123,10 @@ public class wanduxApp
 		while (i.hasNext())
 		{
 			String s = (String) i.next();
-//			System.out.println(s);
 
 			String disk = "disk" + s.substring(0,1);
 			String path = s.substring(3,s.length());
 			
-//				DirCopy.CopyRec(listFiles[i] , "\\\\10.247.0.248\\wanduxStorage\\" + this.addrMac + "\\"+ disk + "\\" + path);
 //			System.out.println("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk + "\\" + path);
 			cp.CopyNode(s, "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk + "\\" + path, true);
 		}
