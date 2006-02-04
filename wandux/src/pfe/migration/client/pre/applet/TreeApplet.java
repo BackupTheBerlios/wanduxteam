@@ -3,10 +3,7 @@ package pfe.migration.client.pre.applet;
 import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Label;
-import java.awt.LayoutManager;
-import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
@@ -35,18 +32,18 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 	private ClientEjb ce = null;
 	private ComputerInformation currentCI = null;
 	
-	private boolean ready = false;
+//	private boolean ready = false;
 	private int step = 0;
 	
 	public static List finalList = new ArrayList(); 
 
 	public void init()
 	{
-		try {
-		    javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-		} catch(Exception e) {
-		    e.printStackTrace();
-		}
+//		try {
+//		    javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+//		} catch(Exception e) {
+//		    e.printStackTrace();
+//		}
 
 		this.currentHostname = getParameter("currentHostname");
 		this.applicationServerIp = getParameter("applicationServer");
@@ -85,19 +82,21 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 		  {
 			try {
 				currentCI = ce.getBean().getCi(currentHostname);
-				ready = true;
+				//ready = true;
+				removeAll();
+				etapeTreeBrowser();
 			} catch (RemoteException e) { e.printStackTrace(); }
 		  }
 		}.start();
 		
-		ButtonImageCanvas bic = null;
-		try {
-			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"/img/fleche_suivant.gif")));
-		} catch (MalformedURLException e) { e.printStackTrace(); }
-		bic.addMouseListener(this);
+//		ButtonImageCanvas bic = null;
+//		try {
+//			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"/img/fleche_suivant.gif")));
+//		} catch (MalformedURLException e) { e.printStackTrace(); }
+//		bic.addMouseListener(this);
 		
 		add(new Label("wait to get le file system of the machine", Label.CENTER), BorderLayout.CENTER);
-		add(bic, BorderLayout.EAST);
+		//add(bic, BorderLayout.EAST);
 		invalidate();
 		validate();
 	}
@@ -206,26 +205,28 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 
 	public void mouseReleased(MouseEvent arg0)
 	{
-		if (!ready)
-			return ;
+//		if (!ready)
+//			return ;
 		switch (step)
 		{
 		case 0:
 			removeAll();
-			etapeTreeBrowser();
-			step++;
-			break ;
-		case 1:
-			removeAll();
+			//etapeTreeBrowser();
 			etapeFin();
-			try {
-				this.ce.getBean().putFileList(this.currentHostname, this.finalList);
-			} catch (RemoteException e) { e.printStackTrace(); }
 			step++;
 			break ;
+//		case 1:
+//			removeAll();
+//			etapeFin();
+//			try {
+//				this.ce.getBean().putFileList(this.currentHostname, TreeApplet.finalList);
+//			} catch (RemoteException e) { e.printStackTrace(); }
+//			step++;
+//			break ;
 		default:
 			removeAll();
-			etapeBienvenue();
+			etapeTreeBrowser();
+			//etapeBienvenue();
 			step = 0;
 			break;
 		}
