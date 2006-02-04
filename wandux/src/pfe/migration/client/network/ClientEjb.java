@@ -1,7 +1,6 @@
 package pfe.migration.client.network;
 
 import java.rmi.RemoteException;
-//import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -9,20 +8,8 @@ import javax.ejb.RemoveException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
-import net.sf.hibernate.HibernateException;
-
-
-//import pfe.migration.client.pre.app.tools.DirCopy;
-//import pfe.migration.client.pre.app.tools.FileCopy;
-
-//import pfe.migration.client.pre.app.tools.DirCopy;
-//import pfe.migration.client.pre.app.tools.FileCopy;
-
-
 import pfe.migration.server.ejb.WanduxEjb;
 import pfe.migration.server.ejb.WanduxEjbHome;
-//import pfe.migration.server.ejb.bdd.LangInfo;
-//import pfe.migration.server.monitor.ClientMonitor;
 
 /**
  * @author dup
@@ -87,37 +74,9 @@ public class ClientEjb
 	
 	public String getApplicationServer()
 	{
-		return this.SERVER_EJB_NAME;
+		return ClientEjb.SERVER_EJB_NAME;
 	}
 	
-// -- client pre installation --
-
-//	 useless    //
-//	public void Transfert (ComputerInformation ci) 
-//	{
-//		System.out.println("transfer commence");
-//		try {
-//			bean.putComputerInformation(ci);
-//		} catch (RemoteException e) {
-//			e.printStackTrace();
-//		}
-//		System.out.println("transfer termine");
-//	}
-
-//	 useless    //
-//	public ComputerInformation getComputerInformation(String macaddr) throws RemoteException, HibernateException
-//	{
-//		try {
-//			ComputerInformation cinfo = bean.getComputerInformation(macaddr);
-//
-//			return cinfo;
-//		} catch (RemoteException e) {
-//			e.printStackTrace();
-//		}
-//		return null;
-//	}
-
-
 	public WanduxEjb getBean()
 	{
 		return this.bean;

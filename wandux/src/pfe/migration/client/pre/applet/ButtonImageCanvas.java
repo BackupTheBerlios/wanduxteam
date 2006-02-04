@@ -8,15 +8,8 @@ package pfe.migration.client.pre.applet;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import javax.accessibility.Accessible;
-import javax.management.j2ee.statistics.JavaMailStats;
-
-import pfe.migration.client.pre.app.apparence.ImageCanvas;
 
 /**
  * @author Interneto

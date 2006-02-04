@@ -5,7 +5,6 @@ import java.io.File;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
-import javax.swing.ListModel;
 import javax.swing.WindowConstants;
 
 import pfe.migration.client.network.ClientEjb;
@@ -66,7 +65,7 @@ public class ClientPreinstall extends javax.swing.JPanel {
 		try {
 			this.setPreferredSize(new java.awt.Dimension(298, 174));
 			{
-				ListModel jListModel = new DefaultComboBoxModel(new String[] {
+				new DefaultComboBoxModel(new String[] {
 						"voici les noms", "" });
 				list = new List();
 				this.add(list);

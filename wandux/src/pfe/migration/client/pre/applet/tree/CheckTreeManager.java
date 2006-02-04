@@ -1,6 +1,5 @@
 package pfe.migration.client.pre.applet.tree;
 
-import java.awt.event.ComponentAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
