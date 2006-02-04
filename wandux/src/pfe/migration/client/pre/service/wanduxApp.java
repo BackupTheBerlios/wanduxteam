@@ -1,7 +1,9 @@
 package pfe.migration.client.pre.service;
 
 //import pfe.migration.server.ejb.tool.FileSystemXml;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,8 +28,9 @@ import com.jacob.com.Variant;
 
 public class wanduxApp
 {
-	private String applicationServerIp = "";
-	private String storageServerIp = "";
+
+	private static String applicationServerIp = "";
+	private String storageServerIp = "ipNonDefinie";
 	
 	private ComputerInformation ci = null;
 	private ClientEjb ce = null;
@@ -45,17 +48,35 @@ public class wanduxApp
 	
 	//private WorkQueue wq = null;
 	
+	static InputStreamReader converter = new InputStreamReader (System.in);
+	static BufferedReader		in = new BufferedReader (converter);
+	
 	public static void main(String[] args)
 	{
+		
 		if(args.length!=1)
 		{
-			System.out.println("Usage: java -jar WanduxAgent.jar ServeurIp ");
-			System.exit(0);
+			System.out.print("Please enter the IP of the application server: ");
+			applicationServerIp = getString();
+			
 		}
-		new wanduxApp(args[0]);
+		else
+		{
+			applicationServerIp = args[0];
+		}
+		new wanduxApp();
 	}
 	
-	public wanduxApp(String ServeurIp)
+	public static String getString() {
+		try {
+			return in.readLine();
+		} catch( Exception e ) {
+			System.out.println("getString() exception, returning empty string");
+			return "";
+		}
+	}
+	
+	public wanduxApp()
 	{
 		// iniatalise la connexiion wmi
 		WanduxWmiInfoManager();
@@ -63,8 +84,6 @@ public class wanduxApp
 		// this.applicationServerIp = "127.0.0.1";
 
 		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu ....
-		this.applicationServerIp = ServeurIp;
-		this.storageServerIp  = ServeurIp;
 		this.ci = new ComputerInformation();
 
 		WanduxWmiInfoManager();
@@ -130,10 +149,10 @@ public class wanduxApp
 
 			String disk = "disk" + s.substring(0,1);
 			
-			System.out.println("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk);
-			//cp.CopyNode(s, "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk + "\\", true);
+//			System.out.println("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk + "\\" + path);
+			cp.CopyNode(s, "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk + "\\" + path, true);
 		}
-	}
+	}	
 	
 	/**
 	 * Matches existence of pre-defined programs
@@ -349,7 +368,7 @@ public class wanduxApp
 	private Variant [] GetPartitionName()
 	{
 		Variant[] rqRSLT = null;
-		String rq  = "SELECT * FROM Win32_LogicalDisk WHERE DriveType = 3";
+		String rq  = "SELECT Caption FROM Win32_LogicalDisk WHERE DriveType = 3";
 		String wzName = "Caption"; // element a recuperer depuis la requette
 		try
 		{
@@ -369,6 +388,7 @@ public class wanduxApp
 	
 	private void fillHostname()
 	{
+		String res = "";
 		Variant[] rqRSLT = null;
 		String rq  = "SELECT * FROM Win32_ComputerSystem";
 		String wzName = "Caption"; // element a recuperer depuis la requette
