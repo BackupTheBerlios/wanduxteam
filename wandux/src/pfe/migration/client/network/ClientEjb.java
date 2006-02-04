@@ -55,7 +55,8 @@ public class ClientEjb
 	      System.out.println("connection effecue");
 	  	}
 	    catch (Exception e)
-		{ // e.printStackTrace();
+		{ 
+	    	e.printStackTrace();
 	    	this.isConnected = false;
 	    	System.out.println("connection rate...");
 	    }
