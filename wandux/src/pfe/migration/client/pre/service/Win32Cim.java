@@ -96,4 +96,9 @@ public class Win32Cim {
 			System.out.println("Exception: " + e);
 		}
 	}
+	public Variant[] getResult()
+	{
+		return result;
+	}
+	
 }
