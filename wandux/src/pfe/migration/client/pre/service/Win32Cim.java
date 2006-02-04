@@ -9,25 +9,24 @@ import com.jacob.com.Variant;
 
 public class Win32Cim {
 
+	public static String query;
+
 	public static String TargetIp;
+	
+	public Variant[] result = null;
 
 	public static Dispatch querysubclasse;
 
 	public static ActiveXComponent wmi;
 
-	public Variant[] result = null;
-
 	public Win32Cim(String query) {
 		try {
-
-			// query = "Select * from Win32_NetworkAdapterConfiguration WHERE
-			// IPEnabled=TRUE";
 			TargetIp = "127.0.0.1";
 
 			try {
-				String username = ""; // "Administrateur"; pas de login, mdp
-				// en local
-				String password = "";
+				String username = ""; // pas de login en local
+				
+				String password = ""; // pas de mdp en local
 
 				// init activex wmi
 				wmi = new ActiveXComponent("WbemScripting.SWbemLocator");
@@ -60,8 +59,7 @@ public class Win32Cim {
 			for (int i = 0; i < 4; i++) {
 				tablename = stoken.nextToken(" ");
 			}
-
-			String Tabproperties[] = null;
+			String[] Tabproperties = null;
 			// recuperation des propriétés
 			stoken = new StringTokenizer(query);
 			if (!(stoken.nextToken("*").equals(query)) && (tablename != null)) {
@@ -75,33 +73,27 @@ public class Win32Cim {
 				stoken.nextToken(" ");
 				String properties = stoken.nextToken(" ");
 				stoken = new StringTokenizer(properties);
-
-				// rcuperation des prop dans la requete
+				// récuperation des prop dans la requete
 				while (stoken.hasMoreTokens()) {
 					arrayprop.add(stoken.nextToken(","));
 				}
 				Tabproperties = new String[arrayprop.size()];
 				for (int i = 0; i < arrayprop.size(); i++) {
-					Tabproperties[i] = (String) arrayprop.get(i);
+					Tabproperties[i] = (String)arrayprop.get(i);
 				}
 			}
 
 			Variant[] queryresult = null;
 			// recherche des donnees
-
 			if ((Tabproperties != null) && (query != null)) {
-
 				CimValues Val = new CimValues(Tabproperties, querysubclasse,
 						query);
-
 				queryresult = Val.GetValues();
 			}
-
 			this.result = queryresult;
 
 		} catch (Exception e) {
 			System.out.println("Exception: " + e);
 		}
 	}
-
 }

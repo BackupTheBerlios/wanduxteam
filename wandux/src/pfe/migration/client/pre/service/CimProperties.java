@@ -10,20 +10,21 @@ public class CimProperties {
 
 	public static Dispatch querysubclasse;
 
-	public String tabproperties[];
-
+	public String[] tabproperties;
+	
 	public static ArrayList resultats = new ArrayList();
-
+	
 	public CimProperties(Dispatch activx) {
 		// initialisation
 		querysubclasse = activx;
 	}
-
+	
 	public String[] GetProperties(String classepath) {
+
 		try {
 			// recherche des propriétés
-			Variant varclasse = Dispatch
-					.call(querysubclasse, "Get", classepath);
+			Variant varclasse = Dispatch.call(querysubclasse, "Get",
+					classepath);
 			Dispatch classe = varclasse.toDispatch();
 			Variant propertieslist = Dispatch.call(classe, "properties_");
 
@@ -39,7 +40,7 @@ public class CimProperties {
 			}
 			tabproperties = new String[resultats.size()];
 			for (int i = 0; i < resultats.size(); i++) {
-				tabproperties[i] = (String) resultats.get(i);
+				tabproperties[i] = (String)resultats.get(i);
 			}
 			return tabproperties;
 

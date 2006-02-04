@@ -8,7 +8,7 @@ import com.jacob.com.Variant;
 
 public class CimValues {
 
-	public static String TabProperties[];
+	public static String[] TabProperties;
 
 	public static Dispatch ObjConnect;
 
@@ -20,7 +20,7 @@ public class CimValues {
 
 	public static String elementname;
 
-	public CimValues(String Tabprop[], Dispatch activx, String query) {
+	public CimValues(String[] Tabprop, Dispatch activx, String query) {
 
 		// initialisation
 
@@ -70,7 +70,7 @@ public class CimValues {
 				}
 			}
 		}
-		Variant[] res = new Variant[j - 1];
+		Variant[] res = new Variant[j];
 		for (int i = 0, k = 0; i < res.length; i++, k++)
 			res[k] = resultat[i];
 		return res;
