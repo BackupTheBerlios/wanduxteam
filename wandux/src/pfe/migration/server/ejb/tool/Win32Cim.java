@@ -15,7 +15,7 @@ public class Win32Cim {
 
 	public static ActiveXComponent wmi;
 
-	public String result = null;
+	public Variant[] result = null;
 
 	public Win32Cim(String query) {
 		try {
@@ -86,7 +86,7 @@ public class Win32Cim {
 				}
 			}
 
-			String[] queryresult = null;
+			Variant[] queryresult = null;
 			// recherche des donnees
 
 			if ((Tabproperties != null) && (query != null)) {
@@ -97,7 +97,7 @@ public class Win32Cim {
 				queryresult = Val.GetValues();
 			}
 
-			this.result = queryresult[0];
+			this.result = queryresult;
 
 		} catch (Exception e) {
 			System.out.println("Exception: " + e);
