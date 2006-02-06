@@ -384,7 +384,6 @@ public class wanduxApp
 	
 	private void fillHostname()
 	{
-		String res = "";
 		Variant[] rqRSLT = null;
 		String rq  = "SELECT * FROM Win32_ComputerSystem";
 		String wzName = "Caption"; // element a recuperer depuis la requette
