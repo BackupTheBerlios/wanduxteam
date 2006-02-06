@@ -1,9 +1,7 @@
 package pfe.migration.client.pre.service;
 
 //import pfe.migration.server.ejb.tool.FileSystemXml;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,9 +26,8 @@ import com.jacob.com.Variant;
 
 public class wanduxApp
 {
-
-	private static String applicationServerIp = "";
-	private String storageServerIp = "ipNonDefinie";
+	private String applicationServerIp = "";
+	private String storageServerIp = "";
 	
 	private ComputerInformation ci = null;
 	private ClientEjb ce = null;
@@ -53,7 +50,6 @@ public class wanduxApp
 	
 	public static void main(String[] args)
 	{
-		
 		if(args.length!=1)
 		{
 			System.out.print("Please enter the IP of the application server: ");
