@@ -31,7 +31,6 @@ public class TristateCheckBox extends JCheckBox {
 
     public TristateCheckBox(String text, Icon icon, Boolean initial){
         super(text, icon);
-        System.out.println("TristateCheckBox(String text, Icon icon, Boolean initial)");
    	
         // Add a listener for when the mouse is pressed
         super.addMouseListener(new MouseAdapter(){
