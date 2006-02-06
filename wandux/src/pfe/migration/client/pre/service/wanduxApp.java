@@ -1,7 +1,9 @@
 package pfe.migration.client.pre.service;
 
 //import pfe.migration.server.ejb.tool.FileSystemXml;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -53,14 +55,11 @@ public class wanduxApp
 		if(args.length!=1)
 		{
 			System.out.print("Please enter the IP of the application server: ");
-			applicationServerIp = getString();
+			new wanduxApp(getString());
 			
 		}
 		else
-		{
-			applicationServerIp = args[0];
-		}
-		new wanduxApp();
+			new wanduxApp(args[0]);
 	}
 	
 	public static String getString() {
@@ -72,8 +71,9 @@ public class wanduxApp
 		}
 	}
 	
-	public wanduxApp()
+	public wanduxApp(String arg)
 	{
+		applicationServerIp = arg;
 		// iniatalise la connexiion wmi
 		WanduxWmiInfoManager();
 		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu ....
@@ -145,8 +145,8 @@ public class wanduxApp
 
 			String disk = "disk" + s.substring(0,1);
 			
-//			System.out.println("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk + "\\" + path);
-			cp.CopyNode(s, "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk + "\\" + path, true);
+//			System.out.println("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk);
+			cp.CopyNode(s, "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk, true);
 		}
 	}	
 	
