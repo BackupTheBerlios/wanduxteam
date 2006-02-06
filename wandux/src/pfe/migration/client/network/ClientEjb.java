@@ -42,9 +42,9 @@ public class ClientEjb
 	    
 	    WanduxEjbHome home = null;
 	    
-		System.out.println("connection en cours de connection");
+		System.out.println("connection en cours ...");
 	    try {
-	    	ppt = new Properties();
+	      ppt = new Properties();
 	      ppt.put(Context.INITIAL_CONTEXT_FACTORY, "org.jnp.interfaces.NamingContextFactory");
 	      ppt.put(Context.PROVIDER_URL, SERVER_EJB_NAME + ":1099");
 	      ctx = new InitialContext(ppt);
@@ -55,8 +55,7 @@ public class ClientEjb
 	      System.out.println("connection effecue");
 	  	}
 	    catch (Exception e)
-		{ 
-	    	e.printStackTrace();
+		{ // e.printStackTrace();
 	    	this.isConnected = false;
 	    	System.out.println("connection rate...");
 	    }
@@ -92,33 +91,4 @@ public class ClientEjb
 		}
 		return null;
 	}
-
-	
-// 	methode utilise pour lapplication de test client main
-//	public String[] giveMsg () 
-//	{
-//		String [] st = new String[2];
-//		try {
-//			st[0] = bean.sayMe();
-//		} catch (RemoteException e) { e.printStackTrace(); }
-//		return st;
-//	}
-	
-//	public void putListName(String [] str)
-//	{
-//		try {
-//			bean.putListName(str);
-//		} catch (RemoteException e) { e.printStackTrace(); }
-//	}
-
-// -- client monitoring --
-//	public ClientMonitor makeTheClientMonitoring ()
-//	{
-//		ClientMonitor cm = null;
-//		try {
-//			cm = new ClientMonitor(bean.getCiList());
-//		} catch (RemoteException e) { e.printStackTrace(); }
-//		return cm;
-//	}
-	
 }
