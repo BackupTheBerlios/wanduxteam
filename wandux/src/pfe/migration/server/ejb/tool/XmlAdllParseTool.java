@@ -65,8 +65,9 @@ public class XmlAdllParseTool {
 		 ci.getHostname(), "Nom de la machine");
 		 
 
-		 pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
-		 ci.getDomainname(), "Domaine de la machine");
+		 pst.option_change_select_txt(XmlAdllParse.racine, "", "yes", ci.gconf
+				.getGlobalDomainName(), "Domaine de la machine");
+
 
 		// AUTOLOGIN
 		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
