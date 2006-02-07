@@ -25,8 +25,6 @@ public class WanduxWmiBridge {
 	public  Variant[] exec_rq(String rq, String wszName)
 	{
 		Win32Cim w32c = new Win32Cim(rq);
-		
-		
 		return w32c.getResult();
 	}
 	//
