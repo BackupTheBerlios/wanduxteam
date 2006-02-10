@@ -84,23 +84,8 @@ public class WanduxPost
 	public void getDataFromStorageServer()
 	{
 		FSNodeCopy fsnc = new FSNodeCopy();
-		
-//		System.out.println("dup");
-//		File io = new File("C:\\Documents and Settings");
-//		System.out.println("File: " + io);
-//		System.out.println("size: " + io.list().length);
-//		
-//		Pattern p = Pattern.compile(".*[dD][uU][pP].*");
-//		
-//		for (int i = 0; i < io.list().length; i++)
-//		{
-//			Matcher m = p.matcher(io.list()[i]);
-//			System.out.println(">> " + io.list()[i] + " - " + m.find());
-//		}
-//		System.out.println("dup");
-
 		File fromServer = new File("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname());
-		Pattern p = Pattern.compile("disk.[^aA]");
+		Pattern p = Pattern.compile(".*disk.[^aA].*");
 
 		for (int i = 0; i< fromServer.length(); i++)
 		{
