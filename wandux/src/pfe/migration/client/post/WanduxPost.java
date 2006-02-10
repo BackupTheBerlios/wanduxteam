@@ -65,7 +65,9 @@ public class WanduxPost
 			e.printStackTrace();
 		}
 		
+		init();
 		usersGroupsCreation();
+		confWebPrograms();
 		getDataFromStorageServer();
 		
 		ce.EjbClose();
@@ -76,11 +78,21 @@ public class WanduxPost
 		this.currentIP = System.getenv("hostname");
 	}
 	
+	public void init()
+	{
+		
+	}
+	
 	public void usersGroupsCreation()
 	{
 		// reception des groups et utilisateur
 	}
 
+	public void confWebPrograms()
+	{
+		
+	}
+	
 	public void getDataFromStorageServer()
 	{
 		FSNodeCopy fsnc = new FSNodeCopy();
