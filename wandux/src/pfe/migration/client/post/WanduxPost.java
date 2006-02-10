@@ -35,7 +35,10 @@ public class WanduxPost
 	public static void main(String[] args)
 	{
 		if (args.length != 1)
+		{
+			System.out.println("enter the Wandux Server IP : ");
 			new WanduxPost(getString());
+		}
 		else
 			new WanduxPost(args[0]);
 	}
@@ -75,7 +78,7 @@ public class WanduxPost
 	
 	public void getCurrentIp()
 	{
-		this.currentIP = System.getenv("hostname");
+		this.currentIP = System.getProperty("HOSTNAME");
 	}
 	
 	public void init()
@@ -96,14 +99,20 @@ public class WanduxPost
 	public void getDataFromStorageServer()
 	{
 		FSNodeCopy fsnc = new FSNodeCopy();
-		File fromServer = new File("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname());
+		//File fromServer = new File("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname());
+		File fromServer = new File("/home/samba/wanduxStorage/" + this.ci.getHostname());
 		Pattern p = Pattern.compile(".*disk.[^aA].*");
 
+		File f = new File("/wandux/disks/");
+		if (f.exists() ==  false)
+			f.mkdir();
 		for (int i = 0; i< fromServer.length(); i++)
 		{
 			Matcher m = p.matcher(fromServer.list()[i]);
 			if (m.find())
-				fsnc.GenericCopyNode(fromServer.toString() + fromServer.list()[i], "/mnt/");
+			{
+				fsnc.GenericCopyNode(fromServer.toString() + fromServer.list()[i], "/wandux/disks/");
+			}
 		}
 	}
 }
