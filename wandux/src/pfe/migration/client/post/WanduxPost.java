@@ -8,6 +8,7 @@ package pfe.migration.client.post;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.rmi.RemoteException;
 import java.util.regex.Matcher;
@@ -26,7 +27,7 @@ import pfe.migration.client.post.system.FSNodeCopy;
 public class WanduxPost
 {
 	private ComputerInformation ci = null;
-	private String currentIP = "";
+	private String currentHostname = "";
 	private String storageServerIp = "";
 	
 	static InputStreamReader converter = new InputStreamReader(System.in);
@@ -62,8 +63,7 @@ public class WanduxPost
 		ce.EjbConnect();
 
 		try {
-			System.out.println(ce.getBean().sayMe());
-			this.ci = ce.getBean().getCi(this.currentIP);
+			this.ci = ce.getBean().getCi(this.currentHostname);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -78,7 +78,14 @@ public class WanduxPost
 	
 	public void getCurrentIp()
 	{
-		this.currentIP = System.getProperty("HOSTNAME");
+		try {
+			Process p = Runtime.getRuntime().exec("hostname");
+			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			this.currentHostname = input.readLine();
+			input.close();
+		} catch (Exception err) {
+			err.printStackTrace();
+		}
 	}
 	
 	public void init()
@@ -98,21 +105,19 @@ public class WanduxPost
 	
 	public void getDataFromStorageServer()
 	{
-		FSNodeCopy fsnc = new FSNodeCopy();
-		//File fromServer = new File("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname());
-		File fromServer = new File("/home/samba/wanduxStorage/" + this.ci.getHostname());
-		Pattern p = Pattern.compile(".*disk.[^aA].*");
-
-		File f = new File("/wandux/disks/");
+		File fromServer = new File("/home/samba/wanduxStorage/" + this.currentHostname);
+		fromServer.mkdir();
+		File f = new File("/wandux/");
 		if (f.exists() ==  false)
 			f.mkdir();
-		for (int i = 0; i< fromServer.length(); i++)
-		{
-			Matcher m = p.matcher(fromServer.list()[i]);
-			if (m.find())
-			{
-				fsnc.GenericCopyNode(fromServer.toString() + fromServer.list()[i], "/wandux/disks/");
-			}
+
+		try { // TODO a changer par l url samba !!
+			Process p = Runtime.getRuntime().exec("cp -R /home/samba/wanduxStorage/" + this.currentHostname + " /wandux/");
+			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			this.currentHostname = input.readLine();
+			input.close();
+		} catch (Exception err) {
+			err.printStackTrace();
 		}
 	}
 }
