@@ -76,7 +76,7 @@ public class wanduxApp {
 	}
 
 	public wanduxApp(String arg) {
-		applicationServerIp = arg;
+		storageServerIp = applicationServerIp = arg;
 		// iniatalise la connexiion wmi
 		WanduxWmiInfoManager();
 		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu
@@ -152,6 +152,8 @@ public class wanduxApp {
 
 			String disk = "disk" + s.substring(0, 1);
 
+			File f = new File(this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\");
+			System.out.println("dup : " + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\");
 			// System.out.println("\\\\" + this.storageServerIp +
 			// "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk);
 			cp.CopyNode(s, "\\\\" + this.storageServerIp + "\\wanduxStorage\\"
@@ -203,29 +205,29 @@ public class wanduxApp {
 
 		File roots[] = new File[disk.length];
 
+		int j = 0;
 		for (int i = 0; i < disk.length; i++) {
 			if (disk[i] == null)
 				break;
-			roots[i] = new File(disk[i].getString());
+			roots[j++] = new File(disk[i].getString());
 		}
 
 		// TODO liste tout les disque lorsque cette partie sera fini de teste
-		// for (int i = 0; i < roots.length; i++)
-		// {
-		// System.out.println("\n ==================== scan data disk: " +
-		// roots[i].toString() + " ====================\n");
-		// DefaultMutableTreeNode node = getSubDirs(roots[i]); // new
-		// DefaultMutableTreeNode(roots[i].getAbsoluteFile().toString());
-		// root.add(node);
-		// }
+//		 for (int i = 0; i < roots.length; i++)
+//		 {
+//			 System.out.println("\n ==================== scan data disk: " +
+//			 roots[i].toString() + " ====================\n");
+//			 DefaultMutableTreeNode node = getSubDirs(roots[i]); // new
+////			 DefaultMutableTreeNode(roots[i].getAbsoluteFile().toString());
+//			 root.add(node);
+//		 }
 
 		// //////// tmppour lestests //
 		System.out.println("\n ==================== scan data disk: "
 				+ roots[0].toString() + " ====================\n");
 		// DefaultMutableTreeNode node = getSubDirs(roots[0]); // new
 		// DefaultMutableTreeNode(roots[i].getAbsoluteFile().toString());
-		DefaultMutableTreeNode node = getSubDirs(new File(
-				"C:/Documents and Settings/All Users"));
+		DefaultMutableTreeNode node = getSubDirs(new File("C:/Documents and Settings/All Users"));
 		root.add(node);
 		// //////// ---------------- //
 
