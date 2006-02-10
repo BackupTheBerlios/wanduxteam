@@ -23,7 +23,6 @@ import pfe.migration.server.ejb.bdd.NetworkConfig;
 import pfe.migration.server.ejb.bdd.UsersData;
 import pfe.migration.server.ejb.tool.XmlRetrieve;
 
-import com.jacob.com.JacobException;
 import com.jacob.com.Variant;
 
 public class wanduxApp {
@@ -35,21 +34,13 @@ public class wanduxApp {
 
 	private ClientEjb ce = null;
 
-	// wandux wmi bridge, permet de gerer l'execution des requettes wmi
-	WanduxWmiBridge wwb = null;
-
-	private static String rootCIMV2 = "root\\CIMV2";
-
-	String rootCIMV2ApplicationsMicrosoftIE = "root\\CIMV2\\Applications\\MicrosoftIE";
+	private Win32Cim wcim = new Win32Cim();
 
 	// prevu pour contenir la requette wmi
 	String rq = null;
 
-	// prevu pour contenir l'element a recuperer dans la quette wmi
-	String wzName = null;
-
 	// resultat de la requette renvoye par la dll
-	String[] rqRSLT = null;
+	Variant[] rqRSLT = null;
 
 	// private WorkQueue wq = null;
 
@@ -87,9 +78,9 @@ public class wanduxApp {
 		// ....
 		this.ci = new ComputerInformation();
 
-		WanduxWmiInfoManager();
 		fillNetworkInCI();
 		fillHostname();
+		fillusersData();
 		GetFileTreeModel();
 
 		if (makeConnection() == true)
@@ -149,7 +140,6 @@ public class wanduxApp {
 
 		while (i.hasNext()) {
 			String s = (String) i.next();
-
 			String disk = "disk" + s.substring(0, 1);
 
 			File f = new File("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\");
@@ -194,10 +184,6 @@ public class wanduxApp {
 		ci.windowsProgram = proglist;
 	}
 
-	public void WanduxWmiInfoManager() {
-		wwb = new WanduxWmiBridge(rootCIMV2);
-	}
-
 	/**
 	 * @author Dupix
 	 * @see GetFileTreeModel get the file system model from the machine
@@ -220,14 +206,14 @@ public class wanduxApp {
 		}
 
 		// TODO liste tout les disque lorsque cette partie sera fini de teste
-//		 for (int i = 0; i < roots.length; i++)
-//		 {
-//			 System.out.println("\n ==================== scan data disk: " +
-//			 roots[i].toString() + " ====================\n");
-//			 DefaultMutableTreeNode node = getSubDirs(roots[i]); // new
-////			 DefaultMutableTreeNode(roots[i].getAbsoluteFile().toString());
-//			 root.add(node);
-//		 }
+		// for (int i = 0; i < roots.length; i++)
+		// {
+		// System.out.println("\n ==================== scan data disk: " +
+		// roots[i].toString() + " ====================\n");
+		// DefaultMutableTreeNode node = getSubDirs(roots[i]); // new
+		// DefaultMutableTreeNode(roots[i].getAbsoluteFile().toString());
+		// root.add(node);
+		// }
 
 		// //////// tmppour lestests //
 		System.out.println("\n ==================== scan data disk: "
@@ -266,17 +252,22 @@ public class wanduxApp {
 		return racine;
 	}
 
-	public void DeskTop() throws IOException {
-		Win32Cim wcim = new Win32Cim("SELECT Wallpaper FROM Win32_Desktop");
-		String DeskPath = wcim.result[3].getString();
-
-		new FileCopy(DeskPath, "\\\\" + this.storageServerIp
-				+ "\\wanduxStorage\\" + this.ci.getHostname()
-				+ "\\userconfig\\desktop\\Wallpaper.bmp");
+	public void DeskTop() {
+		Win32Cim wcim = new Win32Cim();
+		wcim.Request("SELECT Wallpaper FROM Win32_Desktop");
+		String DeskPath = wcim.GetResult()[3].getString();
+		try {
+			new FileCopy(DeskPath, "\\\\" + this.storageServerIp
+					+ "\\wanduxStorage\\" + this.ci.getHostname()
+					+ "\\userconfig\\desktop\\Wallpaper.bmp");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void fillNetworkInCI() {
-		NetConfig netconfig = new NetConfig(wwb);
+
+		NetConfig netconfig = new NetConfig(wcim);
 
 		Variant[] listNetworkInterfacesCaption = netconfig
 				.listNetworkInterfaces();
@@ -284,13 +275,10 @@ public class wanduxApp {
 		int allocationSize = 0;
 		while (i < listNetworkInterfacesCaption.length
 				&& listNetworkInterfacesCaption[i] != null) {
-			System.out.println("listNetworkInterfacesCaption:"
+			System.out.println("listNetworkInterfacesCaption : "
 					+ listNetworkInterfacesCaption[i]);
-			if (netconfig
-					.GetStatus(listNetworkInterfacesCaption[i].getString())
-					.equals(new Byte("1")))
+			if (netconfig.GetStatus()[i].getString().equals(new Byte("1")))
 				allocationSize++;
-			// / listNetworkInterfacesCaption[i];
 			i++;
 		}
 		NetworkConfig[] nc = new NetworkConfig[allocationSize];
@@ -299,9 +287,7 @@ public class wanduxApp {
 		try {
 			while (i < listNetworkInterfacesCaption.length
 					&& listNetworkInterfacesCaption[i] != null) {
-				if (netconfig.GetStatus(
-						listNetworkInterfacesCaption[i].getString()).equals(
-						new Byte("0"))) {
+				if (netconfig.GetStatus()[i].getString().equals(new Byte("0"))) {
 					i++;
 					continue;
 				}
@@ -311,40 +297,29 @@ public class wanduxApp {
 								+ " ====================\n");
 				NetworkConfig ncs = new NetworkConfig();
 				// Caption
-				ncs
-						.setNetworkInterface(netconfig
-								.GetCaption(listNetworkInterfacesCaption[i]
-										.getString()));
+				ncs.setNetworkInterface(netconfig.GetCaption()[i].getString());
 				// status
-				ncs
-						.setNetworkStatus(netconfig
-								.GetStatus(listNetworkInterfacesCaption[i]
-										.getString()));
+				ncs.setNetworkStatus(new Byte(netconfig.GetStatus()[i]
+						.getByte()));
 				// Mac
-				ncs.setNetworkMacAdress(netconfig
-						.GetMac(listNetworkInterfacesCaption[i].getString()));
+				ncs.setNetworkMacAdress(netconfig.GetMac()[i].getString());
 				// ip
-				ncs.setNetworkIpAddress(netconfig
-						.GetIpadress(listNetworkInterfacesCaption[i]
-								.getString()));
+				ncs.setNetworkIpAddress(netconfig.GetIpadress()[i].getString());
 				// Subnetmask
-				ncs
-						.setNetworkSubnetmask(netconfig
-								.GetNetmask(listNetworkInterfacesCaption[i]
-										.getString()));
+				ncs.setNetworkSubnetmask(netconfig.GetNetmask()[i].getString());
 				// Gate
-				ncs.setNetworkGateway(netconfig
-						.GetGate(listNetworkInterfacesCaption[i].getString()));
+				ncs.setNetworkGateway(netconfig.GetGate()[i].getString());
+
 				// dns
-				String[] dnsServerListe = netconfig
-						.GetDnsServer(listNetworkInterfacesCaption[i]
-								.getString());
-				ncs.setNetworkDnsServer(dnsServerListe[0]);
-				ncs.setNetworkDnsServer2(dnsServerListe[1]);
+				Variant[] dnsServerListe = netconfig.GetDnsServer();
+
+				ncs.setNetworkDnsServer(dnsServerListe[0].getString());
+				ncs.setNetworkDnsServer2(dnsServerListe[1].getString());
+
 				// DHCPEnable
-				ncs.setNetworkDhcpEnabled(netconfig
-						.GetDHCPEnable(listNetworkInterfacesCaption[i]
-								.getString()));
+				ncs.setNetworkDhcpEnabled(new Byte(netconfig.GetDHCPEnable()[i]
+						.getByte()));
+
 				nc[allocationSize] = ncs;
 				ncs = null;
 				i++;
@@ -362,7 +337,8 @@ public class wanduxApp {
 	 * recuperation des informations convernant les utilisateurs
 	 */
 	private void fillusersData() {
-		UserConfig usersConfig = new UserConfig(wwb);
+
+		UserConfig usersConfig = new UserConfig(wcim);
 
 		Variant[] listNetworkInterfacesCaption = usersConfig.listUsers();
 		int i = 0;
@@ -383,9 +359,6 @@ public class wanduxApp {
 			while (i < listNetworkInterfacesCaption.length
 					&& listNetworkInterfacesCaption[i] != null) {
 				UsersData ud = new UsersData();
-				// System.out.println("\n ==================== index de
-				// l'interface: " + listNetworkInterfacesCaption[i].getString()
-				// + " ====================\n");
 				String user = listNetworkInterfacesCaption[i].getString();
 				ud.setUserLogin(user);
 				// UserType = groupe
@@ -395,7 +368,6 @@ public class wanduxApp {
 				// ud.setUserProxyOverride(usersConfig.getUserProxyOverride(user));
 				// ud.setUserProxyServ(usersConfig.getUserProxyServ(user));
 				// ud.setUserTimezone(usersConfig.getUserTimezone(user));
-
 				// ud.setUserKbLayout(usersConfig.getUserKbLayout(user));
 				udTab[i] = ud;
 				ud = null;
@@ -410,46 +382,39 @@ public class wanduxApp {
 
 	private Variant[] GetPartitionName() {
 		Variant[] rqRSLT = null;
-		String rq = "SELECT Caption FROM Win32_LogicalDisk WHERE DriveType = 3";
-		String wzName = "Caption"; // element a recuperer depuis la requette
 		try {
-			rqRSLT = wwb.exec_rq(rq, wzName);
-			if (rqRSLT[0].equals("1")) // erreur detected
-			{
-				System.err.println(rqRSLT[1]);
-				return null;
-			}
-		} catch (JacobException je) {
-			je.printStackTrace();
+			Win32Cim wcim = new Win32Cim();
+			wcim.Request("SELECT Caption FROM Win32_LogicalDisk");
+			rqRSLT = wcim.GetResult();
+		} catch (Exception e) {
+			System.err.println(e.getStackTrace());
 		}
 		return rqRSLT;
 	}
 
 	private void fillHostname() {
 		Variant[] rqRSLT = null;
-		String rq = "SELECT Caption FROM Win32_ComputerSystem";
-		String wzName = "Caption"; // element a recuperer depuis la requette
-
 		try {
-			rqRSLT = wwb.exec_rq(rq, wzName);
+			Win32Cim wcim = new Win32Cim();
+			wcim.Request("SELECT Caption FROM Win32_ComputerSystem");
+			rqRSLT = wcim.GetResult();
 			ci.gconf.setGlobalHostname(rqRSLT[0].getString());
 		} catch (Exception e) {
 			System.err.println(e.getStackTrace());
 		}
-		Variant var = rqRSLT[0];
-		ci.gconf.setGlobalHostname(var.getString());
 	}
 
 	/**
-	 * TODO on utilise le fichier wanduxServerIp.xml contenu dans
+	 * on utilise le fichier wanduxServerIp.xml contenu dans
 	 * utils\wanduxServerIp\ pour recuperer l'ip du server sur lequel le client
 	 * doit se connecter.
 	 */
-	private void getIp() {
-		XmlRetrieve ri = new XmlRetrieve(
-				"utils\\wanduxServerIp\\wanduxServerIp.xml");
+
+	private void getIp(String ip) {
+		// XmlRetrieve ri = new XmlRetrieve(
+		// "utils\\wanduxServerIp\\wanduxServerIp.xml");
 		// this.applicationServerIp = ri.IpServer();
-		this.applicationServerIp = "127.0.0.1";
+		this.applicationServerIp = ip;
 	}
 
 	private void closeConnection() {

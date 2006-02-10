@@ -6,278 +6,75 @@
  */
 package pfe.migration.client.pre.system;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import com.jacob.com.JacobException;
-import com.jacob.com.SafeArray;
 import com.jacob.com.Variant;
-
-import pfe.migration.client.pre.service.WanduxWmiBridge;
-import pfe.migration.server.ejb.bdd.NetworkConfig;
+import pfe.migration.client.pre.service.Win32Cim;
 
 /**
- * @author joe star
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ * @author CornFlaks
+ * 
+ * TODO To change the template for this generated type comment go to Window -
+ * Preferences - Java - Code Style - Code Templates
  */
-public class NetConfig
-{
-	// TODO si on doit continue dans cette voie la, il faut choper tte les interfaces, (possible avec une map, mais surtout savoir si quel interface est valide)
-	
-//	public static List outpout = new ArrayList();
-	WanduxWmiBridge wwb = null; 
-	//String rootCIMV2 = "root\\CIMV2";
-	//String rootCIMV2ApplicationsMicrosoftIE = "root\\CIMV2\\Applications\\MicrosoftIE";
-	
-  public NetConfig(WanduxWmiBridge WWB)
-  {
-  	this.wwb = WWB;
-  }
 
-   public String GetMac(String NetworkInterfaceIndex)
-   {
-    String res = "";
-	   Variant[] rqRSLT = null;
-		String rq  = "SELECT MACAddress FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
-		String wzName = "MACAddress"; // element a recuperer depuis la requette
-		try
-		{
-			rqRSLT = wwb.exec_rq(rq, wzName);	
-			System.out.println(rqRSLT[0].getString());
-			return  rqRSLT[0].getString();
-		}
-		catch(JacobException je)
-		{
-			return "";
-		}
-   }
+public class NetConfig {
+	private Win32Cim _wcim = null;
 
-   public String GetIpadress(String NetworkInterfaceIndex)
-   {
-	   String res = "";
-	   Variant[] rqRSLT = null;
-		String rq  = "SELECT IPAddress FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
-		String wzName = "IPAddress"; // element a recuperer depuis la requette
-		try
-		{
-			rqRSLT = wwb.exec_rq(rq, wzName);	
-			Variant var =  rqRSLT[0];
-			SafeArray str = var.toSafeArray();
-			System.out.println("Ipadress : " + str.getString(0));
-			return  str.getString(0);
-		}
-		catch(JacobException  je)
-		{
-			return "";
-		}
-   }
+	public NetConfig(Win32Cim wcim) {
+		this._wcim = wcim;
+	}
 
-   public java.lang.Byte GetDHCPEnable(String NetworkInterfaceIndex)
-   {
-	   String res = "";
-	   Variant[] rqRSLT = null;
-		String rq  = "SELECT DHCPEnabled FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\' ";
-		//System.out.println(rq);
-		String wzName = "DHCPEnabled"; // element a recuperer depuis la requette
-		try
-		{
-			rqRSLT = wwb.exec_rq(rq, wzName);	
-			System.out.println(rqRSLT[0].getBoolean());
-			return  new Byte(rqRSLT[0].getBoolean() == true ? "1" : "0");
-		}
-		catch(JacobException je)
-		{
-			return new Byte("0");
-		}
-		
-   }
+	public Variant[] GetMac() {
+		this._wcim
+				.Request("SELECT MACAddress FROM Win32_NetworkAdapterConfiguration");
+		return this._wcim.GetResult();
+	}
 
-   public String GetNetmask(String NetworkInterfaceIndex)
-   {
-    String res = "";
-	   Variant[] rqRSLT = null;
-		String rq  = "SELECT IPSubnet FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
-		//System.out.println(rq);
-		String wzName = "IPSubnet"; // element a recuperer depuis la requette
-		try
-		{
-			rqRSLT = wwb.exec_rq(rq, wzName);	
-			Variant var =  rqRSLT[0];
-			SafeArray str = var.toSafeArray();
-			System.out.println("Netmask : " + str.getString(0));
-			return  str.getString(0);
+	public Variant[] GetIpadress() {
+		this._wcim
+				.Request("SELECT IPAddress FROM Win32_NetworkAdapterConfiguration");
+		return this._wcim.GetResult();
+	}
 
-		}
-		catch(JacobException je)
-		{
-			return "";
-		}
-		
-   }
-   
-   public String[] GetDnsServer (String NetworkInterfaceIndex)
-   {
-    String res = "";
-	String[] DnsServerListe = new String[2];
-	DnsServerListe[0] = "";
-	DnsServerListe[1] = "";
-	
-	   Variant[] rqRSLT = null;
-		String rq  = "SELECT DNSServerSearchOrder FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
-		//System.out.println(rq);
-		String wzName = "DNSServerSearchOrder"; // element a recuperer depuis la requette
-		try
-		{
-			rqRSLT = wwb.exec_rq(rq, wzName);	
-			Variant var =  rqRSLT[0];
-			SafeArray str = var.toSafeArray();
+	public Variant[] GetDHCPEnable() {
+		this._wcim
+				.Request("SELECT DHCPEnabled FROM Win32_NetworkAdapterConfiguration");
+		return this._wcim.GetResult();
+	}
 
-			DnsServerListe[0] = str.getString(0);
-			if(str.getString(1) != null)
-				DnsServerListe[1] = str.getString(1);
-			System.out.println("DnsServer1 :" + DnsServerListe[0]);
-			System.out.println("DnsServer2 :" + DnsServerListe[1]);
-		}
-		catch(JacobException je)
-		{
-			return DnsServerListe;
-		}
-		return DnsServerListe;
-   }
-   public String GetGate(String NetworkInterfaceIndex)
-   {
-   		String res = "";
-	    Variant[] rqRSLT = null;
-		String rq  = "SELECT DefaultIPGateway FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
-		String wzName = "DefaultIPGateway"; // element a recuperer depuis la requette
-		try
-		{
-			rqRSLT = wwb.exec_rq(rq, wzName);	
-				Variant var =  rqRSLT[0];
-				SafeArray str = var.toSafeArray();
-		//		System.out.println("Gate : " + str.getString(0));
-				return str.getString(0);
-		}
-		catch(JacobException je)
-		{
-			return "";
-		}
-   }
-   
-   public String GetHostname()
-   {
-	   String res = "";
+	public Variant[] GetNetmask() {
+		this._wcim
+				.Request("SELECT IPSubnet FROM Win32_NetworkAdapterConfiguration");
+		return this._wcim.GetResult();
+	}
 
-//	   for (int i = 0; i < outpout.size(); i++)
-//	   {
-//		   Pattern p = Pattern.compile(".*Nom de l'hôte.*: (.*)");
-//		   Matcher m = p.matcher(((String)outpout.get(i)));
-//		   if (m.matches())
-//		   {
-//			   res = m.group(1);
-//			   break;
-//		   }
-//	   }
-	   return res;
-   }
-   
-   public String GetDNSSuffixe()
-   {
-	   String res = "";
+	public Variant[] GetDnsServer() {
+		this._wcim
+				.Request("SELECT DNSServerSearchOrder FROM Win32_NetworkAdapterConfiguration");
+		return this._wcim.GetResult();
+	}
 
-//	   for (int i = 0; i < outpout.size(); i++)
-//	   {
-//		   Pattern p = Pattern.compile(".*Suffixe DNS principal.*: (.*)");
-//		   Matcher m = p.matcher(((String)outpout.get(i)));
-//		   if (m.matches())
-//		   {
-//			   res = m.group(1);
-//			   break;
-//		   }
-//	   }
-	   return res;
-   }
-	
-   public String GetSeekingDNSSuffixe()
-   {
-	   String res = "";
+	public Variant[] GetGate() {
+		this._wcim
+				.Request("SELECT DefaultIPGateway FROM Win32_NetworkAdapterConfiguration");
+		return this._wcim.GetResult();
+	}
 
-//	   for (int i = 0; i < outpout.size(); i++)
-//	   {
-//		   Pattern p = Pattern.compile(".*Liste de recherche du suffixe DNS.*: (.*)");
-//		   Matcher m = p.matcher(((String)outpout.get(i)));
-//		   if (m.matches())
-//		   {
-//			   res = m.group(1);
-//			   break;
-//		   }
-//	   }
-	   return res;
-   }
+	public Variant[] GetCaption() {
+		this._wcim
+				.Request("SELECT Caption FROM Win32_NetworkAdapterConfiguration");
+		return this._wcim.GetResult();
+	}
 
-   public String GetCaption(String NetworkInterfaceIndex)
-   {
-    String res = "";
-	   Variant[] rqRSLT = null;
-		String rq  = "SELECT Caption FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
-		//System.out.println(rq);
-		String wzName = "Caption"; // element a recuperer depuis la requette
-		try
-		{
-			rqRSLT = wwb.exec_rq(rq, wzName);	
-			Variant var =  rqRSLT[0];
-			System.out.println("Caption : " + var.getString());
-			if(var.getString() == null)
-				return "";
-			return  var.getString();
-		}
-		catch(JacobException je)
-		{
-			je.printStackTrace();
-			return "";
-		}
-		
-   }
-   
-   
-   public java.lang.Byte GetStatus(String NetworkInterfaceIndex)
-   {
-    String res = "";
-	   Variant[] rqRSLT = null;
-		String rq  = "SELECT IPEnabled FROM Win32_NetworkAdapterConfiguration WHERE Index = "  + "\'" + NetworkInterfaceIndex + "\'";
-		//System.out.println(rq);
-		String wzName = "IPEnabled"; // element a recuperer depuis la requette
-		try
-		{
-			rqRSLT = wwb.exec_rq(rq, wzName);	
-			//System.out.println(rqRSLT.length);
-			Variant var =  rqRSLT[0];
-		//	System.out.println("Status : " + rqRSLT[0].getBoolean());
-			return  new Byte(rqRSLT[0].getBoolean() == true ? "1" : "0");
+	public Variant[] GetStatus() {
+		this._wcim
+				.Request("SELECT IPEnabled FROM Win32_NetworkAdapterConfiguration");
+		return this._wcim.GetResult();
+	}
 
-		}
-		catch(JacobException  je)
-		{
-			je.printStackTrace();
-			return new Byte("0");
-		}
-
-   }
-   
-   public Variant[] listNetworkInterfaces()
-   {
-		String rq  = "SELECT Index FROM Win32_NetworkAdapterConfiguration WHERE  MACAddress != NULL";
-		String wzName = "Index"; // element a recuperer depuis la requette
-		Variant obj[] =  wwb.exec_rq(rq, wzName);
-		return obj;
-   }
-
+	public Variant[] listNetworkInterfaces() {
+		this._wcim
+				.Request("SELECT Index FROM Win32_NetworkAdapterConfiguration");
+		return this._wcim.GetResult();
+	}
 
 }

@@ -6,67 +6,53 @@
  */
 package pfe.migration.client.pre.system;
 
+import pfe.migration.client.pre.service.Win32Cim;
 import com.jacob.com.Variant;
 
-import pfe.migration.client.pre.service.WanduxWmiBridge;
-
 /**
- * @author lahous
+ * @author CornFlaks
  * 
  * TODO To change the template for this generated type comment go to Window -
  * Preferences - Java - Code Style - Code Templates
  */
 public class UserConfig {
-	WanduxWmiBridge wwb = null;
 
-	public UserConfig(WanduxWmiBridge WWB) {
-		wwb = WWB;
+	private Win32Cim _wcim = null;
+
+	public UserConfig(Win32Cim wcim) {
+		this._wcim = wcim;
 	}
 
 	public Variant[] listUsers() {
-		String rq = "SELECT Name FROM Win32_UserAccount";
-		String wzName = "Name"; // element a recuperer depuis la requette
-		Variant obj[] = wwb.exec_rq(rq, wzName);
-		return obj;
+		this._wcim.Request("SELECT Name FROM Win32_UserAccount");
+		return this._wcim.GetResult();
 	}
 
-	public String getUserKbLayout() {
-		String rq = "SELECT Layout FROM Win32_Keyboard";
-		String wzName = "Layout"; // element a recuperer depuis la requette
-		System.out.println(rq);
-		Variant obj[] = wwb.exec_rq(rq, wzName);
-		System.out.println("UserName : " + obj[0].getString());
-		return obj.toString();
+	public Variant[] getUserKbLayout() {
+		this._wcim.Request("SELECT Layout FROM Win32_Keyboard");
+		return this._wcim.GetResult();
 	}
 
-	public String getUserProxyServ() {
-		String rq = "SELECT ProxyServer FROM Win32_Proxy";
-		String wzName = "ProxyServer"; // element a recuperer depuis la
-										// requette
-		Variant obj[] = wwb.exec_rq(rq, wzName);
-		return obj.toString();
+	public Variant[] getUserProxyServ() {
+		this._wcim.Request("SELECT ProxyServer FROM Win32_Proxy");
+		return this._wcim.GetResult();
 	}
 
-	public String getHostname(String username) {
-		String rq = "SELECT Domain FROM Win32_UserAccount WHERE Name = " + username;
-		String wzName = "Domain"; // element a recuperer depuis la requette
-		Variant obj[] = wwb.exec_rq(rq, wzName);
-		return obj.toString();
+	public Variant[] getHostname() {
+		this._wcim
+				.Request("SELECT DNSHostName FROM Win32_NetworkAdapterConfiguration");
+		return this._wcim.GetResult();
 	}
 
-	public String getDomainName(String username) {
-		String rq = "SELECT Domain FROM Win32_UserAccount WHERE Name = " + username;
-		String wzName = "Domain"; // element a recuperer depuis la requette
-		Variant obj[] = wwb.exec_rq(rq, wzName);
-		return obj.toString();
+	public Variant[] getDomainName() {
+		this._wcim
+				.Request("SELECT DNSDomain FROM Win32_NetworkAdapterConfiguration");
+		return this._wcim.GetResult();
 	}
 
-	public String getUserTimezone() {
-		String rq = "SELECT StandardName FROM Win32_TimeZone";
-		String wzName = "StandardName"; // element a recuperer depuis la
-		// requette
-		Variant obj[] = wwb.exec_rq(rq, wzName);
-		return obj.toString();
+	public Variant[] getUserTimezone() {
+		this._wcim.Request("SELECT StandardName FROM Win32_TimeZone");
+		return this._wcim.GetResult();
 	}
 
 }

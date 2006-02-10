@@ -7,25 +7,32 @@ import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
 import com.jacob.com.Variant;
 
+/**
+ * @author CornFlaks
+ * 
+ * TODO To change the template for this generated type comment go to Window -
+ * Preferences - Java - Code Style - Code Templates
+ */
 public class Win32Cim {
 
-	public static String query;
+	private static String TargetIp = null;
 
-	public static String TargetIp;
-	
-	public Variant[] result = null;
+	private Variant[] result = null;
 
-	public static Dispatch querysubclasse;
+	private static Dispatch querysubclasse;
 
-	public static ActiveXComponent wmi;
+	private static ActiveXComponent wmi;
 
-	public Win32Cim(String query) {
+	public Win32Cim() {
+		TargetIp = "127.0.0.1";
+	}
+
+	public void Request(String query) {
 		try {
-			TargetIp = "127.0.0.1";
 
 			try {
 				String username = ""; // pas de login en local
-				
+
 				String password = ""; // pas de mdp en local
 
 				// init activex wmi
@@ -79,7 +86,7 @@ public class Win32Cim {
 				}
 				Tabproperties = new String[arrayprop.size()];
 				for (int i = 0; i < arrayprop.size(); i++) {
-					Tabproperties[i] = (String)arrayprop.get(i);
+					Tabproperties[i] = (String) arrayprop.get(i);
 				}
 			}
 
@@ -96,9 +103,8 @@ public class Win32Cim {
 			System.out.println("Exception: " + e);
 		}
 	}
-	public Variant[] getResult()
-	{
-		return result;
+
+	public Variant[] GetResult() {
+		return this.result;
 	}
-	
 }
