@@ -152,12 +152,19 @@ public class wanduxApp {
 
 			String disk = "disk" + s.substring(0, 1);
 
-			File f = new File(this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\");
-			System.out.println("dup : " + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\");
+			File f = new File("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\");
+			if (f.exists() == false)
+				f.mkdir();
+			f = new File("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk);
+			if (f.exists() == false)
+				f.mkdir();
+			
+			System.out.println("src : " + s);
+			System.out.println("dest : " + "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk);
 			// System.out.println("\\\\" + this.storageServerIp +
 			// "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk);
-			cp.CopyNode(s, "\\\\" + this.storageServerIp + "\\wanduxStorage\\"
-					+ this.ci.getHostname() + "\\" + disk, true);
+			//cp.CopyNode(s, "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk, true);
+			cp.GenericCopyNode(s, "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk);
 		}
 	}
 
@@ -418,7 +425,7 @@ public class wanduxApp {
 
 	private void fillHostname() {
 		Variant[] rqRSLT = null;
-		String rq = "SELECT * FROM Win32_ComputerSystem";
+		String rq = "SELECT Caption FROM Win32_ComputerSystem";
 		String wzName = "Caption"; // element a recuperer depuis la requette
 
 		try {
