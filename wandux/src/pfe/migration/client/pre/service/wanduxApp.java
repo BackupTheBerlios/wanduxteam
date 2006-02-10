@@ -68,14 +68,6 @@ public class wanduxApp {
 
 	public wanduxApp(String arg) {
 		storageServerIp = applicationServerIp = arg;
-		// iniatalise la connexiion wmi
-		WanduxWmiInfoManager();
-		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu
-		// ....
-		// this.applicationServerIp = "127.0.0.1";
-
-		// TODO recuperer l ip du serveur d appli depuis un fichier comme prevu
-		// ....
 		this.ci = new ComputerInformation();
 
 		fillNetworkInCI();
