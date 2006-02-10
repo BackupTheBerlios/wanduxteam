@@ -6,7 +6,9 @@
  */
 package pfe.migration.client.post;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.rmi.RemoteException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +28,26 @@ public class WanduxPost
 	private ComputerInformation ci = null;
 	private String currentIP = "";
 	private String storageServerIp = "";
+	
+	static InputStreamReader converter = new InputStreamReader(System.in);
+	static BufferedReader in = new BufferedReader(converter);
+	
+	public static void main(String[] args)
+	{
+		if (args.length != 1)
+			new WanduxPost(getString());
+		else
+			new WanduxPost(args[0]);
+	}
+	
+	public static String getString() {
+		try {
+			return in.readLine();
+		} catch (Exception e) {
+			System.out.println("getString() exception, returning empty string");
+			return "";
+		}
+	}
 	
 	public WanduxPost (String applicationServerIp)
 	{
@@ -47,16 +69,6 @@ public class WanduxPost
 		getDataFromStorageServer();
 		
 		ce.EjbClose();
-	}
-	
-	public static void main(String[] args)
-	{
-		if (args.length != 1)
-		{
-			System.out.println("usage: java WanduxPost ip_serveur_ejb");
-			System.exit (0);
-		}
-		new WanduxPost(args[0]);
 	}
 	
 	public void getCurrentIp()
