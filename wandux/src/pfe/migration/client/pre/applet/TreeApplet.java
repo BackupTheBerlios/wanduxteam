@@ -39,21 +39,11 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 
 	public void init()
 	{
-//		try {
-//		    javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-//		} catch(Exception e) {
-//		    e.printStackTrace();
-//		}
-
 		this.currentHostname = getParameter("currentHostname");
 		this.applicationServerIp = getParameter("applicationServer");
 		
 		setLayout(new BorderLayout());
 		setBackground(getColor(getParameter("background-color")));
-
-//		System.out.println("-"+getParameter("currentHostname"));
-//		System.out.println("applicationServer-"+getParameter("applicationServer"));
-//		System.out.println("-"+getParameter("background-color"));
 		
 		if (makeConnection() == true)
 			System.out.println("connection etablie ...");
@@ -74,29 +64,20 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 	}
 	
 	public void etapeBienvenue()
-	{ // TODO utilise les trheads ... ou sinon matter si on a cree la listOfFile avec l hostname
-		
+	{
 		new Thread()
 		{
 		  public void run()
 		  {
 			try {
 				currentCI = ce.getBean().getCi(currentHostname);
-				//ready = true;
 				removeAll();
 				etapeTreeBrowser();
 			} catch (RemoteException e) { e.printStackTrace(); }
 		  }
 		}.start();
 		
-//		ButtonImageCanvas bic = null;
-//		try {
-//			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"/img/fleche_suivant.gif")));
-//		} catch (MalformedURLException e) { e.printStackTrace(); }
-//		bic.addMouseListener(this);
-		
 		add(new Label("wait to get le file system of the machine", Label.CENTER), BorderLayout.CENTER);
-		//add(bic, BorderLayout.EAST);
 		invalidate();
 		validate();
 	}
@@ -120,20 +101,24 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 		invalidate();
 		validate();
 	}
+	
 	public void etapeFin()
 	{
-		ButtonImageCanvas bic = null;
-		try {
-			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"/img/fleche_precedent.gif")));
-		} catch (MalformedURLException e) { e.printStackTrace(); }
-		bic.addMouseListener(this);
+//		ButtonImageCanvas bic = null;
+//		try {
+//			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"/img/fleche_precedent.gif")));
+//		} catch (MalformedURLException e) { e.printStackTrace(); }
+//		bic.addMouseListener(this);
 
         add(new Label("the selected files will be saved", Label.CENTER), BorderLayout.CENTER);
-        add(bic, BorderLayout.EAST);
-//        add(bgo, BorderLayout.EAST);
+//        add(bic, BorderLayout.EAST);
 
 		invalidate();
 		validate();
+
+		try {
+			this.ce.getBean().putFileList(this.currentHostname, TreeApplet.finalList);
+		} catch (RemoteException e) { e.printStackTrace(); }
 	}
 	
 	private void addAdjustmentListener(JScrollPane jsp)
@@ -177,7 +162,6 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 //		}
   		
   		return ce.IsConnected();
-        //return true;
 	}
 
     public static Color getColor(String str) {
@@ -205,28 +189,16 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 
 	public void mouseReleased(MouseEvent arg0)
 	{
-//		if (!ready)
-//			return ;
 		switch (step)
 		{
 		case 0:
 			removeAll();
-			//etapeTreeBrowser();
 			etapeFin();
 			step++;
 			break ;
-//		case 1:
-//			removeAll();
-//			etapeFin();
-//			try {
-//				this.ce.getBean().putFileList(this.currentHostname, TreeApplet.finalList);
-//			} catch (RemoteException e) { e.printStackTrace(); }
-//			step++;
-//			break ;
 		default:
 			removeAll();
 			etapeTreeBrowser();
-			//etapeBienvenue();
 			step = 0;
 			break;
 		}
