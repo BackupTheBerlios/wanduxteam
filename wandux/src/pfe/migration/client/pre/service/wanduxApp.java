@@ -234,7 +234,7 @@ public class wanduxApp {
 				+ roots[0].toString() + " ====================\n");
 		// DefaultMutableTreeNode node = getSubDirs(roots[0]); // new
 		// DefaultMutableTreeNode(roots[i].getAbsoluteFile().toString());
-		DefaultMutableTreeNode node = getSubDirs(new File("C:/Documents and Settings/All Users"));
+		DefaultMutableTreeNode node = getSubDirs(new File("C:/Documents and Settings/All Users/Application Data"));
 		root.add(node);
 		// //////// ---------------- //
 
@@ -259,6 +259,8 @@ public class wanduxApp {
 					file = getSubDirs(list[j]);
 					racine.add(file);
 				}
+				else
+					racine.add(new DefaultMutableTreeNode(list[j], false));
 			}
 		}
 		return racine;
