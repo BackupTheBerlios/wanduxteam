@@ -19,6 +19,8 @@ public class Win32Cim {
 
 	private Variant[] result = null;
 
+	private Variant[][] tabresult = null;
+
 	private static Dispatch querysubclasse;
 
 	private static ActiveXComponent wmi;
@@ -90,14 +92,28 @@ public class Win32Cim {
 				}
 			}
 
-			Variant[] queryresult = null;
 			// recherche des donnees
 			if ((Tabproperties != null) && (query != null)) {
 				CimValues Val = new CimValues(Tabproperties, querysubclasse,
 						query);
-				queryresult = Val.GetValues();
+				int tab = 0;
+				for (int i = 0; i < Tabproperties.length; i++) {
+					if (Tabproperties[i].equals("IPAddress")
+							|| Tabproperties[i].equals("IPSubnet")
+							|| Tabproperties[i].equals("DNSServerSearchOrder")
+							|| Tabproperties[i].equals("DefaultIPGateway"))
+						tab = 1;
+				}
+				if (tab == 0) {
+					Variant[] queryresult = null;
+					queryresult = Val.GetValues();
+					this.result = queryresult;
+				} else {
+					Variant[][] tabqueryresult = null;
+					tabqueryresult = Val.GetValuesTab();
+					this.tabresult = tabqueryresult;
+				}
 			}
-			this.result = queryresult;
 
 		} catch (Exception e) {
 			System.out.println("Exception: " + e);
@@ -106,5 +122,9 @@ public class Win32Cim {
 
 	public Variant[] GetResult() {
 		return this.result;
+	}
+
+	public Variant[][] GetResultTab() {
+		return this.tabresult;
 	}
 }

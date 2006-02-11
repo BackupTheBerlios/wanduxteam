@@ -29,10 +29,10 @@ public class NetConfig {
 		return this._wcim.GetResult();
 	}
 
-	public Variant[] GetIpaddress() {
+	public Variant[][] GetIpaddress() {
 		this._wcim
 				.Request("SELECT IPAddress FROM Win32_NetworkAdapterConfiguration");
-		return this._wcim.GetResult();
+		return this._wcim.GetResultTab();
 	}
 
 	public Variant[] GetDHCPEnable() {
@@ -41,22 +41,22 @@ public class NetConfig {
 		return this._wcim.GetResult();
 	}
 
-	public Variant[] GetNetmask() {
+	public Variant[][] GetNetmask() {
 		this._wcim
 				.Request("SELECT IPSubnet FROM Win32_NetworkAdapterConfiguration");
-		return this._wcim.GetResult();
+		return this._wcim.GetResultTab();
 	}
 
-	public Variant[] GetDnsServer() {
+	public Variant[][] GetDnsServer() {
 		this._wcim
 				.Request("SELECT DNSServerSearchOrder FROM Win32_NetworkAdapterConfiguration");
-		return this._wcim.GetResult();
+		return this._wcim.GetResultTab();
 	}
 
-	public Variant[] GetGate() {
+	public Variant[][] GetGate() {
 		this._wcim
 				.Request("SELECT DefaultIPGateway FROM Win32_NetworkAdapterConfiguration");
-		return this._wcim.GetResult();
+		return this._wcim.GetResultTab();
 	}
 
 	public Variant[] GetCaption() {

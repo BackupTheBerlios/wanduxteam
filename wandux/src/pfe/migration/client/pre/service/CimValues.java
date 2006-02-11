@@ -4,6 +4,7 @@ import java.util.StringTokenizer;
 
 import com.jacob.com.Dispatch;
 import com.jacob.com.EnumVariant;
+import com.jacob.com.SafeArray;
 import com.jacob.com.Variant;
 
 public class CimValues {
@@ -56,21 +57,40 @@ public class CimValues {
 				Dispatch obEnum = ElementEnum.toDispatch();
 				Variant RetValue = Dispatch.call(obEnum, TabProperties[i]);
 				if (!(RetValue.toString().equals("null"))) {
-					if (RetValue.toString().equals("???")) {
-						String test = TabProperties[i] + "(0)";
-						try {
-							RetValue = Dispatch.call(obEnum, test);
-							resultat[j] = RetValue;
-						} catch (Exception e) {
-						}
-					} else {
-						resultat[j] = RetValue;
-					}
+					resultat[j] = RetValue;
 					j++;
 				}
 			}
 		}
 		Variant[] res = new Variant[j];
+		for (int i = 0, k = 0; i < res.length; i++, k++)
+			res[k] = resultat[i];
+		return res;
+	}
+
+	public Variant[][] GetValuesTab() {
+
+		Object selectParam = new Variant(querystring);
+		Variant retquery = Dispatch.call(ObjConnect, "ExecQuery", selectParam);
+		Dispatch enumvalues = retquery.toDispatch();
+		EnumVariant penumvalues = new EnumVariant(enumvalues);
+		Variant ElementEnum;
+		Variant[][] resultat = new Variant[65535][];
+
+		int j = 0;
+		while ((ElementEnum = penumvalues.Next()) != null) {
+			for (int i = 0; i < NB_PROPERTIES; i++) {
+				Dispatch obEnum = ElementEnum.toDispatch();
+				Variant RetValue = Dispatch.call(obEnum, TabProperties[i]);
+				if (!(RetValue.toString().equals("null"))) {
+					SafeArray tab = new SafeArray();
+					tab = RetValue.toSafeArray();
+					resultat[j] = tab.toVariantArray();
+					j++;
+				}
+			}
+		}
+		Variant[][] res = new Variant[j][];
 		for (int i = 0, k = 0; i < res.length; i++, k++)
 			res[k] = resultat[i];
 		return res;

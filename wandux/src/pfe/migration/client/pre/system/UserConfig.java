@@ -34,7 +34,8 @@ public class UserConfig {
 	}
 
 	public Variant[] getUserGroup() {
-		this._wcim.Request("SELECT PartComponent,GroupComponent FROM Win32_GroupUser");
+		this._wcim
+				.Request("SELECT PartComponent,GroupComponent FROM Win32_GroupUser");
 		return this._wcim.GetResult();
 	}
 

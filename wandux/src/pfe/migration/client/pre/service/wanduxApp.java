@@ -23,7 +23,7 @@ import pfe.migration.client.pre.system.ProgramsLister;
 import pfe.migration.client.pre.system.UserConfig;
 import pfe.migration.server.ejb.bdd.NetworkConfig;
 import pfe.migration.server.ejb.bdd.UsersData;
-import pfe.migration.server.ejb.tool.XmlRetrieve;
+//import pfe.migration.server.ejb.tool.XmlRetrieve;
 
 import com.jacob.com.Variant;
 
@@ -273,16 +273,17 @@ public class wanduxApp {
 		NetConfig netconfig = new NetConfig(wcim);
 		Variant[] IndexCaption = netconfig.IndexCaption();
 		Variant[] GetMac = netconfig.GetMac();
-		Variant[] GetIpaddress = netconfig.GetIpaddress();
+		Variant[][] GetIpaddress = netconfig.GetIpaddress();
 		Variant[] GetDHCPEnable = netconfig.GetDHCPEnable();
-		Variant[] GetNetmask = netconfig.GetNetmask();
-		Variant[] GetDnsServer = netconfig.GetDnsServer();
+		Variant[][] GetNetmask = netconfig.GetNetmask();
+		Variant[][] GetDnsServer = netconfig.GetDnsServer();
 		Variant[] GetCaption = netconfig.GetCaption();
 		Variant[] GetStatus = netconfig.GetStatus();
-		Variant[] GetGate = netconfig.GetGate();
+		Variant[][] GetGate = netconfig.GetGate();
 
-		NetworkConfig[] ncTab = new NetworkConfig[IndexCaption.length + 1];
+		
 		try {
+			NetworkConfig[] ncTab = new NetworkConfig[IndexCaption.length + 1];
 			System.out
 					.println("\n================ Index Caption data =================");
 			for (int i = 0; i < IndexCaption.length && IndexCaption[i] != null; i++) {
@@ -293,7 +294,9 @@ public class wanduxApp {
 				ncTab[i] = nc;
 				nc = null;
 			}
-
+			if (ncTab != null)
+				this.ci.setInfoNetwork(ncTab);
+			ncTab = new NetworkConfig[GetMac.length + 1];
 			System.out
 					.println("\n================ GetMac data =================");
 			for (int i = 0; i < GetMac.length && GetMac[i] != null; i++) {
@@ -304,18 +307,22 @@ public class wanduxApp {
 				ncTab[i] = nc;
 				nc = null;
 			}
-
+			if (ncTab != null)
+				this.ci.setInfoNetwork(ncTab);
+			ncTab = new NetworkConfig[GetIpaddress.length + 1];
 			System.out
 					.println("\n================ GetIpaddress data =================");
 			for (int i = 0; i < GetIpaddress.length && GetIpaddress[i] != null; i++) {
 				NetworkConfig nc = new NetworkConfig();
-				String ipaddress = GetIpaddress[i].getString();
-				System.out.println(GetIpaddress[i].getString());
+				String ipaddress = GetIpaddress[i][0].getString();
+				System.out.println(GetIpaddress[i][0].getString());
 				nc.setNetworkIpAddress(ipaddress);
 				ncTab[i] = nc;
 				nc = null;
 			}
-
+			if (ncTab != null)
+				this.ci.setInfoNetwork(ncTab);
+			ncTab = new NetworkConfig[GetDHCPEnable.length + 1];
 			System.out
 					.println("\n================ GetDHCPEnable data =================");
 			for (int i = 0; i < GetDHCPEnable.length
@@ -327,29 +334,35 @@ public class wanduxApp {
 				ncTab[i] = nc;
 				nc = null;
 			}
-
+			if (ncTab != null)
+				this.ci.setInfoNetwork(ncTab);
+			ncTab = new NetworkConfig[GetNetmask.length + 1];
 			System.out
 					.println("\n================ GetNetmask data =================");
 			for (int i = 0; i < GetNetmask.length && GetNetmask[i] != null; i++) {
 				NetworkConfig nc = new NetworkConfig();
-				String netmask = GetNetmask[i].getString();
-				System.out.println(GetNetmask[i].getString());
+				String netmask = GetNetmask[i][0].getString();
+				System.out.println(GetNetmask[i][0].getString());
 				nc.setNetworkSubnetmask(netmask);
 				ncTab[i] = nc;
 				nc = null;
 			}
-
+			if (ncTab != null)
+				this.ci.setInfoNetwork(ncTab);
+			ncTab = new NetworkConfig[GetDnsServer.length + 1];
 			System.out
 					.println("\n================ GetDnsServer data =================");
 			for (int i = 0; i < GetDnsServer.length && GetDnsServer[i] != null; i++) {
 				NetworkConfig nc = new NetworkConfig();
-				String dnsserver = GetDnsServer[i].getString();
-				System.out.println(GetDnsServer[i].getString());
+				String dnsserver = GetDnsServer[i][0].getString();
+				System.out.println(GetDnsServer[i][0].getString());
 				nc.setNetworkDnsServer(dnsserver);
 				ncTab[i] = nc;
 				nc = null;
 			}
-
+			if (ncTab != null)
+				this.ci.setInfoNetwork(ncTab);
+			ncTab = new NetworkConfig[GetCaption.length + 1];
 			System.out
 					.println("\n================ GetCaption data =================");
 			for (int i = 0; i < GetCaption.length && GetCaption[i] != null; i++) {
@@ -360,7 +373,9 @@ public class wanduxApp {
 				ncTab[i] = nc;
 				nc = null;
 			}
-
+			if (ncTab != null)
+				this.ci.setInfoNetwork(ncTab);
+			ncTab = new NetworkConfig[GetStatus.length + 1];
 			System.out
 					.println("\n================ GetStatus data =================");
 			for (int i = 0; i < GetStatus.length && GetStatus[i] != null; i++) {
@@ -371,56 +386,55 @@ public class wanduxApp {
 				ncTab[i] = nc;
 				nc = null;
 			}
-
+			if (ncTab != null)
+				this.ci.setInfoNetwork(ncTab);
+			ncTab = new NetworkConfig[GetGate.length + 1];
 			System.out
 					.println("\n================ GetGate data =================");
 			for (int i = 0; i < GetGate.length && GetGate[i] != null; i++) {
 				NetworkConfig nc = new NetworkConfig();
-				String gate = GetGate[i].getString();
-				System.out.println(GetGate[i].getString());
+				String gate = GetGate[i][0].getString();
+				System.out.println(GetGate[i][0].getString());
 				nc.setNetworkGateway(gate);
 				ncTab[i] = nc;
 				nc = null;
 			}
-
+			if (ncTab != null)
+				this.ci.setInfoNetwork(ncTab);
+			ncTab = null;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (ncTab != null)
-			this.ci.setInfoNetwork(ncTab);
 	}
 
-	private String getGroup(String user, Variant[] listGroupName, Variant[] listUserWithGroup)
-	{
+	private String getGroup(String user, Variant[] listGroupName,
+			Variant[] listUserWithGroup) {
 		String group = "";
 
 		Pattern p = Pattern.compile(user);
-		for (int i = 0; i < listUserWithGroup.length; i+=2)
-		{
+		for (int i = 0; i < listUserWithGroup.length; i += 2) {
 			Matcher m = p.matcher(listUserWithGroup[i].toString());
-		    if (m.find())
-		    {
-		    	i++;
-		    	group = listUserWithGroup[i].toString();
-		    	break;
-		    }
+			if (m.find()) {
+				i++;
+				group = listUserWithGroup[i].toString();
+				break;
+			}
 		}
-		for (int j = 0; j < listGroupName.length; j++)
-		{
-    		Pattern p1 = Pattern.compile(listGroupName[j].toString());
-    		Matcher m1 = p1.matcher(group);
-    	    if (m1.find())
-    	    	return listGroupName[j].toString();
+		for (int j = 0; j < listGroupName.length; j++) {
+			Pattern p1 = Pattern.compile(listGroupName[j].toString());
+			Matcher m1 = p1.matcher(group);
+			if (m1.find())
+				return listGroupName[j].toString();
 		}
-    	return "users";
+		return "users";
 	}
-	
+
 	private void fillusersData() {
 
 		UserConfig usersConfig = new UserConfig(wcim);
 		Variant[] listUsers = usersConfig.listUsers();
 		UsersData[] udTab = new UsersData[listUsers.length + 1];
-		
+
 		Variant[] listGroupName = usersConfig.listGroup();
 		Variant[] listUserWithGroup = usersConfig.getUserGroup();
 		try {
@@ -431,125 +445,11 @@ public class wanduxApp {
 				String user = listUsers[i].getString();
 				System.out.println(listUsers[i].getString());
 				ud.setUserLogin(user);
-				ud.setUserType(getGroup(user, listGroupName, listUserWithGroup));
+				ud
+						.setUserType(getGroup(user, listGroupName,
+								listUserWithGroup));
 				udTab[i] = ud;
 				ud = null;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (udTab != null)
-			this.ci.setUsersData(udTab);
-	}
-
-	private void old_fillNetworkInCI() {
-
-		NetConfig netconfig = new NetConfig(wcim);
-
-		Variant[] listNetworkInterfacesCaption = netconfig.IndexCaption();
-		int i = 0;
-		int allocationSize = 0;
-		while (i < listNetworkInterfacesCaption.length
-				&& listNetworkInterfacesCaption[i] != null) {
-			System.out.println("listNetworkInterfacesCaption : "
-					+ listNetworkInterfacesCaption[i]);
-			if (netconfig.GetStatus()[i].getString().equals(new Byte("1")))
-				allocationSize++;
-			i++;
-		}
-		NetworkConfig[] nc = new NetworkConfig[allocationSize];
-		allocationSize = 0;
-		i = 0;
-		try {
-			while (i < listNetworkInterfacesCaption.length
-					&& listNetworkInterfacesCaption[i] != null) {
-				/*
-				 * if (netconfig.GetStatus()[i].getString().equals(new
-				 * Byte("0"))) { i++; continue; }
-				 */
-				System.out
-						.println("\n ==================== index de l'interface: "
-								+ listNetworkInterfacesCaption[i].getString()
-								+ " ====================\n");
-				NetworkConfig ncs = new NetworkConfig();
-				// Caption
-				ncs.setNetworkInterface(netconfig.GetCaption()[i].getString());
-				// status
-				ncs.setNetworkStatus(new Byte(netconfig.GetStatus()[i]
-						.getByte()));
-				// Mac
-				ncs.setNetworkMacAdress(netconfig.GetMac()[i].getString());
-				// ip
-				System.out.println(netconfig.GetIpaddress()[i].toInt());
-				ncs
-						.setNetworkIpAddress(netconfig.GetIpaddress()[i]
-								.getString());
-				// Subnetmask
-				ncs.setNetworkSubnetmask(netconfig.GetNetmask()[i].getString());
-				// Gate
-				ncs.setNetworkGateway(netconfig.GetGate()[i].getString());
-
-				// dns
-				Variant[] dnsServerListe = netconfig.GetDnsServer();
-
-				ncs.setNetworkDnsServer(dnsServerListe[0].getString());
-				ncs.setNetworkDnsServer2(dnsServerListe[1].getString());
-
-				// DHCPEnable
-				ncs.setNetworkDhcpEnabled(new Byte(netconfig.GetDHCPEnable()[i]
-						.getByte()));
-
-				nc[allocationSize] = ncs;
-				ncs = null;
-				i++;
-				allocationSize++;
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (nc != null)
-			this.ci.setInfoNetwork(nc);
-	}
-
-	/**
-	 * recuperation des informations convernant les utilisateurs
-	 */
-	private void old_fillusersData() {
-
-		UserConfig usersConfig = new UserConfig(wcim);
-
-		Variant[] listUsers = usersConfig.listUsers();
-		int i = 0;
-		System.out.println("\n================ users data =================");
-		// System.out.println(listNetworkInterfacesCaption.length);
-		try {
-			while (i < listUsers.length) {
-				System.out.println(listUsers[i].getString());
-				i++;
-			}
-		} catch (Exception e) {
-			// e.printStackTrace();
-		}
-
-		UsersData[] udTab = new UsersData[i + 1];
-		i = 0;
-		try {
-			while (i < listUsers.length && listUsers[i] != null) {
-				UsersData ud = new UsersData();
-				String user = listUsers[i].getString();
-				ud.setUserLogin(user);
-				// UserType = groupe
-				// ud.setUserType(usersConfig.getUserType(user));
-				// ud.setUserHome(usersConfig.getUserHome(user));
-				// ud.setUserPass(usersConfig.getUserPass(user));
-				// ud.setUserProxyOverride(usersConfig.getUserProxyOverride(user));
-				// ud.setUserProxyServ(usersConfig.getUserProxyServ(user));
-				// ud.setUserTimezone(usersConfig.getUserTimezone(user));
-				// ud.setUserKbLayout(usersConfig.getUserKbLayout(user));
-				udTab[i] = ud;
-				ud = null;
-				i++;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -577,7 +477,8 @@ public class wanduxApp {
 			wcim
 					.Request("SELECT DNSHostName FROM Win32_NetworkAdapterConfiguration");
 			rqRSLT = wcim.GetResult();
-			System.out.println("\n================Hostname data =================");
+			System.out
+					.println("\n================Hostname data =================");
 			System.out.println(rqRSLT[0].getString());
 			ci.gconf.setGlobalHostname(rqRSLT[0].getString());
 		} catch (Exception e) {
@@ -591,12 +492,11 @@ public class wanduxApp {
 	 * doit se connecter.
 	 */
 
-	private void getIp(String ip) {
-		XmlRetrieve ri = new XmlRetrieve(
-				"utils\\wanduxServerIp\\wanduxServerIp.xml");
-		this.applicationServerIp = ri.IpServer();
-		this.applicationServerIp = ip;
-	}
+	/*
+	 * private void getIp(String ip) { XmlRetrieve ri = new XmlRetrieve(
+	 * "utils\\wanduxServerIp\\wanduxServerIp.xml"); this.applicationServerIp =
+	 * ri.IpServer(); this.applicationServerIp = ip; }
+	 */
 
 	private void closeConnection() {
 		this.ce.EjbClose();
