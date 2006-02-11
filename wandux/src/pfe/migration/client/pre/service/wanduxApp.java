@@ -9,6 +9,8 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -388,11 +390,39 @@ public class wanduxApp {
 			this.ci.setInfoNetwork(ncTab);
 	}
 
+	private String getGroup(String user, Variant[] listGroupName, Variant[] listUserWithGroup)
+	{
+		String group = "";
+
+		Pattern p = Pattern.compile(user);
+		for (int i = 0; i < listUserWithGroup.length; i+=2)
+		{
+			Matcher m = p.matcher(listUserWithGroup[i].toString());
+		    if (m.find())
+		    {
+		    	i++;
+		    	group = listUserWithGroup[i].toString();
+		    	break;
+		    }
+		}
+		for (int j = 0; j < listGroupName.length; j++)
+		{
+    		Pattern p1 = Pattern.compile(listGroupName[j].toString());
+    		Matcher m1 = p1.matcher(group);
+    	    if (m1.find())
+    	    	return listGroupName[j].toString();
+		}
+    	return "users";
+	}
+	
 	private void fillusersData() {
 
 		UserConfig usersConfig = new UserConfig(wcim);
 		Variant[] listUsers = usersConfig.listUsers();
 		UsersData[] udTab = new UsersData[listUsers.length + 1];
+		
+		Variant[] listGroupName = usersConfig.listGroup();
+		Variant[] listUserWithGroup = usersConfig.getUserGroup();
 		try {
 			System.out
 					.println("\n================ Users data =================");
@@ -401,6 +431,7 @@ public class wanduxApp {
 				String user = listUsers[i].getString();
 				System.out.println(listUsers[i].getString());
 				ud.setUserLogin(user);
+				ud.setUserType(getGroup(user, listGroupName, listUserWithGroup));
 				udTab[i] = ud;
 				ud = null;
 			}
