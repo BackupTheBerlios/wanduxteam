@@ -29,7 +29,7 @@ public class NetConfig {
 		return this._wcim.GetResult();
 	}
 
-	public Variant[] GetIpadress() {
+	public Variant[] GetIpaddress() {
 		this._wcim
 				.Request("SELECT IPAddress FROM Win32_NetworkAdapterConfiguration");
 		return this._wcim.GetResult();
@@ -71,7 +71,7 @@ public class NetConfig {
 		return this._wcim.GetResult();
 	}
 
-	public Variant[] listNetworkInterfaces() {
+	public Variant[] IndexCaption() {
 		this._wcim
 				.Request("SELECT Index FROM Win32_NetworkAdapterConfiguration");
 		return this._wcim.GetResult();

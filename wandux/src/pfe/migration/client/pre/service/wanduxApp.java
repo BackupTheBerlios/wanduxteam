@@ -134,19 +134,28 @@ public class wanduxApp {
 			String s = (String) i.next();
 			String disk = "disk" + s.substring(0, 1);
 
-			File f = new File("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\");
+			File f = new File("\\\\" + this.storageServerIp
+					+ "\\wanduxStorage\\" + this.ci.getHostname() + "\\");
 			if (f.exists() == false)
 				f.mkdir();
-			f = new File("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk);
+			f = new File("\\\\" + this.storageServerIp + "\\wanduxStorage\\"
+					+ this.ci.getHostname() + "\\" + disk);
 			if (f.exists() == false)
 				f.mkdir();
-			
+
 			System.out.println("src : " + s);
-			System.out.println("dest : " + "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk);
+			System.out
+					.println("dest : " + "\\\\" + this.storageServerIp
+							+ "\\wanduxStorage\\" + this.ci.getHostname()
+							+ "\\" + disk);
 			// System.out.println("\\\\" + this.storageServerIp +
 			// "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk);
-			//cp.CopyNode(s, "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk, true);
-			cp.GenericCopyNode(s, "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk);
+			// cp.CopyNode(s, "\\\\" + this.storageServerIp +
+			// "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk, true);
+			cp
+					.GenericCopyNode(s, "\\\\" + this.storageServerIp
+							+ "\\wanduxStorage\\" + this.ci.getHostname()
+							+ "\\" + disk);
 		}
 	}
 
@@ -209,10 +218,11 @@ public class wanduxApp {
 
 		// //////// tmppour lestests //
 		System.out.println("\n ==================== scan data disk: "
-				+ roots[0].toString() + " ====================\n");
+				+ roots[1].toString() + " ====================\n");
 		// DefaultMutableTreeNode node = getSubDirs(roots[0]); // new
 		// DefaultMutableTreeNode(roots[i].getAbsoluteFile().toString());
-		DefaultMutableTreeNode node = getSubDirs(new File("C:/Documents and Settings/All Users/Application Data"));
+		DefaultMutableTreeNode node = getSubDirs(new File(
+				"C:/Documents and Settings/All Users/Application Data"));
 		root.add(node);
 		// //////// ---------------- //
 
@@ -236,8 +246,7 @@ public class wanduxApp {
 				if (list[j].isDirectory()) {
 					file = getSubDirs(list[j]);
 					racine.add(file);
-				}
-				else
+				} else
 					racine.add(new DefaultMutableTreeNode(list[j], false));
 			}
 		}
@@ -260,9 +269,153 @@ public class wanduxApp {
 	private void fillNetworkInCI() {
 
 		NetConfig netconfig = new NetConfig(wcim);
+		Variant[] IndexCaption = netconfig.IndexCaption();
+		Variant[] GetMac = netconfig.GetMac();
+		Variant[] GetIpaddress = netconfig.GetIpaddress();
+		Variant[] GetDHCPEnable = netconfig.GetDHCPEnable();
+		Variant[] GetNetmask = netconfig.GetNetmask();
+		Variant[] GetDnsServer = netconfig.GetDnsServer();
+		Variant[] GetCaption = netconfig.GetCaption();
+		Variant[] GetStatus = netconfig.GetStatus();
+		Variant[] GetGate = netconfig.GetGate();
 
-		Variant[] listNetworkInterfacesCaption = netconfig
-				.listNetworkInterfaces();
+		NetworkConfig[] ncTab = new NetworkConfig[IndexCaption.length + 1];
+		try {
+			System.out
+					.println("\n================ Index Caption data =================");
+			for (int i = 0; i < IndexCaption.length && IndexCaption[i] != null; i++) {
+				NetworkConfig nc = new NetworkConfig();
+				String caption = IndexCaption[i].getString();
+				System.out.println(IndexCaption[i].getString());
+				nc.setNetworkInterface(caption);
+				ncTab[i] = nc;
+				nc = null;
+			}
+
+			System.out
+					.println("\n================ GetMac data =================");
+			for (int i = 0; i < GetMac.length && GetMac[i] != null; i++) {
+				NetworkConfig nc = new NetworkConfig();
+				String caption = GetMac[i].getString();
+				System.out.println(GetMac[i].getString());
+				nc.setNetworkMacAdress(caption);
+				ncTab[i] = nc;
+				nc = null;
+			}
+
+			System.out
+					.println("\n================ GetIpaddress data =================");
+			for (int i = 0; i < GetIpaddress.length && GetIpaddress[i] != null; i++) {
+				NetworkConfig nc = new NetworkConfig();
+				String ipaddress = GetIpaddress[i].getString();
+				System.out.println(GetIpaddress[i].getString());
+				nc.setNetworkIpAddress(ipaddress);
+				ncTab[i] = nc;
+				nc = null;
+			}
+
+			System.out
+					.println("\n================ GetDHCPEnable data =================");
+			for (int i = 0; i < GetDHCPEnable.length
+					&& GetDHCPEnable[i] != null; i++) {
+				NetworkConfig nc = new NetworkConfig();
+				Byte dhcp = new Byte(GetDHCPEnable[i].getByte());
+				System.out.println(GetDHCPEnable[i].getByte());
+				nc.setNetworkDhcpEnabled(dhcp);
+				ncTab[i] = nc;
+				nc = null;
+			}
+
+			System.out
+					.println("\n================ GetNetmask data =================");
+			for (int i = 0; i < GetNetmask.length && GetNetmask[i] != null; i++) {
+				NetworkConfig nc = new NetworkConfig();
+				String netmask = GetNetmask[i].getString();
+				System.out.println(GetNetmask[i].getString());
+				nc.setNetworkSubnetmask(netmask);
+				ncTab[i] = nc;
+				nc = null;
+			}
+
+			System.out
+					.println("\n================ GetDnsServer data =================");
+			for (int i = 0; i < GetDnsServer.length && GetDnsServer[i] != null; i++) {
+				NetworkConfig nc = new NetworkConfig();
+				String dnsserver = GetDnsServer[i].getString();
+				System.out.println(GetDnsServer[i].getString());
+				nc.setNetworkDnsServer(dnsserver);
+				ncTab[i] = nc;
+				nc = null;
+			}
+
+			System.out
+					.println("\n================ GetCaption data =================");
+			for (int i = 0; i < GetCaption.length && GetCaption[i] != null; i++) {
+				NetworkConfig nc = new NetworkConfig();
+				String caption = GetCaption[i].getString();
+				System.out.println(GetCaption[i].getString());
+				nc.setNetworkInterface(caption);
+				ncTab[i] = nc;
+				nc = null;
+			}
+
+			System.out
+					.println("\n================ GetStatus data =================");
+			for (int i = 0; i < GetStatus.length && GetStatus[i] != null; i++) {
+				NetworkConfig nc = new NetworkConfig();
+				Byte status = new Byte(GetStatus[i].getByte());
+				System.out.println(GetStatus[i].getByte());
+				nc.setNetworkStatus(status);
+				ncTab[i] = nc;
+				nc = null;
+			}
+
+			System.out
+					.println("\n================ GetGate data =================");
+			for (int i = 0; i < GetGate.length && GetGate[i] != null; i++) {
+				NetworkConfig nc = new NetworkConfig();
+				String gate = GetGate[i].getString();
+				System.out.println(GetGate[i].getString());
+				nc.setNetworkGateway(gate);
+				ncTab[i] = nc;
+				nc = null;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (ncTab != null)
+			this.ci.setInfoNetwork(ncTab);
+	}
+
+	private void fillusersData() {
+
+		UserConfig usersConfig = new UserConfig(wcim);
+		Variant[] listUsers = usersConfig.listUsers();
+		UsersData[] udTab = new UsersData[listUsers.length + 1];
+		try {
+			System.out
+					.println("\n================ Users data =================");
+			for (int i = 0; i < listUsers.length && listUsers[i] != null; i++) {
+				UsersData ud = new UsersData();
+				String user = listUsers[i].getString();
+				System.out.println(listUsers[i].getString());
+				ud.setUserLogin(user);
+				udTab[i] = ud;
+				ud = null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (udTab != null)
+			this.ci.setUsersData(udTab);
+	}
+
+	private void old_fillNetworkInCI() {
+
+		NetConfig netconfig = new NetConfig(wcim);
+
+		Variant[] listNetworkInterfacesCaption = netconfig.IndexCaption();
 		int i = 0;
 		int allocationSize = 0;
 		while (i < listNetworkInterfacesCaption.length
@@ -279,10 +432,10 @@ public class wanduxApp {
 		try {
 			while (i < listNetworkInterfacesCaption.length
 					&& listNetworkInterfacesCaption[i] != null) {
-				if (netconfig.GetStatus()[i].getString().equals(new Byte("0"))) {
-					i++;
-					continue;
-				}
+				/*
+				 * if (netconfig.GetStatus()[i].getString().equals(new
+				 * Byte("0"))) { i++; continue; }
+				 */
 				System.out
 						.println("\n ==================== index de l'interface: "
 								+ listNetworkInterfacesCaption[i].getString()
@@ -296,7 +449,10 @@ public class wanduxApp {
 				// Mac
 				ncs.setNetworkMacAdress(netconfig.GetMac()[i].getString());
 				// ip
-				ncs.setNetworkIpAddress(netconfig.GetIpadress()[i].getString());
+				System.out.println(netconfig.GetIpaddress()[i].toInt());
+				ncs
+						.setNetworkIpAddress(netconfig.GetIpaddress()[i]
+								.getString());
 				// Subnetmask
 				ncs.setNetworkSubnetmask(netconfig.GetNetmask()[i].getString());
 				// Gate
@@ -328,17 +484,17 @@ public class wanduxApp {
 	/**
 	 * recuperation des informations convernant les utilisateurs
 	 */
-	private void fillusersData() {
+	private void old_fillusersData() {
 
 		UserConfig usersConfig = new UserConfig(wcim);
 
-		Variant[] listNetworkInterfacesCaption = usersConfig.listUsers();
+		Variant[] listUsers = usersConfig.listUsers();
 		int i = 0;
 		System.out.println("\n================ users data =================");
 		// System.out.println(listNetworkInterfacesCaption.length);
 		try {
-			while (i < listNetworkInterfacesCaption.length) {
-				System.out.println(listNetworkInterfacesCaption[i].getString());
+			while (i < listUsers.length) {
+				System.out.println(listUsers[i].getString());
 				i++;
 			}
 		} catch (Exception e) {
@@ -348,10 +504,9 @@ public class wanduxApp {
 		UsersData[] udTab = new UsersData[i + 1];
 		i = 0;
 		try {
-			while (i < listNetworkInterfacesCaption.length
-					&& listNetworkInterfacesCaption[i] != null) {
+			while (i < listUsers.length && listUsers[i] != null) {
 				UsersData ud = new UsersData();
-				String user = listNetworkInterfacesCaption[i].getString();
+				String user = listUsers[i].getString();
 				ud.setUserLogin(user);
 				// UserType = groupe
 				// ud.setUserType(usersConfig.getUserType(user));
@@ -388,8 +543,11 @@ public class wanduxApp {
 		Variant[] rqRSLT = null;
 		try {
 			Win32Cim wcim = new Win32Cim();
-			wcim.Request("SELECT Caption FROM Win32_ComputerSystem");
+			wcim
+					.Request("SELECT DNSHostName FROM Win32_NetworkAdapterConfiguration");
 			rqRSLT = wcim.GetResult();
+			System.out.println("\n================Hostname data =================");
+			System.out.println(rqRSLT[0].getString());
 			ci.gconf.setGlobalHostname(rqRSLT[0].getString());
 		} catch (Exception e) {
 			System.err.println(e.getStackTrace());
@@ -403,9 +561,9 @@ public class wanduxApp {
 	 */
 
 	private void getIp(String ip) {
-		// XmlRetrieve ri = new XmlRetrieve(
-		// "utils\\wanduxServerIp\\wanduxServerIp.xml");
-		// this.applicationServerIp = ri.IpServer();
+		XmlRetrieve ri = new XmlRetrieve(
+				"utils\\wanduxServerIp\\wanduxServerIp.xml");
+		this.applicationServerIp = ri.IpServer();
 		this.applicationServerIp = ip;
 	}
 
