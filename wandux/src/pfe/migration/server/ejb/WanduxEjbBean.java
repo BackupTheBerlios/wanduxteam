@@ -19,6 +19,7 @@ import net.sf.hibernate.Session;
 import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.server.ejb.bdd.HibernateUtil;
 import pfe.migration.server.ejb.bdd.Linuxcomponents;
+import pfe.migration.server.ejb.bdd.Mandrakepkgs;
 import pfe.migration.server.ejb.bdd.Windowscomponents;
 import pfe.migration.server.ejb.tool.CopyBookmark;
 
@@ -72,7 +73,92 @@ public class WanduxEjbBean implements SessionBean
 	{
 		return "koukouk";
 	}
-	
+
+	/**
+	 * Small AI to determine best matching package, from Commercial name
+	 * 
+	 */
+	public Integer GuessMostRelevantPackage(String LinSoft, String CurrentPackage)
+	{
+		Integer mark = new Integer(0);
+		int im = 0;
+		System.out.println("_Linsoft: "+LinSoft);
+		System.out.println("_Current: "+CurrentPackage);
+
+
+		if (LinSoft.toLowerCase().equals((CurrentPackage.toLowerCase()))) {
+			im += 100;
+		}
+		else
+		{
+			if (CurrentPackage.toLowerCase().substring(0, LinSoft.length()).toLowerCase().equals(LinSoft)) {
+				im += 20;
+			}
+			if (CurrentPackage.toLowerCase().substring(CurrentPackage.length() - LinSoft.length(),
+													   CurrentPackage.length()).toLowerCase().equals(LinSoft)) {
+				im += 20;
+			}
+			if (CurrentPackage.substring(0, LinSoft.length()).equals(LinSoft)) {
+				im += 40;
+			}
+			if (CurrentPackage.substring(CurrentPackage.length() - LinSoft.length(),
+													   CurrentPackage.length()).equals(LinSoft)) {
+				im += 40;
+			}
+			/*
+			 * retain package size to evaluate match
+			 * (the smallest, the better)
+			 */
+			im += (20 - (CurrentPackage.length() - LinSoft.length()));
+		}
+		mark = new Integer(im); 
+		return mark;
+	}
+
+	public String getLinuxPackageName(String LinSoft)
+	{
+		Session session = null;
+		ArrayList lpkgs = new ArrayList();
+		ArrayList lint = new ArrayList();
+
+		try {
+	        List l;
+	        session = HibernateUtil.currentSession();
+
+	        l = session.createSQLQuery(
+				    "SELECT {wc.*} FROM MANDRAKEPKGS {wc} where name like CONVERT( _utf8 '%"
+	        			+ LinSoft
+	        			+ "%' USING latin1 )",
+				    "wc",
+				    Mandrakepkgs.class
+				).list();
+	        Iterator i = l.iterator();
+			for (int j = 0; i.hasNext(); j++)
+			{
+				Mandrakepkgs mp = (Mandrakepkgs)i.next();
+				lpkgs.add(mp.getName());
+				//lsize.add(new Integer(mp.getName().length()));
+				/*
+				 * Function that matches best possible choice
+				 */
+				lint.add(GuessMostRelevantPackage(LinSoft, mp.getName()));
+				// TODO CB6 pour le choix du meilleur package, si on a deux
+				// packages ayant la meme note, choisir celui dont le nom est
+				// le plus court
+			}
+			Iterator li = lint.iterator();
+			for (int k = 0; li.hasNext(); k++)
+			{
+				System.out.println(k +" "+lpkgs.get(k)+" rate: " + li.next());
+			}
+			HibernateUtil.closeSession();
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+	}
+
 	public ArrayList getLinuxEquivalents(String WinSoft)
 	{
 		Session session;

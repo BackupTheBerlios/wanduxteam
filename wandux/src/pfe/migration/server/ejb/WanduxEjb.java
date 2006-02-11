@@ -31,4 +31,6 @@ public interface WanduxEjb extends EJBObject
 //	public CiList getCiList () throws RemoteException;
 
 	public ArrayList getLinuxEquivalents(String Winsoft) throws RemoteException;
+
+	public Integer GuessMostRelevantPackage(String LinSoft, String CurrentPackage) throws RemoteException;
 }
