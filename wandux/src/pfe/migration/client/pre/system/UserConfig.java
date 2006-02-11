@@ -28,6 +28,16 @@ public class UserConfig {
 		return this._wcim.GetResult();
 	}
 
+	public Variant[] listGroup() {
+		this._wcim.Request("SELECT name FROM Win32_Group");
+		return this._wcim.GetResult();
+	}
+
+	public Variant[] getUserGroup() {
+		this._wcim.Request("SELECT PartComponent,GroupComponent FROM Win32_GroupUser");
+		return this._wcim.GetResult();
+	}
+
 	public Variant[] getUserKbLayout() {
 		this._wcim.Request("SELECT Layout FROM Win32_Keyboard");
 		return this._wcim.GetResult();
