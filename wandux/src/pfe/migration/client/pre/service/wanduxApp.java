@@ -283,18 +283,18 @@ public class wanduxApp {
 
 		try {
 			NetworkConfig[] ncTab = new NetworkConfig[IndexCaption.length + 1];
-			for (int i = 0; i < IndexCaption.length && IndexCaption[i] != null; i++)
-			{
-				System.out.println(GetStatus[i].toBoolean());
-				if (GetStatus[i].toBoolean())
-					continue ;
+			for (int i = 0; i < IndexCaption.length && IndexCaption[i] != null; i++) {
+
+				if (GetStatus[i].getBoolean() == false)
+					continue;
+
 				System.out
 						.println("\n================ Index Caption data =================");
 				NetworkConfig nc = new NetworkConfig();
 				String indexcaption = IndexCaption[i].getString();
 				System.out.println(IndexCaption[i].getString());
 				nc.setNetworkInterface(indexcaption);
-				
+
 				System.out
 						.println("\n================ GetMac data =================");
 				String Macadd = GetMac[i].getString();
@@ -307,8 +307,13 @@ public class wanduxApp {
 				nc.setNetworkIpAddress(ipaddress);
 				System.out
 						.println("\n================ GetDHCPEnable data =================");
-				Byte dhcp = new Byte(GetDHCPEnable[i].getByte());
-				System.out.println(GetDHCPEnable[i].getByte());
+				Boolean booldhcp = new Boolean(GetDHCPEnable[i].getBoolean());
+				Byte dhcp = null;
+				if (booldhcp.booleanValue() == true)
+					dhcp = new Byte("1");
+				else
+					dhcp = new Byte("0");
+				System.out.println(dhcp);
 				nc.setNetworkDhcpEnabled(dhcp);
 				System.out
 						.println("\n================ GetNetmask data =================");
@@ -327,8 +332,14 @@ public class wanduxApp {
 				nc.setNetworkInterface(caption);
 				System.out
 						.println("\n================ GetStatus data =================");
-				Byte status = new Byte(GetStatus[i].toByte());
-				System.out.println(GetStatus[i].toByte());
+				Boolean boolstatus = new Boolean(GetStatus[i].getBoolean());
+				Byte status = null;
+				if (boolstatus.booleanValue() == true)
+					status = new Byte("1");
+				else
+					status = new Byte("0");
+
+				System.out.println(status);
 				nc.setNetworkStatus(status);
 				System.out
 						.println("\n================ GetGate data =================");
