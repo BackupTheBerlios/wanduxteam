@@ -16,12 +16,14 @@ import java.io.IOException;
  */
 public class ExecAdll {
 
-	String cfgFileName = "/wandux/mandrake/unattended/";
-	String xmlFileName = "/wandux/mandrake/unattended/";
+	String cfgFileName = "";
+	String xmlFileName = "";
 	String macAdress = null;
 	
-  public ExecAdll (String cfgFileName)
+  public ExecAdll (String path, String cfgFileName)
   {
+	cfgFileName = path;
+	xmlFileName = path;
   	this.cfgFileName += cfgFileName + ".cfg";
   	xmlFileName += cfgFileName + ".xml";
   	
@@ -45,7 +47,6 @@ public class ExecAdll {
 		System.exit(1);
 	}
 	try {
-		//System.out.println("lahous >>>" +this.macAdress);
 		Runtime.getRuntime().exec("/wandux/utils/createBootFile.pl " + this.macAdress);
 	} catch (IOException e1) {
 		System.err.println(e1);

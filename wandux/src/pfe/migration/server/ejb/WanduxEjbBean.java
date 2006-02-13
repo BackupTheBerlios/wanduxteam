@@ -17,11 +17,13 @@ import javax.ejb.SessionContext;
 import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
 import pfe.migration.client.network.ComputerInformation;
+import pfe.migration.server.ejb.adll.ExecAdll;
 import pfe.migration.server.ejb.bdd.HibernateUtil;
 import pfe.migration.server.ejb.bdd.Linuxcomponents;
 import pfe.migration.server.ejb.bdd.Mandrakepkgs;
 import pfe.migration.server.ejb.bdd.Windowscomponents;
 import pfe.migration.server.ejb.tool.CopyBookmark;
+import pfe.migration.server.ejb.tool.XmlAdllParse;
 
 /**
  * @ejb.bean name="ServerEjb"
@@ -209,8 +211,9 @@ public class WanduxEjbBean implements SessionBean
 	// -- taches internes ------------------------------------------------------- //
 	public void createAdllXmlFile(ComputerInformation ci)
 	{
-//		XmlAdllParse xml = new XmlAdllParse(ci.getMac(), ci);
-//		ExecAdll ea = new ExecAdll(ci.getMac());
+		String path = "/wandux/mandrake/unattended/";
+		new XmlAdllParse(path, ci.getHostname(), ci);
+		new ExecAdll(path, ci.getHostname());
 	}
 	
 	public void createXmlBookmark(ComputerInformation ci)
