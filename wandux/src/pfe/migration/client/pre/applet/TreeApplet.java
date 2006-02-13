@@ -31,10 +31,7 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 	private String currentHostname = "";
 	private ClientEjb ce = null;
 	private ComputerInformation currentCI = null;
-	
-//	private boolean ready = false;
 	private int step = 0;
-	
 	public static List finalList = new ArrayList(); 
 
 	public void init()
@@ -89,7 +86,7 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
 			bic = new ButtonImageCanvas(getImage(new URL(getCodeBase()+"/img/fleche_suivant.gif")));
 		} catch (MalformedURLException e) { e.printStackTrace(); }
 		bic.addMouseListener(this);
-		
+
 		final JTree fileTree = new JTree(this.currentCI.getFileSystemModel());
 		new CheckTreeManager(fileTree);
         JScrollPane jsp  = new JScrollPane(fileTree);
@@ -146,7 +143,7 @@ public class TreeApplet extends Applet implements ActionListener, MouseListener 
   			this.ce = new ClientEjb(applicationServerIp);
 			this.ce.EjbConnect();
   		}
-  		
+
 //
 //  	// gestion de la mauvaise url (ca marche)
 //		else if (ce.IsConnected())
