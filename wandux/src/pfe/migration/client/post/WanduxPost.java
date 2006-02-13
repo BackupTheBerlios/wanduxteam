@@ -116,6 +116,10 @@ public class WanduxPost
 				BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 				this.currentHostname = input.readLine();
 				input.close();
+				p = Runtime.getRuntime().exec("echo " + ci.udata[i].getUserLogin() + ":wandux | chpasswd");
+				input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+				this.currentHostname = input.readLine();
+				input.close();
 			} catch (Exception err) {
 				err.printStackTrace();
 			}
