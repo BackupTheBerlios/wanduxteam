@@ -283,13 +283,18 @@ public class wanduxApp {
 
 		try {
 			NetworkConfig[] ncTab = new NetworkConfig[IndexCaption.length + 1];
-			for (int i = 0; i < IndexCaption.length && IndexCaption[i] != null; i++) {
+			for (int i = 0; i < IndexCaption.length && IndexCaption[i] != null; i++)
+			{
+				System.out.println(GetStatus[i].toBoolean());
+				if (GetStatus[i].toBoolean())
+					continue ;
 				System.out
 						.println("\n================ Index Caption data =================");
 				NetworkConfig nc = new NetworkConfig();
 				String indexcaption = IndexCaption[i].getString();
 				System.out.println(IndexCaption[i].getString());
 				nc.setNetworkInterface(indexcaption);
+				
 				System.out
 						.println("\n================ GetMac data =================");
 				String Macadd = GetMac[i].getString();
@@ -322,8 +327,8 @@ public class wanduxApp {
 				nc.setNetworkInterface(caption);
 				System.out
 						.println("\n================ GetStatus data =================");
-				Byte status = new Byte(GetStatus[i].getByte());
-				System.out.println(GetStatus[i].getByte());
+				Byte status = new Byte(GetStatus[i].toByte());
+				System.out.println(GetStatus[i].toByte());
 				nc.setNetworkStatus(status);
 				System.out
 						.println("\n================ GetGate data =================");
