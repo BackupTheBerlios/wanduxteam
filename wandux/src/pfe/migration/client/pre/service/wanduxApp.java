@@ -281,118 +281,52 @@ public class wanduxApp {
 		Variant[] GetStatus = netconfig.GetStatus();
 		Variant[][] GetGate = netconfig.GetGate();
 
-		
 		try {
 			NetworkConfig[] ncTab = new NetworkConfig[IndexCaption.length + 1];
-			System.out
-					.println("\n================ Index Caption data =================");
 			for (int i = 0; i < IndexCaption.length && IndexCaption[i] != null; i++) {
+				System.out
+						.println("\n================ Index Caption data =================");
 				NetworkConfig nc = new NetworkConfig();
-				String caption = IndexCaption[i].getString();
+				String indexcaption = IndexCaption[i].getString();
 				System.out.println(IndexCaption[i].getString());
-				nc.setNetworkInterface(caption);
-				ncTab[i] = nc;
-				nc = null;
-			}
-			if (ncTab != null)
-				this.ci.setInfoNetwork(ncTab);
-			ncTab = new NetworkConfig[GetMac.length + 1];
-			System.out
-					.println("\n================ GetMac data =================");
-			for (int i = 0; i < GetMac.length && GetMac[i] != null; i++) {
-				NetworkConfig nc = new NetworkConfig();
-				String caption = GetMac[i].getString();
+				nc.setNetworkInterface(indexcaption);
+				System.out
+						.println("\n================ GetMac data =================");
+				String Macadd = GetMac[i].getString();
 				System.out.println(GetMac[i].getString());
-				nc.setNetworkMacAdress(caption);
-				ncTab[i] = nc;
-				nc = null;
-			}
-			if (ncTab != null)
-				this.ci.setInfoNetwork(ncTab);
-			ncTab = new NetworkConfig[GetIpaddress.length + 1];
-			System.out
-					.println("\n================ GetIpaddress data =================");
-			for (int i = 0; i < GetIpaddress.length && GetIpaddress[i] != null; i++) {
-				NetworkConfig nc = new NetworkConfig();
+				nc.setNetworkMacAdress(Macadd);
+				System.out
+						.println("\n================ GetIpaddress data =================");
 				String ipaddress = GetIpaddress[i][0].getString();
 				System.out.println(GetIpaddress[i][0].getString());
 				nc.setNetworkIpAddress(ipaddress);
-				ncTab[i] = nc;
-				nc = null;
-			}
-			if (ncTab != null)
-				this.ci.setInfoNetwork(ncTab);
-			ncTab = new NetworkConfig[GetDHCPEnable.length + 1];
-			System.out
-					.println("\n================ GetDHCPEnable data =================");
-			for (int i = 0; i < GetDHCPEnable.length
-					&& GetDHCPEnable[i] != null; i++) {
-				NetworkConfig nc = new NetworkConfig();
+				System.out
+						.println("\n================ GetDHCPEnable data =================");
 				Byte dhcp = new Byte(GetDHCPEnable[i].getByte());
 				System.out.println(GetDHCPEnable[i].getByte());
 				nc.setNetworkDhcpEnabled(dhcp);
-				ncTab[i] = nc;
-				nc = null;
-			}
-			if (ncTab != null)
-				this.ci.setInfoNetwork(ncTab);
-			ncTab = new NetworkConfig[GetNetmask.length + 1];
-			System.out
-					.println("\n================ GetNetmask data =================");
-			for (int i = 0; i < GetNetmask.length && GetNetmask[i] != null; i++) {
-				NetworkConfig nc = new NetworkConfig();
+				System.out
+						.println("\n================ GetNetmask data =================");
 				String netmask = GetNetmask[i][0].getString();
 				System.out.println(GetNetmask[i][0].getString());
 				nc.setNetworkSubnetmask(netmask);
-				ncTab[i] = nc;
-				nc = null;
-			}
-			if (ncTab != null)
-				this.ci.setInfoNetwork(ncTab);
-			ncTab = new NetworkConfig[GetDnsServer.length + 1];
-			System.out
-					.println("\n================ GetDnsServer data =================");
-			for (int i = 0; i < GetDnsServer.length && GetDnsServer[i] != null; i++) {
-				NetworkConfig nc = new NetworkConfig();
+				System.out
+						.println("\n================ GetDnsServer data =================");
 				String dnsserver = GetDnsServer[i][0].getString();
 				System.out.println(GetDnsServer[i][0].getString());
 				nc.setNetworkDnsServer(dnsserver);
-				ncTab[i] = nc;
-				nc = null;
-			}
-			if (ncTab != null)
-				this.ci.setInfoNetwork(ncTab);
-			ncTab = new NetworkConfig[GetCaption.length + 1];
-			System.out
-					.println("\n================ GetCaption data =================");
-			for (int i = 0; i < GetCaption.length && GetCaption[i] != null; i++) {
-				NetworkConfig nc = new NetworkConfig();
+				System.out
+						.println("\n================ GetCaption data =================");
 				String caption = GetCaption[i].getString();
 				System.out.println(GetCaption[i].getString());
 				nc.setNetworkInterface(caption);
-				ncTab[i] = nc;
-				nc = null;
-			}
-			if (ncTab != null)
-				this.ci.setInfoNetwork(ncTab);
-			ncTab = new NetworkConfig[GetStatus.length + 1];
-			System.out
-					.println("\n================ GetStatus data =================");
-			for (int i = 0; i < GetStatus.length && GetStatus[i] != null; i++) {
-				NetworkConfig nc = new NetworkConfig();
+				System.out
+						.println("\n================ GetStatus data =================");
 				Byte status = new Byte(GetStatus[i].getByte());
 				System.out.println(GetStatus[i].getByte());
 				nc.setNetworkStatus(status);
-				ncTab[i] = nc;
-				nc = null;
-			}
-			if (ncTab != null)
-				this.ci.setInfoNetwork(ncTab);
-			ncTab = new NetworkConfig[GetGate.length + 1];
-			System.out
-					.println("\n================ GetGate data =================");
-			for (int i = 0; i < GetGate.length && GetGate[i] != null; i++) {
-				NetworkConfig nc = new NetworkConfig();
+				System.out
+						.println("\n================ GetGate data =================");
 				String gate = GetGate[i][0].getString();
 				System.out.println(GetGate[i][0].getString());
 				nc.setNetworkGateway(gate);
@@ -401,7 +335,6 @@ public class wanduxApp {
 			}
 			if (ncTab != null)
 				this.ci.setInfoNetwork(ncTab);
-			ncTab = null;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

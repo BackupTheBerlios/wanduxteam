@@ -56,10 +56,8 @@ public class CimValues {
 			for (int i = 0; i < NB_PROPERTIES; i++) {
 				Dispatch obEnum = ElementEnum.toDispatch();
 				Variant RetValue = Dispatch.call(obEnum, TabProperties[i]);
-				if (!(RetValue.toString().equals("null"))) {
-					resultat[j] = RetValue;
-					j++;
-				}
+				resultat[j] = RetValue;
+				j++;
 			}
 		}
 		Variant[] res = new Variant[j];
@@ -82,12 +80,15 @@ public class CimValues {
 			for (int i = 0; i < NB_PROPERTIES; i++) {
 				Dispatch obEnum = ElementEnum.toDispatch();
 				Variant RetValue = Dispatch.call(obEnum, TabProperties[i]);
-				if (!(RetValue.toString().equals("null"))) {
-					SafeArray tab = new SafeArray();
-					tab = RetValue.toSafeArray();
-					resultat[j] = tab.toVariantArray();
-					j++;
+				if (RetValue.toString().equals("null"))
+				{
+					SafeArray test = new SafeArray(Variant.VariantString,1);
+					RetValue.putSafeArray(test);
 				}
+				SafeArray tab = new SafeArray();
+				tab = RetValue.toSafeArray();
+				resultat[j] = tab.toVariantArray();
+				j++;
 			}
 		}
 		Variant[][] res = new Variant[j][];
