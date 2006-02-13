@@ -178,6 +178,8 @@ for (i=0; i < cl.size(); i++)
 	out.print("<TR><TD colspan=2><br><br></TD></TR>");
 	for (x=0; x < (ci.netconf.length - 1); x++)
 	{
+		if (ci.netconf[x] == null)
+			continue;
 		if (ci.netconf[x].getNetworkInterface() != null)
 		out.print("<TR><TD width=150>Interface :</TD><TD width=480><b>" + ci.netconf[x].getNetworkInterface() + "</b></TD></TR>");
 		if (ci.netconf[x].getNetworkIpAddress() != null)
