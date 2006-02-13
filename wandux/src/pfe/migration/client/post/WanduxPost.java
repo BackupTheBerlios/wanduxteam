@@ -63,7 +63,7 @@ public class WanduxPost
 		ce.EjbConnect();
 
 		try {
-			this.ci = ce.getBean().getCi(this.currentHostname);
+			this.ci = ce.getBean().getCi(this.storageServerIp);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -95,7 +95,38 @@ public class WanduxPost
 	
 	public void usersGroupsCreation()
 	{
-		// reception des groups et utilisateur
+		System.out.println("usersGroupsCreation"+ci);
+		System.out.println("usersGroupsCreation"+ci.udata);
+		System.out.println("usersGroupsCreation"+ci.udata.length);
+		for (int i = 0; i < ci.udata.length; i++)
+		{
+			try {
+				Process p = Runtime.getRuntime().exec("addgroup " + ci.udata[i].getUserType());
+				BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+				this.currentHostname = input.readLine();
+				input.close();
+			} catch (Exception err) {
+				err.printStackTrace();
+			}
+
+			try {
+				Process p = Runtime.getRuntime().exec("adduser  --group "  + ci.udata[i].getUserType() + " " + ci.udata[i].getUserLogin());
+				BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+				this.currentHostname = input.readLine();
+				input.close();
+			} catch (Exception err) {
+				err.printStackTrace();
+			}
+		}
+// reception des groups et utilisateur
+//		try {
+//			Process p = Runtime.getRuntime().exec("hostname");
+//			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+//			this.currentHostname = input.readLine();
+//			input.close();
+//		} catch (Exception err) {
+//			err.printStackTrace();
+//		}
 	}
 
 	public void confWebPrograms()
