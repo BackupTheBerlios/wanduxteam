@@ -178,31 +178,44 @@ for (i=0; i < cl.size(); i++)
 	out.print("<TR><TD colspan=2><br><br></TD></TR>");
 	for (x=0; x < (ci.netconf.length - 1); x++)
 	{
+		if (ci.netconf[x].getNetworkInterface() != null)
 		out.print("<TR><TD width=150>Interface :</TD><TD width=480><b>" + ci.netconf[x].getNetworkInterface() + "</b></TD></TR>");
+		if (ci.netconf[x].getNetworkIpAddress() != null)
 		out.print("<TR><TD width=150>Ip Adress :</TD><TD width=480><b>" + ci.netconf[x].getNetworkIpAddress() + "</b></TD></TR>");
+		if (ci.netconf[x].getNetworkSubnetmask() != null)
 		out.print("<TR><TD width=150>SubNetMask :</TD><TD width=480><b>" + ci.netconf[x].getNetworkSubnetmask() + "</b></TD></TR>");
+		if (ci.netconf[x].getNetworkMacAdress() != null)
 		out.print("<TR><TD width=150>Mac Adress :</TD><TD width=480><b>" + ci.netconf[x].getNetworkMacAdress() + "</b></TD></TR>");
+		if (ci.netconf[x].getNetworkDnsServer() != null)
 		out.print("<TR><TD width=150>Primary DNS :</TD><TD width=480><b>" + ci.netconf[x].getNetworkDnsServer() + "</b></TD></TR>");	
+		if (ci.netconf[x].getNetworkDnsServer2() != null)
 		out.print("<TR><TD width=150>Secondary DNS :</TD><TD width=480><b>" + ci.netconf[x].getNetworkDnsServer2() + "</b></TD></TR>");
+		if (ci.netconf[x].getNetworkGateway()!= null)
 		out.print("<TR><TD width=150>Gateway : </TD><TD width=480><b>" + ci.netconf[x].getNetworkGateway() + "</b></TD></TR>");
-		out.print("<TR><TD width=150>DHCP Enabled :</TD><TD width=480><b>");
-		 if (ci.netconf[x].getNetworkDhcpEnabled().intValue() == 1)
+		if (ci.netconf[x].getNetworkDhcpEnabled() != null)
 		{
-			out.print("yes</b></TD></TR>");
-		}
-		else
-		{
-			out.print("no</b></TD></TR>");
+			out.print("<TR><TD width=150>DHCP Enabled :</TD><TD width=480><b>");
+			 if (ci.netconf[x].getNetworkDhcpEnabled().intValue() == 1)
+			{
+				out.print("yes</b></TD></TR>");
+			}
+			else
+			{
+				out.print("no</b></TD></TR>");
+			}
 		}
 		 
-		out.print("<TR><TD width=150>Status : </TD><TD width=480><b>");
-		if (ci.netconf[x].getNetworkStatus().intValue() == 1)
+		if (ci.netconf[x].getNetworkStatus() != null)
 		{
-			out.print("activated</b></TD></TR>");
-		}
-		else
-		{
-			out.print("disabled</b></TD></TR>");
+			out.print("<TR><TD width=150>Status : </TD><TD width=480><b>");
+			if (ci.netconf[x].getNetworkStatus().intValue() == 1)
+			{
+				out.print("activated</b></TD></TR>");
+			}
+			else
+			{
+				out.print("disabled</b></TD></TR>");
+			}
 		}
 		out.print("<TR><TD colspan=2><br><br></TD></TR>");
 	}
