@@ -412,8 +412,11 @@ public class wanduxApp {
 			rqRSLT = wcim.GetResult();
 			System.out
 					.println("\n================Hostname data =================");
-			System.out.println(rqRSLT[0].getString());
-			ci.gconf.setGlobalHostname(rqRSLT[0].getString());
+			int i;
+			for (i = 0; rqRSLT[i].isNull(); i++)
+				;
+			System.out.println(rqRSLT[i].getString());
+			ci.gconf.setGlobalHostname(rqRSLT[i].getString());
 		} catch (Exception e) {
 			System.err.println(e.getStackTrace());
 		}
