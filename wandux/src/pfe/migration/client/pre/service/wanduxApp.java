@@ -291,61 +291,91 @@ public class wanduxApp {
 				System.out
 						.println("\n================ Index Caption data =================");
 				NetworkConfig nc = new NetworkConfig();
-				String indexcaption = IndexCaption[i].getString();
 				System.out.println(IndexCaption[i].getString());
-				nc.setNetworkInterface(indexcaption);
+				if (IndexCaption[i].isNull())
+					nc.setNetworkInterface("");
+				else
+					nc.setNetworkInterface(IndexCaption[i].getString());
 
 				System.out
 						.println("\n================ GetMac data =================");
-				String Macadd = GetMac[i].getString();
 				System.out.println(GetMac[i].getString());
-				nc.setNetworkMacAdress(Macadd);
+				if (GetMac[i].isNull())
+					nc.setNetworkMacAdress("");
+				else
+					nc.setNetworkMacAdress(GetMac[i].getString());
+
 				System.out
 						.println("\n================ GetIpaddress data =================");
-				String ipaddress = GetIpaddress[i][0].getString();
 				System.out.println(GetIpaddress[i][0].getString());
-				nc.setNetworkIpAddress(ipaddress);
+				if (GetIpaddress[i][0].isNull())
+					nc.setNetworkIpAddress("");
+				else
+					nc.setNetworkIpAddress(GetIpaddress[i][0].getString());
+
 				System.out
 						.println("\n================ GetDHCPEnable data =================");
-				Boolean booldhcp = new Boolean(GetDHCPEnable[i].getBoolean());
-				Byte dhcp = null;
-				if (booldhcp.booleanValue() == true)
-					dhcp = new Byte("1");
-				else
-					dhcp = new Byte("0");
-				System.out.println(dhcp);
-				nc.setNetworkDhcpEnabled(dhcp);
+				if (GetDHCPEnable[i].isNull())
+					nc.setNetworkDhcpEnabled(new Byte("0"));
+				else {
+					Boolean booldhcp = new Boolean(GetDHCPEnable[i]
+							.getBoolean());
+					Byte dhcp = null;
+					if (booldhcp.booleanValue() == true)
+						dhcp = new Byte("1");
+					else
+						dhcp = new Byte("0");
+					System.out.println(dhcp);
+					nc.setNetworkDhcpEnabled(dhcp);
+				}
+
 				System.out
 						.println("\n================ GetNetmask data =================");
-				String netmask = GetNetmask[i][0].getString();
 				System.out.println(GetNetmask[i][0].getString());
-				nc.setNetworkSubnetmask(netmask);
+				if (GetNetmask[i][0].isNull())
+					nc.setNetworkSubnetmask("");
+				else
+					nc.setNetworkSubnetmask(GetNetmask[i][0].getString());
+
 				System.out
 						.println("\n================ GetDnsServer data =================");
-				String dnsserver = GetDnsServer[i][0].getString();
 				System.out.println(GetDnsServer[i][0].getString());
-				nc.setNetworkDnsServer(dnsserver);
+				if (GetDnsServer[i][0].isNull())
+					nc.setNetworkDnsServer("");
+				else
+					nc.setNetworkDnsServer(GetDnsServer[i][0].getString());
+
 				System.out
 						.println("\n================ GetCaption data =================");
-				String caption = GetCaption[i].getString();
 				System.out.println(GetCaption[i].getString());
-				nc.setNetworkInterface(caption);
+				if (GetCaption[i].isNull())
+					nc.setNetworkInterface("");
+				else
+					nc.setNetworkInterface(GetCaption[i].getString());
+
 				System.out
 						.println("\n================ GetStatus data =================");
-				Boolean boolstatus = new Boolean(GetStatus[i].getBoolean());
-				Byte status = null;
-				if (boolstatus.booleanValue() == true)
-					status = new Byte("1");
-				else
-					status = new Byte("0");
+				if (GetStatus[i].isNull())
+					nc.setNetworkStatus(new Byte("0"));
+				else {
+					Boolean boolstatus = new Boolean(GetStatus[i].getBoolean());
+					Byte status = null;
+					if (boolstatus.booleanValue() == true)
+						status = new Byte("1");
+					else
+						status = new Byte("0");
 
-				System.out.println(status);
-				nc.setNetworkStatus(status);
+					System.out.println(status);
+					nc.setNetworkStatus(status);
+				}
+
 				System.out
 						.println("\n================ GetGate data =================");
-				String gate = GetGate[i][0].getString();
 				System.out.println(GetGate[i][0].getString());
-				nc.setNetworkGateway(gate);
+				if (GetGate[i][0].isNull())
+					nc.setNetworkGateway("");
+				else
+					nc.setNetworkGateway(GetGate[i][0].getString());
 				ncTab[i] = nc;
 				nc = null;
 			}
