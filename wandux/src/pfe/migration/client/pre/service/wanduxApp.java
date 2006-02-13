@@ -283,6 +283,7 @@ public class wanduxApp {
 
 		try {
 			NetworkConfig[] ncTab = new NetworkConfig[IndexCaption.length + 1];
+			int j = 0;
 			for (int i = 0; i < IndexCaption.length && IndexCaption[i] != null; i++) {
 
 				if (GetStatus[i].getBoolean() == false)
@@ -292,30 +293,30 @@ public class wanduxApp {
 						.println("\n================ Index Caption data =================");
 				NetworkConfig nc = new NetworkConfig();
 				System.out.println(IndexCaption[i].getString());
-				if (IndexCaption[i].isNull())
-					nc.setNetworkInterface("");
+				if (IndexCaption[i].getString() == null)
+					nc.setNetworkInterface("0");
 				else
 					nc.setNetworkInterface(IndexCaption[i].getString());
 
 				System.out
 						.println("\n================ GetMac data =================");
 				System.out.println(GetMac[i].getString());
-				if (GetMac[i].isNull())
-					nc.setNetworkMacAdress("");
+				if (GetMac[i].getString() == null)
+					nc.setNetworkMacAdress("00:00:00:00:00:00");
 				else
 					nc.setNetworkMacAdress(GetMac[i].getString());
 
 				System.out
 						.println("\n================ GetIpaddress data =================");
 				System.out.println(GetIpaddress[i][0].getString());
-				if (GetIpaddress[i][0].isNull())
-					nc.setNetworkIpAddress("");
+				if (GetIpaddress[i][0].getString() == null)
+					nc.setNetworkIpAddress("0.0.0.0");
 				else
 					nc.setNetworkIpAddress(GetIpaddress[i][0].getString());
 
 				System.out
 						.println("\n================ GetDHCPEnable data =================");
-				if (GetDHCPEnable[i].isNull())
+				if (GetDHCPEnable[i].getBoolean() == false)
 					nc.setNetworkDhcpEnabled(new Byte("0"));
 				else {
 					Boolean booldhcp = new Boolean(GetDHCPEnable[i]
@@ -332,30 +333,30 @@ public class wanduxApp {
 				System.out
 						.println("\n================ GetNetmask data =================");
 				System.out.println(GetNetmask[i][0].getString());
-				if (GetNetmask[i][0].isNull())
-					nc.setNetworkSubnetmask("");
+				if (GetNetmask[i][0].getString() == null)
+					nc.setNetworkSubnetmask("0.0.0.0");
 				else
 					nc.setNetworkSubnetmask(GetNetmask[i][0].getString());
 
 				System.out
 						.println("\n================ GetDnsServer data =================");
 				System.out.println(GetDnsServer[i][0].getString());
-				if (GetDnsServer[i][0].isNull())
-					nc.setNetworkDnsServer("");
+				if (GetDnsServer[i][0].getString() == null)
+					nc.setNetworkDnsServer("0.0.0.0");
 				else
 					nc.setNetworkDnsServer(GetDnsServer[i][0].getString());
 
 				System.out
 						.println("\n================ GetCaption data =================");
 				System.out.println(GetCaption[i].getString());
-				if (GetCaption[i].isNull())
-					nc.setNetworkInterface("");
+				if (GetCaption[i].getString() == null)
+					nc.setNetworkInterface("0");
 				else
 					nc.setNetworkInterface(GetCaption[i].getString());
 
 				System.out
 						.println("\n================ GetStatus data =================");
-				if (GetStatus[i].isNull())
+				if (GetStatus[i].getBoolean() == false)
 					nc.setNetworkStatus(new Byte("0"));
 				else {
 					Boolean boolstatus = new Boolean(GetStatus[i].getBoolean());
@@ -372,12 +373,12 @@ public class wanduxApp {
 				System.out
 						.println("\n================ GetGate data =================");
 				System.out.println(GetGate[i][0].getString());
-				if (GetGate[i][0].isNull())
-					nc.setNetworkGateway("");
+				if (GetGate[i][0].getString() == null)
+					nc.setNetworkGateway("0.0.0.0");
 				else
 					nc.setNetworkGateway(GetGate[i][0].getString());
-				ncTab[i] = nc;
-				nc = null;
+				ncTab[j] = nc;
+				j++;
 			}
 			if (ncTab != null)
 				this.ci.setInfoNetwork(ncTab);
