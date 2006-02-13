@@ -8,7 +8,12 @@ import pfe.migration.server.ejb.bdd.base.BaseLinuxcomponents;
  */
 public class Linuxcomponents extends BaseLinuxcomponents {
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
+/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 4087357501509241188L;
+
+	/*[CONSTRUCTOR MARKER BEGIN]*/
 	public Linuxcomponents () {
 		super();
 	}

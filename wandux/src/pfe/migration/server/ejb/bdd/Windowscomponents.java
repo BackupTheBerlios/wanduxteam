@@ -8,7 +8,12 @@ import pfe.migration.server.ejb.bdd.base.BaseWindowscomponents;
  */
 public class Windowscomponents extends BaseWindowscomponents {
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
+/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 4107915085598188038L;
+
+	/*[CONSTRUCTOR MARKER BEGIN]*/
 	public Windowscomponents () {
 		super();
 	}

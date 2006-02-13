@@ -12,7 +12,6 @@ package pfe.migration.server.ejb.tool;
 //import org.jdom.Attribute;
 //import org.jdom.Element;
 
-import pfe.migration.client.network.ComputerInformation;
 //import pfe.migration.server.ejb.bdd.UsersData;
 
 /**

@@ -13,12 +13,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.rmi.RemoteException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
-import pfe.migration.client.post.system.FSNodeCopy;
 
 /**
  * @author dup

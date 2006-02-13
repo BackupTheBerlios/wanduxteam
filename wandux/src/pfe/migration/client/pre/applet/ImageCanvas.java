@@ -19,6 +19,10 @@ import java.awt.MediaTracker;
  */
 public class ImageCanvas  extends Canvas {
 
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = -1650065430656781619L;
 	protected Image img = null;
 
 	public ImageCanvas(Image img)

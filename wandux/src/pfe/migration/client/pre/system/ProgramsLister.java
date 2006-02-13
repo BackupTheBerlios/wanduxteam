@@ -10,10 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Vector;
-
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
 import com.ice.jni.registry.NoSuchKeyException;
 import com.ice.jni.registry.RegistryException;

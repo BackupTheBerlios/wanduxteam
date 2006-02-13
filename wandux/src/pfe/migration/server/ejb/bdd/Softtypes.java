@@ -8,7 +8,12 @@ import pfe.migration.server.ejb.bdd.base.BaseSofttypes;
  */
 public class Softtypes extends BaseSofttypes {
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
+/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = -5551545262330533389L;
+
+	/*[CONSTRUCTOR MARKER BEGIN]*/
 	public Softtypes () {
 		super();
 	}

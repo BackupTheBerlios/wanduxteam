@@ -8,7 +8,12 @@ import pfe.migration.server.ejb.bdd.base.BaseSoftsubcategory;
  */
 public class Softsubcategory extends BaseSoftsubcategory {
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
+/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 7249816702519850779L;
+
+	/*[CONSTRUCTOR MARKER BEGIN]*/
 	public Softsubcategory () {
 		super();
 	}

@@ -8,7 +8,12 @@ import pfe.migration.server.ejb.bdd.base.BaseMandrakepkgs;
  */
 public class Mandrakepkgs extends BaseMandrakepkgs {
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
+/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 3476377896079517473L;
+
+	/*[CONSTRUCTOR MARKER BEGIN]*/
 	public Mandrakepkgs () {
 		super();
 	}
