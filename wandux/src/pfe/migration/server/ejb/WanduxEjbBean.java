@@ -211,9 +211,9 @@ public class WanduxEjbBean implements SessionBean
 	// -- taches internes ------------------------------------------------------- //
 	public void createAdllXmlFile(ComputerInformation ci)
 	{
-		String path = "/wandux/mandrake/unattended/";
-		new XmlAdllParse(path, ci.getHostname(), ci);
-		new ExecAdll(path, ci.getHostname());
+		String xmlPath = "/wandux/adll/";
+		new XmlAdllParse(xmlPath, ci.getHostname(), ci);
+		new ExecAdll(xmlPath, ci.getHostname());
 	}
 	
 	public void createXmlBookmark(ComputerInformation ci)
@@ -235,6 +235,8 @@ public class WanduxEjbBean implements SessionBean
 	
 	public void putCi(ComputerInformation ci)
 	{
+		//new XmlAdllParse("/wandux/adll/", ci.getHostname(), ci);
+		createAdllXmlFile(ci);
 		cil.fill(ci);
 		this.ListOfFiles.put(ci.getHostname(), null);
 	}
