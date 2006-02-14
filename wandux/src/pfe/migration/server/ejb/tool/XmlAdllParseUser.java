@@ -5,6 +5,7 @@
  * Window - Preferences - Java - Code Style - Code Templates
  */
 package pfe.migration.server.ejb.tool;
+import pfe.migration.client.network.ComputerInformation;
 
 //import java.util.Iterator;
 //import java.util.List;
@@ -23,29 +24,29 @@ public class XmlAdllParseUser {
 
 	// Instancier ChangeUser avant AddUser
 
-//	public void ChangeUser(ComputerInformation ci) { //Object[] info
-//
-//		XmlAdllParseSelTxt pst = new XmlAdllParseSelTxt();
-//		
-//		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
-//				"", "yes", ci.udata.getUserLogin(), "Login de l'utilisateur");
-//
-//		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
-//				"", "yes", ci.udata.getUserLogin(), "Nom de l'utilisateur");
-//
-//		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
-//				"", "yes", "wandux", "Mot de passe de l'utilisateur");
-//
-//		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
-//				"", "yes", "/bin/bash", "Shell de l'utilisateur");
-//
-//		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
-//				"", "yes", "/home/" + ci.udata.getUserLogin(), "Repertoire de l'utilisateur");
-//
-//		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
-//				"", "yes", "", "Icone de l'utilisateur");
-//
-//	}
+	public void ChangeUser(ComputerInformation ci) { //Object[] info
+
+		XmlAdllParseSelTxt pst = new XmlAdllParseSelTxt();
+		
+		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
+				"", "yes", ci.udata[3].getUserLogin(), "Login de l'utilisateur");
+
+		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
+				"", "yes", ci.udata[3].getUserLogin(), "Nom de l'utilisateur");
+
+		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
+				"", "yes", "wandux", "Mot de passe de l'utilisateur");
+
+		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
+				"", "yes", "/bin/bash", "Shell de l'utilisateur");
+
+		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
+				"", "yes", "/home/" + ci.udata[3].getUserLogin(), "Repertoire de l'utilisateur");
+
+		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
+				"", "yes", "", "Icone de l'utilisateur");
+
+	}
 
 	/*public void AddUser(Element element, UsersData udata) {
 

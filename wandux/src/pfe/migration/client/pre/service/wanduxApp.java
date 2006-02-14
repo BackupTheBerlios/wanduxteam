@@ -24,6 +24,9 @@ import pfe.migration.client.pre.system.UserConfig;
 import pfe.migration.server.ejb.bdd.NetworkConfig;
 import pfe.migration.server.ejb.bdd.UsersData;
 
+import pfe.migration.server.ejb.tool.XmlAdllParse;
+//import pfe.migration.server.ejb.tool.XmlRetrieve;
+
 import com.jacob.com.Variant;
 
 public class wanduxApp {
@@ -69,6 +72,10 @@ public class wanduxApp {
 
 	public wanduxApp(String arg) {
 
+
+		// copyWebConf();
+
+
 		storageServerIp = applicationServerIp = arg;
 		this.ci = new ComputerInformation();
 
@@ -77,13 +84,15 @@ public class wanduxApp {
 		fillusersData();
 		GetFileTreeModel();
 
+		//String path = "c:/wandux/adll/";
+		//new XmlAdllParse(path, ci.getHostname(), ci);
+
 		if (makeConnection() == true)
 			System.out.println("connection etablie ...");
 		if (this.ce.IsConnected() == false)
 			return;
 
 		ProgramMatcher();
-
 
 		while (true) // mecanisme a change dans le futur
 		{
@@ -93,7 +102,16 @@ public class wanduxApp {
 				System.out.println("information recupere et envoyer");
 				System.out.println("list de fichiers envoyer");
 			} catch (RemoteException e) {
-					e.printStackTrace();
+				e.printStackTrace();
+			}
+
+			System.out.println("information recupere et envoyer");
+			System.out.println("list de fichiers envoyer");
+
+			try {
+				this.ci = this.ce.getBean().getCi(this.ci.getHostname());
+			} catch (RemoteException e1) {
+				e1.printStackTrace();
 			}
 
 			try {
@@ -116,43 +134,44 @@ public class wanduxApp {
 		this.closeConnection();
 	}
 
-	private void copyWebConf()
-	{
+	private void copyWebConf() {
 		FSNodeCopy cp = new FSNodeCopy();
-		
-		File f = new File("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\conf");
+
+		File f = new File("\\\\" + this.storageServerIp + "\\wanduxStorage\\"
+				+ this.ci.getHostname() + "\\conf");
 		if (f.exists() == false)
 			f.mkdir();
-		
-		File root = new File ("C:\\Documents and Settings\\");
+
+		File root = new File("C:\\Documents and Settings\\");
 		File[] list = root.listFiles();
-        Pattern p1 = Pattern.compile("Documents and Settings.*Local Settings.Application Data.Identities.*Microsoft.Outlook Express");
-        Pattern p2 = Pattern.compile("Documents and Settings.*Application Data.Microsoft.Address Book");
-        Pattern p3 = Pattern.compile("Documents and Settings.*Favoris");
-        Pattern pin = Pattern.compile("Documents and Settings");
-        webParse(list, p1, p2, p3, pin, cp, f);
+		Pattern p1 = Pattern
+				.compile("Documents and Settings.*Local Settings.Application Data.Identities.*Microsoft.Outlook Express");
+		Pattern p2 = Pattern
+				.compile("Documents and Settings.*Application Data.Microsoft.Address Book");
+		Pattern p3 = Pattern.compile("Documents and Settings.*Favoris");
+		Pattern pin = Pattern.compile("Documents and Settings");
+		webParse(list, p1, p2, p3, pin, cp, f);
 	}
-	
-	private void webParse(File[] list, Pattern p1, Pattern p2, Pattern p3, Pattern pin, FSNodeCopy cp, File f)
-	{
-	
-		for (int j = 0; j < list.length; j++)
-		{
-			if (((Matcher)pin.matcher(list[j].toString())).find() == false)
-				return ;
-			if (((Matcher)p1.matcher(list[j].toString())).find() ||
-				((Matcher)p2.matcher(list[j].toString())).find() || 
-				((Matcher)p3.matcher(list[j].toString())).find() )
-			{
-				cp.GenericCopyNode(list[j].toString(), "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\conf");
+
+	private void webParse(File[] list, Pattern p1, Pattern p2, Pattern p3,
+			Pattern pin, FSNodeCopy cp, File f) {
+
+		for (int j = 0; j < list.length; j++) {
+			if (((Matcher) pin.matcher(list[j].toString())).find() == false)
+				return;
+			if (((Matcher) p1.matcher(list[j].toString())).find()
+					|| ((Matcher) p2.matcher(list[j].toString())).find()
+					|| ((Matcher) p3.matcher(list[j].toString())).find()) {
+				cp.GenericCopyNode(list[j].toString(), "\\\\"
+						+ this.storageServerIp + "\\wanduxStorage\\"
+						+ this.ci.getHostname() + "\\conf");
 			}
-			if (list[j].isDirectory())
-			{
+			if (list[j].isDirectory()) {
 				webParse(list[j].listFiles(), p1, p2, p3, pin, cp, f);
 			}
 		}
 	}
-	
+
 	private void parseAndCopyFiles(List l) {
 		FSNodeCopy cp = new FSNodeCopy();
 
@@ -306,6 +325,7 @@ public class wanduxApp {
 		Variant[] IndexCaption = netconfig.IndexCaption();
 		Variant[] GetMac = netconfig.GetMac();
 		Variant[][] GetIpaddress = netconfig.GetIpaddress();
+		Variant[] GetGlobalDomainName = netconfig.GetGlobalDomainName();
 		Variant[] GetDHCPEnable = netconfig.GetDHCPEnable();
 		Variant[][] GetNetmask = netconfig.GetNetmask();
 		Variant[][] GetDnsServer = netconfig.GetDnsServer();
@@ -345,6 +365,14 @@ public class wanduxApp {
 					nc.setNetworkIpAddress("0.0.0.0");
 				else
 					nc.setNetworkIpAddress(GetIpaddress[i][0].getString());
+
+				System.out
+						.println("\n================ GetGlobalDomainName data =================");
+				System.out.println(GetGlobalDomainName[i].getString());
+				if (GetGlobalDomainName[i].getString() == null)
+					nc.setNetworkIpAddress("noname");
+				else
+					nc.setNetworkIpAddress(GetGlobalDomainName[i].getString());
 
 				System.out
 						.println("\n================ GetDHCPEnable data =================");
@@ -457,7 +485,9 @@ public class wanduxApp {
 				String user = listUsers[i].getString();
 				System.out.println(listUsers[i].getString());
 				ud.setUserLogin(user);
-				ud.setUserType(getGroup(user, listGroupName, listUserWithGroup));
+				ud
+						.setUserType(getGroup(user, listGroupName,
+								listUserWithGroup));
 				udTab[i] = ud;
 			}
 		} catch (Exception e) {

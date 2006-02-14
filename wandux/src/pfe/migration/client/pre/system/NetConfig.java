@@ -34,6 +34,12 @@ public class NetConfig {
 				.Request("SELECT IPAddress FROM Win32_NetworkAdapterConfiguration");
 		return this._wcim.GetResultTab();
 	}
+	
+	public Variant[] GetGlobalDomainName() {
+		this._wcim
+				.Request("SELECT DNSDomain FROM Win32_NetworkAdapterConfiguration");
+		return this._wcim.GetResult();
+	}
 
 	public Variant[] GetDHCPEnable() {
 		this._wcim

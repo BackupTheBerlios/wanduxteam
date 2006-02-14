@@ -71,17 +71,17 @@ public class XmlAdllParseTool {
 
 		// AUTOLOGIN
 		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
-				ci.udata[0].getUserLogin(), "Login automatique au demarrage");
+				ci.udata[3].getUserLogin(), "Login automatique au demarrage");
 
 		// PROXY HTTP
 
 		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
-				ci.udata[0].getUserProxyServ(), "Paramètrage du proxy http");
+				ci.udata[3].getUserProxyServ(), "Paramètrage du proxy http");
 		
 		// // PROXY FTP
 
 		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
-				ci.udata[0].getUserProxyServ(), "Paramètrage du proxy ftp");
+				ci.udata[3].getUserProxyServ(), "Paramètrage du proxy ftp");
 
 		// // TYPE DE CLAVIER
 
@@ -130,7 +130,7 @@ public class XmlAdllParseTool {
 
 		// UTILISATEUR
 
-		// pu.ChangeUser(ci);
+		pu.ChangeUser(ci);
 		// pu.AddUser(XmlAdllParse.racine, ci.udata);
 
 	}
