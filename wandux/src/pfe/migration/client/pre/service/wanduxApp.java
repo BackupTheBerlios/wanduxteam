@@ -455,7 +455,7 @@ public class wanduxApp {
 
 		UserConfig usersConfig = new UserConfig(wcim);
 		Variant[] listUsers = usersConfig.listUsers();
-		UsersData[] udTab = new UsersData[listUsers.length + 1];
+		UsersData[] udTab = new UsersData[listUsers.length];
 
 		Variant[] listGroupName = usersConfig.listGroup();
 		Variant[] listUserWithGroup = usersConfig.getUserGroup();
@@ -467,11 +467,8 @@ public class wanduxApp {
 				String user = listUsers[i].getString();
 				System.out.println(listUsers[i].getString());
 				ud.setUserLogin(user);
-				ud
-						.setUserType(getGroup(user, listGroupName,
-								listUserWithGroup));
+				ud.setUserType(getGroup(user, listGroupName, listUserWithGroup));
 				udTab[i] = ud;
-				ud = null;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
