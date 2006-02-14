@@ -174,6 +174,11 @@ for (i=0; i < cl.size(); i++)
 	ComputerInformation ci = bean.getCi((String)cl.get(i));
 	out.print("<div id=\"CI_" + cl.get(i) + "\" style=\"width:0;height:0;visibility:hidden;position:absolute;top:120;left:170;overflow:auto;\"><b><br><br><center>Informations extracted from " + cl.get(i) + ".<br></b>&nbsp;&nbsp;&nbsp;<font color=\"#1122FF\"> >> Please, check these settings and go on next Step</font></center><br><br><br>");
 	out.print("Hostname : <b>" + cl.get(i) + "</b><br><br>");
+	if (ci.gconf.getGlobalDomainName() != null)
+		out.print("Domain : <b>" + ci.gconf.getGlobalDomainName() + "</b><br><br>");
+	out.print("<br>");
+	
+	//NETWORK INTERFACES
 	out.print("<TABLE width=630 border=0 cellspacing=2><TR><TD colspan=2><b>Network Interfaces :</b></TD></TR>");
 	out.print("<TR><TD colspan=2><br><br></TD></TR>");
 	for (x=0; x < (ci.netconf.length - 1); x++)
@@ -221,6 +226,36 @@ for (i=0; i < cl.size(); i++)
 		}
 		out.print("<TR><TD colspan=2><br><br></TD></TR>");
 	}
+	//
+
+	//USER INFORMATIONS
+	out.print("<TR><TD colspan=2><b><br><br>Users Informations :</b></TD></TR>");
+	out.print("<TR><TD colspan=2><br><br></TD></TR>");
+	for (x=0; x < (ci.udata.length - 1); x++)
+	{
+		if (ci.udata[x] == null)
+			continue;
+		if (ci.udata[x].getUserLogin() != null)
+			out.print("<TR><TD width=150><b>User Name:</b></TD><TD width=480><b>" + ci.udata[x].getUserLogin() + "</b></TD></TR>");
+		if (ci.udata[x].getUserType()!= null)
+			out.print("<TR><TD width=150>User Group : </TD><TD width=480><b>" + ci.udata[x].getUserType() + "</b></TD></TR>");
+		if (ci.udata[x].getUserHome() != null)
+			out.print("<TR><TD width=150>Home :</TD><TD width=480><b>" + ci.udata[x].getUserHome() + "</b></TD></TR>");
+		if (ci.udata[x].getUserTimezone()!= null)
+			out.print("<TR><TD width=150>Timezone : </TD><TD width=480><b>" + ci.udata[x].getUserTimezone() + "</b></TD></TR>");
+		if (ci.udata[x].getUserBgimg() != null)
+			out.print("<TR><TD width=150>Desktop Background picture :</TD><TD width=480><b>" + ci.udata[x].getUserBgimg() + "</b></TD></TR>");
+		if (ci.udata[x].getUserKbLayout() != null)
+			out.print("<TR><TD width=150>Keyboard layout :</TD><TD width=480><b>" + ci.udata[x].getUserKbLayout() + "</b></TD></TR>");
+		if (ci.udata[x].getUserProxyOverride() != null)
+			out.print("<TR><TD width=150>Proxy overide for :</TD><TD width=480><b>" + ci.udata[x].getUserProxyOverride() + "</b></TD></TR>");
+		if (ci. udata[x].getUserProxyServ()!= null)
+			out.print("<TR><TD width=150>Proxy server : </TD><TD width=480><b>" + ci.udata[x].getUserProxyServ() + "</b></TD></TR>");
+		
+		out.print("<TR><TD colspan=2><br><br></TD></TR>");
+	}
+	//
+	
 	out.print("</TABLE>\n");
 	out.print("</div>\n");
 	////////////////////////////////////////////////
