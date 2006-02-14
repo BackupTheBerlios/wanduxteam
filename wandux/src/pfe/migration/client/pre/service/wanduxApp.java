@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.sound.midi.SysexMessage;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -24,7 +23,6 @@ import pfe.migration.client.pre.system.ProgramsLister;
 import pfe.migration.client.pre.system.UserConfig;
 import pfe.migration.server.ejb.bdd.NetworkConfig;
 import pfe.migration.server.ejb.bdd.UsersData;
-//import pfe.migration.server.ejb.tool.XmlRetrieve;
 
 import com.jacob.com.Variant;
 
@@ -71,8 +69,6 @@ public class wanduxApp {
 
 	public wanduxApp(String arg) {
 
-		copyWebConf();
-		
 		storageServerIp = applicationServerIp = arg;
 		this.ci = new ComputerInformation();
 
@@ -93,17 +89,11 @@ public class wanduxApp {
 		{
 			try { // Send Machine CI to server
 				this.ce.getBean().putCi(this.ci);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-			
-			System.out.println("information recupere et envoyer");
-			System.out.println("list de fichiers envoyer");
 
-			try {
-				this.ci = this.ce.getBean().getCi(this.ci.getHostname());
-			} catch (RemoteException e1) {
-				e1.printStackTrace();
+				System.out.println("information recupere et envoyer");
+				System.out.println("list de fichiers envoyer");
+			} catch (RemoteException e) {
+					e.printStackTrace();
 			}
 
 			try {
@@ -120,7 +110,7 @@ public class wanduxApp {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} catch (RemoteException e) {
-				e.printStackTrace();
+					e.printStackTrace();
 			}
 		}
 		this.closeConnection();

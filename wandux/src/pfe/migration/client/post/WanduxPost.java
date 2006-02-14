@@ -94,9 +94,6 @@ public class WanduxPost
 	
 	public void usersGroupsCreation()
 	{
-		System.out.println("usersGroupsCreation"+ci);
-		System.out.println("usersGroupsCreation"+ci.udata);
-		System.out.println("usersGroupsCreation"+ci.udata.length);
 		for (int i = 0; i < ci.udata.length; i++)
 		{
 			try {
@@ -121,16 +118,6 @@ public class WanduxPost
 				err.printStackTrace();
 			}
 		}
-// reception des groups et utilisateur
-//		try {
-//			Process p = Runtime.getRuntime().exec("hostname");
-//			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-//			this.currentHostname = input.readLine();
-//			input.close();
-//		} catch (Exception err) {
-//			err.printStackTrace();
-//		}
-	}
 
 	public void confPrograms()
 	{
