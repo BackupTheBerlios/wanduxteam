@@ -116,7 +116,6 @@
 	</target>
 
 	<target name="deploy" depends="make serverEjb jar, make frontEnd war, make client pre jar"> <!-- make client post jar ,make client pre jar " make client pre jar, make monitor war  -->
-		
 		<!-- copy todir="${dir.build}/" file="${dir.sources}/launchEJBClient.bat"/ -->
 		<!-- copy todir="${dir.build}/" file="${dir.sources}/makeEjbJar.bat"/ -->
 		<!-- les choses annexes -->
@@ -149,7 +148,10 @@
 	</target>
 
 	<target name="make client pre jar">
-		<jar jarfile="${dir.build}/${jar.client.pre.name}"
+		<!-- verifier l installation de fast jar -->
+		<!-- ici appeler le fichier buildWanduxAgent -->
+		<!--
+		 jar jarfile="${dir.build}/${jar.client.pre.name}"
 			manifest="${dir.pre}/META-INF/MANIFEST.MF">
 			<fileset dir="${dir.classes}">
 				<include name="**/client/pre/**/*.*"/>
@@ -171,7 +173,8 @@
 	    		<include name="hibernate2.jar" />
 	    		<include name="registry.jar" />
 	    	</fileset>
-	    </copy>
+	    </copy
+	     -->
 	</target>
 
 	<target name="make serverEjb jar">
