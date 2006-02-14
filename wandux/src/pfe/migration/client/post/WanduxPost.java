@@ -118,6 +118,7 @@ public class WanduxPost
 				err.printStackTrace();
 			}
 		}
+	}
 
 	public void confPrograms()
 	{
