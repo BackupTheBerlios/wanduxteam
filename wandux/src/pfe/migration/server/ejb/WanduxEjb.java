@@ -33,4 +33,5 @@ public interface WanduxEjb extends EJBObject
 	public ArrayList getLinuxEquivalents(String Winsoft) throws RemoteException;
 
 	public Integer GuessMostRelevantPackage(String LinSoft, String CurrentPackage) throws RemoteException;
+	public void migrate(String hostname) throws RemoteException;
 }

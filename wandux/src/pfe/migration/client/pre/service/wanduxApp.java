@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -79,81 +80,88 @@ public class wanduxApp {
 		GetFileTreeModel();
 
 		if (makeConnection() == true)
-			System.out.println("connection etablie ...");
+			System.out.println("connection etablished ...");
 		if (this.ce.IsConnected() == false)
 			return;
 
 		ProgramMatcher();
 
-
 		try { // Send Machine CI to server
 			this.ce.getBean().putCi(this.ci);
-			copyWebConf();
-			
-			System.out.println("information recupere et envoyer");
+			//		copyWebConf();
+
+			System.out.println("information retrived and sended");
 		} catch (RemoteException e) {
-				e.printStackTrace();
+			e.printStackTrace();
 		}
 
 		while (true) // mecanisme a change dans le futur
 		{
 			try {
-				if (this.ce.getBean().getFileList(this.ci.getHostname()) == null && this.ci.migrable == 0) {
-					System.out.println("Waiting for migrating informations");
+				this.ci = this.ce.getBean().getCi(this.ci.getHostname());
+				if (this.ci.migrable == 0) {
+					System.out
+							.println("Waiting for migrating informations (migrable = "
+									+ this.ci.migrable + ")");
 					Thread.sleep(15000);
 				} else {
-					parseAndCopyFiles(this.ce.getBean().getFileList(this.ci.getHostname()));
-					System.out.println("list de fichiers envoyer");
+					if (this.ce.getBean().getFileList(this.ci.getHostname()) != null)
+						parseAndCopyFiles(this.ce.getBean().getFileList(
+								ci.getHostname()));
+					this.ce.getBean().migrate(this.ci.getHostname());
+					System.out.println("migration process launched");
 					break;
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} catch (RemoteException e) {
-					e.printStackTrace();
+				e.printStackTrace();
 			}
 		}
 		this.closeConnection();
 	}
 
-	private void copyWebConf()
-	{
-		System.out.println(" ==================== sending web configuration ==================== ");
+	private void copyWebConf() {
+		System.out
+				.println(" ==================== sending web configuration ==================== ");
 		FSNodeCopy cp = new FSNodeCopy();
-		
-		File f = new File("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\conf");
+
+		File f = new File("\\\\" + this.storageServerIp + "\\wanduxStorage\\"
+				+ this.ci.getHostname() + "\\conf");
 		if (f.exists() == false)
 			f.mkdir();
-		
-		File root = new File ("C:\\Documents and Settings\\");
+
+		File root = new File("C:\\Documents and Settings\\");
 		File[] list = root.listFiles();
-        Pattern p1 = Pattern.compile("Documents and Settings.*Local Settings.Application Data.Identities.*Microsoft.Outlook Express");
-        Pattern p2 = Pattern.compile("Documents and Settings.*Application Data.Microsoft.Address Book.*wab$");
-        Pattern p3 = Pattern.compile("Documents and Settings.*Favoris");
-        Pattern pin = Pattern.compile("Documents and Settings");
-        webParse(list, p1, p2, p3, pin, cp, f);
+		Pattern p1 = Pattern
+				.compile("Documents and Settings.*Local Settings.Application Data.Identities.*Microsoft.Outlook Express");
+		Pattern p2 = Pattern
+				.compile("Documents and Settings.*Application Data.Microsoft.Address Book.*wab$");
+		Pattern p3 = Pattern.compile("Documents and Settings.*Favoris");
+		Pattern pin = Pattern.compile("Documents and Settings");
+		webParse(list, p1, p2, p3, pin, cp, f);
 	}
-	
-	private void webParse(File[] list, Pattern p1, Pattern p2, Pattern p3, Pattern pin, FSNodeCopy cp, File f)
-	{
-	
-		for (int j = 0; j < list.length; j++)
-		{
-			if (((Matcher)pin.matcher(list[j].toString())).find() == false)
-				return ;
-			if (((Matcher)p1.matcher(list[j].toString())).find() ||
-				((Matcher)p2.matcher(list[j].toString())).find() || 
-				((Matcher)p3.matcher(list[j].toString())).find() )
-			{
+
+	private void webParse(File[] list, Pattern p1, Pattern p2, Pattern p3,
+			Pattern pin, FSNodeCopy cp, File f) {
+
+		for (int j = 0; j < list.length; j++) {
+			if (((Matcher) pin.matcher(list[j].toString())).find() == false)
+				return;
+			if (((Matcher) p1.matcher(list[j].toString())).find()
+					|| ((Matcher) p2.matcher(list[j].toString())).find()
+					|| ((Matcher) p3.matcher(list[j].toString())).find()) {
 				//System.out.println(list[j].toString());
-				cp.GenericCopyNode(list[j].toString(), "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\conf");
+				cp.GenericCopyNode(list[j].toString(), "\\\\"
+						+ this.storageServerIp + "\\wanduxStorage\\"
+						+ this.ci.getHostname() + "\\conf");
 			}
-			if (list[j].isDirectory())
-			{
+			if (list[j].isDirectory()) {
 				webParse(list[j].listFiles(), p1, p2, p3, pin, cp, f);
 			}
 		}
 	}
-	
+
 	private void parseAndCopyFiles(List l) {
 		FSNodeCopy cp = new FSNodeCopy();
 
@@ -352,9 +360,10 @@ public class wanduxApp {
 						.println("\n================ GetGlobalDomainName data =================");
 				System.out.println(GetGlobalDomainName[i].getString());
 				if (GetGlobalDomainName[i].getString() == null)
-					nc.setNetworkIpAddress("noname");
+					ci.gconf.setGlobalDomainName("noname");
 				else
-					nc.setNetworkIpAddress(GetGlobalDomainName[i].getString());
+					ci.gconf.setGlobalDomainName(GetGlobalDomainName[i]
+							.getString());
 
 				System.out
 						.println("\n================ GetDHCPEnable data =================");
@@ -422,8 +431,10 @@ public class wanduxApp {
 				ncTab[j] = nc;
 				j++;
 			}
-			if (ncTab != null)
-				this.ci.setInfoNetwork(ncTab);
+			NetworkConfig[] newTab = new NetworkConfig[j - 1];
+			System.arraycopy(ncTab, 0, newTab, 0, j - 1);
+			if (newTab != null)
+				this.ci.setInfoNetwork(newTab);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -467,7 +478,9 @@ public class wanduxApp {
 				String user = listUsers[i].getString();
 				System.out.println(listUsers[i].getString());
 				ud.setUserLogin(user);
-				ud.setUserType(getGroup(user, listGroupName, listUserWithGroup));
+				ud
+						.setUserType(getGroup(user, listGroupName,
+								listUserWithGroup));
 				udTab[i] = ud;
 			}
 		} catch (Exception e) {
@@ -526,7 +539,7 @@ public class wanduxApp {
 
 	private boolean makeConnection() {
 		if (this.ce == null) {
-			System.out.println("tentative de connexion...");
+			System.out.println("trying to connect ...");
 			this.ce = new ClientEjb(applicationServerIp);
 			this.ce.EjbConnect();
 		}

@@ -181,7 +181,7 @@ for (i=0; i < cl.size(); i++)
 	//NETWORK INTERFACES
 	out.print("<TABLE width=630 border=0 cellspacing=2><TR><TD colspan=2><b>Network Interfaces :</b></TD></TR>");
 	out.print("<TR><TD colspan=2><br><br></TD></TR>");
-	for (x=0; x < (ci.netconf.length - 1); x++)
+	for (x=0; x < (ci.netconf.length); x++)
 	{
 		if (ci.netconf[x] == null)
 			continue;

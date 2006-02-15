@@ -19,13 +19,6 @@
 			type="string"
 		 />
 		<property
-			column="GLOBAL_KEY"
-			length="11"
-			name="GlobalKey"
-			not-null="true"
-			type="integer"
-		 />
-		<property
 			column="GLOBAL_HOSTNAME"
 			name="GlobalHostname"
 			not-null="false"

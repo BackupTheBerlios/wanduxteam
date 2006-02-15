@@ -16,8 +16,10 @@ import javax.ejb.SessionContext;
 
 import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
+import net.sf.hibernate.Transaction;
 import pfe.migration.client.network.ComputerInformation;
 import pfe.migration.server.ejb.adll.ExecAdll;
+import pfe.migration.server.ejb.bdd.GlobalConf;
 import pfe.migration.server.ejb.bdd.HibernateUtil;
 import pfe.migration.server.ejb.bdd.Linuxcomponents;
 import pfe.migration.server.ejb.bdd.Mandrakepkgs;
@@ -236,7 +238,7 @@ public class WanduxEjbBean implements SessionBean
 	public void putCi(ComputerInformation ci)
 	{
 		//new XmlAdllParse("/wandux/adll/", ci.getHostname(), ci);
-		createAdllXmlFile(ci);
+		//createAdllXmlFile(ci);
 		cil.fill(ci);
 		this.ListOfFiles.put(ci.getHostname(), null);
 	}
@@ -272,6 +274,51 @@ public class WanduxEjbBean implements SessionBean
 			HibernateUtil.closeSession();
 		} catch (HibernateException e) { e.printStackTrace(); }
 		return l;
+	}
+	
+	public void migrate(String hostname)
+	{
+		Transaction transaction;
+		Session session;
+		int i;
+		GlobalConf gconf = null;
+		ComputerInformation ci = this.getCi(hostname);
+		
+		try {
+			session = HibernateUtil.currentSession();
+			transaction = session.beginTransaction();
+			session.save(ci.gconf);
+			transaction.commit();
+
+			List l = session.find(" from GlobalConf where GLOBAL_HOSTNAME like '" + ci.gconf.getGlobalHostname() + "'");
+			Iterator it = l.iterator();
+			while (it.hasNext())
+			{
+				gconf = (GlobalConf)it.next();
+			}
+			
+			System.out.println("len = " + ci.netconf.length);
+
+			for(i = 0; i < ci.netconf.length; i++)
+			{
+				if (ci.netconf[i] != null)
+				{
+					ci.netconf[i].setNetworkKey(gconf.getId());
+					session.save(ci.netconf[i]);
+				}
+			}
+			for(i = 0; i < ci.udata.length; i++)
+			{
+				if (ci.udata[i] != null)
+				{
+					ci.udata[i].setUserKey(gconf.getId());
+					session.save(ci.udata[i]);
+				}
+			}
+			transaction.commit();
+			HibernateUtil.closeSession();
+		} catch (HibernateException e) { e.printStackTrace(); }
+		
 	}
 
 }
