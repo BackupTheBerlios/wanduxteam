@@ -98,7 +98,7 @@ public class wanduxApp {
 		while (true) // mecanisme a change dans le futur
 		{
 			try {
-				if (this.ce.getBean().getFileList(this.ci.getHostname()) == null) { // && this.ci.migrable == 0
+				if (this.ce.getBean().getFileList(this.ci.getHostname()) == null && this.ci.migrable == 0) {
 					System.out.println("Waiting for migrating informations");
 					Thread.sleep(15000);
 				} else {
@@ -117,6 +117,7 @@ public class wanduxApp {
 
 	private void copyWebConf()
 	{
+		System.out.println(" ==================== sending web configuration ==================== ");
 		FSNodeCopy cp = new FSNodeCopy();
 		
 		File f = new File("\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\conf");
