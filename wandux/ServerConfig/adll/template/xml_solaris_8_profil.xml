@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE template SYSTEM "adll.dtd"[]>
+<template author="Vincent Malguy" os_name="Solaris" os_version="8 and 9 profil file" adll_version="1.0" date="01-11-2004">
+  <netboot>
+    <address>192.1.1.150</address>
+    <port>21</port>
+    <path>/path</path>
+  </netboot>
+
+<section label="Disk configuration" name="">
+<comment>boot_device designates the device where the JumpStart program is to install the root (/) file system and the system's boot device. </comment>
+<option label="Root Location " name="boot_device " type="radio">
+<choice label="existing">existing</choice>
+<choice label="any" selected="yes">any</choice>
+<choice label="enter custom below"> </choice>
+</option>
+<option label="custom device" name="" type="text" terminator=" preserve &#xD;&#xA;">
+<choice label=""></choice> 
+</option>
+
+<comment>bootenv createbe enables you to create an empty-and-inactive boot environment at the same time you are installing the operating environment.</comment>
+<option label="custom device" name="bootenv createbe bename " type="text">
+<choice label=""></choice>
+</option>
+<option label="on filesystem" name=" filesystem " type="text" terminator="&#xD;&#xA;">
+<choice label=""></choice>
+</option>
+
+<comment>dontuse designates one or more disks that you do not want the JumpStart program to use. </comment>
+<option label="Disk not to use " name="dontuse " type="text" terminator="&#xD;&#xA;">
+<choice label=""></choice>
+</option>
+
+<comment>fdisk defines how the fdisk partitions are set up on an x86 based system. </comment>
+<option label="fdisk actions" name="fdisk " type="radio">
+<choice label="all">all</choice>
+<choice label="rootdisk">rootdisk</choice>
+<choice label="custom enter below"> </choice>
+</option>
+<option label="Enter custom disk to fdisk " name=" " type="text">
+<choice label=""></choice>
+</option>
+<option label="Partition type" name=" " type="radio">
+<choice label="solaris standard">solaris</choice>
+<choice label="Dos">dosprimary</choice>
+</option>
+<option label="Size of the partition" name=" " type="radio" >
+<choice label="All space available (delete existing partition)">all</choice>
+<choice label="Maximun free space (preserve existing partition)">maxfree</choice>
+<choice label="custom enter below"> </choice>
+</option>
+<option label="Enter  size in Mbytes" name=" " type="text" terminator="&#xD;&#xA;">
+<choice label=""> </choice>
+</option>
+
+
+<comment>By using filesys with the listed values, the JumpStart program sets up the installed system to automatically mount remote file systems when the system boots.</comment>
+<option label="Mounting Remote File Systems A MULTIPLIER" name="filesys " type="text" terminator="&#xD;&#xA;">
+<choice label=""> </choice>
+</option>
+
+
+<comment>The metadb keyword enables you to create Solaris Volume Manager state database replicas (metadbs) during your custom JumpStart installation.</comment>
+<option label="Locale AMULTIPLIER" name="metadb " type="text" terminator="&#xD;&#xA;">
+<choice label=""> </choice>
+</option>
+
+
+
+ 
+<comment>partitioning defines how the disks are divided into slices for file systems during the installation.</comment>
+<option label="Enter the type of partitioning you want" name="partitioning " type="text" terminator="&#xD;&#xA;">
+<choice label=""> </choice>
+</option>
+
+<comment>Choose a custom root device slice.</comment>
+<option label="Enter the root device slice " name="root_device " type="text" terminator="&#xD;&#xA;">
+<choice label=""> </choice>
+</option>
+
+
+<comment> The usedisk profile keyword designates one or more disks that you want the JumpStart program to use. You must specify disk_name in the form cxtydz or cydz, for example, c0t0d0 or c0d0s0.</comment>
+<option label="Enter the disk you want to use " name="usedisk " type="text" terminator="&#xD;&#xA;">
+<choice label=""> </choice>
+</option>
+
+
+</section>
+
+<section label="Locale configuration" name="">
+<comment>geo designates the regional locale or locales that you want to install . </comment>
+<option label="Locale " name="geo " type="radio" terminator="&#xD;&#xA;">
+<choice label="Northern Africa, including Egypt">N_Africa</choice>
+<choice label="Central America, including Costa Rica, El Salvador, Guatemala, Mexico, Nicaragua, Panama">C_America</choice>
+<choice label="North America, including Canada, United States">N_America</choice>
+<choice label="South America, including Argentina, Bolivia, Brazil, Chile, Colombia, Ecuador, Paraguay, Peru, Uruguay, Venezuela">S_America</choice>
+<choice label="Asia, including Japan, Republic of Korea, People's Republic of China, Taiwan, Thailand">Asia</choice>
+<choice label="Australasia, including Australia, New Zealand">Ausi</choice>
+<choice label="Central Europe, including Austria, Czech Republic, Germany, Hungary, Poland, Slovakia, Switzerland">C_Europe</choice>
+<choice label="Eastern Europe, including Albania, Bosnia, Bulgaria, Croatia, Estonia, Latvia, Lithuania, Macedonia, Romania, Russia, Serbia, Slovenia, Turkey">E_Europe</choice>
+<choice label="Northern Europe, including Denmark, Finland, Iceland, Norway, Sweden">N_Europe</choice>
+<choice label="Southern Europe, including Greece, Italy, Portugal, Spain">S_Europe</choice>
+<choice label="Western Europe, including Belgium, France, Great Britain, Ireland, Netherlands">W_Europe</choice>
+<choice label="Middle East, including Israel">M_East</choice>
+</option>
+
+<comment>locale designates the locale packages you want to install or add when upgrading for the specified locale_name.</comment>
+<option label="Locale " name="locale " type="text" terminator="&#xD;&#xA;">
+<choice label=""> </choice>
+</option>
+
+
+
+</section>
+
+<section label="Software configuration" name="">
+<comment>cluster designates the software group to add to the system</comment>
+<option label="Cluster to install" name="cluster " type="check">
+<choice label="Core System Support Software Group">SUNWCreq </choice>
+<choice label="End User Solaris Software Group">SUNWCuser </choice>
+<choice label="Developer Solaris Software Group">SUNWCprog </choice>
+<choice label="Entire Solaris Software Group">SUNWCall </choice>
+<choice label="Entire Solaris Software Group Plus OEM Support">SUNWCXall </choice>
+</option>
+<option label="on filesystem" name=" filesystem " type="text" terminator="&#xD;&#xA;">
+<choice label=""></choice>
+</option>
+
+
+<comment>package designates whether a package is to be added to or deleted from the software group that is to be installed on the system. syntax : package_name [add [retrieval_type location]| delete]</comment>
+<option label="Enter the name of the package to install" name="package " type="text" terminator="&#xD;&#xA;">
+<choice label=""> </choice>
+</option>
+
+
+<comment>add a patch during installation . syntax : patch_id_list | patch_file patch_location optional_keywords]</comment>
+<option label="Enter the name of the patch " name="patch " type="text" terminator="&#xD;&#xA;">
+<choice label=""> </choice>
+</option>
+
+
+
+</section>
+
+<section label="Diskless client configuration" name="">
+
+
+<comment>num_clients defines the number of diskless clients, client_num, that a server supports.</comment>
+<option label="Number of diskless client" name="num_client " type="text" terminator="&#xD;&#xA;">
+<choice label=""> </choice>
+</option>
+
+<comment>client_arch specifies that the operating system server is to support a different platform group than the server uses. </comment>
+<option label="Client Architecture " name="client_arch " type="radio" terminator="&#xD;&#xA;">
+<choice label="sun4m">sun4m</choice>
+<choice label="sun4u">sun4u</choice>
+<choice label="i86pc" selected="yes">i86pc</choice>
+</option>
+<comment>client_root defines the amount of root space, root_size in Mbytes, to allocate for each client.</comment>
+<option label="client root " name="client_root " type="text" terminator="&#xD;&#xA;">
+<choice label=""></choice>
+</option>
+
+<comment>client_swap defines the amount of swap space, swap_size in Mbytes, to allocate for each diskless client.</comment>
+<option label="client swap " name="client_swap " type="text" terminator="&#xD;&#xA;">
+<choice label=""></choice>
+</option>
+</section>
+
+<section label="Architecture configuration" name="">
+<comment>system_type defines the type of system on which the Solaris OS is to be installed.</comment>
+<option label="Choose if system is standalone or a server" name="system_type " type="radio" terminator="&#xD;&#xA;">
+<choice label="standalone">standalone</choice>
+<choice label="server">server</choice>
+</option>
+
+</section>
+
+
+
+<section label="File Location A METTRE EN DUR ?" name="">
+<comment>Set the location where the Solaris Flash archive is stored. </comment>
+<option label="archive location " name="archive_location " type="radio">
+<choice label="NFS serer"> </choice>
+<choice label="HTTP or HTTPS Server"> </choice>
+<choice label="FTP Server"> </choice>
+<choice label="Local Tape"> </choice>
+<choice label="Local Device"> </choice>
+<choice label="Local File"> </choice>
+</option>
+<option label="Location" name="" type="text" terminator="&#xD;&#xA;">
+<choice label=""></choice>
+</option>
+</section>
+
+
+
+</template>

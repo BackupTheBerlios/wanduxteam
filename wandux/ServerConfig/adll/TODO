@@ -1,0 +1,8 @@
+** Text mode ** 
+ * Support xml attribut "multi"
+ * Support xml attribut "needed"
+ * Parsing/applying user response from combo answer
+ * Support "quiet mode" (-q)
+
+** All mode / misc **
+ * Save, Save as.. *.xml

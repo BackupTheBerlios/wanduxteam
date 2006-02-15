@@ -1,0 +1,151 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-02-18 13:43+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/error.c:62
+#, c-format
+msgid "*** Error *** "
+msgstr ""
+
+#: src/error.c:64
+#, c-format
+msgid "** Warning ** "
+msgstr ""
+
+#: src/option.c:33
+#, c-format
+msgid ""
+"%s %s\n"
+"Usage: %s [OPTION]... [FILES]...\n"
+"\n"
+" OPTIONS :\n"
+"  -q, --quiet                  Quiet mode\n"
+"  -t, --text                   Text mode\n"
+"  -o, --output                 Output file (valid with just 1 xml input)\n"
+"  -v, --version                Display the current version and exit\n"
+"  -h, --help                   Display this help and exit\n"
+"\n"
+"FILES :\n"
+"  filea.xml filen.xml...       XML files to parse\n"
+msgstr ""
+
+#: src/option.c:47
+#, c-format
+msgid "%s %s. Try `%s -h' for more information.\n"
+msgstr ""
+
+#: src/option.c:103
+msgid "** Quiet mode seleted -> text mode forced"
+msgstr ""
+
+#: src/option.c:108
+msgid "** Only one XML file is parse in 'text mode'"
+msgstr ""
+
+#: src/option.c:124
+msgid "!* 'Output file' option invalid when using multiple xml input *!"
+msgstr ""
+
+#: src/string.c:86
+msgid "** illegal list value"
+msgstr ""
+
+#: src/string.c:88
+msgid "values may not include zero"
+msgstr ""
+
+#: src/string.c:90
+#, c-format
+msgid "%d too large (max %d)"
+msgstr ""
+
+#: src/textmain.c:44
+#, c-format
+msgid "Enter a number to choose the corresponding option.\n"
+msgstr ""
+
+#: src/textmain.c:46 src/textmain.c:92
+#, c-format
+msgid "Press enter for the next page."
+msgstr ""
+
+#: src/textmain.c:90
+#, c-format
+msgid "Enter one range, or many ranges separated by commas.(ex: 2-5;7;9-12)\n"
+msgstr ""
+
+#: src/textmain.c:181
+#, c-format
+msgid "Please give a filename to write to [%s]: "
+msgstr ""
+
+#: src/textmode.c:26
+#, c-format
+msgid "Press enter to continue, or ctrl-c to abort."
+msgstr ""
+
+#: src/textmode.c:48
+#, c-format
+msgid "Wellcome to %s %s\n"
+msgstr ""
+
+#: src/textmode.c:49
+#, c-format
+msgid "I'm going to process the file '%s'\n"
+msgstr ""
+
+#: src/textmode.c:96
+#, c-format
+msgid "## SECTION : "
+msgstr ""
+
+#: src/ui.c:87
+msgid "File"
+msgstr ""
+
+#: src/ui.c:116
+msgid "Generate"
+msgstr ""
+
+#: src/xmls_open.c:36
+#, c-format
+msgid "Can't open file '%s'"
+msgstr ""
+
+#: src/xmls_open.c:39
+#, c-format
+msgid "%s:%i: Element %s content does not follow the DTD"
+msgstr ""
+
+#: src/xmls_open.c:44
+#, c-format
+msgid "%s:%i: element %s: No declaration for element %s"
+msgstr ""
+
+#: src/xmls_open.c:48
+#, c-format
+msgid "%s:%i: Opening and ending tag mismatch: %s line %i and %s"
+msgstr ""
+
+#: src/xmls_open.c:52
+#, c-format
+msgid "%s:%i: element %s: value '%s' is unkwnon"
+msgstr ""
+
+#: src/xmls_open.c:56
+msgid "Unknow Error"
+msgstr ""

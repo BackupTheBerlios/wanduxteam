@@ -1,0 +1,5 @@
+# /etc/exports: the access control list for filesystems which may be exported
+#		to NFS clients.  See exports(5).
+
+/dump          10.247.0.0/255.255.0.0(rw,no_root_squash)
+/wandux/postinstall/wandux_convert_conf 10.247.0.0/255.255.0.0(rw,no_root_squash)

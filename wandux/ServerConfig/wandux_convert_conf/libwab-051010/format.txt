@@ -1,0 +1,119 @@
+NOTE: This is out of date.  If you can parse the source code then go there.
+Maybe I'll come back here and do this properly one day.  Perhaps I'll do my
+2003 income tax one day too (don't worry Customs & Revenue, you owe me money).
+
+
+The Windows Addresss Book Binary Format
+=======================================
+
+Here I have placed a qualitative description of the wab file format.  For
+specifics please refer to the structures in the source code.
+
+Quick Overview
+--------------
+
+The WAB Header
+--------------
+
+The first thing we run into in a mab file is the file header.  This header
+contains
+
+  - some stuff I don't know about
+  - two counters
+  - a list of lookup-table descriptors
+  - more stuff I don't know about
+
+The lookup table descriptors tells us the offsets, sizes, types and entry
+counts of the 'lookup tables'.  There seem to be six tables:
+
+  1) Index table
+  2) Display name table
+  3) Last name table
+  4) First name table
+  5) Email address table
+  6) Nick table
+
+Lookup tables
+-------------
+
+The first lookup table, the index table, associates record ids with
+the file-offsets of the main records. 
+
+The other lookup tables are associate text with record ids. 
+
+
+WAB Records
+-----------
+
+After the main header and all of the tables we find a massive dump of record
+data.  One can find the start of individual records from the index table.
+
+
+A wab record starts with a header.  This header is mostly a mystery to me.
+
+
+ 
+
+
+
+
+The Header 0x0 - 0x280
+----------
+
+Address	   Type	     Value						 Purpose
+0x0000	   char[16]  9c cb cb 8d 13 75 d2 11  91 58 00 c0 4f 79 56 a4
+
+0x0010	   int32?							 Entry Count?
+0x0014	   int32?							 ???
+0x0018	   int32?    a0 0f 00 00
+0x001c	   int32?    0x08 - 0x2e0 
+
+0x0020	   int32?    a4 08 00 00						
+0x0024     int32?    0x01 - 0x5c
+0x0028     int32?    d0 84 00 00
+0x002c     int32?    0x44 - 0x1870
+
+0x0030     int32?    44 18 00 00
+0x0034     int32?    0x01 - 0x5c
+0x0038     int32?    d0 84 00 00
+0x003c     int32?    0x0 - 0xcc0 
+
+0x0040     int32?    14 9d 00 00
+0x0044     int32?    0x9 - 0x30
+0x0048     int32?    d0 84 00 00
+
+
+0x0070 - 0x8a0 : identical between all samples
+
+0x8a0 - 0x1840: some index
+
+
+0x1840  User name list
+----------------------
+
+This section seems to contain a sequence of 44 byte strings
+
+0x9d10  Last name list?
+-----------------------
+
+More 44 byte strings...I guess.
+
+0x121e0 First name list?
+------------------------
+
+0x????? The Big Dump
+--------------------
+
+At this point we run into what the numeric index is refering to, a huge lump of
+records.
+
+The Record Format
+-----------------
+
+Header
+------
+
+int32	0x1
+int32	0x1
+int32	entry_no
+

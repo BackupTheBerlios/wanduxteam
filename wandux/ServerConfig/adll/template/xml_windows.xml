@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE template SYSTEM "adll.dtd"[]>
+<template author="Vincent Malguy" os_name="windows" os_version="2000 and up" adll_version="1.0" date="01-10-2004">
+  <netboot>
+    <address>192.1.1.150</address>
+    <port>21</port>
+    <path>/path</path>
+  </netboot>
+
+<section label="Unattended" name="[Unattended]">
+<comment>This section header identifies that an unattended installation is being performed. This section is required in the Unattend.txt file; otherwise, the answer file is ignored. Parameters that can exist in this section are discussed below.</comment>
+
+<option label="Type of Computer" name="ComputerType" type="radio">
+<choice label="custom Hardware Abstraction Layer"> = HAL</choice>
+<choice label="OEM"> = OEM</choice>
+</option>
+<comment>Specifies the type of custom Hardware Abstraction Layer (HAL) to be loaded by the Setup Loader and installed by text-mode Setup. This parameter is only valid when OemPreinstall = Yes. If this key is not present, Setup attempts to detect the type of computer and install the appropriate retail HAL.
+
+Note 
+This parameter is only used if your vendor has supplied a custom HAL.
+The HAL description string identifies the HAL to be installed. It must match one of the strings in the [Computer] section of Txtsetup.sif (for a retail HAL), or Txtsetup.oem (for an OEM HAL).
+where:
+	Retail   informs Setup that the HAL to be installed is part of Windows 2000.
+	OEM   indicates that the HAL to be loaded is OEM-supplied. If this is the case, the driver name must also be listed in the [OEMBootFiles] section of the Unattend.txt file.
+</comment>
+<option label="Driver Signing Policy" name="DriverSigningPolicy" type="radio">
+<choice label="Block"> = Block</choice>
+<choice label="Warm" selected="yes"> = Warm</choice>
+<choice label="Ignore"> = Ignore</choice>
+</option>
+<comment>Default: Warn 
+Specifies how non-signed drivers are processed during unattended Setup. Signed drivers have gone through the Microsoft driver testing and signing process to ensure they are Windows 2000 compatible.
+For the most up-to-date list of supported hardware, see the Hardware Compatibility List by visiting the Microsoft Web site at:
+http://www.microsoft.com/
+Your Windows 2000 CD includes a copy of this list (drive:\Support\Hcl.txt) that was accurate as of the date Windows 2000 was released.
+
+where:
+	Block   Setup does not install the non-signed device driver.
+	Warn   Setup stops the installation and prompts the user for input before accepting the non-signed device driver.
+	Ignore   Setup continues even if the driver is not signed.
+
+Important
+Microsoft strongly advises against using DriverSigningPolicy = Ignore unless you have fully tested the device driver in your environment and are sure that it works properly. Using non-signed drivers increases the risk of device driver problems that can effect the performance or stability of your computer. 
+If you are using DriverSigningPolicy = Ignore and you attempt to install a newer, unsigned copy of a driver that is protected by Windows 2000, the policy level is automatically updated to Warn.
+</comment>
+<option label="Extend the Oem Partition" name="ExtendOemPartition" type="radio">
+<choice label="No"> = 0</choice>
+<choice label="Yes"> = 1</choice>
+<choice label="Extra size"> </choice>
+<option label="increase by (in MB)" type="text" name=" = ">
+<choice label="" ></choice>
+</option>
+</option>
+<comment>The ExtendOemPartition key is used to extend the partition on which you are installing Windows 2000. This key causes Setup to extend this destination partition into any available unpartitioned space that physically follows it on the disk.
+where:
+	0	Setup does not extend the partition
+	1	Setup extends the partition to fill out the hard disk
+	extra size in MB	Setup increases the current partition size by this amount.
+
+Important 
+
+	Only NTFS partitions can be extended. If the destination partition you plan to extend is FAT or FAT32, set FileSystem = ConvertNTFS to convert the partition during text-mode Setup.
+	This key can be used with both the Unattend.txt and Sysprep.inf Setup files. 
+	When used in Sysprep.inf for imaged computers, the destination computer s hard disk must be the same size or larger than the master computer s hard disk.
+
+</comment>
+<option label="File System setup" name="FileSystem" type="radio">
+<choice label="Convert to NTFS"> = ConvertNTFS</choice>
+<choice label="Leave Alone"> = LeaveAlone</choice>
+</option>
+<comment>Specifies whether the primary partition should be converted to NTFS or left alone.
+
+Note 
+If you plan to use ExtendOemPartition during Setup, set FileSystem = ConvertNTFS. For more information, see ‚ÄúExtendOemPartition,‚Äù earlier in this document.
+
+</comment>
+<option label="Keyboard Layout" name="KeyboardLayout = " type="text" >
+<choice label=""></choice>
+</option>
+<comment>Specifies the type of keyboard layout to be installed during text-mode Setup. If this key does not exist, Setup detects and installs a keyboard layout.
+This key must match one of the right-hand strings (in quotes) in the [Keyboard Layout] section of Txtsetup.sif.
+</comment>
+<option label="Unattend Switch" name="UnattendSwitch" type="radio">
+<choice label="Yes"> = yes</choice>
+<choice label="No"> = no</choice>
+</option>
+<comment> Needed for XP - see http://support.microsoft.com/?kbid=294801 .</comment>
+<option label="Is this an Nt Upgrade" name="NtUpgrade" type="radio">
+<choice label="Yes"> = yes</choice>
+<choice label="No"> = no</choice>
+</option>
+<comment>Determines whether a previous version of Windows NT 3.51, Windows NT 4.0, Windows 2000 Professional, Windows 2000 Server, Windows 2000 Advanced Server, or Windows 2000 Datacenter Server should be upgraded. This parameter is only valid for Winnt32.exe.
+Set NTUpgrade = Yes to upgrade the previous Windows NT or Windows 2000 installation. If OemPreinstall = Yes, NTUpgrade should not be set to Yes.
+
+Note 
+
+	This key upgrades your previous version of Windows 2000, Windows NT 3.51, or Windows NT 4.0. All user settings are taken from the previous installation, so no user intervention is required during Setup.
+	To upgrade from Windows 95 or Windows 98, use the Win9xUpgrade key.
+</comment>
+
+<option label="Path of OEM Files" name="OemFilesPath = " type="text">
+<choice label=""></choice>
+</option>
+<comment>Specifies the path to the \$OEM$ folder (containing OEM files) if it does not exist under the i386 folder of the distribution share point. The path can be a UNC name.
+For more information about the \$OEM$ folder, see the Microsoft Windows 2000 OEM Preinstallation Kit (OPK) User Guide if you are a computer manufacturer. Otherwise, see the Microsoft Windows 2000 Deployment Guide.
+</comment>
+<option label="Oem PnP Drivers Path" name="OemPnPDriversPath = " type="text">
+<choice label=""></choice>
+ </option>
+<comment>Specifies the path to folders that contain Plug and Play (PnP) drivers that do not ship on the Windows 2000 CD. The folders must contain all the files necessary to install the particular devices‚Äîcatalog files, .inf files, and drivers.
+For example, if you have a folder called \Drivers with subfolders called \Audio and \Net, you would specify OemPnPDriversPath = ‚Äúdrivers\audio;drivers\net‚Äù in the answer file. Setup adds:
+	%systemdrive% to each of the folder names 
+	the path for each subfolder to the PnP device search path.
+
+Note
+When using this parameter, be sure that the folders are available during GUI-mode Setup or Mini-Setup‚Äîyou can use the \$OEM$\$1 directory structure mechanism for this. For best results, make sure your drivers are signed.
+
+</comment>
+<option label="Oem Preinstall" name="OemPreinstall" type="radio">
+<choice label="yes"> = yes</choice>
+<choice label="no"> = no</choice>
+</option>
+<comment>Determines whether an installation from distribution folders is being performed. When value is Yes, any other existing subfolders are copied. No means a regular unattended installation is being performed.</comment>
+<option label="Skip the Microsoft License Agreement" name="OemSkipEula" type="radio">
+<choice label="yes" selected="yes"> = yes</choice>
+<choice label="no"> = no</choice>
+</option>
+<comment>Determines whether the user should be prompted to accept the Microsoft License Agreement (previously known as the End User License Agreement or EULA) included with Windows 2000. Writing this key and setting it to Yes implies that the person performing the installation has read and agreed to the contents of the License Agreement included with the product. It also implies that the end-user on whose behalf Windows 2000 is being installed has agreed to the License Agreement.
+
+Important
+OEMs must not use this key to bypass the Microsoft License Agreement screen because end users are required to see and accept it.
+</comment>
+<option label="Overwrite Oem Files On Upgrade" name="OverwriteOemFilesOnUpgrade" type="radio">
+<choice label="yes"> = yes</choice>
+<choice label="no"> = no</choice></option>
+<comment>Determines whether OEM-supplied files that have the same name as Windows 2000 system files should be overwritten during an unattended upgrade.
+Yes means overwrite the files. No means do not overwrite the files if found. The default behavior is to overwrite OEM-supplied files.
+
+Note 
+This key is provided for backward compatibility only and will be removed from future versions.
+</comment>
+<option label="Repartition ?" name="Repartition" type="radio">
+<choice label="Yes"> = yes</choice>
+<choice label="No"> = no</choice></option>
+<comment>Specifies whether or not all partitions on the first drive on the client computer should be deleted and the drive reformatted with the NTFS file system.
+
+Important
+Repartition is only valid when performing an unattended installation by booting the computer from the Windows 2000 CD.
+</comment>
+<option label="Target Path" name="TargetPath = " type="text">
+<choice label="">*</choice>
+</option>
+<comment>Determines the installation folder in which Windows 2000 should be installed.
+* indicates that Setup should generate a unique folder name for the installation. The folder name given is usually Winnt, unless that folder already exists. In that case, Setup installs into Winnt.x (where x is 0, 1, ‚Ä¶ 999) if that folder does not already exist.
+path name is the user-defined installation folder and should not include the drive letter. If you want to specify the target drive, you must use the /tempdrive parameter with Winnt32.exe or the /t switch with Winnt.exe.
+</comment>
+<option label="Unattend Mode" name="UnattendMode" type="radio">
+<choice label="Gui Attended"> = GuiAttended</choice>
+<choice label="Provide Default"> = ProvideDefault</choice>
+<choice label="Default Hide"> = DefaultHide</choice>
+<choice label="Read Only"> = ReadOnly</choice>
+<choice label="Fully unattended Installation" selected="yes"> = FullUnattended</choice>
+</option>
+<comment>where:
+	GuiAttended   specifies that the GUI-mode section of Setup is attended. When specified, the end-user is required to answer all questions in the GUI-mode portion of Setup before Setup finishes. This mode is useful in preinstallation scenarios in which the OEM or administrator wants to automate only text-mode Setup.
+	ProvideDefault   specifies that answers in the answer file are defaults. In this case, Setup displays these default answers to the user, who may change them if desired. This approach is useful in preinstallation scenarios where the OEM or administrator wants to give the person setting up the computer the option to change the predefined default answers (especially network options).
+	DefaultHide   specifies that answers in the answer file are defaults. Unlike the ProvideDefault value, Setup does not display the user interface to end-users if all the answers relating to a particular wizard page are specified in the answer file. If only subsets of the answers on a page are specified, the page is displayed with the provided answers. The user can modify any of the answers on the displayed page. This approach is useful in deployment scenarios where an administrator may only want end-users to provide the administrator password on the computer. This behavior is the default if unattended Setup mode is not specified.
+
+	ReadOnly   specifies that answers in the answer file are read-only if the wizard pages containing these answers are displayed to the end-user. Just like the DefaultHide parameter, no user interface appears if all answers on a page are supplied in the answer file. Unlike the DefaultHide parameter, however, the user can only specify new answers on a displayed page. This approach is useful in scenarios where an administrator wants to force specific answers on a page but not others.
+	FullUnattended   specifies that GUI-mode Setup is fully unattended. If a required Setup answer is not specified in the answer file, an error is generated. This behavior is useful in deployment scenarios where a complete hands-off installation is required and an unspecified answer is an error in the answer file.
+</comment>
+<option label="Win9x Upgrade ?" name="Win9xUpgrade" type="radio">
+<choice label="yes"> = yes</choice>
+<choice label="no"> = no</choice></option>
+<comment>Determines whether previous installations of Windows 95 or Windows 98 should be upgraded to Windows 2000.
+Yes means that the Windows installation should be upgraded, and No means that the Windows installation, if found, should not be upgraded. The default is No. This parameter is only necessary when using an answer file to upgrade an existing Windows 95 or Windows 98 computer to Windows 2000. This parameter is only valid for Winnt32.exe.
+</comment>
+</section>
+
+<section label="Mass Storage Drivers" name="[MassStorageDrivers]">
+<comment>This section contains a list of SCSI drivers to be loaded by the Setup Loader and installed during text-mode Setup. If this section is missing or empty, Setup attempts to detect the SCSI devices on the computer and install the corresponding retail drivers.</comment>
+<option label="mass storage driver description" name="mass storage driver description" type="radio">
+<choice label="Retail"> = Retail</choice>
+<choice label="OEM"> = OEM</choice>
+</option>
+<comment>Identifies the driver to be installed. It must match one of the strings defined in the right-hand side of the [SCSI] section of Txtsetup.sif (for a retail driver), or Txtsetup.oem (for an OEM driver). Multiple instances of mass storage driver description may be specified.
+where:
+Retail   indicates that the driver is part of the retail Windows 2000 product.
+OEM   indicates that the driver is OEM-supplied. If the value is OEM, the driver must also be listed in the [OEMBootFiles] section of the Unattend.txt file.
+</comment>
+</section>
+<section label="User Data" name="[UserData]">
+<comment>Specifies the computer name. If the ComputerName key is empty or missing, the user is prompted to enter a computer name. If the value is *, Setup generates a random computer name based on the organization name specified.</comment>
+<option label="Computer Name" name="ComputerName = '" type="text" terminator="'">
+<choice label="">*</choice>
+</option>
+<comment>Specifies the user�s full name. If the key is empty or missing, the user is prompted to enter a name.</comment>
+<option label="Full Name" name="FullName = '" type="text" terminator="'">
+<choice label="">Jhon Doe</choice>
+</option>
+<comment>Specifies the Microsoft Product Identification (Product ID) number.</comment>
+<option label="Organisation Name" name="OrgName = '" type="text" terminator="'">
+<choice label="">Epitech school</choice>
+</option>
+<comment>Specifies an organization name. If the OrgName key is empty or missing, the user is prompted to enter an organization name.</comment>
+
+<option label="Product ID" name="ProductID = " type="text">
+<choice label=""></choice>
+</option>
+</section>
+<section label="Gui Unattended" name="[GuiUnattended]">
+<option label="Admin Password" name="AdminPassword = " type="text">
+<choice label="">*</choice>
+</option>
+<comment>Sets up the Administrator account password. If the value is set to *, Setup sets the administrator password to NULL. (The maximum password length is 127 characters.)</comment>
+<option label="OEM Skip Regional" name="OEMSkipRegional" type="radio">
+<choice label="yes" selected="yes"> = 1</choice>
+<choice label="no"> = 0</choice>
+</option>
+<comment>Allows unattended Setup to skip the Regional Options page in GUI-mode Setup and Mini-Setup.</comment>
+<option label="OEM Skip Welcome" name="OEMSkipWelcome" type="radio">
+<choice label="yes" selected="yes"> = 1</choice>
+<choice label="no"> = 0</choice>
+</option>
+<comment>Allows unattended Setup to skip displaying the Welcome page in GUI-mode Setup and Mini-Setup.</comment>
+<option label="Auto Logon" name="AutoLogon" type="radio">
+<choice label="yes" selected="yes"> = yes</choice>
+<choice label="no"> = no</choice>
+</option>
+<comment>Sets up the computer to automatically log on once with the Administrator account if set to Yes. The default behavior is No. The key is not valid on upgrades.</comment>
+<option label="Auto Logon Account Creation" name="AutoLogonAccountCreation" type="radio">
+<choice label="yes" selected="yes"> = yes</choice>
+<choice label="no"> = no</choice>
+</option>
+<comment>Specifies whether a computer account should be created automatically for the user whose name is specified by FullName.</comment>
+<option label="set Time Zone" name="TimeZone = ">
+<choice label="">095</choice>
+</option>
+<comment>Specifies the time zone of the computer. If the key is not present, the user is prompted to select a time zone.
+The following is a list of valid TimeZone indices:
+
+
+Index	Zone	Index	Zone	Index	Zone
+000	Int’l Dateline	090	GMT Greenwich	200	Sri Lanka
+001	Samoa 	095	Central Europe	201	N. Central Asia
+002	Hawaii 	100	Central European	203	Myanmar: Rangoon
+003	Alaskan 	105	Romance	205	S.E. Asia
+004	Pacific 	110	W. Europe	207	N. Asia
+010 	Mountain (U.S. and Canada)	113	W. Central Africa	210	China
+015 	U.S. Mountain: Arizona	115	E. Europe	215	Singapore
+020 	Central (U.S. and Canada)	120	Egypt	220	Taipei
+025 	Canada Central	125	EET (Helsinki, Riga, Tallinn) 	225	W. Australia
+030 	Mexico	130	EET (Athens, Istanbul, Minsk)	227	N. Asia East
+033	Central America	135	Israel: Jerusalem	230 	Korea: Seoul
+035 	Eastern (U.S. and Canada)	140	S. Africa: Harare, Pretoria	235	Tokyo
+040 	U.S. Eastern: Indiana (East)	145	Russian	240	Sakha Yakutsk
+045 	S.A. Pacific	150	Arab	245 	A.U.S. Central: Darwin
+050 	Atlantic (Canada)	155	E. Africa	250 	Central Australia
+055 	S.A. Western	160	Iran	255 	A.U.S. Eastern
+056	Pacific S.A.	165	Arabian	260	E. Australia
+060 	Newfoundland	170	Caucasus Pacific (U.S. and Canada)	265	Tasmania
+065 	E. South America	175	Afghanistan	270 	Vladivostok
+070 	S.A. Eastern	180	Russia Yekaterinburg	275 	W. Pacific
+073	Greenland	185	W. Asia	280 	Central Pacific
+075 	Mid-Atlantic	190	India	285 	Fiji
+080 	Azores	193	Nepal	290 	New Zealand
+083	Cape Verde Islands	195	Central Asia	300	Tonga
+085 	GMT (Greenwich Mean Time)				
+</comment>
+</section>
+<section label="Data" name="[Data]">
+<option label="Auto Partition" name="AutoPartition" type="radio">
+<choice label="yes" selected="yes"> = 1</choice>
+<choice label="no"> = 0</choice>
+</option>
+<comment>Allows Windows 2000 unattended Setup mode to choose a partition to install into. The value must be set to 1. If you do not set the value, text-mode Setup stops and waits for user input. </comment>
+<option label=" MsDos Initiated" name="MsDosInitiated" type="radio">
+<choice label="yes" > = 0</choice>
+<choice label="no" selected="yes"> = 0</choice>
+</option>
+<comment>Informs the Windows 2000 Setup Loader that an unattended installation is being done directly from the CD. The value must always be set to 0. If you do not set the value to 0, Setup fails at the beginning of GUI-mode Setup. </comment>
+<option label="Unattended Install" name="UnattendedInstall" type="radio">
+<choice label="yes" selected="yes" > = yes</choice>
+<choice label="no" > = yes</choice>
+</option>
+<comment>Informs the Windows 2000 Setup Loader that an unattended installation is being performed from the CD. The value must always be set to Yes.  </comment>
+</section>
+
+<section label="meta data" name="[_meta]">
+<option label="load fdisk lba" name="fdisk_lba" type="radio">
+<choice label="yes" selected="yes" > = 1</choice>
+<choice label="no" > = 0</choice>
+</option>
+<comment>Use extended INT13 BIOS calls for fdisk?</comment>
+<option label="fdisk cmds" name="fdisk_cmds = '" type="text" terminator="'">
+<choice label="">fdisk /clear 1;fdisk /pri:4000;fdisk /activate:1</choice>
+</option>
+<option label="fdisk_confirm" name="fdisk_confirm" type="radio">
+<choice label="yes"  > = 1</choice>
+<choice label="no" selected="yes"> = 0</choice>
+</option>
+<comment>Prompt for confirmation before running fdisk_cmds?</comment> 
+<option label="format_cmd" name="format_cmd = '" type="text" terminator="'">
+<choice label="">format /y /z:seriously /q /u /a /v: c:</choice>
+</option>
+<option label="replace_mbr" name="replace_mbr" type="radio">
+<choice label="yes" selected="yes" > = 1</choice>
+<choice label="no" > = 0</choice>
+</option>
+<option label="edit_files" name="edit_files" type="radio">
+<choice label="yes"  > = 1</choice>
+<choice label="no" selected="yes" > = 0</choice>
+</option>
+<option label="top script" name="top = " type="text">
+<choice label="">" "</choice>
+</option>
+<option label="postinst" name="postinst = " type="text">
+<choice label="">C:\netinst\postinst.bat</choice>
+</option>
+<option label="doit_cmds" name="doit_cmds = " type="text">
+<choice label="">"z:;cd Z:\os\win2ksp4\i386;winnt /rx:lang /s:Z:\os\win2ksp4\i386 /u:C:\netinst\unattend.txt"</choice>
+</option>
+<comment>Contents of doit.bat script</comment>
+<option label="OS_dir" name="OS_dir = " type="text">
+<choice label="">Z:\os</choice>
+</option>
+<comment>Directory holding OS media directories</comment>
+<option label="netinst" name="netinst = "  type="text">
+<choice label="">c:\netinst</choice>
+</option>
+<option label="OS_media" name="OS_media = "  type="text">
+<choice label="">Z:\os\win2ksp4</choice>
+</option>
+<option label="middle" name="middle = '"  type="text" terminator="'">
+<choice label="">null.bat</choice>
+</option>
+<comment>Optional script(s) run by postinst.bat</comment>
+<option label="bottom" name="bottom = '"  type="text" terminator="'">
+<choice label="">null.bat</choice>
+</option>
+<comment>Last script(s) run by postinst.bat</comment>
+<option label="ntp_servers" name="ntp_servers = '"  type="text" terminator="'">
+<choice label="">ntp0.oleane.net</choice>
+</option>
+<comment>NTP servers, separated by commas or spaces</comment>
+</section>
+<section label="Gui Run Once" name="[GuiRunOnce]">
+<option label="Command" name="Command0 = "  type="text">
+<choice label="">C:\netinst\mapznrun.bat</choice>
+</option>
+<comment> Command which runs after OS installation finishes</comment>
+</section>
+
+<section label="Identification" name="[Identification]">
+ <option label="Join Workgroup" name="JoinWorkgroup = "  type="text">
+<choice label="">Epitech</choice>
+</option>
+</section>
+
+<section label="Terminal Services" name="[TerminalServices]">
+<option label="ApplicationServer" name="Application Server" type="radio">
+<choice label="yes"  > = 1</choice>
+<choice label="no" selected="yes" > = 0</choice>
+</option>
+<comment> Terminal Services offers two modes: Application Server and Remote Administration. By setting ApplicationServer = 1, you are specifying that the Terminal Server Services will function as an Application Server. By setting ApplicationServer = 0, you are specifying that the Terminal Services will function as a Remote Administration server. </comment>
+</section>
+
+<section label="Remote Install" name="[RemoteInstall]">
+<option label="Repartition" name="Repartition" type="radio">
+<choice label="yes"  > = Yes</choice>
+<choice label="no" selected="yes" > = No</choice>
+</option>
+<comment> Specifies whether all partitions on the first drive on the client computer should be deleted and reformatted with NTFS or not. If the value is set to No, the default parameters in the client answer file are used. </comment>
+</section>
+
+<section label="Os Chooser" name="[OsChooser]">
+<comment>This section is only used by clients being installed using Remote Installation Services (RIS). In generation, the Remote Installation Services administration tools generate this parameter.</comment>
+ <option label="Description" name="Description = "  type="text">
+<choice label=""></choice>
+</option>
+<comment>Specifies the description of the operating system image. This text appears on the client computer within the Client Installation wizard (CIW). </comment>
+<option label="Help" name="Help = "  type="text">
+<choice label=""></choice></option>
+<comment>When users select the operating system description within the CIW, the Help topic is displayed. The Help topic provides a more detailed formal description of the operating system image. </comment>
+<option label="ImageType" name="ImageType = "  type="text">
+<choice label="Flat"  >Flat</choice>
+<choice label="Sysprep"  >Sysprep</choice></option>
+<comment>Specifies the type of operating system image being installed. Remote Installation Service supports either a flat CD-based image or a Sysprep image created using the Remote Installer Preparation (RIPrep) wizard.</comment>
+ <option label="LaunchFile" name="LaunchFile = "  type="text">
+<choice label=""></choice></option>
+<comment>Specifies the file to be executed when the user selects an operating system image from within the CIW. This path is automatically defined when using RIS to install an operating system on a client computer from within CIW. Use this option to execute pre-boot maintenance and troubleshooting tools for use with RIS.</comment>
+ <option label="Version" name="Version = "  type="text">
+<choice label=""></choice></option>
+<comment>Specifies the version of the operating system or tool being executed when the user selects an image from within the CIW.</comment>
+</section>
+
+<section label="Display" name="[Display]">
+<comment>This section specifies display settings for the particular graphics device being installed. In order for this to work properly, the user must know what settings are valid for the graphics device under consideration.
+If the previously specified settings are not valid for the particular graphics device, Setup finds the closest match to the selected settings to configure the device.
+</comment>
+<option label="Bits Per Pel" name="BitsPerPel = "  type="text">
+<choice label=""></choice></option>
+<comment>Specifies the valid bits per pixel for the graphics device being installed. For example, a value of 8 (28) implies 256 colors, 16 implies 65,536 colors.</comment>
+<option label="Vrefresh" name="Vrefresh = "  type="text">
+<choice label=""></choice></option>
+<comment>Specifies a valid refresh rate for the graphics device being installed.</comment>
+<option label="Xresolution" name="Xresolution = "  type="text">
+<choice label=""></choice></option>
+<comment>Specifies a valid x resolution for the graphics device being installed.</comment>
+<option label="Yresolution" name="Yresolution = "  type="text">
+<choice label=""></choice></option>
+<comment>Specifies a valid y resolution for the graphics device being installed.</comment>
+</section>
+
+<section label="Regional Settings" name="[RegionalSettings]">
+<comment>This optional section specifies regional options
+</comment>
+<option label="Input Locale" name="InputLocale = "  type="text">
+<choice label=""></choice></option>
+<comment>Specifies the input locale and keyboard layout combinations to be installed on the computer (the first keyboard layout specified is the default layout for the installation). The specified combinations must be supported by one of the language groups defined using the LanguageGroup key or the default language group for the language version of Windows 2000 being installed. If an available language group does not support the combination specified, the default combination is used for the installation. This key is ignored if the Language key is specified. For a  list of valid locale ID and keyboard layout combinations, visit the Microsoft Global Software Development Web site at:
+http://www.microsoft.com/globaldev/
+</comment>
+<option label="Language" name="Language = "  type="text">
+<choice label=""></choice></option>
+<comment>Specifies the language/locale to be installed. This language must be supported by one of the language groups specified using the LanguageGroup key. If an available language group does not support the locale, the default language for the Windows 2000 version being installed is used.</comment>
+<option label="LanguageGroup" name="LanguageGroup = "  type="text">
+<choice label=""></choice></option>
+<comment>Specifies the language group support to be installed on the computer. </comment>
+<option label="System Locale" name="SystemLocale = "  type="text">
+<choice label=""></choice></option>
+<comment>Specifies the system locale to be installed on the computer. (System locale enables localized applications to run and display menus and dialogs in their native language.) The specified system locale must be supported by one of the language groups specified using the LanguageGroup key or the default language group for the language version of Windows 2000 being installed. If an available language group does not support the locale specified, the default system locale is installed. This key is ignored if the Language key is specified.</comment>
+<option label="User Locale" name="UserLocale = "  type="text">
+<choice label=""></choice></option>
+<comment>Specifies the user locale to be installed on the computer. (The user locale controls the settings for numbers, time, currency, and dates) The specified user locale must be supported by one of the language groups specified using the LanguageGroup key or the default language group for the language version of Windows 2000 being installed. If an available language group does not support the locale specified, the default user locale is installed. This key is ignored if the Language key is specified. </comment>
+</section>
+
+<section label="Win9x Upgrade" name="[Win9xUpg]">
+<comment>This section specifies the parameters for an unattended upgrade from Windows 95 or Windows 98. These parameters are not valid on any other upgrade path.
+</comment>
+<option label="Default Password" name="DefaultPassword = "  type="text">
+<choice label=""></choice></option>
+<comment>Provides a default password for all local accounts created during a migration process. Since Setup cannot migrate the Windows passwords of users when upgrading a system, it must assign passwords for those created accounts. When Setup needs to assign one of these passwords, it first checks to see if a UserPassword (see "UserPassword," earlier in this document) entry for that user exists. If not, it uses the value of this key if specified.</comment>
+<option label="Force Password Change" name="ForcePasswordChange" type="radio">
+<choice label="yes"> = Yes</choice>
+<choice label="no"> = No</choice></option>
+<comment>Informs Setup to automatically require a password change on all local accounts it creates during the migration process. When a user first logs on using one of these accounts, the user is informed that the current password has expired. The user is forced to select a new password before logging on.</comment>
+<option label="Migrate Default User" name="MigrateDefaultUser" type="radio">
+<choice label="yes"> = Yes</choice>
+<choice label="no"> = No</choice></option>
+<comment>Causes Setup to migrate the default Windows 95 or Windows 98 user account settings to the default Windows 2000 user account.</comment>
+<option label="Migrate Users As Admin" name="MigrateUsersAsAdmin" type="radio">
+<choice label="yes"> = Yes</choice>
+<choice label="no"> = No</choice></option>
+<comment>Causes Setup to add all accounts that it creates during migration to the Local Administrators group, giving those users full control over the computer. If users are not migrated as administrators, some migrated applications and settings may not work properly after the upgrade is completed.</comment>
+<option label="Migrate Users As PowerUser" name="MigrateUsersAsPowerUser" type="radio">
+<choice label="yes"> = Yes</choice>
+<choice label="no"> = No</choice></option>
+<comment>Causes Setup to add all accounts that it creates during migration to the Power Users group, giving Power Users more permissions than users in the Users group, but fewer permissions than users in the Administrators group. Power Users can perform any operating system task except tasks reserved for the Administrators group.</comment>
+<option label="Migration Dlls" name="MigrationDlls = "  type="text">
+<choice label=""></choice></option>
+<comment>Specifies the location of upgrade packs that Setup needs to copy and process during an upgrade to Windows 2000. If multiple paths are specified, commas must separate the paths. Setup searches each of these paths (including its subfolders) for upgrade packs. Multiple upgrade packs can be located at a single location, but each upgrade pack must exist in its own subfolder of that single path. Do not put more than one upgrade pack in a single folder.</comment>
+<option label="Report Only" name="ReportOnly" type="radio">
+<choice label="yes"> = Yes</choice>
+<choice label="no"> = No</choice></option>
+<comment>Instructs Setup to generate an upgrade report and then exit without making any changes to the current Windows 95 or Windows 98 installation. The upgrade report contains a list of hardware and software incompatibilities and is saved to the root of the system drive if the SaveReportTo key is not specified.</comment>
+<option label="Save Report To" name="SaveReportTo = "  type="text">
+<choice label=""></choice></option>
+<comment>Specifies the full path and file name of the upgrade report (text file) generated by Setup. If the Windows 95 or Windows 98 installation has network connectivity, the path to report can be a UNC path.</comment>
+<option label="Use Local Account On Error" name="UseLocalAccountOnError" type="radio">
+<choice label="yes"> = Yes</choice>
+<choice label="no"> = No</choice></option>
+<comment>Directs Setup to create a local account if a network account cannot be automatically determined or resolved.</comment>
+<option label="User Domain" name="UserDomain = "  type="text">
+<choice label=""></choice></option>
+<comment>Specifies the user domain for a user. Multiple UserDomain lines can be used to specify different domains for different users. When specified, this key prevents Setup from searching all trusted domains on the network for a matching user account. (The search process can be time-consuming if a large number of trusted domains exist on the network.)</comment>
+<option label="User Password" name="UserPassword = "  type="text">
+<choice label=""></choice></option>
+<comment>Provides Setup with the names of the passwords to create for specific local accounts. Because Setup cannot migrate the Windows passwords of users when upgrading a system, it must create passwords for non-domain accounts during the migration process. Using this key, an administrator can predetermine what those passwords are for specific users.</comment>
+</section>
+
+
+//NEW !!
+<section label="Internet Server" name="[InternetServer]">
+
+<comment>For this section to be processed, IIS must be turned on in the [Components] section.</comment>
+
+<option label="Path to FTP Root" name="PathFTPRoot = "  type="text">
+<choice label=""></choice></option>
+<comment>Specifies the installation folder for the FTP service. This parameter is only useful if the FTP service is installed. The default path is %systemdrive%\Inetpub\Ftproot. For example:
+PathFTPRoot = “C:\Inetpub\Ftproot”</comment>
+
+<option label="Path to WWW Root" name="PathWWWRoot = "  type="text">
+<choice label=""></choice></option>
+<comment>Specifies the installation folder for the WWW service. This parameter is only useful if the WWW service is installed. The default path is %systemdrive%\Inetpub\Wwwroot. For example:
+PathWWWRoot = "C:\Inetpub\Wwwroot”</comment>
+</section>
+
+
+<comment>NEW METTRE LE CALC dans workstation et cert dasn server</commment>
+<section label="Components" name="[Components]">
+
+<comment>This section contains parameters for installing the components of Windows 2000. A value of On installs the components, and a value of Off prevents the component from being installed.</comment>
+
+//CLIENT
+<option label="Installs the Calculator on your computer : " name="calc" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no"> = Off</choice></option>
+
+<option label="Installs the CD Player program on your computer : " name="cdplayer" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no"> = Off</choice></option>
+
+<option label="Installs the Chat program on your computer : " name="chat" type="radio">
+<choice label="yes" > = On</choice>
+<choice label="no" selected="yes"> = Off</choice></option>
+
+<option label="Installs desktop wallpaper on your computer desktop : " name="deskpaper" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+<option label="Installs the Freecell game on your computer : " name="freecell" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+//SERVER
+<option label="Installs the Certificate Services components : " name="certsrv" type="radio">
+<choice label="yes"> = On</choice>
+<choice label="no" selected="yes"> = Off</choice></option>
+
+<option label="Installs the Certificate Services components Client: " name="certsrv_client" type="radio">
+<choice label="yes"> = On</choice>
+<choice label="no" selected="yes" > = Off</choice></option>
+<comment>Installs the Web client components of the Certificate Services feature. These components allow you to publish Web pages on your server for submitting and requesting certificates from a Certification Authority. Options for the Web client services must be specified in the [Certsrv_Client] section.
+</comment>
+
+<option label="Installs the Certificate Services components Server : " name="certsrv_server" type="radio">
+<choice label="yes"> = On</choice>
+<choice label="no" selected="yes"> = Off</choice></option>
+<comment>Installs the server components of the Certificate Services features. These components allow you to create a Certification Authority on your server for issuing digital certificates. When certsrv_server is set to On , the certsrv_client parameter must also be set to On. Options for the server services must be specified in the [certsrv_server] section.
+</comment>
+
+<option label="Installs the Cluster service Node and Administration components : " name="cluster" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the FrontPage® server extensions : " name="fp" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+<comment>To use this parameter, the parameters iis_common, iis_inetmgr, and iis_www must all be installed.</comment>
+<option label="Installs the common set of files needed by the Internet Information Services (IIS) : " name="iis_common" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+<option label="Installs the Microsoft Script Debugger : " name="iisdbg" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+<option label="Installs documentation for IIS : " name="iis_doc" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+//peut etre faire une section IIS derriere component 
+<option label="Installs the FTP service : " name="iis_ftp" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the HTML-based administration tools for IIS : " name="iis_htmla" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the Microsoft Management Console-based administration tools for IIS.
+ : " name="iis_inetmgr" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the Network News Transfer Protocol (NNTP)  : " name="iis_nntp" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+
+<option label="Installs the documentation for the NNTP service : " name="iis_nntp_docs" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+
+<option label="Installs the Simple Mail Transfer Protocol (SMTP) Service : " name="iis_smtp" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs documentation for the SMTP service : " name="iis_smtp_docs" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the Indexing Service’s files : " name="indexsrv_system" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the World Wide Web (WWW) service : " name="iis_www" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+//TOUS
+<option label="Installs the Character Map program that inserts symbols and characters into documents on your computer : " name="charmap" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the Phone Dialer program on your computer : " name="dialer" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+//FAIT TOUS CE AU DESSUS 
+
+
+
+//TOUS
+
+
+
+
+
+
+//SERVER
+<option label="Turns Terminal Services licensing on or off : " name="LicenseServer" type="radio">
+<choice label="on" selected="yes"> = On</choice>
+<choice label="off" > = Off</choice></option>
+<comment>Important  :Terminal Services licensing can only be run on domain controllers or on a server in a workgroup. For more information, see Terminal Services licensing in Windows Server Help.</comment>
+<option label="Installs the Microsoft Message Queuing (MSMQ) components : " name="msmq" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the Microsoft COM Internet Services : " name="netcis" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the Microsoft Connection Manager Administration Kit, Microsoft Connection Point Phone Book Admin, and Microsoft Connection Point Phone Book Server. : " name="netcm" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+
+<option label="Installs the Microsoft Phone Book Service : " name="netcps" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs additional optional networking components : " name="netoc" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the Object Packager program on your computer : " name="objectpkg" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the Remote Installation Services, which provides the ability to remotely install an operating system onto a computer that either contains a new PXE-based remote boot ROM, or a network card that is supported by the remote installation boot floppy : " name="reminst" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+
+<option label="Installs the Remote Storage Service feature that allow the use of tape libraries as extensions of NTFS volumes : " name="rstorage" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the files (approximately 10 MB) required to create Terminal Services client disks : " name="TSClients" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs Terminal Services on Windows   : " name="TSEnable" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+<comment>Cluster service and Terminal Services are mutually exclusive in certain situations. If you intend to use the server with Terminal Services installed and Remote Administration enabled, you can enable the Cluster service. If, on the other hand, you intend to use the server with Terminal Services installed and Application Server enabled, you cannot enable the Cluster service. 
+To fully automate the installation of a server with Terminal Services enabled, include the [TerminalServices] section and appropriate ApplicationServer parameter. For more information, see “[TerminalServices],” later in this document.</comment>
+
+<option label="Installs the HyperTerminal program on your computer : " name="hypertrm" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the WordPad program on your computer : " name="mswordpad" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs Document Templates on your computer : " name="templates" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+
+
+//WORKSTATION
+<option label="Installs Accessibility Scheme #2 on your computer : " name="media_blindnoisy" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs Accessibility Scheme #1 on your computer : " name="media_blindquiet" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs sample sound clips on your computer : " name="media_clips" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label=" Installs all the available mouse pointers that ship with Windows  to your computer : " name="mousepoint" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the Media Player program on your computer : " name="mplay" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+//WORKSTATION
+<option label="Installs the HyperTerminal program on your computer : " name="hypertrm" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the WordPad program on your computer : " name="mswordpad" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs Document Templates on your computer : " name="templates" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+</section>
+<section label="Games and Multimedia" name="">
+<option label="Installs the Minesweeper game on your computer : " name="minesweeper" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the Paint program on your computer : " name="paint" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the Pinball game on your computer : " name="pinball" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the Solitaire game on your computer : " name="solitaire" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the Sound Recorder program on your computer : " name="rec" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+<option label="Installs the Volume Control program on your computer : " name="vol" type="radio">
+<choice label="yes" selected="yes"> = On</choice>
+<choice label="no" > = Off</choice></option>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</template>

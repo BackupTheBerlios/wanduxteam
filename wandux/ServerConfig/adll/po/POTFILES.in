@@ -1,0 +1,12 @@
+# main sources
+src/error.c
+src/main.c
+src/nodes.c
+src/option.c
+src/parser.c
+src/string.c
+src/textmain.c
+src/textmode.c
+src/ui.c
+src/utils.c
+src/xmls_open.c

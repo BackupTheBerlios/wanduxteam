@@ -1,0 +1,122 @@
+#!/usr/bin/perl -cw
+$o = {
+'authentication' => {
+'shadow' => 1,
+'md5' => 1,
+'NIS' =>  undef ,
+'LDAP' => undef ,
+'winbind' => undef,
+},
+
+'autoExitInstall' => 1,
+
+'autologin' => '',
+
+'compssListLevel' => 2,
+
+'compssUsersChoice' => { 
+'GNOME' => 1,
+'SYSTEM' => 1,
+'TERMINALS' => 1,
+'X' => 1,
+ },
+
+'desktop' =>'GNOME',
+
+'excludedocs' =>0,
+
+'interactive' => 'gtk',
+
+'isUpgrade' =>0,
+
+'keyboard' => { 
+'GRP_TOGGLE' =>'',
+'KBCHARSET' =>'iso-8859-15',
+'KEYBOARD' =>'fr'},
+'locale' => {
+'lang' => 'fr',
+'langs' => { 
+'fr' => 1,
+'ga' => 1,
+},
+'country' => 'fr',
+'utf8' => 1},
+'miscellaneous' => { 
+'numlock' => 1,
+'HDPARM' => 1,
+'http_proxy' => '',
+'ftp_proxy' => ''},
+
+'mkbootdisk' => '0',
+'nomouseprobe' => 0,
+'security' => 2,
+
+'security_user' =>  '',
+'superuser' => {
+'uid' =>  '',
+'gid' => '',
+'realname' => '',
+'password' => '',
+'shell' => '',
+'home' => '',
+'icon' => ''
+},
+
+'timezone' => {
+'UTC' => '1',
+'ntp' => '',
+'timezone' => 'Europe/Paris'},
+
+'X' => { 
+ 'disabled' => 0, 
+ 'resolution_wanted' => '1024x768',
+'default_depth' => '24'},
+
+'intf' => {
+ 'eth0' => {
+'ONBOOT' => 'yes',
+'DEVICE' => 'eth0',
+'BOOTPROTO' => 'static',
+'IPADDR' => '',
+'NETMASK' => '',
+'NETWORK' => '',
+'BROADCAST' => ''
+,
+}},
+netc => {
+'NETWORKING' => 'yes',
+'FORWARD_IPV4' => 'false',
+'HOSTNAME' => '',
+'DOMAINNAME' => '',
+'GATEWAY' => '',
+'GATEWAYDEV' => 'eth0',
+'DNSSERVER' => '',
+'DNSSERVER2' => undef,
+'DNSSERVER3' => undef,
+},
+'partitions' => [{
+'mntpoint' => 'swap',
+'type' => 130,
+'ratio' => ,
+'hd' => 'hdc'},
+{
+'mntpoint' => '/',
+'type' => 1155,
+'ratio' => ,
+'hd' => 'hdc'},
+{
+'mntpoint' => '/home',
+'type' => 1155,
+'ratio' => ,
+'hd' => 'hdc'}],
+'users' => [{
+'name' =>'',
+'realname' => '',
+'password' => '',
+'shell' => '',
+'home' => '',
+'icon' => ''}],
+'partitioning' => { 
+'clearall' => 1,
+'auto_allocate' => 1},
+'interactiveSteps' => []};

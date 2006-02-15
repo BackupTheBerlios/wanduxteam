@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!ELEMENT template (netboot|section)*>
+<!ATTLIST template author CDATA #IMPLIED>
+<!ATTLIST template os_name CDATA #REQUIRED>
+<!ATTLIST template os_version CDATA #REQUIRED>
+<!ATTLIST template adll_version CDATA #REQUIRED>
+<!ATTLIST template date CDATA #IMPLIED>
+
+<!ELEMENT section (option|comment|command|section)*>
+<!ATTLIST section name CDATA #REQUIRED>
+<!ATTLIST section visible (yes|no) 'yes'>
+<!ATTLIST section needed (yes|no) 'no'>
+<!ATTLIST section label CDATA #REQUIRED>
+<!ATTLIST section multi (yes|no) 'no'>
+<!ATTLIST section separator CDATA #IMPLIED>
+
+<!ELEMENT option (choice*|option*)>
+<!ATTLIST option label CDATA #REQUIRED>
+<!ATTLIST option name CDATA #REQUIRED>
+<!ATTLIST option type (combo|list|radio|check|text) 'text'>
+<!ATTLIST option visible (yes|no) 'yes'>
+<!ATTLIST option needed (yes|no) 'no'>
+<!ATTLIST option multi (yes|no) 'no'>
+<!ATTLIST option separator CDATA #IMPLIED>
+<!ATTLIST option terminator CDATA #IMPLIED>
+
+<!ELEMENT choice (#PCDATA|option)*>
+<!ATTLIST choice label CDATA #IMPLIED>
+<!ATTLIST choice needed (yes|no) 'no'>
+<!ATTLIST choice selected (yes|no) 'no'>
+
+<!ELEMENT comment (#PCDATA)>
+
+<!ELEMENT command (#PCDATA)>
+<!ATTLIST command visible (yes|no) 'yes'>
+<!ATTLIST command needed (yes|no) 'no'>
+
+<!ELEMENT netboot (address,port,path)>
+<!ELEMENT address (#PCDATA)>
+<!ELEMENT port (#PCDATA)>
+<!ELEMENT path (#PCDATA)>

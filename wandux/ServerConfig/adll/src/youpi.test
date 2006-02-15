@@ -1,0 +1,177 @@
+#!/usr/bin/perl -cw
+$o = {
+'authentication' => {
+'shadow' => 1,
+'md5' => 1,
+'NIS' =>  undef ,
+'LDAP' => undef ,
+'winbind' => undef},
+
+'autoExitInstall' => 1,
+
+'autologin' => 'adll',
+
+'compssListLevel' => 2,
+
+'compssUsersChoice' => { 
+'GNOME' => 1,
+'SYSTEM' => 1,
+'TERMINALS' => 1,
+'X' => 1,
+ },
+
+'desktop' =>'GNOME',
+
+'excludedocs' =>0,
+
+'interactive' => 'gtk',
+
+'isUpgrade' =>0,
+
+'keyboard' => { 
+'GRP_TOGGLE' =>'',
+'KBCHARSET' =>'iso-8859-15',
+'KEYBOARD' =>'fr'},
+'locale' => {
+'lang' => 'fr',
+'langs' => { 
+'fa' => 1,
+'fi' => 1,
+'fo' => 1,
+'fr' => 1,
+'ga' => 1,
+'gl' => 1,
+},
+'country' => 'fr',
+'utf8' => 1},
+'miscellaneous' => { 
+'numlock' => 1,
+'HDPARM' => 1,
+'http_proxy' => '',
+'ftp_proxy' => ''},
+
+'mkbootdisk' => '0',
+'nomouseprobe' => 0,'security' => 2,
+
+'security_user' =>  'root@adll.net',
+'superuser' => {
+'uid' =>  '',
+'gid' => '',
+'realname' => '',
+'password' => 'toto',
+'shell' => '',
+'home' => '',
+'icon' => ''
+},
+
+'timezone' => {
+'UTC' => '1',
+'ntp' => 'ntp.adll.net',
+'timezone' => 'Europe/Paris'},
+
+'X' => { 
+ 'disabled' => 0,
+         
+         
+      
+ 'resolution_wanted' => '1024x768',
+'default_depth' => '24'},
+
+'intf' => {
+ 'eth0' => {
+'ONBOOT' => 'yes',
+'DEVICE' => 'eth0',
+'BOOTPROTO' => 'static',
+'IPADDR' => '192.168.1.35',
+'NETMASK' => '255.255.255.0',
+'NETWORK' => '192.168.1.0',
+'BROADCAST' => '192.168.1.255'
+}},
+netc => {
+'NETWORKING' => 'yes',
+'FORWARD_IPV4' => 'false',
+'HOSTNAME' => 'ADLLMDK',
+'DOMAINNAME' => 'adll.net',
+'GATEWAY' => '192.168.1.1',
+'GATEWAYDEV' => 'eth0',
+'DNSSERVER' => '192.168.1.1',
+'DNSSERVER2' => undef,
+'DNSSERVER3' => undef},
+'partitions' => [{
+'mntpoint' => 'swap',
+'type' => 130,
+'ratio' => 5,
+'hd' => 'hda'},
+{
+'mntpoint' => '/',
+'type' => 1155,
+'ratio' => 35,
+'hd' => 'hda'},
+{
+'mntpoint' => '/home',
+'type' => 1155,
+'ratio' => 60,
+'hd' => 'hda'},
+{
+'mntpoint' => 'swap',
+'type' => 130,
+'ratio' => ,
+'hd' => 'hda'},
+{
+'mntpoint' => '/',
+'type' => 1155,
+'ratio' => ,
+'hd' => 'hda'},
+{
+'mntpoint' => '/home',
+'type' => 1155,
+'ratio' => ,
+'hd' => 'hda'},
+{
+'mntpoint' => 'swap',
+'type' => 130,
+'ratio' => ,
+'hd' => 'hda'},
+{
+'mntpoint' => '/',
+'type' => 1155,
+'ratio' => ,
+'hd' => 'hda'},
+{
+'mntpoint' => '/home',
+'type' => 1155,
+'ratio' => ,
+'hd' => 'hda'},
+{
+'mntpoint' => 'swap',
+'type' => 130,
+'ratio' => ,
+'hd' => 'hda'},
+{
+'mntpoint' => '/',
+'type' => 1155,
+'ratio' => ,
+'hd' => 'hda'},
+{
+'mntpoint' => '/home',
+'type' => 1155,
+'ratio' => ,
+'hd' => 'hda'}],
+'users' => [{
+'name' =>'adll',
+'realname' => 'adll',
+'password' => 'adll',
+'shell' => '/bin/bash',
+'home' => '/home/adll',
+'icon' => ''},
+{
+'name' =>'leo',
+'realname' => 'leo',
+'password' => 'leo',
+'shell' => '/bin/bash',
+'home' => '/home/leo',
+'icon' => ''}],
+'partitioning' => { 
+'clearall' => 1,
+'auto_allocate' => 1},
+'interactiveSteps' => []};
