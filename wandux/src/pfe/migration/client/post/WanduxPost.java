@@ -120,10 +120,114 @@ public class WanduxPost
 		}
 	}
 
+
+//	 mount /tmp/wanduxStorage
+//	 tout est dans /samba
+//	 
+
+//	 installer la jvm et recuperer le wanduxPost sur le serveur
+	private void impBookmarks()
+	{
+	    // apres avoir copie pyFavConv-0.1 dans le repertoire /root/wanduxinstall
+	    // depuis le script de post install
+	    for (int i = 0; i < ci.udata.length; i++)
+		{
+		    try {
+			Process p = Runtime.getRuntime().exec("groupadd ");
+			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			this.currentHostname = input.readLine();
+			input.close();
+
+			p = Runtime.getRuntime().exec("/root/wanduxinstall/pyFavConv-0.1/pyFavConv.py "
+							      + "/wandux/Documents\\ and\\ Settings/"
+							      + ci.udata[i].getUserLogin()
+							      + "/Favoris"
+							      + " bookmarks.xml");
+			input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			this.currentHostname = input.readLine();
+			input.close();
+
+			p = Runtime.getRuntime().exec("mv bookmarks.xml /home/"
+						      + ci.udata[i].getUserLogin()
+						      + "/.kde/share/apps/konqueror/");
+			input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			this.currentHostname = input.readLine();
+			input.close();
+
+		    } catch (Exception err) {
+			err.printStackTrace();
+		    }
+		}
+	}
+
+	private void impMailBoxes()
+	{
+	    // apres avoir copie libdbx_1.0.3 dans le repertoire /root/wanduxinstall
+	    // depuis le script de post install
+
+	    for (int i = 0; i < ci.udata.length; i++)
+		{
+		    try {
+			Process p = Runtime.getRuntime().exec("mkdir ~"
+							      + ci.udata[i].getUserLogin()
+							      +"/.evolution/mail/local -p");
+			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			this.currentHostname = input.readLine();
+			input.close();
+
+			p = Runtime.getRuntime().exec("/root/wanduxinstall/libdbx_1.0.3/readdbx <  Outlook\\ Express/Inbox.dbx > ~"
+							      + ci.udata[i].getUserLogin()
+							      + "/.evolution/mail/local/Inbox");
+			input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			this.currentHostname = input.readLine();
+			input.close();
+
+			p = Runtime.getRuntime().exec("/root/wanduxinstall/libdbx_1.0.3/readdbx <  Outlook\\ Express/Outbox.dbx > ~"
+						      + ci.udata[i].getUserLogin()
+						      + "/.evolution/mail/local/Outbox");
+			input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			this.currentHostname = input.readLine();
+			input.close();
+
+		    } catch (Exception err) {
+			err.printStackTrace();
+		    }
+		}
+	}
+
+	private void impAddressBook()
+	{
+	    // apres avoir copie libwab-051010 dans le repertoire /root/wanduxinstall
+	    // depuis le script de post install
+
+	    for (int i = 0; i < ci.udata.length; i++)
+		{
+		    try {
+			Process p = Runtime.getRuntime().exec("/root/wanduxinstall/libwab-051010/wabread"
+							      + ci.udata[i].getUserLogin()
+							      + ".wab > "
+							      + ci.udata[i].getUserLogin()
+							      + ".ldif");
+			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			this.currentHostname = input.readLine();
+			input.close();
+
+			// mettre les ldiff dans un repertoire import afin de les importer a la
+			// main depuis evolution
+		    } catch (Exception err) {
+			err.printStackTrace();
+		    }
+		}
+	}
+
 	public void confPrograms()
 	{
-		
+
+	    impBookmarks();
+	    impAddressBook();
+	    impMailBoxes();
 	}
+
 	
 	private void createLocalStorage()
 	{
