@@ -86,26 +86,24 @@ public class wanduxApp {
 		ProgramMatcher();
 
 
+		try { // Send Machine CI to server
+			this.ce.getBean().putCi(this.ci);
+			copyWebConf();
+			
+			System.out.println("information recupere et envoyer");
+		} catch (RemoteException e) {
+				e.printStackTrace();
+		}
+
 		while (true) // mecanisme a change dans le futur
 		{
-			try { // Send Machine CI to server
-				this.ce.getBean().putCi(this.ci);
-
-				System.out.println("information recupere et envoyer");
-				System.out.println("list de fichiers envoyer");
-			} catch (RemoteException e) {
-					e.printStackTrace();
-			}
-
 			try {
-				if (this.ci.migrable == 0
-						&& this.ce.getBean().getFileList(this.ci.getHostname()) == null) {
+				if (this.ce.getBean().getFileList(this.ci.getHostname()) == null) { // && this.ci.migrable == 0
 					System.out.println("Waiting for migrating informations");
 					Thread.sleep(15000);
 				} else {
-					parseAndCopyFiles(this.ce.getBean().getFileList(
-							this.ci.getHostname()));
-					copyWebConf();
+					parseAndCopyFiles(this.ce.getBean().getFileList(this.ci.getHostname()));
+					System.out.println("list de fichiers envoyer");
 					break;
 				}
 			} catch (InterruptedException e) {
@@ -145,8 +143,8 @@ public class wanduxApp {
 				((Matcher)p2.matcher(list[j].toString())).find() || 
 				((Matcher)p3.matcher(list[j].toString())).find() )
 			{
-				System.out.println(list[j].toString());
-//				cp.GenericCopyNode(list[j].toString(), "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\conf");
+				//System.out.println(list[j].toString());
+				cp.GenericCopyNode(list[j].toString(), "\\\\" + this.storageServerIp + "\\wanduxStorage\\" + this.ci.getHostname() + "\\conf");
 			}
 			if (list[j].isDirectory())
 			{
