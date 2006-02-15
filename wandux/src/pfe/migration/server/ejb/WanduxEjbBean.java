@@ -23,6 +23,8 @@ import pfe.migration.server.ejb.bdd.GlobalConf;
 import pfe.migration.server.ejb.bdd.HibernateUtil;
 import pfe.migration.server.ejb.bdd.Linuxcomponents;
 import pfe.migration.server.ejb.bdd.Mandrakepkgs;
+import pfe.migration.server.ejb.bdd.NetworkConfig;
+import pfe.migration.server.ejb.bdd.UsersData;
 import pfe.migration.server.ejb.bdd.Windowscomponents;
 import pfe.migration.server.ejb.tool.CopyBookmark;
 import pfe.migration.server.ejb.tool.XmlAdllParse;
@@ -226,7 +228,7 @@ public class WanduxEjbBean implements SessionBean
 	
 	// -- client normal ------------------------------------------------------- //
 	public void putHostname(String hostname)
-	{ // TODO savoir si c est utile ou si ce st juste pour les tests ... voir si c est a enlever ...
+	{
 		cil.add(hostname);
 	}
 	
@@ -262,6 +264,74 @@ public class WanduxEjbBean implements SessionBean
 	public ComputerInformation getCi(String Hostname)
 	{
 		return (ComputerInformation)cil.get(Hostname);
+	}
+	
+	public ComputerInformation getCiDB(String Hostname)
+	{
+		ComputerInformation ci = new ComputerInformation();
+		Transaction transaction;
+		Session session;
+		int i, count;
+		GlobalConf gconf = null;
+		UsersData udata = null;
+		NetworkConfig netconf = null;
+		List l;
+		Iterator it;
+		try {
+			session = HibernateUtil.currentSession();
+			transaction = session.beginTransaction();
+			
+			l = session.find(" from GlobalConf where GLOBAL_HOSTNAME like '" + Hostname + "'");
+			it = l.iterator();
+			while (it.hasNext())
+			{
+				gconf = (GlobalConf)it.next();
+			}
+			ci.gconf.setGlobalHostname(gconf.getGlobalHostname());
+			ci.gconf.setGlobalDomainName(gconf.getGlobalDomainName());
+			
+			
+			
+			l = session.find(" from UsersData where USER_KEY like '" + gconf.getId() + "'");
+			it = l.iterator();
+			count = 0;
+			while (it.hasNext())
+				count++;
+
+			ci.udata = new UsersData[count];
+			it = l.iterator();
+			i = 0;
+			while (it.hasNext())
+			{
+				udata = (UsersData)it.next();
+				ci.udata[i] = udata;
+				i++;
+			}
+			
+			
+			
+			l = session.find(" from NetworkConfig where NETWORK_KEY like '" + gconf.getId() + "'");
+			it = l.iterator();
+			count = 0;
+			while (it.hasNext())
+				count++;
+			
+			ci.netconf = new NetworkConfig[count];
+			it = l.iterator();
+			i = 0;
+			while (it.hasNext())
+			{
+				netconf = (NetworkConfig)it.next();
+				ci.netconf[i] = netconf;
+				i++;
+			}
+			
+			
+			transaction.commit();
+			HibernateUtil.closeSession();
+		} catch (HibernateException e) { e.printStackTrace(); }
+	
+		return (ci);
 	}
 
 	public List getLangInformation()
@@ -317,6 +387,8 @@ public class WanduxEjbBean implements SessionBean
 			}
 			transaction.commit();
 			HibernateUtil.closeSession();
+			this.putCi(ci); //TODO ce putCI est a virer le jour ou le client post ira chercher ses infos dans la BDD (pas le cas aujourdh'ui il fait un getCi "dans la ram" du serveur)
+			//cil.remove(hostname); // a decommenter le jour ou le client post ira chercher ses infos dans la BDD (pas le cas aujourdh'ui il fait un getCi "dans la ram" du serveur)
 		} catch (HibernateException e) { e.printStackTrace(); }
 		
 	}
