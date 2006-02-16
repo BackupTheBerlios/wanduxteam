@@ -18,6 +18,7 @@ import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
 import net.sf.hibernate.Transaction;
 import pfe.migration.client.network.ComputerInformation;
+import pfe.migration.client.pre.applet.TreeApplet;
 import pfe.migration.server.ejb.adll.ExecAdll;
 import pfe.migration.server.ejb.bdd.GlobalConf;
 import pfe.migration.server.ejb.bdd.HibernateUtil;
@@ -53,7 +54,7 @@ public class WanduxEjbBean implements SessionBean
 	 * @param @arg1 hostname , @arg2 listOfFiles
 	 * @author Dupix
 	 */
-	private Map ListOfFiles = new HashMap(); 
+	private static Map ListOfFiles = new HashMap(); 
 	
 	// -- ejb ------------------------------------------------------------------------------------ //
 	public WanduxEjbBean()
@@ -242,23 +243,24 @@ public class WanduxEjbBean implements SessionBean
 		//new XmlAdllParse("/wandux/adll/", ci.getHostname(), ci);
 		//createAdllXmlFile(ci);
 		cil.fill(ci);
-		this.ListOfFiles.put(ci.getHostname(), null);
+		
+		if (!ListOfFiles.containsKey(ci.getHostname()))
+			ListOfFiles.put(ci.getHostname(), null);
 	}
 	
 	public void putFileList(String hostname, List files)
 	{
-		this.ListOfFiles.put(hostname, files);
+		ListOfFiles.put(hostname, files);
 	}
 
 	public List getFileList(String hostname)
 	{
-		// si c est null c est que la list n est aps encore remplit
-		return (List) this.ListOfFiles.get(hostname);
+		return (List) ListOfFiles.get(hostname);
 	}
 	
 	public void removeFileOfTheList(String hostname)
 	{
-		this.ListOfFiles.remove(hostname);
+		ListOfFiles.remove(hostname);
 	}
 	
 	public ComputerInformation getCi(String Hostname)
