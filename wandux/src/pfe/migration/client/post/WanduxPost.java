@@ -57,30 +57,31 @@ public class WanduxPost
 		this.storageServerIp = applicationServerIp;
 		ClientEjb ce = new ClientEjb (this.storageServerIp);
 
-		getCurrentIp();
+		getCurrentHostname();
 		
 		ce.EjbConnect();
 
 		try {
-			this.ci = ce.getBean().getCi(this.storageServerIp);
+			this.ci = ce.getBean().getCi(this.currentHostname);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 		
 		init();
 		usersGroupsCreation();
-		getDataFromStorageServer();
-		confPrograms();
+//		getDataFromStorageServer();
+//		confPrograms();
 		
 		ce.EjbClose();
 	}
 	
-	public void getCurrentIp()
+	public void getCurrentHostname()
 	{
 		try {
 			Process p = Runtime.getRuntime().exec("hostname");
 			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			this.currentHostname = input.readLine();
+			//this.currentHostname = "epidup";
 			input.close();
 		} catch (Exception err) {
 			err.printStackTrace();
@@ -89,15 +90,34 @@ public class WanduxPost
 	
 	public void init()
 	{
+		int i;
 		
+		System.out.println("hostname :" + this.ci.gconf.getGlobalHostname());
+		System.out.println(" ");
+		for (i = 0; i < this.ci.udata.length; i++)
+		{
+			System.out.println("user :" + this.ci.udata[i].getUserLogin());
+			System.out.println("type :" + this.ci.udata[i].getUserType());
+			System.out.println(" ");
+		}
 	}
 	
 	public void usersGroupsCreation()
 	{
-		for (int i = 0; i < ci.udata.length; i++)
+		try {
+			Process p2 = Runtime.getRuntime().exec("mkdir /tmp/wanduxtest"); /* groupname */
+			BufferedReader input2 = new BufferedReader(new InputStreamReader(p2.getInputStream()));
+			this.currentHostname = input2.readLine();
+		input2.close();
+		} catch (Exception err) {
+			err.printStackTrace();
+		}
+		
+		for (int i = 0; i < this.ci.udata.length; i++)
 		{
 			try {
-				Process p = Runtime.getRuntime().exec("groupadd " + ci.udata[i].getUserType());
+				Process p = Runtime.getRuntime().exec("echo " + "groupadd "
+													+ ci.udata[i].getUserType()); /* groupname */
 				BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 				this.currentHostname = input.readLine();
 				input.close();
@@ -106,11 +126,17 @@ public class WanduxPost
 			}
 
 			try {
-				Process p = Runtime.getRuntime().exec("useradd -g "  + ci.udata[i].getUserType() + " " + ci.udata[i].getUserLogin());
+				/* Affecting user to the group of the same name */
+				Process p = Runtime.getRuntime().exec("echo " + "useradd -g "
+													+ ci.udata[i].getUserType() + " " /* groupname */
+													+ ci.udata[i].getUserLogin());    /* user login */
 				BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 				this.currentHostname = input.readLine();
 				input.close();
-				p = Runtime.getRuntime().exec("echo " + ci.udata[i].getUserLogin() + ":wandux | chpasswd");
+
+				/* Setting password for the new created user */
+				p = Runtime.getRuntime().exec("echo " + ci.udata[i].getUserLogin()
+											+ ":wandux | chpasswd");
 				input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 				this.currentHostname = input.readLine();
 				input.close();
@@ -133,17 +159,12 @@ public class WanduxPost
 	    for (int i = 0; i < ci.udata.length; i++)
 		{
 		    try {
-			Process p = Runtime.getRuntime().exec("groupadd ");
-			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			this.currentHostname = input.readLine();
-			input.close();
-
-			p = Runtime.getRuntime().exec("/root/wanduxinstall/pyFavConv-0.1/pyFavConv.py "
-							      + "/wandux/Documents\\ and\\ Settings/"
+			Process p = Runtime.getRuntime().exec("echo " + "/root/wanduxinstall/pyFavConv-0.1/pyFavConv.py "
+							      + "/wandux/conf/Documents\\ and\\ Settings/"
 							      + ci.udata[i].getUserLogin()
 							      + "/Favoris"
 							      + " bookmarks.xml");
-			input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			this.currentHostname = input.readLine();
 			input.close();
 
@@ -164,7 +185,6 @@ public class WanduxPost
 	{
 	    // apres avoir copie libdbx_1.0.3 dans le repertoire /root/wanduxinstall
 	    // depuis le script de post install
-
 	    for (int i = 0; i < ci.udata.length; i++)
 		{
 		    try {
@@ -175,16 +195,24 @@ public class WanduxPost
 			this.currentHostname = input.readLine();
 			input.close();
 
-			p = Runtime.getRuntime().exec("/root/wanduxinstall/libdbx_1.0.3/readdbx <  Outlook\\ Express/Inbox.dbx > ~"
+			p = Runtime.getRuntime().exec("/root/wanduxinstall/libdbx_1.0.3/readdbx < "
+								  + "/wandux/conf/Documents\\ and\\ Settings/"
+								  + ci.udata[i].getUserLogin()
+								  + "Local\\ Settings/Application\\ Data/Identities/*/Microsoft/Outlook\\ Express/"
+								  + "Inbox.dbx > ~"
 							      + ci.udata[i].getUserLogin()
 							      + "/.evolution/mail/local/Inbox");
 			input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			this.currentHostname = input.readLine();
 			input.close();
 
-			p = Runtime.getRuntime().exec("/root/wanduxinstall/libdbx_1.0.3/readdbx <  Outlook\\ Express/Outbox.dbx > ~"
-						      + ci.udata[i].getUserLogin()
-						      + "/.evolution/mail/local/Outbox");
+			p = Runtime.getRuntime().exec("/root/wanduxinstall/libdbx_1.0.3/readdbx < "
+					  + "/wandux/conf/Documents\\ and\\ Settings/"
+					  + ci.udata[i].getUserLogin()
+					  + "Local\\ Settings/Application\\ Data/Identities/*/Microsoft/Outlook\\ Express/"
+					  + "Outbox.dbx > ~"
+				      + ci.udata[i].getUserLogin()
+				      + "/.evolution/mail/local/Outbox");
 			input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			this.currentHostname = input.readLine();
 			input.close();
@@ -199,13 +227,16 @@ public class WanduxPost
 	{
 	    // apres avoir copie libwab-051010 dans le repertoire /root/wanduxinstall
 	    // depuis le script de post install
-
 	    for (int i = 0; i < ci.udata.length; i++)
 		{
 		    try {
-			Process p = Runtime.getRuntime().exec("/root/wanduxinstall/libwab-051010/wabread"
+			Process p = Runtime.getRuntime().exec("/root/wanduxinstall/libwab-051010/wabread "
+								  + "/wandux/conf/Documents\\ and\\ Settings/"
+							      + ci.udata[i].getUserLogin()
+							      + "/Application\\ Data/Microsoft/Address\\ Book/"
 							      + ci.udata[i].getUserLogin()
 							      + ".wab > "
+							      + "/wandux/"
 							      + ci.udata[i].getUserLogin()
 							      + ".ldif");
 			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
