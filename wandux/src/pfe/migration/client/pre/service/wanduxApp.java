@@ -88,7 +88,7 @@ public class wanduxApp {
 
 		try { // Send Machine CI to server
 			this.ce.getBean().putCi(this.ci);
-			//		copyWebConf();
+			copyWebConf();
 
 			System.out.println("information retrived and sended");
 		} catch (RemoteException e) {
@@ -106,8 +106,7 @@ public class wanduxApp {
 					Thread.sleep(15000);
 				} else {
 					if (this.ce.getBean().getFileList(this.ci.getHostname()) != null)
-						parseAndCopyFiles(this.ce.getBean().getFileList(
-								ci.getHostname()));
+						parseAndCopyFiles(this.ce.getBean().getFileList(ci.getHostname()));
 					this.ce.getBean().migrate(this.ci.getHostname());
 					System.out.println("migration process launched");
 					break;
@@ -187,16 +186,11 @@ public class wanduxApp {
 				f.mkdir();
 
 			System.out.println("src : " + s);
-			System.out
-					.println("dest : " + "\\\\" + this.storageServerIp
+			System.out.println("dest : " + "\\\\" + this.storageServerIp
 							+ "\\wanduxStorage\\" + this.ci.getHostname()
 							+ "\\" + disk);
-			// System.out.println("\\\\" + this.storageServerIp +
-			// "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk);
-			// cp.CopyNode(s, "\\\\" + this.storageServerIp +
-			// "\\wanduxStorage\\" + this.ci.getHostname() + "\\" + disk, true);
-			cp
-					.GenericCopyNode(s, "\\\\" + this.storageServerIp
+			
+			cp.GenericCopyNode(s, "\\\\" + this.storageServerIp
 							+ "\\wanduxStorage\\" + this.ci.getHostname()
 							+ "\\" + disk);
 		}
@@ -478,8 +472,7 @@ public class wanduxApp {
 				String user = listUsers[i].getString();
 				System.out.println(listUsers[i].getString());
 				ud.setUserLogin(user);
-				ud
-						.setUserType(getGroup(user, listGroupName,
+				ud.setUserType(getGroup(user, listGroupName,
 								listUserWithGroup));
 				udTab[i] = ud;
 			}
