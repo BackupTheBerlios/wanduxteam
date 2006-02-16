@@ -431,8 +431,8 @@ public class wanduxApp {
 				ncTab[j] = nc;
 				j++;
 			}
-			NetworkConfig[] newTab = new NetworkConfig[j - 1];
-			System.arraycopy(ncTab, 0, newTab, 0, j - 1);
+			NetworkConfig[] newTab = new NetworkConfig[j];
+			System.arraycopy(ncTab, 0, newTab, 0, j);
 			if (newTab != null)
 				this.ci.setInfoNetwork(newTab);
 		} catch (Exception e) {
