@@ -198,7 +198,7 @@ public class WanduxPost
 		            ps.println ("/root/wanduxinstall/pyFavConv-0.1/pyFavConv.py "
 						      + "/wandux/conf/Documents\\ and\\ Settings/"
 						      + ci.udata[i].getUserLogin()
-						      + "/Favorites"
+						      + "/Favoris"
 						      + " /tmp/bookmarks.xml");
 		            ps.close();
 		    	
