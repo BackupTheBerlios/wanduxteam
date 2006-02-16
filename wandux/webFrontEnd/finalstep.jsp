@@ -2,13 +2,10 @@
 <%@ page import='pfe.migration.client.network.ClientEjb' %>
 <%@ page import='pfe.migration.client.network.ComputerInformation' %>
 <%@ page import='pfe.migration.server.ejb.WanduxEjb' %>
+<%@ page import='pfe.migration.server.ejb.bdd.NetworkConfig' %>
 
 
-<%				//TODO !!! PASSER EN PARAMETRE L'ID DU PC + les infos de progs et de fichiers
-				//ex : prog1='OpenOffice' computer=2 etc...
-				
-				
-				ClientEjb ce = (ClientEjb)application.getAttribute("ClientEjb");
+<%				ClientEjb ce = (ClientEjb)application.getAttribute("ClientEjb");
 				WanduxEjb bean = ce.getBean();
 				List cl = bean.getIps();
 				
@@ -17,10 +14,12 @@
 				String[] temp;
 				
 				temp = (String[])request.getParameterValues("computer");
+				int main_interface;
 				computer = temp[0];
 				ComputerInformation ci = bean.getCi(computer);
+				NetworkConfig netconf;
 
-				//ICI INSERER LES PROGRAMMES ET FICHIERS CHOISIS DANS LE CI
+				//ICI INSERTION DE LA LISTE DES PROGRAMMES CHOISIS DANS LE CI
 				List winprogs = ci.windowsProgram;
 				ArrayList proglist = new ArrayList();
 				for (i=0; i < winprogs.size(); i++)
@@ -35,6 +34,18 @@
 					}
 				}
 				///////////////////////////////////////////////////////////
+				
+				//ON MET EN PREMIER L'INTERFACE PRINCIPALE EN PREMIER DANS LA LISTE
+				temp = (String[])request.getParameterValues("main_interface");
+				main_interface = Integer.parseInt(temp[0]);
+				
+				if (main_interface != 0)
+				{
+					netconf = ci.netconf[0];
+					ci.netconf[0] = ci.netconf[main_interface];
+					ci.netconf[main_interface] = netconf;
+				}
+				
 				
 				ci.migrable = 1;
 				bean.putCi(ci);

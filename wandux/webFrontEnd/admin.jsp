@@ -185,6 +185,8 @@ for (i=0; i < cl.size(); i++)
 	{
 		if (ci.netconf[x] == null)
 			continue;
+		out.print("<TR><TD colspan=2><font color=\"#1122FF\"> >> tick this box if this is the principal network interface </font>");
+		out.print("<INPUT type=radio name=main_interface value=\"" + x + "\"> :<br></TD></TR>");
 		if (ci.netconf[x].getNetworkInterface() != null)
 		out.print("<TR><TD width=150>Interface :</TD><TD width=480><b>" + ci.netconf[x].getNetworkInterface() + "</b></TD></TR>");
 		if (ci.netconf[x].getNetworkIpAddress() != null)
