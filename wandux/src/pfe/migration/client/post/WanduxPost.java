@@ -85,8 +85,8 @@ public class WanduxPost
 		try {
 			Process p = Runtime.getRuntime().exec("hostname");
 			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			//this.currentHostname = input.readLine();
-			this.currentHostname = "cb6-eb3940fa09f";
+			this.currentHostname = input.readLine();
+			//this.currentHostname = "cb6-eb3940fa09f";
 			input.close();
 		} catch (Exception err) {
 			err.printStackTrace();
@@ -323,6 +323,10 @@ public class WanduxPost
 	    // depuis le script de post install
 	    for (int i = 0; i < ci.udata.length; i++)
 		{
+			File localstorage = new File("/home/"
+									   + ci.udata[i].getUserLogin()
+									   + "/wandux/");
+			localstorage.mkdir();
 		    try {
 	            FileOutputStream out = new FileOutputStream("/tmp/wanduxcontacts");
 	            PrintStream ps;
@@ -334,6 +338,8 @@ public class WanduxPost
 					      + "/Application\\ Data/Microsoft/Address\\ Book/"
 					      + ci.udata[i].getUserLogin()
 					      + ".wab 0&> "
+					      + "/home/"
+					      + ci.udata[i].getUserLogin()
 					      + "/wandux/"
 					      + ci.udata[i].getUserLogin()
 					      + ".ldif");
@@ -357,7 +363,7 @@ public class WanduxPost
 
 	    impBookmarks();
 	    impMailBoxes();
-//	    impAddressBook();
+	    impAddressBook();
 	}
 
 	
