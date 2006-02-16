@@ -18,10 +18,15 @@ import pfe.migration.client.network.ClientEjb;
 import pfe.migration.client.network.ComputerInformation;
 
 /**
- * @author dup
+ * @author cb6
  *
  * To change the template for this generated type comment go to
  * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
+ */
+
+/**
+ * TODO Inbox Outbox fr/en
+ * 		Favorites
  */
 public class WanduxPost
 {
@@ -69,8 +74,8 @@ public class WanduxPost
 		
 		init();
 		usersGroupsCreation();
-//		getDataFromStorageServer();
-//		confPrograms();
+		getDataFromStorageServer();
+		confPrograms();
 		
 		ce.EjbClose();
 	}
@@ -80,8 +85,8 @@ public class WanduxPost
 		try {
 			Process p = Runtime.getRuntime().exec("hostname");
 			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			this.currentHostname = input.readLine();
-			//this.currentHostname = "epidup";
+			//this.currentHostname = input.readLine();
+			this.currentHostname = "cb6-eb3940fa09f";
 			input.close();
 		} catch (Exception err) {
 			err.printStackTrace();
@@ -104,19 +109,37 @@ public class WanduxPost
 	
 	public void usersGroupsCreation()
 	{
-		try {
-			Process p2 = Runtime.getRuntime().exec("mkdir /tmp/wanduxtest"); /* groupname */
-			BufferedReader input2 = new BufferedReader(new InputStreamReader(p2.getInputStream()));
-			this.currentHostname = input2.readLine();
-		input2.close();
-		} catch (Exception err) {
-			err.printStackTrace();
-		}
-		
+//		try {
+//			Process p2 = Runtime.getRuntime().exec("mkdir /tmp/wanduxtest"); /* groupname */
+//			BufferedReader input2 = new BufferedReader(new InputStreamReader(p2.getInputStream()));
+//			this.currentHostname = input2.readLine();
+//		input2.close();
+//		} catch (Exception err) {
+//			err.printStackTrace();
+//		}
+
+        FileOutputStream out; // declare a file output object
+        PrintStream ps = null; // declare a print stream object
+
+        try
+        {
+                // Create a new file output stream
+                // connected to "myfile.txt"
+                out = new FileOutputStream("/tmp/pass.sh");
+                // Connect print stream to the output stream
+                ps = new PrintStream( out );
+//                ps.println ("This is written to a file");
+//                ps.close();
+        }
+        catch (Exception e)
+        {
+                System.err.println ("Error writing to file");
+        }
+
 		for (int i = 0; i < this.ci.udata.length; i++)
 		{
 			try {
-				Process p = Runtime.getRuntime().exec("echo " + "groupadd "
+				Process p = Runtime.getRuntime().exec("groupadd "
 													+ ci.udata[i].getUserType()); /* groupname */
 				BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 				this.currentHostname = input.readLine();
@@ -127,22 +150,31 @@ public class WanduxPost
 
 			try {
 				/* Affecting user to the group of the same name */
-				Process p = Runtime.getRuntime().exec("echo " + "useradd -g "
+				Process p = Runtime.getRuntime().exec("useradd -m -g "
 													+ ci.udata[i].getUserType() + " " /* groupname */
 													+ ci.udata[i].getUserLogin());    /* user login */
 				BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 				this.currentHostname = input.readLine();
 				input.close();
-
-				/* Setting password for the new created user */
-				p = Runtime.getRuntime().exec("echo " + ci.udata[i].getUserLogin()
-											+ ":wandux | chpasswd");
-				input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-				this.currentHostname = input.readLine();
-				input.close();
 			} catch (Exception err) {
 				err.printStackTrace();
 			}
+
+			ps.println("echo " + ci.udata[i].getUserLogin() + ":wandux | chpasswd");
+		}
+		ps.close();
+		try {
+			/* Setting password for the new created user */
+			Process p = Runtime.getRuntime().exec("sh /tmp/pass.sh");
+			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			this.currentHostname = input.readLine();
+			input.close();
+			p = Runtime.getRuntime().exec("rm -f /tmp/pass.sh");
+			input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			this.currentHostname = input.readLine();
+			input.close();
+		} catch (Exception err) {
+			err.printStackTrace();
 		}
 	}
 
@@ -159,22 +191,45 @@ public class WanduxPost
 	    for (int i = 0; i < ci.udata.length; i++)
 		{
 		    try {
-			Process p = Runtime.getRuntime().exec("echo " + "/root/wanduxinstall/pyFavConv-0.1/pyFavConv.py "
-							      + "/wandux/conf/Documents\\ and\\ Settings/"
-							      + ci.udata[i].getUserLogin()
-							      + "/Favoris"
-							      + " bookmarks.xml");
+		            FileOutputStream out = new FileOutputStream("/tmp/wanduxbookmarks");
+		            PrintStream ps;
+		            // Connect print stream to the output stream
+		            ps = new PrintStream( out );
+		            ps.println ("/root/wanduxinstall/pyFavConv-0.1/pyFavConv.py "
+						      + "/wandux/conf/Documents\\ and\\ Settings/"
+						      + ci.udata[i].getUserLogin()
+						      + "/Favorites"
+						      + " /tmp/bookmarks.xml");
+		            ps.close();
+		    	
+			Process p = Runtime.getRuntime().exec("sh /tmp/wanduxbookmarks");
 			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			this.currentHostname = input.readLine();
 			input.close();
 
-			p = Runtime.getRuntime().exec("mv bookmarks.xml /home/"
+			p = Runtime.getRuntime().exec("mkdir /home/"
+				      + ci.udata[i].getUserLogin()
+				      + "/.kde/share/apps/konqueror/ -p");
+			input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			this.currentHostname = input.readLine();
+			input.close();
+
+			p = Runtime.getRuntime().exec("mv /tmp/bookmarks.xml /home/"
 						      + ci.udata[i].getUserLogin()
 						      + "/.kde/share/apps/konqueror/");
 			input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			this.currentHostname = input.readLine();
 			input.close();
 
+			p = Runtime.getRuntime().exec("chown -R "
+										+ ci.udata[i].getUserLogin()
+										+ " /home/"
+										+ ci.udata[i].getUserLogin()
+										+ "/.kde/share/apps/konqueror/");
+			input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			this.currentHostname = input.readLine();
+			input.close();
+	
 		    } catch (Exception err) {
 			err.printStackTrace();
 		    }
@@ -188,31 +243,70 @@ public class WanduxPost
 	    for (int i = 0; i < ci.udata.length; i++)
 		{
 		    try {
-			Process p = Runtime.getRuntime().exec("mkdir ~"
+			Process p = Runtime.getRuntime().exec("mkdir /home/"
 							      + ci.udata[i].getUserLogin()
 							      +"/.evolution/mail/local -p");
 			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			this.currentHostname = input.readLine();
 			input.close();
-
-			p = Runtime.getRuntime().exec("/root/wanduxinstall/libdbx_1.0.3/readdbx < "
-								  + "/wandux/conf/Documents\\ and\\ Settings/"
-								  + ci.udata[i].getUserLogin()
-								  + "Local\\ Settings/Application\\ Data/Identities/*/Microsoft/Outlook\\ Express/"
-								  + "Inbox.dbx > ~"
-							      + ci.udata[i].getUserLogin()
-							      + "/.evolution/mail/local/Inbox");
+			
+			p = Runtime.getRuntime().exec("chown -R "
+					+ ci.udata[i].getUserLogin()
+					+ " /home/"
+					+ ci.udata[i].getUserLogin()
+					+ "/.evolution");
 			input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			this.currentHostname = input.readLine();
 			input.close();
 
-			p = Runtime.getRuntime().exec("/root/wanduxinstall/libdbx_1.0.3/readdbx < "
+            FileOutputStream out = new FileOutputStream("/tmp/wanduxmailboxes");
+            PrintStream ps;
+            // Connect print stream to the output stream
+            ps = new PrintStream( out );
+            ps.println ("/root/wanduxinstall/libdbx_1.0.3/readdbx < "
 					  + "/wandux/conf/Documents\\ and\\ Settings/"
 					  + ci.udata[i].getUserLogin()
-					  + "Local\\ Settings/Application\\ Data/Identities/*/Microsoft/Outlook\\ Express/"
-					  + "Outbox.dbx > ~"
+					  + "/Local\\ Settings/Application\\ Data/Identities/"
+					  + "`ls /wandux/conf/Documents\\ and\\ Settings/"
+					  + ci.udata[i].getUserLogin()
+					  + "/Local\\ Settings/Application\\ Data/Identities/`"
+					  + "/Microsoft/Outlook\\ Express/"
+					  + "Inbox.dbx 0&> /home/"
+				      + ci.udata[i].getUserLogin()
+				      + "/.evolution/mail/local/Inbox");
+            ps.close();
+			
+			p = Runtime.getRuntime().exec("sh /tmp/wanduxmailboxes");
+			input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			this.currentHostname = input.readLine();
+			input.close();
+
+			
+            ps = new PrintStream( out );
+            ps.println ("/root/wanduxinstall/libdbx_1.0.3/readdbx < "
+					  + "/wandux/conf/Documents\\ and\\ Settings/"
+					  + ci.udata[i].getUserLogin()
+					  + "/Local\\ Settings/Application\\ Data/Identities/"
+					  + "`ls /wandux/conf/Documents\\ and\\ Settings/"
+					  + ci.udata[i].getUserLogin()
+					  + "/Local\\ Settings/Application\\ Data/Identities/`"
+					  + "/Microsoft/Outlook\\ Express/"
+					  + "Outbox.dbx 0&> /home/"
 				      + ci.udata[i].getUserLogin()
 				      + "/.evolution/mail/local/Outbox");
+            ps.close();
+			
+			
+			p = Runtime.getRuntime().exec("sh /tmp/wanduxmailboxes");
+			input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			this.currentHostname = input.readLine();
+			input.close();
+
+			p = Runtime.getRuntime().exec("chown -R "
+					+ ci.udata[i].getUserLogin()
+					+ " /home/"
+					+ ci.udata[i].getUserLogin()
+					+ "/.evolution");
 			input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			this.currentHostname = input.readLine();
 			input.close();
@@ -230,15 +324,22 @@ public class WanduxPost
 	    for (int i = 0; i < ci.udata.length; i++)
 		{
 		    try {
-			Process p = Runtime.getRuntime().exec("/root/wanduxinstall/libwab-051010/wabread "
-								  + "/wandux/conf/Documents\\ and\\ Settings/"
-							      + ci.udata[i].getUserLogin()
-							      + "/Application\\ Data/Microsoft/Address\\ Book/"
-							      + ci.udata[i].getUserLogin()
-							      + ".wab > "
-							      + "/wandux/"
-							      + ci.udata[i].getUserLogin()
-							      + ".ldif");
+	            FileOutputStream out = new FileOutputStream("/tmp/wanduxcontacts");
+	            PrintStream ps;
+	            // Connect print stream to the output stream
+	            ps = new PrintStream( out );
+	            ps.println ("/root/wanduxinstall/libwab-051010/wabread "
+						  + "/wandux/conf/Documents\\ and\\ Settings/"
+					      + ci.udata[i].getUserLogin()
+					      + "/Application\\ Data/Microsoft/Address\\ Book/"
+					      + ci.udata[i].getUserLogin()
+					      + ".wab 0&> "
+					      + "/wandux/"
+					      + ci.udata[i].getUserLogin()
+					      + ".ldif");
+	            ps.close();
+	            
+			Process p = Runtime.getRuntime().exec("sh /tmp/wanduxcontacts");
 			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			this.currentHostname = input.readLine();
 			input.close();
@@ -255,8 +356,8 @@ public class WanduxPost
 	{
 
 	    impBookmarks();
-	    impAddressBook();
 	    impMailBoxes();
+//	    impAddressBook();
 	}
 
 	
@@ -267,7 +368,7 @@ public class WanduxPost
 		File localstorage = new File("/tmp/wanduxStorage/");
 		localstorage.mkdir();
 		// Linux folder /tmp/wanduxStorage/<hostname> creation
-		localstorage = new File("/tmp/wanduxStorage/" + this.currentHostname);
+		localstorage = new File("/tmp/wanduxStorage/" + this.ci.gconf.getGlobalHostname());
 		localstorage.mkdir();
 		
         FileOutputStream out; // declare a file output object
@@ -278,7 +379,6 @@ public class WanduxPost
                 // Create a new file output stream
                 // connected to "myfile.txt"
                 out = new FileOutputStream("/tmp/wanduxcreds");
-
                 // Connect print stream to the output stream
                 p = new PrintStream( out );
                 p.println ("username=wandux");
@@ -289,12 +389,21 @@ public class WanduxPost
         {
                 System.err.println ("Error writing to file");
         }
-        
+
 		try {
-			Process smbmount = Runtime.getRuntime().exec("smbmount \\\\\\\\"
-												+ this.currentHostname
-												+ "\\\\wanduxStorage /tmp/wanduxStorage/" + this.currentHostname
-												+ " -o credentials=/tmp/wanduxcreds");
+            // Create a new file output stream
+            // connected to "myfile.txt"
+            out = new FileOutputStream("/tmp/mountsmb.sh");
+
+            // Connect print stream to the output stream
+            p = new PrintStream( out );
+            p.println ("smbmount \\\\\\\\"
+					+ this.storageServerIp
+					+ "\\\\wanduxStorage /tmp/wanduxStorage/"
+					//+ this.ci.gconf.getGlobalHostname()
+					+ " -o credentials=/tmp/wanduxcreds");
+            p.close();
+			Process smbmount = Runtime.getRuntime().exec("sh /tmp/mountsmb.sh");
 			BufferedReader smblog = new BufferedReader(new InputStreamReader(smbmount.getInputStream()));
 			this.currentHostname = smblog.readLine();
 			smblog.close();
@@ -315,10 +424,18 @@ public class WanduxPost
 			f.mkdir();
 
 		try {
-			Process p = Runtime.getRuntime().exec("cp -R /tmp/wanduxStorage/" + this.currentHostname + " /wandux/");
+            FileOutputStream out = new FileOutputStream("/tmp/wanduxcopy");
+            PrintStream ps;
+            // Connect print stream to the output stream
+            ps = new PrintStream( out );
+            ps.println ("cp -R /tmp/wanduxStorage/" + this.ci.gconf.getGlobalHostname() + "/* /wandux");
+            ps.close();
+			Process p = Runtime.getRuntime().exec("sh /tmp/wanduxcopy");
 			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			this.currentHostname = input.readLine();
 			input.close();
+			
+			// umount /tmp/wanduxStorage
 		} catch (Exception err) {
 			err.printStackTrace();
 		}
