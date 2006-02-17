@@ -20,25 +20,25 @@ public class ExecAdll {
 	String xmlFileName = "";
 	String macAdress = null;
 	
-  public ExecAdll (String path, String cfgFileName)
+  public ExecAdll (String path, String hostname, String MacAddr)
   {
 	cfgFileName = path;
 	xmlFileName = path;
-  	this.cfgFileName += cfgFileName + ".cfg";
-  	xmlFileName += cfgFileName + ".xml";
+  	this.cfgFileName += MacAddr + ".cfg";
+  	xmlFileName += hostname + ".xml";
   	
   	macAdress = cfgFileName;
-  	createBootFile (this.cfgFileName);
+  	createBootFile (this.cfgFileName, MacAddr);
   	System.out.println(this.xmlFileName);
   	System.out.println(this.cfgFileName);
   }
   
-  public void createBootFile (String cfgFileName)
+  public void createBootFile (String path, String MacAddr)
   {
 	String ls_str;
 	
 	try {
-		System.out.println("/wandux/utils/adll -q -o " + cfgFileName + " " + xmlFileName);
+		System.out.println(path + "/adll -q -o " + cfgFileName + " " + xmlFileName);
 		Process ls_proc = Runtime.getRuntime().exec("/wandux/utils/adll -q -o " + cfgFileName + " " + xmlFileName);
 		
 	} catch (IOException e1) {
