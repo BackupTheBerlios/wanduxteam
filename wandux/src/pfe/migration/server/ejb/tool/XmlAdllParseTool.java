@@ -38,13 +38,13 @@ public class XmlAdllParseTool {
 
 		// PARTITIONS
 
-		ps.section_change_select(XmlAdllParse.racine,
-				"Creation des partitions", "Primary Master", "no",
-				"Peripherique d'installation");
-
-		ps.section_change_select(XmlAdllParse.racine,
-				"Creation des partitions", "Secondary Master", "yes",
-				"Peripherique d'installation");
+//		ps.section_change_select(XmlAdllParse.racine,
+//				"Creation des partitions", "Primary Master", "no",
+//				"Peripherique d'installation");
+//
+//		ps.section_change_select(XmlAdllParse.racine,
+//				"Creation des partitions", "Secondary Master", "yes",
+//				"Peripherique d'installation");
 
 		ps.option_change_select(XmlAdllParse.racine, "", "yes",
 				"Taille en pourcentage de la partion");
