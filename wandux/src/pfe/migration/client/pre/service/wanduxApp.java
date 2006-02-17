@@ -303,7 +303,7 @@ public class wanduxApp {
 				try {
 					new FileCopy(DeskPath, "\\\\" + this.storageServerIp
 							+ "\\wanduxStorage\\" + this.ci.getHostname()
-							+ "\\conf\\" + this.ci.udata[i].getUserLogin() + "\\desktop\\Wallpaper.bmp");
+							+ "\\conf\\Documents and Settings\\" + this.ci.udata[i].getUserLogin() + "\\Wallpaper.bmp");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
