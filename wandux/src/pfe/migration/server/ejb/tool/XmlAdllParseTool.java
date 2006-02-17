@@ -71,17 +71,17 @@ public class XmlAdllParseTool {
 
 		// AUTOLOGIN
 		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
-				ci.udata[3].getUserLogin(), "Login automatique au demarrage");
+				ci.udata[0].getUserLogin(), "Login automatique au demarrage");
 
 		// PROXY HTTP
 
 		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
-				ci.udata[3].getUserProxyServ(), "Paramètrage du proxy http");
+				ci.udata[0].getUserProxyServ(), "Paramètrage du proxy http");
 		
 		// // PROXY FTP
 
 		pst.option_change_select_txt(XmlAdllParse.racine, "", "yes",
-				ci.udata[3].getUserProxyServ(), "Paramètrage du proxy ftp");
+				ci.udata[0].getUserProxyServ(), "Paramètrage du proxy ftp");
 
 		// // TYPE DE CLAVIER
 
@@ -101,13 +101,10 @@ public class XmlAdllParseTool {
 
 		// SUPER UTILISATEUR
 
-		/*
-		 * pst .option_change_select_txt(XmlAdllParse.racine, "", "yes", "root@" +
-		 * ci.udata[0].getDomainName() + ".org", "Adresse E-Mail de
-		 * l'utilisateur a prevenir en cas d'alerte de securite");
-		 */
+		 pst .option_change_select_txt(XmlAdllParse.racine, "", "yes", "root@" +
+				 ci.gconf.getGlobalDomainName() + ".org", "Adresse E-Mail de l'utilisateur a prevenir en cas d'alerte de securite");
 
-		ps.option_change_select(XmlAdllParse.racine, "", "yes",
+		 ps.option_change_select(XmlAdllParse.racine, "", "yes",
 				"Identifiant du super utilisateur");
 
 		ps.option_change_select(XmlAdllParse.racine, "", "yes",
