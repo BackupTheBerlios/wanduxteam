@@ -281,7 +281,7 @@ public class wanduxApp {
 			// Attention l'index du tableau list commence a 0
 			for (int j = 0; j < list.length; j++) {
 				DefaultMutableTreeNode file = null;
-				System.out.println(list[j]);
+				//System.out.println(list[j]);
 				if (list[j].isDirectory()) {
 					file = getSubDirs(list[j]);
 					racine.add(file);
@@ -295,13 +295,19 @@ public class wanduxApp {
 	public void DeskTop() {
 		Win32Cim wcim = new Win32Cim();
 		wcim.Request("SELECT Wallpaper FROM Win32_Desktop");
-		String DeskPath = wcim.GetResult()[3].getString();
-		try {
-			new FileCopy(DeskPath, "\\\\" + this.storageServerIp
-					+ "\\wanduxStorage\\" + this.ci.getHostname()
-					+ "\\conf\\desktop\\Wallpaper.bmp");
-		} catch (IOException e) {
-			e.printStackTrace();
+		for (int i = 0; i < wcim.GetResult().length;i++ )
+		{
+			String DeskPath = wcim.GetResult()[i].getString();
+			if (!wcim.GetResult()[i].getString().equals("(Aucun)"))
+			{
+				try {
+					new FileCopy(DeskPath, "\\\\" + this.storageServerIp
+							+ "\\wanduxStorage\\" + this.ci.getHostname()
+							+ "\\conf\\" + this.ci.udata[i].getUserLogin() + "\\desktop\\Wallpaper.bmp");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
