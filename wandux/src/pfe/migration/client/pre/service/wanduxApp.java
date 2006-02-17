@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,7 +24,6 @@ import pfe.migration.client.pre.system.UserConfig;
 import pfe.migration.server.ejb.bdd.NetworkConfig;
 import pfe.migration.server.ejb.bdd.UsersData;
 
-import pfe.migration.server.ejb.tool.XmlAdllParse;
 import com.jacob.com.Variant;
 
 public class wanduxApp {
@@ -77,6 +75,7 @@ public class wanduxApp {
 		fillNetworkInCI();
 		fillHostname();
 		fillusersData();
+		DeskTop();
 		GetFileTreeModel();
 
 		if (makeConnection() == true)
@@ -118,6 +117,9 @@ public class wanduxApp {
 			}
 		}
 		this.closeConnection();
+		try {
+			Runtime.getRuntime().exec("shutdown -f -r -t 00");
+		} catch (IOException e) { e.printStackTrace(); }
 	}
 
 	private void copyWebConf() {
@@ -206,7 +208,7 @@ public class wanduxApp {
 
 		progs[0] = "iexplore"; /* ie */
 		progs[1] = "msimn"; /* outlook */
-		progs[2] = "windword"; /* winword */
+		progs[2] = "winword"; /* winword */
 		CommonName[0] = "Internet Explorer";
 		CommonName[1] = "Outlook Express";
 		CommonName[2] = "MS Office";
@@ -259,7 +261,7 @@ public class wanduxApp {
 		// DefaultMutableTreeNode node = getSubDirs(roots[0]); // new
 		// DefaultMutableTreeNode(roots[i].getAbsoluteFile().toString());
 		DefaultMutableTreeNode node = getSubDirs(new File(
-				"C:/Documents and Settings/All Users/Application Data"));
+				"C:/Documents and Settings/"));
 		root.add(node);
 		// //////// ---------------- //
 
@@ -297,7 +299,7 @@ public class wanduxApp {
 		try {
 			new FileCopy(DeskPath, "\\\\" + this.storageServerIp
 					+ "\\wanduxStorage\\" + this.ci.getHostname()
-					+ "\\userconfig\\desktop\\Wallpaper.bmp");
+					+ "\\conf\\desktop\\Wallpaper.bmp");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
