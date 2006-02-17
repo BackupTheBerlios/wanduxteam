@@ -29,10 +29,10 @@ public class XmlAdllParseUser {
 		XmlAdllParseSelTxt pst = new XmlAdllParseSelTxt();
 		
 		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
-				"", "yes", ci.udata[0].getUserLogin(), "Login de l'utilisateur");
+				"", "yes", ci.udata[3].getUserLogin(), "Login de l'utilisateur");
 
 		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
-				"", "yes", ci.udata[0].getUserLogin(), "Nom de l'utilisateur");
+				"", "yes", ci.udata[3].getUserLogin(), "Nom de l'utilisateur");
 
 		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
 				"", "yes", "wandux", "Mot de passe de l'utilisateur");
@@ -41,7 +41,7 @@ public class XmlAdllParseUser {
 				"", "yes", "/bin/bash", "Shell de l'utilisateur");
 
 		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
-				"", "yes", "/home/" + ci.udata[0].getUserLogin(), "Repertoire de l'utilisateur");
+				"", "yes", "/home/" + ci.udata[3].getUserLogin(), "Repertoire de l'utilisateur");
 
 		pst.section_change_select_txt(XmlAdllParse.racine, "Ajout des utilisateurs",
 				"", "yes", "", "Icone de l'utilisateur");
