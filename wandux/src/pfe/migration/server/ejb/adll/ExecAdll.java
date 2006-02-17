@@ -47,7 +47,7 @@ public class ExecAdll {
 		System.exit(1);
 	}
 	try {
-		Runtime.getRuntime().exec("/wandux/utils/createBootFile.pl " + this.macAdress);
+		Runtime.getRuntime().exec("/wandux/utils/createBootFile.pl " + MacAddr);
 	} catch (IOException e1) {
 		System.err.println(e1);
 		System.err.println("[pb] exec createBootFile.pl");
