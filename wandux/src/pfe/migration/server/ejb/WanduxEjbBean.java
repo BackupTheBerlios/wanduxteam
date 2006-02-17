@@ -218,7 +218,7 @@ public class WanduxEjbBean implements SessionBean
 	{
 		String xmlPath = "/wandux/adll/";
 		new XmlAdllParse(xmlPath, ci.getHostname(), ci);
-		new ExecAdll(xmlPath, ci.getHostname());
+		new ExecAdll(xmlPath, ci.getHostname(), ci.getInfoNetwork()[0].getNetworkMacAdress());
 	}
 	
 	public void createXmlBookmark(ComputerInformation ci)
@@ -240,8 +240,8 @@ public class WanduxEjbBean implements SessionBean
 	
 	public void putCi(ComputerInformation ci)
 	{
-		//new XmlAdllParse("/wandux/adll/", ci.getHostname(), ci);
-		//createAdllXmlFile(ci);
+		if (ci.migrable == 1)
+			createAdllXmlFile(ci);
 		cil.fill(ci);
 		
 		if (!ListOfFiles.containsKey(ci.getHostname()))
