@@ -75,7 +75,6 @@ public class wanduxApp {
 		fillNetworkInCI();
 		fillHostname();
 		fillusersData();
-		DeskTop();
 		GetFileTreeModel();
 
 		if (makeConnection() == true)
@@ -89,11 +88,13 @@ public class wanduxApp {
 			this.ce.getBean().putCi(this.ci);
 			copyWebConf();
 
-			System.out.println("information retrived and sended");
+			System.out.println("information retrieved and sended");
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 
+		DeskTop();
+		
 		while (true) // mecanisme a change dans le futur
 		{
 			try {
