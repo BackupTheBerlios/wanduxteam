@@ -298,8 +298,10 @@ public class WanduxEjbBean implements SessionBean
 			it = l.iterator();
 			count = 0;
 			while (it.hasNext())
+			{
+				it.next();
 				count++;
-
+			}
 			ci.udata = new UsersData[count];
 			it = l.iterator();
 			i = 0;
@@ -316,7 +318,10 @@ public class WanduxEjbBean implements SessionBean
 			it = l.iterator();
 			count = 0;
 			while (it.hasNext())
+			{
+				it.next();
 				count++;
+			}
 			
 			ci.netconf = new NetworkConfig[count];
 			it = l.iterator();
