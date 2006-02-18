@@ -16,7 +16,7 @@ public interface WanduxEjb extends EJBObject
 	public List getIps() throws RemoteException;
 	public void putCi(ComputerInformation ci) throws RemoteException;
 	public ComputerInformation getCi(String Hostname) throws RemoteException;
-	
+	public ComputerInformation getCiDB(String Hostname) throws RemoteException;
 	public void putFileList(String hostname, List files) throws RemoteException;
 	public List getFileList(String hostname) throws RemoteException;
 	public void removeFileOfTheList(String hostname) throws RemoteException;
