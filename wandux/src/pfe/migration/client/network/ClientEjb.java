@@ -21,7 +21,7 @@ public class ClientEjb
 	private static String SERVER_EJB_NAME = "";
 	protected WanduxEjb bean = null;
 	
-	boolean isConnected = false;
+	public boolean isConnected = false;
 	
 	public ClientEjb (String ipEjb)
 	{
